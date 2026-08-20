@@ -1166,6 +1166,11 @@
 
   function setClass(c) {
     document.body.setAttribute('data-class', c);
+    QRS.q1 = QRBASE + (c === 'afm' ? 'q1-afm.html' : 'q1-fin.html');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-qr="q1"]'), function (b) {
+      b.removeAttribute('data-done');
+    });
+    if (typeof paintQRs === 'function') paintQRs();
     document.getElementById('btn-fin').setAttribute('aria-pressed', String(c === 'fin'));
     document.getElementById('btn-afm').setAttribute('aria-pressed', String(c === 'afm'));
   }
@@ -1485,17 +1490,18 @@
      Pega la URL de cada formulario. El QR se dibuja solo.
      Vacío = se queda el marcador en pantalla.
      ============================================================ */
+  var QRBASE = 'https://helenamontoyacalero.com/presentations-class/f/';
   var QRS = {
-    q1:  '',  // dónde te gustaría trabajar + cuánto tiempo
-    q2:  '',  // por qué dejaste de escuchar
-    q3:  '',  // trío: nombres, idea, conflicto
-    q4:  '',  // el gráfico: el número y la comparación
-    q5:  '',  // versión A o B
-    q6:  '',  // post-its: la frase
-    q7:  '',  // la asimetría: cuatro números
-    q8:  '',  // No Small Talk · antes
-    q9:  '',  // No Small Talk · después
-    q10: ''   // cierre: qué harás distinto mañana
+    q1:  QRBASE + 'q1-fin.html',   // se reescribe a q1-afm al cambiar de clase
+    q2:  QRBASE + 'q2.html',
+    q3:  QRBASE + 'q3.html',
+    q4:  QRBASE + 'q4.html',
+    q5:  QRBASE + 'q5.html',
+    q6:  QRBASE + 'q6.html',
+    q7:  QRBASE + 'q7.html',
+    q8:  QRBASE + 'q8.html',
+    q9:  QRBASE + 'q9.html',
+    q10: QRBASE + 'q10.html'
   };
 /* QR encoder · byte mode · EC level M · versions 1-10 */
 var QR = (function () {

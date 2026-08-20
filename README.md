@@ -23,6 +23,14 @@ Las notas de clase y el panel de datos **solo aparecen si abres la URL con `?tea
 
 El repo es público, así que las notas viven en el HTML. El parámetro evita que alguien que llegue a la URL las abra pulsando una tecla; no las oculta del código fuente.
 
+## Formularios
+
+Están en `f/`, uno por captura, en HTML propio y servidos desde este dominio. Los QR del deck ya apuntan a ellos y se dibujan solos.
+
+Índice interno: `f/` · los estudiantes llegan por QR.
+
+**Falta una cosa para que guarden datos:** el endpoint. Ver `apps-script.gs`, son cuatro pasos. Sin él los formularios enseñan el acuse de recibo pero no persisten nada.
+
 ## Datos en vivo
 
 Los enlaces de los formularios van en `QRS` y las hojas CSV en `LIVE`, los dos al principio del `<script>` de `index.html`. Los QR se dibujan solos a partir de esas URLs. Ver `SETUP.md`.
