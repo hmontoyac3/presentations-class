@@ -1,0 +1,1664 @@
+<title>Viernes · Persuasive Presentations 20941</title>
+
+<style>
+  :root {
+    --paper:     #F4F6F9;
+    --card:      #FFFFFF;
+    --ink:       #14171D;
+    --ink-soft:  #4E5665;
+    --ink-faint: #8A93A2;
+    --rule:      #D9DFE8;
+    --rule-soft: #E9EDF2;
+    --blue:      #0F4179;
+    --blue-bg:   #E6EEF7;
+    --ochre:     #8F5310;
+    --ochre-bg:  #F9F0E1;
+    --crimson:   #8C2328;
+    --crimson-bg:#F8E8E8;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, "Palatino Linotype", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#0D1014; --card:#151A20; --ink:#E9ECF1; --ink-soft:#9BA4B3; --ink-faint:#69727F;
+      --rule:#293039; --rule-soft:#1F252C;
+      --blue:#7DB0E6; --blue-bg:#132330; --ochre:#DCA45F; --ochre-bg:#2A2013;
+      --crimson:#E08B8B; --crimson-bg:#2B1818;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#0D1014; --card:#151A20; --ink:#E9ECF1; --ink-soft:#9BA4B3; --ink-faint:#69727F;
+    --rule:#293039; --rule-soft:#1F252C;
+    --blue:#7DB0E6; --blue-bg:#132330; --ochre:#DCA45F; --ochre-bg:#2A2013;
+    --crimson:#E08B8B; --crimson-bg:#2B1818;
+  }
+  :root[data-theme="light"] {
+    --paper:#F4F6F9; --card:#FFFFFF; --ink:#14171D; --ink-soft:#4E5665; --ink-faint:#8A93A2;
+    --rule:#D9DFE8; --rule-soft:#E9EDF2;
+    --blue:#0F4179; --blue-bg:#E6EEF7; --ochre:#8F5310; --ochre-bg:#F9F0E1;
+    --crimson:#8C2328; --crimson-bg:#F8E8E8;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); margin: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* ============ progress bar ============ */
+  #bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: stretch; gap: 2px;
+    padding: 6px 10px 0; z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  #bar .seg {
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-family: var(--mono); font-size: 10px; font-variant-numeric: tabular-nums; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    background: var(--rule-soft); border-bottom: 3px solid var(--rule);
+    white-space: nowrap; overflow: hidden; padding: 0 6px;
+  }
+  #bar .sesion { flex: 6; }
+  #bar .pausa { flex: 2; background: transparent; border-bottom-color: transparent; color: var(--ink-faint); font-size: 9px; }
+  #bar .seg.on { background: var(--blue-bg); color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
+  #bar .now {
+    position: absolute; right: 12px; top: 11px;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--paper); padding-left: 10px;
+  }
+
+  /* ============ part strip ============ */
+  #strip {
+    position: fixed; top: 40px; left: 0; right: 0; height: 26px; z-index: 49;
+    display: flex; align-items: center; padding: 0 14px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); background: var(--card); color: var(--ink-faint);
+  }
+  #strip b { color: var(--ink); font-weight: 700; letter-spacing: 0.14em; }
+  #strip .dot { margin: 0 9px; opacity: .45; }
+  body[data-part="2"] #strip { background: var(--blue-bg); border-bottom-color: var(--blue); }
+  body[data-part="2"] #strip b { color: var(--blue); }
+  body[data-part="3"] #strip { background: var(--ochre-bg); border-bottom-color: var(--ochre); }
+  body[data-part="3"] #strip b { color: var(--ochre); }
+
+  .slide.breakslide { background: var(--rule-soft); justify-content: center; align-items: flex-start; }
+  .slide.breakslide .bigtime {
+    font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+    font-size: clamp(44px, 10vw, 132px); line-height: .9; letter-spacing: -0.04em; color: var(--ink);
+  }
+
+  /* ============ divider slides ============ */
+  .slide.divider { background: var(--ink); color: var(--paper); justify-content: flex-end; }
+  .slide.divider .kicker { color: var(--paper); opacity: .6; }
+  .slide.divider h1, .slide.divider h2 { color: var(--paper); }
+  .slide.divider .lead, .slide.divider .body { color: var(--paper); opacity: .82; max-width: 44ch; }
+  .slide.divider .partno {
+    font-family: var(--mono); font-size: clamp(48px, 11vw, 150px); line-height: .85;
+    font-weight: 700; color: var(--paper); opacity: .16; letter-spacing: -0.04em;
+  }
+
+  /* ============ stage ============ */
+  #stage { position: fixed; inset: 66px 0 34px; display: flex; }
+  .slide {
+    display: none; width: 100%; height: 100%;
+    padding: clamp(28px, 4.5vw, 76px);
+    flex-direction: column; justify-content: center; gap: clamp(12px, 1.6vh, 26px);
+  }
+  .slide.live { display: flex; }
+  .slide > * { margin: 0; }
+
+  .kicker {
+    font-family: var(--mono); font-size: clamp(11px, 1.1vw, 14px);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); font-weight: 600;
+  }
+  .kicker.do { color: var(--ochre); }
+  .kicker.rule { color: var(--crimson); }
+
+  h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(34px, 6.4vw, 88px); line-height: 1.02;
+    letter-spacing: -0.02em; text-wrap: balance;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(28px, 4.2vw, 58px); line-height: 1.08;
+    letter-spacing: -0.015em; text-wrap: balance;
+  }
+  h3 {
+    font-size: clamp(19px, 2.1vw, 30px); font-weight: 650; line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .lead { font-size: clamp(17px, 1.85vw, 27px); line-height: 1.4; color: var(--ink-soft); max-width: 34ch; }
+  .body { font-size: clamp(15px, 1.4vw, 21px); line-height: 1.5; max-width: 46ch; }
+  .tiny { font-family: var(--mono); font-size: clamp(11px, 1vw, 14px); color: var(--ink-faint); letter-spacing: 0.04em; }
+
+  ul.big { padding-left: 1.1em; display: flex; flex-direction: column; gap: clamp(7px, 1.1vh, 16px); }
+  ul.big li { font-size: clamp(16px, 1.65vw, 25px); line-height: 1.32; max-width: 44ch; }
+  ol.big { padding-left: 1.4em; display: flex; flex-direction: column; gap: clamp(7px, 1.1vh, 16px); }
+  ol.big li { font-size: clamp(16px, 1.65vw, 25px); line-height: 1.32; max-width: 44ch; }
+  li b, .body b, .lead b { font-weight: 700; color: var(--ink); }
+
+  /* big number */
+  .figs { display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 60px); align-items: flex-end; }
+  .fig .n {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: clamp(38px, 7.5vw, 108px); line-height: 0.95; font-weight: 700;
+    letter-spacing: -0.03em; color: var(--blue);
+  }
+  .fig .l { font-size: clamp(13px, 1.2vw, 17px); color: var(--ink-soft); max-width: 16ch; margin-top: 6px; line-height: 1.3; }
+
+  /* recruiter grid */
+  .logos {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+  }
+  .logos span {
+    background: var(--card); padding: 9px 10px;
+    font-size: clamp(11px, 1.05vw, 15px); color: var(--ink);
+    display: flex; align-items: center; line-height: 1.2;
+  }
+
+  /* schedule */
+  .sched { width: 100%; border-collapse: collapse; }
+  .sched td {
+    padding: 5px 8px 5px 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(12px, 1.25vw, 18px); line-height: 1.25; vertical-align: middle;
+  }
+  .sched .hh {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    white-space: nowrap; font-weight: 700; color: var(--ink);
+  }
+  .sched tr.pausa td {
+    color: var(--ink-faint); font-family: var(--mono);
+    font-size: clamp(10px, 1.05vw, 14px); letter-spacing: 0.1em; text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sched tr.pausa .hh { font-weight: 400; color: var(--ink-faint); }
+  .att {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 26px; padding: 2px 5px; background: var(--crimson); color: #FFF;
+    font-family: var(--mono); font-size: clamp(9px, 0.95vw, 12px); font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  :root[data-theme="dark"] .att { color: #16181C; }
+  @media (prefers-color-scheme: dark) { .att { color: #16181C; } }
+  :root[data-theme="light"] .att { color: #FFF; }
+
+  /* heatmap */
+  .heat { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 3px; }
+  .heat .c {
+    padding: 9px 10px; font-size: clamp(11px, 1.05vw, 15px); line-height: 1.2;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    border: 1px solid var(--rule); background: var(--card); color: var(--ink-faint);
+  }
+  .heat .c b { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.85em; opacity: .75; }
+  .heat .c.h0 b { display: none; }
+  .heat .c.h1 { background: var(--blue-bg); color: var(--ink); border-color: var(--blue-bg); }
+  .heat .c.h2 { background: color-mix(in srgb, var(--blue) 26%, var(--card)); color: var(--ink); border-color: transparent; }
+  .heat .c.h3 { background: color-mix(in srgb, var(--blue) 58%, var(--card)); color: #FFF; border-color: transparent; font-weight: 600; }
+  .heat .c.h4 { background: var(--blue); color: #FFF; border-color: transparent; font-weight: 700; }
+  :root[data-theme="dark"] .heat .c.h3, :root[data-theme="dark"] .heat .c.h4 { color: #0D1014; }
+  @media (prefers-color-scheme: dark) { .heat .c.h3, .heat .c.h4 { color: #0D1014; } }
+  :root[data-theme="light"] .heat .c.h3, :root[data-theme="light"] .heat .c.h4 { color: #FFF; }
+
+  .heat.gap .c {
+    background: transparent; border: 2px dashed var(--crimson); color: var(--crimson);
+    font-weight: 600;
+  }
+  .heat.gap .c b { display: inline; opacity: 1; }
+  .heatlegend { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: clamp(9px,0.95vw,12px); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .heatlegend i { width: 22px; height: 11px; display: inline-block; border: 1px solid var(--rule); }
+
+  #datapanel {
+    position: fixed; bottom: 34px; left: 0; right: 0; z-index: 46;
+    background: var(--card); border-top: 2px solid var(--ochre);
+    padding: 12px 16px; display: none; gap: 10px; flex-direction: column;
+  }
+  #datapanel.open { display: flex; }
+  #datapanel textarea {
+    width: 100%; height: 90px; font-family: var(--mono); font-size: 12px;
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); padding: 8px; resize: vertical;
+  }
+  #datapanel .r { display: flex; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  #datapanel button { font: inherit; text-transform: uppercase; letter-spacing: .08em; background: var(--ochre); color: #FFF; border: 0; padding: 6px 12px; cursor: pointer; }
+
+  /* generic table */
+  table { border-collapse: collapse; width: 100%; }
+  .tbl th {
+    text-align: left; font-family: var(--mono); font-size: clamp(10px,0.95vw,13px);
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint);
+    padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); font-weight: 600;
+  }
+  .tbl td {
+    padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(14px, 1.35vw, 20px); vertical-align: top; line-height: 1.3;
+  }
+  .tbl td.k { font-weight: 700; white-space: nowrap; color: var(--blue); }
+
+  /* template grid (hero's journey) */
+  .tmpl { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .tmpl .row { display: grid; grid-template-columns: 150px 1fr; gap: 1px; background: var(--rule); }
+  .tmpl .h, .tmpl .c { background: var(--card); padding: 8px 12px; font-size: clamp(13px,1.25vw,19px); line-height: 1.3; }
+  .tmpl .h { font-family: var(--mono); font-size: clamp(10px,0.95vw,13px); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); display: flex; align-items: center; }
+  .tmpl .row.key .c { background: var(--ochre-bg); font-weight: 700; }
+  .tmpl .row.key .h { color: var(--ochre); }
+
+  .tmpl.compact .row { grid-template-columns: 96px 1fr; }
+  .tmpl.compact .h, .tmpl.compact .c { padding: 5px 8px; font-size: clamp(11px,1.05vw,15px); }
+  .tmpl.compact .h { font-size: clamp(9px,0.85vw,11px); }
+
+  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,1.8vw,28px); }
+  .pick {
+    border: 1px solid var(--rule); background: var(--card);
+    border-top: 4px solid var(--blue); padding: clamp(12px,1.6vw,22px);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .pick:nth-child(2) { border-top-color: var(--ochre); }
+  .pick .who { font-family: var(--mono); font-size: clamp(9px,0.9vw,12px); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .pick .idea { font-family: var(--serif); font-size: clamp(16px,1.9vw,29px); line-height: 1.16; letter-spacing: -0.01em; }
+  .pick .conf { font-size: clamp(13px,1.3vw,19px); line-height: 1.35; color: var(--ink-soft); }
+  .pick .conf b { color: var(--ink); }
+  .pick.empty { border-top-color: var(--rule); align-items: center; justify-content: center; min-height: 22vh;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: .08em; text-align: center; }
+
+  /* exercise / rule panels */
+  .panel {
+    border-left: 5px solid var(--ochre); background: var(--ochre-bg);
+    padding: clamp(14px,1.8vw,26px) clamp(16px,2vw,30px);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .panel.rule { border-left-color: var(--crimson); background: var(--crimson-bg); }
+  .panel.info { border-left-color: var(--blue); background: var(--blue-bg); }
+  .panel h3 { font-size: clamp(17px,1.7vw,26px); }
+  .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
+
+  /* QR */
+  .qrwrap { display: flex; gap: clamp(20px,3vw,54px); align-items: center; flex-wrap: wrap; }
+  .qrbox {
+    width: clamp(150px, 22vw, 290px); aspect-ratio: 1;
+    border: 3px dashed var(--rule); background: var(--card);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+    letter-spacing: 0.08em; padding: 14px; line-height: 1.5;
+  }
+  .short {
+    font-family: var(--mono); font-size: clamp(15px,1.7vw,26px);
+    background: var(--card); border: 1px solid var(--rule); padding: 7px 14px;
+    display: inline-block; letter-spacing: 0.02em;
+  }
+
+  blockquote {
+    border-left: 5px solid var(--blue); padding-left: clamp(14px,1.8vw,28px);
+    font-family: var(--serif); font-size: clamp(21px, 3vw, 44px);
+    line-height: 1.22; letter-spacing: -0.012em; max-width: 32ch;
+  }
+  cite { display: block; font-family: var(--mono); font-style: normal; font-size: clamp(11px,1.05vw,15px); color: var(--ink-faint); letter-spacing: 0.06em; margin-top: 14px; text-transform: uppercase; }
+
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px,2.6vw,50px); align-items: start; }
+  .cols3 { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(14px,2vw,34px); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: clamp(10px,1.4vh,20px); }
+
+  /* only-FIN / only-AFM */
+  .fin, .afm { display: none; }
+  body[data-class="fin"] .fin { display: revert; }
+  body[data-class="afm"] .afm { display: revert; }
+  body[data-class="fin"] .figs.fin, body[data-class="afm"] .figs.afm { display: flex; }
+  body[data-class="fin"] .logos.fin, body[data-class="afm"] .logos.afm { display: grid; }
+  body[data-class="fin"] .panel.fin, body[data-class="afm"] .panel.afm { display: flex; }
+
+  /* ============ chrome ============ */
+  #chrome {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 34px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 12px; background: var(--paper);
+    border-top: 1px solid var(--rule); z-index: 50;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.05em;
+  }
+  #chrome button {
+    font: inherit; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--card); color: var(--ink-soft);
+    border: 1px solid var(--rule); padding: 4px 9px; cursor: pointer;
+  }
+  #chrome button[aria-pressed="true"] { background: var(--blue); color: var(--paper); border-color: var(--blue); }
+  #chrome button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  #chrome .sp { margin-left: auto; }
+  #clock { font-variant-numeric: tabular-nums; color: var(--ink); }
+  #live { color: var(--ochre); letter-spacing: .1em; }
+  #live.on { color: #1E9E5A; }
+  #live.err { color: var(--crimson); }
+
+  #notes {
+    position: fixed; bottom: 34px; left: 0; right: 0; max-height: 42vh; overflow-y: auto;
+    background: var(--card); border-top: 2px solid var(--blue);
+    padding: 16px 20px; z-index: 45; display: none;
+    font-size: 14px; line-height: 1.5; color: var(--ink);
+  }
+  #notes.open { display: block; }
+  #notes h4 { margin: 0 0 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); }
+  #notes p { margin: 0 0 8px; max-width: 90ch; }
+  #notes em { color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide.live { animation: in .18s ease-out; }
+    @keyframes in { from { opacity: 0; } to { opacity: 1; } }
+  }
+</style>
+
+<div id="bar">
+  <div class="seg sesion" data-s="1">S1 <span class="fin">13.00–14.30</span><span class="afm">14.00–15.30</span></div>
+  <div class="seg pausa"><span class="fin">14.30</span><span class="afm">15.30</span></div>
+  <div class="seg sesion" data-s="2">S2 <span class="fin">14.45–16.15</span><span class="afm">15.45–17.15</span></div>
+  <div class="seg pausa"><span class="fin">16.15</span><span class="afm">17.15</span></div>
+  <div class="seg sesion" data-s="3">S3 <span class="fin">16.30–18.00</span><span class="afm">17.30–19.00</span></div>
+  <div class="now" id="nowlbl"></div>
+</div>
+
+<div id="strip"></div>
+
+<div id="stage">
+
+<!-- ══════════════════ SESIÓN 1 ══════════════════ -->
+
+<section data-part="1" class="slide" data-s="1" data-b="Apertura" data-notes="No empieces hasta que estén sentados y en silencio. Nombre en pantalla. Versión de quince segundos de quién eres: el detalle viene en el minuto 12.">
+  <div class="kicker">Behavioural Skills Seminar 20941</div>
+  <h1>Persuasive Presentations</h1>
+  <p class="lead">Helena Montoya · <span class="fin">MSc Finance · Class 44</span><span class="afm">Accounting &amp; Financial Management · Class 41</span></p>
+  <p class="tiny"><span class="fin">11–12 September 2026</span><span class="afm">18–19 September 2026</span></p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Asistencia" data-notes="Lanza la asistencia AHORA y explícala mientras está abierta. «Esperemos a la asistencia, todavía faltan.» Mira el contador. Si ves connected from external, llama por nombre: es el momento de establecer que estás mirando.">
+  <div class="kicker rule">Attendance · 1 of 8 · <span class="fin">13.00 – 14.30</span><span class="afm">14.00 – 15.30</span></div>
+  <h2>Register your attendance now</h2>
+  <ul class="big">
+    <li>A PIN will appear on screen</li>
+    <li>Use the <b>Bocconi Wi-Fi</b>, not your own data</li>
+    <li><b>8 out of 8 sessions.</b> Not 7. Not 90%</li>
+    <li>Technical problem? Email me <b>and</b> the TA immediately, not on Monday</li>
+  </ul>
+  <p class="tiny">TA: [NOMBRE] · [CORREO]</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Honor code" data-notes="Léelo literal, sin suavizarlo. Es lo que pide el estándar del curso, y decirlo el primer día ahorra el resto del fin de semana. Después: «lo digo hoy para no tener que volver a decirlo».">
+  <div class="kicker rule">Honour code</div>
+  <h2>The PIN is entered in this room, in my presence.</h2>
+  <p class="body">Registering attendance for someone who is not here, or giving your PIN to someone who is not here, goes to the honour code, then to the disciplinary committee. The sanction can reach <b>six months' suspension from examinations.</b></p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Horario" data-notes="Deja esta slide un rato. Es la que más van a querer fotografiar. Señala en voz alta las tres cosas que importan: son OCHO sesiones y ocho tomas de asistencia, los breaks son a hora fija porque los comparten los 24 seminarios, y el sábado a las 18.00 es el tope, no la hora de salida.">
+  <div class="kicker">The whole weekend · exact times</div>
+  <div class="cols2">
+    <div class="stack">
+      <h3 class="fin">Friday 11 September</h3>
+      <h3 class="afm">Friday 18 September</h3>
+      <table class="sched"><tbody>
+        <tr><td class="hh"><span class="fin">13.00 – 14.30</span><span class="afm">14.00 – 15.30</span></td><td>Session 1 · lecture</td><td><span class="att">A1</span></td></tr>
+        <tr class="pausa"><td class="hh"><span class="fin">14.30 – 14.45</span><span class="afm">15.30 – 15.45</span></td><td colspan="2">break</td></tr>
+        <tr><td class="hh"><span class="fin">14.45 – 16.15</span><span class="afm">15.45 – 17.15</span></td><td>Session 2 · lecture</td><td><span class="att">A2</span></td></tr>
+        <tr class="pausa"><td class="hh"><span class="fin">16.15 – 16.30</span><span class="afm">17.15 – 17.30</span></td><td colspan="2">break</td></tr>
+        <tr><td class="hh"><span class="fin">16.30 – 18.00</span><span class="afm">17.30 – 19.00</span></td><td>Session 3 · groups, project starts</td><td><span class="att">A3</span></td></tr>
+      </tbody></table>
+      <p class="tiny afm">The academic year is inaugurated that morning, so Friday runs one hour later than standard.</p>
+    </div>
+    <div class="stack">
+      <h3 class="fin">Saturday 12 September</h3>
+      <h3 class="afm">Saturday 19 September</h3>
+      <table class="sched"><tbody>
+        <tr><td class="hh">8.30 – 10.00</td><td>Session 4 · build</td><td><span class="att">A4</span></td></tr>
+        <tr class="pausa"><td class="hh">10.00 – 10.15</td><td colspan="2">break</td></tr>
+        <tr><td class="hh">10.15 – 11.45</td><td>Session 5 · build</td><td><span class="att">A5</span></td></tr>
+        <tr class="pausa"><td class="hh">11.45 – 13.00</td><td colspan="2">lunch</td></tr>
+        <tr><td class="hh">13.00 – 14.30</td><td>Session 6 · content frozen, rehearse</td><td><span class="att">A6</span></td></tr>
+        <tr class="pausa"><td class="hh">14.30 – 14.45</td><td colspan="2">break</td></tr>
+        <tr><td class="hh">14.45 – 16.15</td><td>Session 7 · pitches</td><td><span class="att">A7</span></td></tr>
+        <tr class="pausa"><td class="hh">16.15 – 16.30</td><td colspan="2">break</td></tr>
+        <tr><td class="hh">16.30 – 18.00</td><td>Session 8 · funding, feedback, close</td><td><span class="att">A8</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <p class="tiny">Eight sessions · eight attendance registrations · break times are fixed and shared with the other 23 seminars on this floor</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Reglas" data-notes="La vía non-attending se presenta SIN ironía: es una decisión suya y no tuya. Y cierra el bloque administrativo con la frase explícita: «no vuelvo a hablar de asistencia». Ese cierre marca el giro hacia la parte interesante.">
+  <div class="kicker rule">The rule, and the alternative</div>
+  <h2>Eight out of eight. There is no version of this where you miss one.</h2>
+  <div class="panel info">
+    <h3>If you cannot attend 100%</h3>
+    <p class="body">There is another route: 15 multiple-choice questions on seven HBR readings, pass at 8 out of 15. It is a real option and it is <b>your</b> decision, not mine. On top of everything else you already have this term.</p>
+    <p class="body">I think you will prefer to stay. But the door is there.</p>
+  </div>
+  <p class="tiny">TA: [NOMBRE] · [CORREO] — write to both of us immediately if you have a technical problem registering</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Quién soy" data-notes="AQUÍ va la presentación completa, no al principio. En el minuto 12 es credibilidad; en el minuto 0 sería un trámite. La última frase es la que hace el trabajo: conecta tu investigación con la tesis del curso.">
+  <div class="kicker">Who I am</div>
+  <h2>Helena Montoya</h2>
+  <ul class="big">
+    <li>Fourth-year PhD, Bocconi</li>
+    <li><b>ION Science Management Lab</b> — I study decision making inside very large companies</li>
+    <li>From Colombia. Coffee, then chocolate</li>
+  </ul>
+  <p class="body">I spend my days watching how decisions get made in large organisations. What you see, over and over, is that the decision does not go to the best analysis. <b>It goes to the analysis somebody knew how to explain.</b></p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Cómo entraron" data-notes="No lo digas como crítica al proceso de admisión: es muy bueno midiendo lo que mide. El giro es que lo que mide es una sola cosa. Pausa después de «nobody looked you in the eye».">
+  <div class="kicker">How you got into this room</div>
+  <h2>Three things, and all three are paper.</h2>
+  <ol class="big">
+    <li>A standardised test — GMAT, GRE or the Bocconi test</li>
+    <li>Your undergraduate GPA</li>
+    <li>A dossier: CV and motivation</li>
+  </ol>
+  <p class="body"><b>Almost none of you were interviewed.</b> Nobody at this university looked you in the eye before deciding you could come in.</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="QR 1, noventa segundos, dos preguntas. No expliques para qué es ninguna: la de las empresas parece una encuesta simpática, y la del tiempo la usas dentro de dos horas en TIP 3a. Los rangos van en semanas Y meses a propósito, para no anclarles la unidad. Lee las opciones en voz alta una vez. Que no lo busquen y que no se pongan de acuerdo con el vecino.">
+  <div class="kicker do">90 seconds · two questions</div>
+  <h1>Where would you like to be working in two years?</h1>
+  <div class="qrwrap">
+    <div class="qrbox" data-qr="q1">PEGAR QR 1<br>dónde + cuántos días</div>
+    <div class="stack">
+      <p class="body"><b>1.</b> Pick three. Be honest, not diplomatic. If the one you actually want is not there, write it in.</p>
+      <p class="body"><b>2.</b> A Bocconi graduate who finds a job: <b>how long</b> from graduating to starting? Pick one range. Don't look it up.</p>
+      <p class="tiny" style="letter-spacing:0">under 2 weeks · 2–4 weeks · 1–2 months · 2–3 months · 3–6 months · 6–12 months · over a year</p>
+      <span class="short">[link corto]</span>
+    </div>
+  </div>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="Proyecta el gráfico de barras en vivo. Lee las tres o cuatro más votadas en voz alta y no comentes nada todavía. La frase de transición: «vale. Ahora miren esto».">
+  <div class="kicker do">Where this room wants to work</div>
+  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:40vh;">PROYECTAR EL GRÁFICO DE BARRAS EN VIVO</div>
+  <h3>All right. Now look at this.</h3>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Dónde acaban" data-notes="Antes de pasar aquí: abre el panel de votos con la tecla D, pega las dos columnas del formulario y pulsa Aplicar. Tarda quince segundos. La lista se colorea con lo que ellos votaron, y las empresas que votaron y NO están en la lista aparecen abajo con borde rojo: ese bloque es tu remate y lo calcula solo. Si el pegado falla, la lista se ve igual sin colorear y sigues adelante sin que se note.">
+  <div class="kicker">Where people from your programme end up</div>
+  <div class="heat" id="heat-real"></div>
+  <div class="stack" id="gapwrap" style="display:none">
+    <div class="heatlegend">Nobody from your programme has gone here yet</div>
+    <div class="heat gap" id="heat-gap"></div>
+  </div>
+  <div class="heatlegend"><i style="background:var(--card)"></i> 0 votes <i style="background:var(--blue-bg)"></i><i style="background:color-mix(in srgb,var(--blue) 26%,var(--card))"></i><i style="background:color-mix(in srgb,var(--blue) 58%,var(--card))"></i><i style="background:var(--blue)"></i> most wanted</div>
+  <p class="tiny">Top recruiters, published on your programme's placement page</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Lo que falta" data-notes="Esta slide habla de la FORMA de la lista, no de sus votos, así que funciona vote lo que vote la clase. · Si SÍ votaron el buy side, señala el bloque rojo de la slide anterior: «eso que quieren no está». · Si NADIE lo votó, mejor todavía y lo dices: «y fíjense en algo, ninguno de ustedes votó private equity tampoco: el camino que no existe también es el que no imaginan». · CUIDADO al afirmar: la lista dice «include, among others», no es exhaustiva, así que di «no están entre los principales reclutadores» y nunca «no ha ido nadie». Y no digas «no hay hedge funds» a secas: Blackstone, KKR y Apollo son private equity, y BlackRock sí está en la lista de FIN.">
+  <div class="kicker">That list has a shape</div>
+  <h2>Most of what you voted for is on it. Somebody who sat where you are sitting is already there.</h2>
+  <div class="panel fin" style="padding:14px 18px">
+    <p class="body" style="max-width:64ch">It is investment banking, the Big Four and strategy consulting — and almost nothing else. <b>Private equity and hedge funds are not among the top recruiters.</b> No Blackstone, no KKR, no Apollo, no Citadel.</p>
+  </div>
+  <div class="panel afm" style="padding:14px 18px">
+    <p class="body" style="max-width:64ch">It is corporates, the Big Four, European banks and the ECB. <b>Goldman Sachs, J.P. Morgan and Morgan Stanley are not among the top recruiters of your programme</b> — they are of the Finance one.</p>
+  </div>
+  <p class="lead" style="max-width:52ch">Which does not mean nobody gets there. It means there is <b>no well-worn path</b> — and whoever goes has to argue their way in.</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Dónde acaban" data-notes="Y ahora la pregunta, que es el corazón del bloque. DEJA QUE CONTESTEN. Van a decir networking, prácticas, idiomas, suerte. Todo alimenta el remate: todo eso ocurre hablando.">
+  <div class="figs fin">
+    <div class="fig"><div class="n">94.9%</div><div class="l">employed one year after graduating</div></div>
+    <div class="fig"><div class="n">82.7%</div><div class="l">employed on graduation day</div></div>
+    <div class="fig"><div class="n">60.8%</div><div class="l">working outside Italy</div></div>
+    <div class="fig"><div class="n">6.9</div><div class="l">job interviews, average</div></div>
+  </div>
+  <div class="figs afm">
+    <div class="fig"><div class="n">95.7%</div><div class="l">employed one year after graduating</div></div>
+    <div class="fig"><div class="n">86%</div><div class="l">employed on graduation day</div></div>
+    <div class="fig"><div class="n">40.3%</div><div class="l">working outside Italy</div></div>
+    <div class="fig"><div class="n">6.9</div><div class="l">job interviews, average</div></div>
+  </div>
+  <h2>Every one of those places went to someone competing against an identical CV.</h2>
+  <p class="lead">So what decided it?</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="El contrato" data-notes="El cierre del bloque de apertura. La frase clave es la del espacio para equivocarse. Y NO digas «son dos créditos, con venir aprueban»: convierte el fin de semana en un trámite.">
+  <div class="kicker">Why you are here for sixteen hours</div>
+  <h2>This is the only place in your master's where presenting badly costs you nothing.</h2>
+  <ul class="big">
+    <li>You will convince someone to give you an internship</li>
+    <li>You will convince a professor to supervise your thesis</li>
+    <li>You will convince four strangers that your idea beats theirs — <b>that happens at five o'clock today</b></li>
+    <li>Later: a boss, a committee, a client</li>
+  </ul>
+  <p class="body">There is no grade. That is deliberate: if this were graded you would make the safe presentation, and the safe presentation is the one that does not work.</p>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="El puente hacia la teoría, no un juego: acabas de decir que este es su espacio para equivocarse, y ahora arrancas desde lo que ya saben. · PREEMPTIVO, dilo con humor mientras escanean: «y sí, antes de que alguien lo intente: no vale esta, que todavía no he empezado». Defusa el chiste y demuestra que vas por delante. · Sin nombres y sin cursos de esta universidad. · Tres minutos, cierra cuando el contador se estanque, no al 100%. · Proyecta solo la nube de la palabra única, no las respuestas largas.">
+  <div class="kicker do">Two minutes · scan this</div>
+  <h2>You already know what does not work. You have sat through it.</h2>
+  <div class="qrwrap">
+    <div class="qrbox" data-qr="q2">PEGAR QR 2<br>por qué dejaste<br>de escuchar</div>
+    <div class="stack">
+      <p class="body">Think of the last time you were in an audience — a class, a meeting, a conference — and you <b>stopped listening</b>.</p>
+      <p class="body">What made you stop? And in one word: what was missing?</p>
+      <span class="short">[link corto]</span>
+      <p class="tiny">No names, no courses from this university.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="Lee tres o cuatro palabras en voz alta y no las comentes. Y la frase: «esto es, palabra por palabra, el temario de hoy, y no lo escribí yo». NO quites la nube: se usa otra vez en ocho minutos, en TIP 1.">
+  <div class="kicker do">Why this room stops listening</div>
+  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:38vh;">PROYECTAR AQUÍ LA NUBE DE PALABRAS EN VIVO</div>
+  <h3>This is today's syllabus. And I did not write it.</h3>
+</section>
+
+<section data-part="2" class="slide divider" data-s="1" data-b="Encuadre" data-notes="ESTA ES LA BISAGRA del viernes. Hasta aquí les has hablado de ellos: por qué están aquí, dónde acaban, qué ya saben. Desde aquí empieza la teoría. Que se note el cambio de registro: baja el ritmo, cambia de sitio en el aula, y di la última frase despacio.">
+  <div class="partno">02</div>
+  <div class="kicker">Part two · how it actually works</div>
+  <h1>Presentations are about change.</h1>
+  <p class="body">Companies start up, grow, mature and eventually decline. To avoid the decline, an organisation has to keep shifting. And to shift, somebody has to persuade the people in it.</p>
+  <p class="lead">If you have no change to propose, you do not need a presentation. You need an email.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="Encuadre" data-notes="Los cinco principios. Detente en el tercero: es la ecuación más importante del deck, porque el segundo término es el que ellos ignoran por completo.">
+  <div class="kicker">Starting off on the right foot</div>
+  <ol class="big">
+    <li>Great communicators are <b>made</b>, not born</li>
+    <li>An effective presentation is <b>prepared spontaneity</b>: strategy, self-awareness, and practice</li>
+    <li><b>Communication = content + relationship with the audience</b></li>
+    <li>You communicate with words — but also numbers, charts, images, your body, your voice</li>
+    <li>Slides are a support. <b>They are not the presentation</b></li>
+  </ol>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="Encuadre" data-notes="Twain. Es el mejor gancho del encuadre y justifica las dieciséis horas: lo que parece natural está preparado.">
+  <blockquote>It usually takes more than three weeks to prepare a good impromptu speech.<cite>Mark Twain, c. 1879</cite></blockquote>
+  <h3>The goal of everything this weekend: convey <b>one</b> idea, and persuade.</h3>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 1" data-notes="Aristóteles, rápido. Lo importante es la frase de abajo, que es el diagnóstico del curso dicho por la slide de Silvia. No la parafrasees: dila.">
+  <div class="kicker">Tip 1 · connect with the audience</div>
+  <div class="cols3">
+    <div class="stack"><h3>Ethos</h3><p class="body">Shared values and experience. You earn credibility, and they respect your idea.</p></div>
+    <div class="stack"><h3>Pathos</h3><p class="body">Pleasure and pain, to move the imagination. People make important decisions on feelings like these.</p></div>
+    <div class="stack"><h3>Logos</h3><p class="body">Structure, words, data. Evidence. Necessary in every presentation.</p></div>
+  </div>
+  <div class="panel info">
+    <p class="body" style="max-width:60ch">Facts are fundamental, but they are not the only ingredient. <b>Stating facts does not signal why those facts matter to the person listening.</b> That is what the other two are for.</p>
+  </div>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 1" data-notes="Vuelve a la nube y que clasifiquen sus propias palabras. Van a descubrir que la mayoría era pathos y no logos: esa conclusión sale de ellos, NO la digas antes de que la digan. · NO afirmes que solo hay tres razones para dejar de escuchar: es falso (cansancio, el móvil, calor, ya te lo sabías) y alguien te lo va a decir. Aristóteles habla de qué necesita la persuasión, no de por qué se pierde la atención. · Las tres son una LENTE de diagnóstico, no una taxonomía cerrada. Si una palabra no encaja en ninguna columna, dilo tú primero: gana credibilidad y de paso enseña que el marco tiene límites.">
+  <div class="kicker do">Back to your word cloud · 8 minutes</div>
+  <h2>Aristotle said persuasion needs three things. Sort your words, and see which one was missing.</h2>
+  <div class="cols3">
+    <div class="panel" style="padding:12px 15px">
+      <h3>Ethos · I didn't buy <em>them</em></h3>
+      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">they were reading their own slides</li><li style="font-size:clamp(13px,1.2vw,17px)">they didn't know their own numbers</li><li style="font-size:clamp(13px,1.2vw,17px)">they dodged the first question</li><li style="font-size:clamp(13px,1.2vw,17px)">they didn't seem to believe it either</li></ul>
+    </div>
+    <div class="panel" style="padding:12px 15px">
+      <h3>Pathos · I didn't care</h3>
+      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">why was I in that room</li><li style="font-size:clamp(13px,1.2vw,17px)">nothing was at stake</li><li style="font-size:clamp(13px,1.2vw,17px)">it was aimed at someone else</li><li style="font-size:clamp(13px,1.2vw,17px)">information, never a story</li></ul>
+    </div>
+    <div class="panel" style="padding:12px 15px">
+      <h3>Logos · I couldn't follow</h3>
+      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">numbers with no point</li><li style="font-size:clamp(13px,1.2vw,17px)">twelve slides of the same chart</li><li style="font-size:clamp(13px,1.2vw,17px)">I never found out what they wanted</li><li style="font-size:clamp(13px,1.2vw,17px)">no structure, it just stopped</li></ul>
+    </div>
+  </div>
+  <p class="lead">Some of your words will fit none of these. Say so when it happens.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="La plantilla. Recorre la introducción rápido y DETENTE en Conflict. Sin esa casilla tienen un informe. Y señala que Complication dice «opcional» pero es la que más les cuesta, porque están entrenados para presentar certeza.">
+  <div class="kicker">Tip 2 · turn information into a story</div>
+  <div class="tmpl">
+    <div class="row key"><div class="h">Core idea</div><div class="c">Decided first. The story is built to carry it</div></div>
+    <div class="row"><div class="h">Intro</div><div class="c">When · transition · who / what · where</div></div>
+    <div class="row"><div class="h">Context</div><div class="c">How things were</div></div>
+    <div class="row key"><div class="h">Conflict</div><div class="c">What broke. What is at stake</div></div>
+    <div class="row"><div class="h">Proposed res.</div><div class="c">What was tried</div></div>
+    <div class="row"><div class="h">Complication</div><div class="c">What was the risk? Were you worried? What if it failed?</div></div>
+    <div class="row"><div class="h">Resolution</div><div class="c">What actually happened — <b>it does not have to be positive</b></div></div>
+    <div class="row key"><div class="h">MIP</div><div class="c">Most important point. The one thing they keep</div></div>
+  </div>
+  <p class="tiny">Shortened Hero's Journey · Campbell, 1949</p>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="QR 3 al final: tres nombres, la idea en una línea y el conflicto en una línea. NADA MÁS. Ocho casillas escritas no caben en ocho minutos; dos líneas sí, en unos cuarenta y cinco segundos. Y así puedes elegir la cosecha viendo las veintisiete en vez de a oído. · ESTA slide se queda proyectada los 8 minutos completos: la plantilla tiene que estar delante mientras trabajan. · Circula con UNA sola pregunta: ¿cuál es el conflicto? · Si te contestan repitiendo el dato («pues que subió a 51 días»), la de seguimiento es: ¿y a quién le duele? · Dos tríos leen su versión en la cosecha. Elígelos mientras circulas, buscando dos que hayan ido por caminos distintos, y avísales antes.">
+  <div class="kicker do">8 minutes</div>
+  <h2 style="font-size:clamp(20px,2.7vw,36px)">Get into threes with the two people beside you. Nobody moves seats.</h2>
+  <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
+    <div class="tmpl compact">
+      <div class="row key"><div class="h">Core idea</div><div class="c">One sentence</div></div>
+      <div class="row"><div class="h">Intro</div><div class="c">When · who · where</div></div>
+      <div class="row"><div class="h">Context</div><div class="c">How things were</div></div>
+      <div class="row key"><div class="h">Conflict</div><div class="c">What broke. Who it hurts</div></div>
+      <div class="row"><div class="h">Proposed</div><div class="c">What was tried</div></div>
+      <div class="row"><div class="h">Complication</div><div class="c">What was the risk</div></div>
+      <div class="row"><div class="h">Resolution</div><div class="c">What happened</div></div>
+      <div class="row key"><div class="h">MIP</div><div class="c">The one thing they keep</div></div>
+    </div>
+    <div class="stack">
+      <div class="panel fin" style="padding:11px 15px"><h3 style="font-size:clamp(14px,1.5vw,22px)">One position went from 3% to 9% of the portfolio. Nobody bought a single share.</h3></div>
+      <div class="panel afm" style="padding:11px 15px"><h3 style="font-size:clamp(14px,1.5vw,22px)">Days sales outstanding went from 42 to 51 days last year.</h3></div>
+      <p class="body" style="font-size:clamp(13px,1.35vw,19px)">Turn that fact into a story. Fill every box. Invent the company, the names, the sector — <b>the only thing you cannot invent is a conflict that does not hold up.</b></p>
+      <div class="panel info" style="padding:11px 15px;border-left-width:4px">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div class="qrbox" style="width:clamp(92px,11vw,132px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q3">QR 3</div>
+          <div>
+            <h3 style="font-size:clamp(14px,1.45vw,21px)">One of you fills this in</h3>
+            <p class="body" style="font-size:clamp(12px,1.2vw,17px);max-width:none">The <b>three names</b>, your <b>core idea</b> in one line, and your <b>conflict</b> in one line.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tiny">Short on time? Core idea and conflict are the two that matter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ SESIÓN 2 ══════════════════ -->
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="AUTOMÁTICO: pegas todas las respuestas en el panel D y pulsa Elegir. Compara las 27 dos a dos y saca la pareja con menos palabras en común, o sea la que localizó el conflicto en sitios más distintos. Si no te gusta, «Otra pareja» pasa a la siguiente. · Lo que dices en voz alta: mismo dato, dos historias, y ninguna es más verdadera; la diferencia está en dónde pusieron el conflicto. · Y el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar. · CRITERIO MANUAL si prefieres elegirlas tú: buscas las dos más DISTINTAS, no las dos mejores. · Criterio 1: que hayan puesto el conflicto en sitios diferentes (uno en el proceso, otro en una persona; uno en el riesgo, otro en el incentivo). · Criterio 2: que los MIP no coincidan. · Criterio 3: descarta las que solo reformulan el dato, no las uses ni como contraejemplo en público. · CUÁNDO: en el último minuto de los ocho, plántate al frente y lee la columna de idea en tu portátil. No hace falta leer las 27 completas, con la idea basta para ver quién divergió. · CÓMO PROYECTARLAS: panel D, pegas las dos separadas por una línea en blanco, Aplicar. Veinte segundos. · Léelas en voz alta e invita a los autores a completarlas. · Y cierra con el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar.">
+  <div class="picks" id="picks"></div>
+</section>
+
+<section data-part="2" class="slide breakslide" data-s="1" data-b="Break" data-notes="El break es a hora fija y lo comparten los 24 seminarios del piso: si te desincronizas, el ruido entra en las otras aulas. No lo alargues y no lo acortes. Di la hora de vuelta en voz alta y déjala proyectada.">
+  <div class="kicker">Break</div>
+  <div class="bigtime"><span class="fin">14.30 – 14.45</span><span class="afm">15.30 – 15.45</span></div>
+  <h3>Back at <span class="fin">14.45</span><span class="afm">15.45</span>. Attendance again when we start.</h3>
+  <p class="lead">Next up: contrast, data, and the two exercises where everyone stands up.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Asistencia" data-notes="Asistencia 2 de 8. Rápido, ya saben cómo va.">
+  <div class="kicker rule">Attendance · 2 of 8 · <span class="fin">14.45 – 16.15</span><span class="afm">15.45 – 17.15</span></div>
+  <h2>Register again.</h2>
+  <p class="lead">Bocconi Wi-Fi. Next break at <b class="fin">16.15</b><b class="afm">17.15</b>.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Cuatro minutos de teoría. El contraste ejecuta la tesis del curso: es lo que empuja a la audiencia hacia lo que podría haber.">
+  <div class="kicker">Tip 3 · contrast</div>
+  <h2>The gap between what is and what could be is built with contrast.</h2>
+  <div class="cols2">
+    <ul class="big">
+      <li>Disadvantage → opportunity</li>
+      <li>Information → insight</li>
+    </ul>
+    <ul class="big">
+      <li>Ordinary → special</li>
+      <li>Question → answer</li>
+    </ul>
+  </div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Ping-pong. Tú eres metrónomo: anuncias dominio, arrancas, cantas el cambio. Ronda 1 es tonta a propósito. La regla: el «podría ser» tiene que ser concreto, no «mejor».">
+  <div class="kicker do">Pairs · 5 rounds · 50 seconds each</div>
+  <h2>A says what is. B answers with what could be. Immediately.</h2>
+  <ol class="big">
+    <li>This room, right now</li>
+    <li>Being a first-week master's student</li>
+    <li>A bank's mobile app</li>
+    <li>A financial report nobody reads</li>
+    <li>The job you want in two years</li>
+  </ol>
+  <div class="panel rule"><p class="body">"It could be better" does not count. Concrete enough to picture.</p></div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Callback de dos horas. Contestaron en el minuto doce, antes de que les dijeras nada de placement. Recuérdaselo: nadie tenía información. No des todavía la cifra. Rellena el rango más votado en el panel D antes de pasar a la slide siguiente.">
+  <div class="kicker">You answered this two hours ago</div>
+  <h1>A Bocconi graduate who finds a job: how long from graduating to starting?</h1>
+  <p class="lead">Before I had told you anything about placement. Nobody in this room had information.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Proyecta el histograma ANTES de dar la respuesta. «El más optimista dijo X, el más pesimista Y. Misma clase, misma información, y respuestas que se diferencian en un factor de Z.» Esa dispersión es la lección: un número sin referencia no se puede interpretar. Y es lo que le va a pasar a su audiencia mañana.">
+  <div class="kicker">Tip 3a · numbers rarely speak for themselves</div>
+  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:26vh;">PROYECTAR EL HISTOGRAMA EN VIVO</div>
+  <div class="figs">
+    <div class="fig"><div class="n" data-avg style="font-size:clamp(24px,4.4vw,60px)">—</div><div class="l">what most of you picked</div></div>
+  </div>
+  <h3>Same class. Same information. Now look at the spread.</h3>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Primero el rango que más votaron (panel D), y DESPUÉS los 24 días. La brecha entre las dos cifras es el gancho. Luego REPARAS el número tres veces, una por palanca. Escala: menos que las vacaciones de agosto. Comparación: 6,9 entrevistas y 2 ofertas caben en un mes. Contexto: no empieza al graduarse, empieza en las prácticas de este semestre.">
+  <div class="figs">
+    <div class="fig"><div class="n" data-avg style="color:var(--ink-faint);font-size:clamp(24px,4.4vw,60px)">—</div><div class="l">most of you picked</div></div>
+    <div class="fig"><div class="n">24 days</div><div class="l">the actual number · every MSc at this university</div></div>
+  </div>
+  <h2>And watch what I just did wrong. I gave you a naked number.</h2>
+  <table class="tbl"><tbody>
+    <tr><td class="k">Scale</td><td>Contrast it with something of familiar size</td></tr>
+    <tr><td class="k">Comparison</td><td>Put n next to an n of similar value in another context</td></tr>
+    <tr><td class="k">Context</td><td>Explain the forces that produce the phenomenon</td></tr>
+  </tbody></table>
+  <p class="lead">Never leave a number alone. That is the whole of Tip 3a.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Rosling BBC, 4 min. 200 países, 200 años. La animación ES el argumento: no se puede narrar. Pon el clip y no lo interrumpas.">
+  <div class="kicker">200 countries, 200 years, 4 minutes</div>
+  <h2>Hans Rosling</h2>
+  <p class="lead">Scale, comparison and context, at the scale of the whole world.</p>
+  <p class="tiny">[INSERTAR CLIP · BBC, The Joy of Stats]</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="Treinta segundos de silencio mientras lo miran. Pregunta qué intenta decir: nadie va a poder. Y el encuadre importa: esto lo aprobó gente muy competente. Dos decisiones, no rediseñar.">
+  <div class="kicker do">Same three of you · 5 minutes · two decisions only</div>
+  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:34vh;">PEGAR AQUÍ EL GRÁFICO HORRIBLE<br>(informe anual o presentación a inversores, fuente pública)</div>
+  <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
+    <div class="stack">
+      <ol class="big">
+        <li>Which is <b>the</b> number?</li>
+        <li>What do you compare it against?</li>
+      </ol>
+      <p class="tiny">Do not redesign it. Do not draw anything.</p>
+    </div>
+      <div class="panel info" style="padding:10px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Submit both: <b>the number</b> and <b>the comparison</b>. One line each.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <div class="qrbox" style="width:76px;aspect-ratio:1;border-width:2px;font-size:8px;padding:6px" data-qr="q4">QR 4</div>
+          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3b" data-notes="La pregunta de la slide es literalmente la de ellos. Dos respuestas concretas: abrir y cerrar preguntando por qué, y cuidar el timing. Y el punto que se les escapa: desbalancear DAÑA la credibilidad, más emoción no es mejor.">
+  <div class="kicker">Tip 3b · balance analytical and emotional appeal</div>
+  <h2>Finance demands analytical appeal. So how much emotion can you use?</h2>
+  <table class="tbl">
+    <thead><tr><th></th><th>Broad audience</th><th>Analytic audience</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Register</td><td>Visceral</td><td>Cerebral</td></tr>
+      <tr><td class="k">Form</td><td>Story</td><td>Report</td></tr>
+      <tr><td class="k">Stance</td><td>Receptive</td><td>Suspicious</td></tr>
+      <tr><td class="k">Target</td><td>Heart</td><td>Brain</td></tr>
+    </tbody>
+  </table>
+  <div class="panel info"><p class="body" style="max-width:58ch">Open and close by asking <b>why</b>. The reason anyone works in finance or research has an emotional component. And mind the timing. An unbalanced presentation <b>damages</b> your credibility — in both directions.</p></div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3b" data-notes="Mismo dato en dos versiones: porcentaje y persona. Votan a mano alzada cuál los movió. Y ahí dices el diagnóstico en voz alta: en esta sala el logos gana por defecto, el trabajo del fin de semana es el pathos.">
+  <div class="kicker do">Same finding. Two versions. Which moved you?</div>
+  <div class="cols2">
+    <div class="panel info"><h3>Version A</h3><p class="body">[CIFRA / PORCENTAJE — rellenar con un dato del sector]</p></div>
+    <div class="panel"><h3>Version B</h3><p class="body">[LA MISMA COSA, CONTADA COMO LA HISTORIA DE UNA PERSONA CONCRETA]</p></div>
+  </div>
+      <div class="panel info" style="padding:10px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Which one moved you? <b>A or B.</b> And in five words: why.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <div class="qrbox" style="width:76px;aspect-ratio:1;border-width:2px;font-size:8px;padding:6px" data-qr="q5">QR 5</div>
+          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
+        </div>
+      </div>
+  <p class="lead" style="margin-top:8px">No hands. Vote on your phone, so nobody follows the room.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="La pausa" data-notes="Todos de pie. Una frase con contenido, y tres segundos de silencio mirando a los ojos. Tres rondas cada uno. El debrief es lo que enseña: desde dentro eterno, desde fuera seguridad.">
+  <div class="kicker do">Everyone up · pairs · 4 minutes</div>
+  <h1>Say one sentence. Then stay silent for three seconds, looking at them.</h1>
+  <ul class="big">
+    <li>No smiling it off. No "well". No looking at the floor</li>
+    <li>Three seconds. Then swap</li>
+  </ul>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="La pausa" data-notes="Tres preguntas en este orden. La tercera es la buena y casi nadie levanta la mano: nadie encontró el silencio incómodo desde fuera.">
+  <h2>From the inside, three seconds is forever. From the outside, it is someone who knows what they are saying.</h2>
+  <p class="lead">Tomorrow you will fill every gap with "um" — not because it helps, but because the silence is unbearable to <b>you</b>. To nobody else.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="Nueve etapas, tres minutos. Detente SOLO en una cosa: visualizar es la etapa nueve. Mañana a las 10.30 van a empezar por la nueve, y por eso acabarán con doce slides bonitas y sin idea.">
+  <div class="kicker">Tip 4 · it is a process</div>
+  <ol class="big" style="columns:2;column-gap:clamp(20px,3vw,60px)">
+    <li>Generate ideas</li>
+    <li>Filter down</li>
+    <li>Cluster</li>
+    <li>Create messages</li>
+    <li>Arrange them</li>
+    <li>Add supporting points</li>
+    <li>Strengthen turning points</li>
+    <li>Verify contrast</li>
+    <li><b>Visualise</b></li>
+  </ol>
+  <div class="panel rule"><p class="body">Visualising is stage nine of nine. Tomorrow at half past ten, when you open PowerPoint, you will be starting at stage nine.</p></div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="Tú cantas las tres fases y no dejas que se adelanten. En los tres primeros minutos NO se descarta nada: si alguien dice una tontería se escribe igual. Es el fallo por defecto.">
+  <div class="kicker do">Same three of you · 7 minutes · why Tuesdays are the worst day of the week</div>
+  <table class="tbl"><tbody>
+    <tr><td class="k">3 min</td><td>Generate. One idea per note. Quantity. <b>Discard nothing</b></td></tr>
+    <tr><td class="k">2 min</td><td>Cluster. Move them. What goes together, together</td></tr>
+    <tr><td class="k">2 min</td><td>One message. One sentence. Write it</td></tr>
+  </tbody></table>
+      <div class="panel info" style="padding:10px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Submit your one sentence. That is the whole submission.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <div class="qrbox" style="width:76px;aspect-ratio:1;border-width:2px;font-size:8px;padding:6px" data-qr="q6">QR 6</div>
+          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
+        </div>
+      </div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Reagan" data-notes="Pon el audio real, 4 min. Ninguno lo ha oído. Después, cada frase: ¿para cuál de las cinco audiencias era? Esto enseña segmentación, que no aparece en ningún otro sitio del deck.">
+  <div class="kicker">28 January 1986 · four minutes</div>
+  <h2>One speech. Five audiences.</h2>
+  <div class="cols3">
+    <ul class="big"><li>The country</li><li>The families</li></ul>
+    <ul class="big"><li>Schoolchildren watching live</li><li>The USSR</li></ul>
+    <ul class="big"><li>NASA</li></ul>
+  </div>
+  <p class="tiny">[INSERTAR AUDIO · Reagan, Challenger address]</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 5" data-notes="Ambady saca esto del terreno del consejo blando. Seis segundos de video MUDO predicen las evaluaciones de fin de semestre. Y después la frase de Zander, dicha por ti, quince segundos.">
+  <div class="kicker">Tip 5 · presentation in action</div>
+  <div class="cols2">
+    <ul class="big">
+      <li>Open chest, straight back</li>
+      <li>Smile</li>
+      <li>Eye contact</li>
+      <li>Calculated gesture</li>
+      <li>Use the physical space</li>
+    </ul>
+    <div class="panel info">
+      <p class="body">Six-second clips of <b>silent</b> video of a teacher predicted the evaluations their students would give at the end of the semester.</p>
+      <p class="tiny">Ambady &amp; Rosenthal, 1993</p>
+    </div>
+  </div>
+  <blockquote style="font-size:clamp(18px,2.3vw,32px)">Who am I being, that my players' eyes are not shining?<cite>Benjamin Zander, conductor</cite></blockquote>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 5" data-notes="Todos de pie, todos a la vez, sesenta segundos al vecino. Tema fácil: por qué eligieron este máster. Tres condiciones y la tercera es la que importa. Debrief de tres preguntas, la tercera revela la asimetría otra vez.">
+  <div class="kicker do">Everyone up · 60 seconds each · why you chose this master's</div>
+  <h1>Do not take your eyes off them. Not once.</h1>
+  <ul class="big">
+    <li>Open chest, straight back</li>
+    <li>Feet still. No swaying</li>
+    <li>Sixty seconds. Then swap</li>
+  </ul>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Un solo envío que cubre los dos ejercicios de pie del día. Proyecta las cuatro medias juntas: sentir contra observar, en la pausa y en el minuto de contacto visual. La brecha entre las dos columnas es el aprendizaje de delivery de todo el viernes, y ahora es un número y no una levantada de manos.">
+  <div class="kicker do">60 seconds · four numbers</div>
+  <h2>What it felt like from the inside, and what it looked like from the outside.</h2>
+  <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
+    <table class="tbl"><tbody>
+      <tr><td class="k">The pause</td><td>How long did three seconds feel when it was you? 0–10</td></tr>
+      <tr><td class="k"></td><td>How uncomfortable was it when you were listening? 0–10</td></tr>
+      <tr><td class="k">Eye contact</td><td>How hard was holding it for a minute? 0–10</td></tr>
+      <tr><td class="k"></td><td>How intense was it when someone held yours? 0–10</td></tr>
+    </tbody></table>
+      <div class="panel info" style="padding:10px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Same two exercises, from both sides. Four numbers.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <div class="qrbox" style="width:76px;aspect-ratio:1;border-width:2px;font-size:8px;padding:6px" data-qr="q7">QR 7</div>
+          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Las cuatro medias proyectadas. La columna de «desde dentro» va a estar muy por encima de la de «desde fuera», en los dos ejercicios. Esa es la evidencia. Y la frase de cierre es la que quieres que se lleven a mañana.">
+  <div class="kicker">Tip 5 · the whole lesson in four numbers</div>
+  <div id="asymbox" class="qrbox" style="width:100%;aspect-ratio:auto;min-height:32vh;">PROYECTAR LAS CUATRO MEDIAS</div>
+  <h2>Everything that feels like too much from the inside reads as confidence from the outside.</h2>
+  <p class="lead">Tomorrow, when it feels like too much, that is the signal you are doing it right.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Cierre" data-notes="El callback. «Comparen esto con la nube de palabras de esta mañana: son la misma cosa.» La grilla deja de ser una rúbrica impuesta y resulta ser lo que ellos escribieron a las 13.25.">
+  <div class="kicker">The grid · and you wrote it this morning</div>
+  <ol class="big">
+    <li>Clarity of the core idea — is there <b>one</b>?</li>
+    <li>Balance of emotion and fact</li>
+    <li>Structure and flow</li>
+    <li>Language and resources</li>
+    <li>Delivery</li>
+  </ol>
+  <p class="lead">Compare this with your word cloud from this morning. It is the same list.</p>
+</section>
+
+<!-- ══════════════════ SESIÓN 3 ══════════════════ -->
+
+<section data-part="2" class="slide breakslide" data-s="2" data-b="Break" data-notes="Segundo break. Al volver: asistencia 3 de 8, y ya se sientan con su grupo de proyecto. Aprovecha estos quince minutos para comprobar que los grupos están publicados en Blackboard.">
+  <div class="kicker">Break</div>
+  <div class="bigtime"><span class="fin">16.15 – 16.30</span><span class="afm">17.15 – 17.30</span></div>
+  <h3>Back at <span class="fin">16.30</span><span class="afm">17.30</span>. We finish today at <span class="fin">18.00</span><span class="afm">19.00</span>.</h3>
+  <p class="lead">When you come back you will be sitting with your project group. Check Blackboard.</p>
+</section>
+
+<section data-part="3" class="slide divider" data-s="3" data-b="Su turno" data-notes="Segunda bisagra: se acaba la teoría y empieza el trabajo. Dilo explícito: «hasta aquí he hablado yo, de aquí al domingo hablan ustedes». A partir de esta slide todo lo que pasa lo hacen ellos.">
+  <div class="partno">03</div>
+  <div class="kicker">Part three · your turn</div>
+  <h1>That is everything I am going to tell you.</h1>
+  <p class="lead">From here to tomorrow evening, you are the ones talking.</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Grupos" data-notes="Asistencia 3 de 8. Van a Blackboard, ven su grupo y SE RECOLOCAN físicamente. No abras los artículos todavía: eso es en 40 minutos.">
+  <div class="kicker rule">Attendance · 3 of 8 · <span class="fin">16.30 – 18.00</span><span class="afm">17.30 – 19.00</span></div>
+  <h2>Go to Blackboard. Find your group. Move.</h2>
+  <p class="lead">Sit with them. You are going to spend sixteen hours together. We finish today at <b class="fin">18.00</b><b class="afm">19.00</b>.</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="QR 8, ANTES de explicar de qué va la conversación. Que anoten de verdad: el ejercicio entero depende de este paso. Y di en voz alta que esto NO es la asistencia.">
+  <div class="kicker do">90 seconds · four numbers</div>
+  <h2>Before I tell you anything.</h2>
+  <div class="qrwrap">
+    <div class="qrbox" data-qr="q8">PEGAR QR 8<br>antes</div>
+    <div class="stack">
+      <p class="body">You are about to have a conversation with your group. I am not going to tell you what about — and that is deliberate.</p>
+      <span class="short">[link corto]</span>
+      <p class="tiny">This is not attendance. Attendance is the PIN.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Proyecta las medias en vivo de las preguntas 3 y 4. Sale real ~2 contra deseada ~6, la brecha de Epley. Nómbrala como fallo de coordinación: todos quieren más profundidad y nadie empieza.">
+  <div class="kicker do">Your own data, ninety seconds old</div>
+  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:30vh;">PROYECTAR LAS DOS MEDIAS EN VIVO<br>profundidad real · profundidad deseada</div>
+  <h2>Everyone here would prefer a deeper conversation than the one they are about to have. And nobody was going to start it.</h2>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Reglas en pantalla durante las tres rondas. El «paso» sin coste se dice en voz alta. Circula pero NO participes y no rescates silencios: los silencios de tres segundos son parte del mecanismo.">
+  <div class="kicker do">Small talk is banned for the next fifteen minutes</div>
+  <ol class="big">
+    <li>Same question, everyone answers, in turn, no interruptions</li>
+    <li>Nobody comments until everyone has answered</li>
+    <li>You can <b>pass</b> on any question. No explanation, no cost</li>
+    <li>No CV questions. Nothing about where you studied or what you want to do</li>
+  </ol>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 1, 3 min. El grupo elige una. Es tonta a propósito, para que se suelten.">
+  <div class="kicker do">Round 1 · 3 minutes · pick one</div>
+  <ul class="big">
+    <li>As a kid, did you ever have a crush on a cartoon character?</li>
+    <li>If you could have any mythological creature as a pet, which one?</li>
+    <li>What was your favourite teacher at school like, and what did they do differently?</li>
+  </ul>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 2, 4 min. Una sola para todos.">
+  <div class="kicker do">Round 2 · 4 minutes</div>
+  <h1>What is the hardest thing you have ever learned to do, and what did it cost you?</h1>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 3, 5 min. El salto. La tercera opción es la vía de escape para los grupos que se bloqueen: no la ofrezcas primero.">
+  <div class="kicker do">Round 3 · 5 minutes · pick one</div>
+  <ul class="big">
+    <li>One of the most embarrassing moments of your life</li>
+    <li>If you could undo one mistake you have made, which one and why?</li>
+    <li>Something you have changed your mind about in the last two years</li>
+  </ul>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="QR 9, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
+  <div class="kicker do">60 seconds · same exercise, backwards</div>
+  <div class="qrwrap">
+    <div class="qrbox" data-qr="q9">PEGAR QR 9<br>después</div>
+    <div class="stack">
+      <p class="body">Four answers about what just happened.</p>
+      <span class="short">[link corto]</span>
+    </div>
+  </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Los dos estudios. Epley: sesenta ejecutivos en una conferencia financiera en Connecticut predijeron que sería insoportable. Aron 1997: lo único que predijo cercanía fue la profundidad, no los intereses compartidos.">
+  <div class="kicker">This has been measured</div>
+  <h2>Sixty executives at a finance conference predicted it would be unbearable. Afterwards they reported it far less awkward and much more enjoyable than expected.</h2>
+  <div class="panel info">
+    <p class="body" style="max-width:58ch">And in 1997, Aron and colleagues measured what made two strangers feel close. Not shared interests. Not willingness. <b>Only the depth of what they said to each other.</b></p>
+  </div>
+  <p class="lead">Which means this group — the one you did not choose — already has the only thing that mattered.</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="El puente. Esto convierte el ejercicio en la primera lección del curso en vez de un icebreaker. La última frase es la regla operativa de las dos horas siguientes.">
+  <h1>That thing you just felt when someone in your group said something real — that is pathos.</h1>
+  <p class="body">It is not decoration you add on top of the serious content. It is what makes somebody decide to listen to the serious content.</p>
+  <div class="panel rule">
+    <h3>So: small talk is banned for the project too</h3>
+    <p class="body">Nobody says "that's interesting". Say what you think is wrong, what you don't understand, what bores you about the article. <b>If you all agree at five o'clock, you have not started working.</b></p>
+  </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="La herramienta" data-notes="El arco histórico. Calculadora era un puesto de trabajo. Después la hoja de cálculo. El dato de Planet Money: cítalo como Planet Money, no como dato oficial.">
+  <div class="kicker">Since 1980, the first full year VisiCalc was on sale</div>
+  <div class="figs">
+    <div class="fig"><div class="n">−400k</div><div class="l">accounting clerk jobs in the US</div></div>
+    <div class="fig"><div class="n">+600k</div><div class="l">jobs for actual accountants</div></div>
+  </div>
+  <h2>The spreadsheet did not kill the profession. It killed the part of the profession that consisted of operating the tool.</h2>
+  <p class="tiny">Planet Money, NPR</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="La herramienta" data-notes="Dos citas, no cinco. Dimon primero, y RECUÉRDALES que JPMorgan está en la lista de empleadores que vieron hace dos horas: no es un gurú de Silicon Valley opinando, es su posible jefe.">
+  <blockquote>Critical thinking, learn skills, learn your EQ, <b>learn how to be good in a meeting</b>, how to communicate, how to write. You'll have plenty of jobs.<cite>Jamie Dimon, CEO of JPMorgan Chase · December 2025</cite></blockquote>
+  <blockquote style="border-left-color:var(--ochre)">My questions are the most valuable IP to me. <b>The answers are a commodity.</b><cite>Jensen Huang, Nvidia · Cisco AI Summit 2026</cite></blockquote>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="La herramienta" data-notes="La pregunta que cierra el bloque. En dos años todos van a tener su mismo máster, su mismo Excel Y las mismas herramientas de IA. Lo que queda no es una tarea, es una relación.">
+  <h1>In two years everyone in your market will have your degree, your Excel, and the same AI tools you have.</h1>
+  <p class="lead">So what is going to tell you apart?</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Brief" data-notes="Aquí abres los artículos en Blackboard y la tabla grupo→artículo. Las tres reglas del juego: el artículo es punto de partida y no tesis, pueden usar el PC y otras fuentes, y es competitivo.">
+  <div class="kicker">The project</div>
+  <h2 class="fin">That article is what landed on your desk this morning. We are your investment committee. You have three minutes.</h2>
+  <h2 class="afm">That article describes something happening in your sector. You are the finance and control team. Three minutes in front of the board.</h2>
+  <p class="lead">You are not going to explain it. You are going to use it to make a case.</p>
+  <ul class="big">
+    <li>The article is a <b>starting point, not a thesis to defend</b></li>
+    <li>Use your laptop, other sources, data, charts. It is only the beginning</li>
+    <li>Two groups share each article. You will see what they did with it</li>
+  </ul>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Brief" data-notes="Las reglas del entregable. Las dos prohibiciones con su justificación de datos: es lo que hace que se lo tomen en serio en vez de leerlo como una preferencia tuya.">
+  <div class="kicker rule">The deliverable</div>
+  <table class="tbl"><tbody>
+    <tr><td class="k">Pitch</td><td>3 minutes. Hard stop</td></tr>
+    <tr><td class="k">Presenter</td><td>One person. Not two</td></tr>
+    <tr><td class="k">Slides</td><td>Maximum <b>6</b>. PowerPoint or PDF. No audio, no video</td></tr>
+    <tr><td class="k">Draft</td><td>Plain text, Saturday 10.15. No design</td></tr>
+    <tr><td class="k">Upload</td><td>Saturday 13.00. Content frozen after that</td></tr>
+  </tbody></table>
+  <div class="panel rule">
+    <h3>Two things your pitch may not do</h3>
+    <p class="body">Do not introduce yourselves. Do not summarise the article.</p>
+    <p class="body">Investors spend <b>3 minutes 44 seconds</b> on an entire pitch deck, and the first slide gets twice the attention of any other. Your opening is the only part anyone is guaranteed to hear.</p>
+  </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Brief" data-notes="La política de IA por fases. Empieza reconociendo el syllabus y el honor code, y después explica qué significa en la práctica. La frase que cierra: la IA no decide qué piensas.">
+  <div class="kicker">Use of AI</div>
+  <div class="cols2">
+    <div class="panel rule">
+      <h3>Until Saturday 13.00</h3>
+      <p class="body">No AI on the substance. Your idea, your conflict, your argument, your slides. <b>The written draft is the evidence.</b></p>
+      <p class="body">You may use it freely to <b>find and verify sources</b>. That is research and it is expected.</p>
+    </div>
+    <div class="panel info">
+      <h3>Saturday from 13.00</h3>
+      <p class="body">Content frozen. AI opens as a <b>rehearsal coach</b>: deliver your pitch out loud to it and ask for feedback against the grid. Five times.</p>
+      <p class="body">Record yourself on your phone and watch it back.</p>
+    </div>
+  </div>
+  <p class="lead">What AI cannot do is decide what you think. That is the exercise.</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Trabajo" data-notes="Cuarenta minutos. Circula con UNA pregunta: ¿cuál es el conflicto? Y si te responden repitiendo el artículo: ¿y a quién le duele? No sobre-asesores: es competitivo.">
+  <div class="kicker do">40 minutes · start</div>
+  <h1>The only thing you have to leave with today.</h1>
+  <p class="lead">Each of you reads the article. Each of you arrives tomorrow with <b>your own reaction</b> — not a group idea. Tomorrow at nine you put them on the table and choose.</p>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Cierre" data-notes="Cierre del viernes. Recuerda la hora del sábado y que el primer checkpoint es a las 8.48, en voz alta, delante de toda la clase.">
+  <div class="kicker">Tomorrow</div>
+  <h2>8.30. And at 8.48 every group says its idea out loud, in one sentence.</h2>
+  <p class="lead">If it does not fit in one sentence, you do not have it yet. Better to find that out at nine in the morning than at five in the afternoon.</p>
+  <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
+      <div class="panel info" style="padding:10px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Last thing today: <b>one thing you are going to do differently tomorrow</b>, because of something that happened in this room. One line.</p>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+          <div class="qrbox" style="width:76px;aspect-ratio:1;border-width:2px;font-size:8px;padding:6px" data-qr="q10">QR 10</div>
+          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
+        </div>
+      </div>
+    <p class="body">I will read all of them tonight, and some of them will be on screen at half past eight.</p>
+  </div>
+</section>
+
+</div>
+
+<div id="chrome">
+  <button id="btn-fin" aria-pressed="true">FIN · cl.44</button>
+  <button id="btn-afm" aria-pressed="false">AFM · cl.41</button>
+  <button id="btn-notes" aria-pressed="false">Notas · N</button>
+  <button id="btn-data" aria-pressed="false">Votos · D</button>
+  <span class="sp"></span>
+  <span id="live" style="display:none">●</span>
+  <span id="counter"></span>
+  <span id="clock"></span>
+</div>
+
+<div id="datapanel">
+  <div class="r">Pega los resultados del formulario: una empresa y su número por línea. Coma, tab o espacios. <button id="apply">Aplicar</button> <button id="clearheat" style="background:var(--rule);color:var(--ink)">Limpiar</button></div>
+  <div class="r">Rango más votado por la clase: <input id="avg" type="text" placeholder="p. ej. 3–6 months" style="font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--rule);padding:5px 8px;width:170px"> <span style="opacity:.7">aparece en las dos slides de TIP 3a (27 y 28)</span></div>
+  <textarea id="votes" spellcheck="false" placeholder="Goldman Sachs, 24&#10;McKinsey &amp; Company 19&#10;Citadel 11&#10;BlackRock 8"></textarea>
+  <div class="r">Cosecha de TIP 2: pega <b>todas</b> las respuestas del export (nombres · idea · conflicto, separadas por tabulador). Elige las dos más distintas solo. <button id="applypicks">Elegir</button> <button id="nextpair" style="background:var(--rule);color:var(--ink)">Otra pareja</button> <span id="pairinfo" style="opacity:.7"></span></div>
+  <textarea id="picksrc" spellcheck="false" placeholder="Marco, Anna, Luca&#9;Risk nobody decided to take is the most dangerous kind&#9;The committee reviews purchases and never what grows on its own&#10;Sofia, Ahmed, Chiara&#9;A win you cannot explain is a win you cannot repeat&#10;..."></textarea>
+</div>
+
+<div id="notes"><h4>Nota para ti</h4><div id="notes-body"></div></div>
+
+<script>
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var segs = Array.prototype.slice.call(document.querySelectorAll('#bar .seg.sesion'));
+  var i = 0;
+
+  function render() {
+    slides.forEach(function (s, n) { s.classList.toggle('live', n === i); });
+    var cur = slides[i];
+    var s = cur.getAttribute('data-s');
+    segs.forEach(function (g) { g.classList.toggle('on', g.getAttribute('data-s') === s); });
+    document.getElementById('nowlbl').textContent = cur.getAttribute('data-b') || '';
+    var part = cur.getAttribute('data-part') || '1';
+    document.body.setAttribute('data-part', part);
+    var PARTS = { '1': 'Why you are here', '2': 'How it actually works', '3': 'Your turn' };
+    document.getElementById('strip').innerHTML =
+      'Part ' + part + '<span class="dot">/</span><b>' + PARTS[part] + '</b>' +
+      '<span class="dot">/</span>' + (cur.getAttribute('data-b') || '');
+    document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('notes-body').innerHTML =
+      '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
+    if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+    if (typeof syncLive === 'function') syncLive();
+  }
+  function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(slides.length - 1); }
+    else if (e.key === 'n' || e.key === 'N') { document.getElementById('btn-notes').click(); }
+    else if (e.key === 'd' || e.key === 'D') { document.getElementById('btn-data').click(); }
+    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); }
+  });
+  document.getElementById('stage').addEventListener('click', function (e) {
+    go(i + (e.clientX < window.innerWidth * 0.25 ? -1 : 1));
+  });
+
+  function setClass(c) {
+    document.body.setAttribute('data-class', c);
+    document.getElementById('btn-fin').setAttribute('aria-pressed', String(c === 'fin'));
+    document.getElementById('btn-afm').setAttribute('aria-pressed', String(c === 'afm'));
+  }
+  document.getElementById('btn-fin').onclick = function () { setClass('fin'); drawHeat(); };
+  document.getElementById('btn-afm').onclick = function () { setClass('afm'); drawHeat(); };
+
+  var nb = document.getElementById('btn-notes');
+  nb.onclick = function () {
+    var open = document.getElementById('notes').classList.toggle('open');
+    nb.setAttribute('aria-pressed', String(open));
+  };
+
+  function tick() {
+    var d = new Date();
+    document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  setInterval(tick, 10000); tick();
+
+  /* ---------- heatmap ---------- */
+  var RECRUITERS = {
+    fin: ['Goldman Sachs','J.P. Morgan','Morgan Stanley','BlackRock','Bank of America Merrill Lynch',
+          'Barclays','Citigroup','Deutsche Bank','UBS','HSBC Group','BNP Paribas','Credit Agricole Group',
+          'Lazard','Rothschild','Mediobanca','Royal Bank of Canada','London Stock Exchange Group',
+          'Intesa Sanpaolo','UniCredit','McKinsey & Company','The Boston Consulting Group',
+          'Deloitte','EY','KPMG','PwC'],
+    afm: ['European Central Bank','Amazon',"L'Oréal",'Luxottica','Pirelli','General Electric',
+          'Accenture','Accuracy','Banco Santander','Bank of America Merrill Lynch','BNP Paribas','BPCE',
+          'HSBC Group','Societe Generale','Marsh & McLennan','Intesa Sanpaolo','UniCredit','UBI Banca',
+          'Mediobanca','UBS','McKinsey & Company','The Boston Consulting Group',
+          'Deloitte','EY','KPMG','PwC','Partners Consulenti e Professionisti Associati']
+  };
+  var votes = {};
+
+  function norm(x) { return String(x).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]/g,''); }
+  function match(name) {
+    var n = norm(name);
+    for (var k in votes) {
+      var v = norm(k);
+      if (v === n) return votes[k];
+      if (v.length > 4 && n.length > 4 && (v.indexOf(n) === 0 || n.indexOf(v) === 0)) return votes[k];
+    }
+    return 0;
+  }
+
+  function drawHeat() {
+    var cls = document.body.getAttribute('data-class');
+    var list = RECRUITERS[cls] || [];
+    var vals = list.map(match);
+    var max = Math.max.apply(null, vals.concat([0]));
+    var real = document.getElementById('heat-real');
+    real.innerHTML = list.map(function (name, k) {
+      var v = vals[k], lvl = 0;
+      if (max > 0 && v > 0) lvl = Math.min(4, Math.ceil(v / max * 4));
+      return '<div class="c h' + lvl + '"><span>' + name + '</span><b>' + v + '</b></div>';
+    }).join('');
+
+    var used = {};
+    list.forEach(function (name) {
+      var n = norm(name);
+      for (var k in votes) { var v = norm(k);
+        if (v === n || (v.length > 4 && n.length > 4 && (v.indexOf(n) === 0 || n.indexOf(v) === 0))) used[k] = 1; }
+    });
+    var gap = Object.keys(votes).filter(function (k) { return !used[k] && votes[k] > 0; })
+                    .sort(function (a, b) { return votes[b] - votes[a]; });
+    document.getElementById('gapwrap').style.display = gap.length ? 'flex' : 'none';
+    document.getElementById('heat-gap').innerHTML = gap.map(function (k) {
+      return '<div class="c"><span>' + k + '</span><b>' + votes[k] + '</b></div>';
+    }).join('');
+  }
+
+  document.getElementById('apply').onclick = function () {
+    votes = {};
+    document.getElementById('votes').value.split(/\n/).forEach(function (line) {
+      var m = line.match(/^\s*(.+?)[\s,;:\t]+(\d+)\s*$/);
+      if (m) votes[m[1].trim()] = parseInt(m[2], 10);
+    });
+    drawHeat();
+  };
+  document.getElementById('clearheat').onclick = function () {
+    votes = {}; document.getElementById('votes').value = ''; drawHeat();
+  };
+  var db = document.getElementById('btn-data');
+  db.onclick = function () {
+    var open = document.getElementById('datapanel').classList.toggle('open');
+    db.setAttribute('aria-pressed', String(open));
+  };
+
+  var STOP = ('the a an and or but of to in on for with that this it is was were be been as at by from '
+            + 'we they he she i you his her their our its not no nor so if then than there here which who whom '
+            + 'what when where why how all any both each few more most other some such only own same too very '
+            + 'can will just should now do does did have has had would could').split(' ');
+  var pairs = [], pairIdx = 0, entries = [];
+
+  function toks(t) {
+    return String(t).toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+      .filter(function (w) { return w.length > 2 && STOP.indexOf(w) < 0; });
+  }
+  function distance(a, b) {
+    var A = {}, n = 0, inter = 0;
+    toks(a).forEach(function (w) { if (!A[w]) { A[w] = 1; n++; } });
+    var B = {}, m = 0;
+    toks(b).forEach(function (w) { if (!B[w]) { B[w] = 1; m++; } });
+    for (var w in A) if (B[w]) inter++;
+    var uni = n + m - inter;
+    return uni === 0 ? 0 : 1 - inter / uni;
+  }
+  function card(e, k) {
+    if (!e) return '<div class="pick empty">—</div>';
+    return '<div class="pick">' +
+           (e.who ? '<div class="who">' + e.who + '</div>' : '') +
+           '<div class="idea">' + e.idea + '</div>' +
+           (e.conf ? '<div class="conf"><b>Conflict:</b> ' + e.conf + '</div>' : '') +
+           '</div>';
+  }
+  function paint() {
+    var box = document.getElementById('picks');
+    if (!pairs.length) {
+      box.innerHTML = '<div class="pick empty">Pega las respuestas<br>en el panel D</div>' +
+                      '<div class="pick empty">y pulsa Elegir</div>';
+      document.getElementById('pairinfo').textContent = '';
+      return;
+    }
+    var pr = pairs[pairIdx % pairs.length];
+    box.innerHTML = card(entries[pr[0]]) + card(entries[pr[1]]);
+    document.getElementById('pairinfo').textContent =
+      'pareja ' + ((pairIdx % pairs.length) + 1) + ' de ' + pairs.length + ' · ' + entries.length + ' respuestas';
+  }
+  function drawPicks() {
+    var raw = document.getElementById('picksrc').value.trim();
+    entries = []; pairs = []; pairIdx = 0;
+    if (raw) {
+      var rows = raw.indexOf('\t') > -1
+        ? raw.split(/\n/).filter(function (l) { return l.trim(); }).map(function (l) { return l.split('\t'); })
+        : raw.split(/\n\s*\n/).map(function (b) { return b.split(/\n/); });
+      rows.forEach(function (c) {
+        c = c.map(function (x) { return (x || '').trim(); }).filter(Boolean);
+        if (!c.length) return;
+        var who = c.length > 2 ? c.shift() : '';
+        entries.push({ who: who, idea: c.shift() || '', conf: c.join(' ') });
+      });
+      for (var a = 0; a < entries.length; a++)
+        for (var b = a + 1; b < entries.length; b++)
+          pairs.push([a, b, distance(entries[a].idea + ' ' + entries[a].conf,
+                                     entries[b].idea + ' ' + entries[b].conf)]);
+      pairs.sort(function (x, y) { return y[2] - x[2]; });
+    }
+    paint();
+  }
+  document.getElementById('applypicks').onclick = drawPicks;
+  document.getElementById('nextpair').onclick = function () { if (pairs.length) { pairIdx++; paint(); } };
+
+  var avgIn = document.getElementById('avg');
+  function drawAvg() {
+    var v = (avgIn.value || '').trim();
+    Array.prototype.forEach.call(document.querySelectorAll('[data-avg]'), function (el) {
+      el.textContent = v === '' ? '—' : v;
+    });
+  }
+  avgIn.addEventListener('input', drawAvg);
+
+
+  /* ============================================================
+     DATOS EN VIVO
+     Pega aquí la URL CSV de cada hoja de respuestas.
+     Google Sheets: Archivo > Compartir > Publicar en la web >
+     elige la hoja > formato CSV > copia la URL.
+     Deja '' para que la slide use el modo manual del panel D.
+     OJO: el fetch NO funciona en la vista previa de claude.ai
+     (CSP). Funciona al desplegar en GitHub Pages.
+     ============================================================ */
+  var LIVE = {
+    companies: '',   // QR 1 · dónde te gustaría trabajar
+    timing:    '',   // QR 1 · cuánto tiempo se tarda
+    stories:   '',   // QR 3 · nombres / idea / conflicto
+    asymmetry: ''    // QR 7 · cuatro números
+  };
+  var POLL_MS = 8000;
+
+  function parseCSV(t) {
+    var rows = [], row = [], f = '', q = false;
+    for (var k = 0; k < t.length; k++) {
+      var c = t[k];
+      if (q) {
+        if (c === '"') { if (t[k+1] === '"') { f += '"'; k++; } else q = false; }
+        else f += c;
+      } else if (c === '"') q = true;
+      else if (c === ',') { row.push(f); f = ''; }
+      else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; }
+      else if (c !== '\r') f += c;
+    }
+    if (f !== '' || row.length) { row.push(f); rows.push(row); }
+    return rows.filter(function (r) { return r.some(function (x) { return x.trim(); }); });
+  }
+
+  var liveCache = {};
+  function setLive(state) {
+    var el = document.getElementById('live');
+    el.style.display = state ? 'inline' : 'none';
+    el.className = state === 'err' ? 'err' : (state === 'on' ? 'on' : '');
+    el.textContent = state === 'err' ? '● sin datos' : '● en vivo';
+  }
+  function pull(slot) {
+    var url = LIVE[slot];
+    if (!url) return Promise.resolve(null);
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+      .then(function (t) { liveCache[slot] = parseCSV(t); setLive('on'); return liveCache[slot]; })
+      .catch(function () { setLive('err'); return liveCache[slot] || null; });
+  }
+
+  /* --- companies: cuenta menciones en todas las celdas --- */
+  function liveCompanies(rows) {
+    if (!rows || rows.length < 2) return;
+    var SKIP = /week|month|year|\bday|^\d+$|@|^\d{1,2}\/\d{1,2}|^(yes|no|si|s\u00ed|a|b)$/i;
+    var tally = {};
+    rows.slice(1).forEach(function (r) {
+      r.forEach(function (cell) {
+        String(cell).split(/[;,]/).forEach(function (x) {
+          x = x.trim();
+          if (x.length > 1 && !SKIP.test(x)) tally[x] = (tally[x] || 0) + 1;
+        });
+      });
+    });
+    votes = tally;
+    document.getElementById('votes').value =
+      Object.keys(tally).map(function (k) { return k + ', ' + tally[k]; }).join('\n');
+    drawHeat();
+  }
+
+  /* --- timing: rango más votado --- */
+  function liveTiming(rows) {
+    if (!rows || rows.length < 2) return;
+    var tally = {}, best = '', n = 0;
+    rows.slice(1).forEach(function (r) {
+      var v = (r[r.length - 1] || '').trim();
+      if (!v) return;
+      tally[v] = (tally[v] || 0) + 1;
+      if (tally[v] > n) { n = tally[v]; best = v; }
+    });
+    if (best) { avgIn.value = best; drawAvg(); }
+  }
+
+  /* --- stories: dos al azar --- */
+  var storyRows = [];
+  function renderTwoStories() {
+    var box = document.getElementById('picks');
+    if (storyRows.length < 2) return;
+    var a = Math.floor(Math.random() * storyRows.length), b = a;
+    while (b === a) b = Math.floor(Math.random() * storyRows.length);
+    box.innerHTML = [a, b].map(function (i) {
+      var e = storyRows[i];
+      return '<div class="pick">' +
+             (e.who ? '<div class="who">' + e.who + '</div>' : '') +
+             '<div class="idea">' + e.idea + '</div>' +
+             (e.conf ? '<div class="conf"><b>Conflict:</b> ' + e.conf + '</div>' : '') +
+             '</div>';
+    }).join('');
+    document.getElementById('pairinfo').textContent = storyRows.length + ' respuestas · R para otra pareja';
+  }
+  function liveStories(rows) {
+    if (!rows || rows.length < 2) return;
+    var body = rows.slice(1).filter(function (r) { return r.join('').trim(); });
+    storyRows = body.map(function (r) {
+      var c = r.map(function (x) { return (x || '').trim(); })
+               .filter(function (x) { return x && !/@/.test(x) && !/^\d{1,2}\/\d/.test(x); });
+      var who = c.length > 2 ? c.shift() : '';
+      return { who: who, idea: c.shift() || '', conf: c.join(' ') };
+    }).filter(function (e) { return e.idea; });
+    if (storyRows.length >= 2) renderTwoStories();
+  }
+
+  /* --- asymmetry: cuatro medias --- */
+  function liveAsymmetry(rows) {
+    if (!rows || rows.length < 2) return;
+    var head = rows[0], body = rows.slice(1), sums = [], cnts = [];
+    body.forEach(function (r) {
+      r.forEach(function (v, k) {
+        var n = parseFloat(String(v).replace(',', '.'));
+        if (!isNaN(n) && n >= 0 && n <= 10) { sums[k] = (sums[k] || 0) + n; cnts[k] = (cnts[k] || 0) + 1; }
+      });
+    });
+    var cells = [];
+    for (var k = 0; k < sums.length; k++)
+      if (cnts[k] >= 1) cells.push({ label: (head[k] || '').slice(0, 40), val: (sums[k] / cnts[k]).toFixed(1) });
+    var box = document.getElementById('asymbox');
+    if (box && cells.length) {
+      box.className = 'figs';
+      box.style.minHeight = '0';
+      box.innerHTML = cells.slice(0, 4).map(function (c) {
+        return '<div class="fig"><div class="n">' + c.val + '</div><div class="l">' + c.label + '</div></div>';
+      }).join('');
+    }
+  }
+
+  var LIVEMAP = {
+    'Dónde te gustaría': [['companies', liveCompanies], ['timing', liveTiming]],
+    'TIP 3a':            [['timing', liveTiming]],
+    'TIP 2':             [['stories', liveStories]],
+    'La asimetría':      [['asymmetry', liveAsymmetry]]
+  };
+  var poller = null;
+  function syncLive() {
+    if (poller) { clearInterval(poller); poller = null; }
+    var b = slides[i].getAttribute('data-b');
+    var jobs = LIVEMAP[b] || [];
+    var active = jobs.filter(function (j) { return LIVE[j[0]]; });
+    if (!active.length) { setLive(false); return; }
+    var run = function () { active.forEach(function (j) { pull(j[0]).then(function (rows) { if (rows) j[1](rows); }); }); };
+    run();
+    poller = setInterval(run, POLL_MS);
+  }
+
+
+  /* ============================================================
+     ENLACES DE LOS FORMULARIOS
+     Pega la URL de cada formulario. El QR se dibuja solo.
+     Vacío = se queda el marcador en pantalla.
+     ============================================================ */
+  var QRS = {
+    q1:  '',  // dónde te gustaría trabajar + cuánto tiempo
+    q2:  '',  // por qué dejaste de escuchar
+    q3:  '',  // trío: nombres, idea, conflicto
+    q4:  '',  // el gráfico: el número y la comparación
+    q5:  '',  // versión A o B
+    q6:  '',  // post-its: la frase
+    q7:  '',  // la asimetría: cuatro números
+    q8:  '',  // No Small Talk · antes
+    q9:  '',  // No Small Talk · después
+    q10: ''   // cierre: qué harás distinto mañana
+  };
+/* QR encoder · byte mode · EC level M · versions 1-10 */
+var QR = (function () {
+  var EC = { // version: [ecPerBlock, [blocks, dataCw], [blocks, dataCw]]
+    1:[10,[1,16]], 2:[16,[1,28]], 3:[26,[1,44]], 4:[18,[2,32]], 5:[24,[2,43]],
+    6:[16,[4,27]], 7:[18,[4,31]], 8:[22,[2,38],[2,39]], 9:[22,[3,36],[2,37]], 10:[26,[4,43],[1,44]]
+  };
+  var ALIGN = {1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  var VINFO = {7:0x07C94, 8:0x085BC, 9:0x09A99, 10:0x0A4D3};
+
+  var EXP = new Array(512), LOG = new Array(256);
+  (function(){ var x=1; for (var i=0;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if(x&0x100) x^=0x11D; }
+                for (var i=255;i<512;i++) EXP[i]=EXP[i-255]; })();
+  function mul(a,b){ return (a===0||b===0)?0:EXP[LOG[a]+LOG[b]]; }
+
+  function rsGen(n){ var g=[1]; for(var i=0;i<n;i++){ var ng=new Array(g.length+1).fill(0);
+      for(var j=0;j<g.length;j++){ ng[j]^=g[j]; ng[j+1]^=mul(g[j],EXP[i]); } g=ng; } return g; }
+  function rsEnc(data,n){ var g=rsGen(n), res=new Array(n).fill(0);
+      for(var i=0;i<data.length;i++){ var f=data[i]^res[0]; res.shift(); res.push(0);
+        if(f!==0) for(var j=0;j<n;j++) res[j]^=mul(g[j+1],f); } return res; }
+
+  function dataCap(v){ var e=EC[v], t=0; for(var k=1;k<e.length;k++) t+=e[k][0]*e[k][1]; return t; }
+
+  function encode(text) {
+    var forceMask;
+    var bytes = [];
+    for (var i=0;i<text.length;i++){ var c=text.charCodeAt(i);
+      if(c<0x80) bytes.push(c);
+      else if(c<0x800){ bytes.push(0xC0|c>>6, 0x80|c&63); }
+      else { bytes.push(0xE0|c>>12, 0x80|(c>>6&63), 0x80|c&63); } }
+
+    var v=0; for (var ver=1; ver<=10; ver++){ var lenBits = ver<10?8:16;
+      if (4+lenBits+bytes.length*8 <= dataCap(ver)*8) { v=ver; break; } }
+    if(!v) throw new Error('too long for v10');
+
+    var bits=[]; function put(val,n){ for(var k=n-1;k>=0;k--) bits.push((val>>k)&1); }
+    put(4,4); put(bytes.length, v<10?8:16);
+    for (var i=0;i<bytes.length;i++) put(bytes[i],8);
+    var cap = dataCap(v)*8;
+    put(0, Math.min(4, cap-bits.length));
+    while (bits.length % 8) bits.push(0);
+    var dw=[]; for (var i=0;i<bits.length;i+=8){ var b=0; for(var j=0;j<8;j++) b=(b<<1)|bits[i+j]; dw.push(b); }
+    var pad=[0xEC,0x11], pi=0; while (dw.length < dataCap(v)) dw.push(pad[pi++%2]);
+
+    var e=EC[v], ecn=e[0], groups=[], p=0;
+    for (var k=1;k<e.length;k++) for (var b=0;b<e[k][0];b++){ groups.push(dw.slice(p,p+e[k][1])); p+=e[k][1]; }
+    var ecb = groups.map(function(g){ return rsEnc(g, ecn); });
+    var maxD = Math.max.apply(null, groups.map(function(g){return g.length;}));
+    var final=[];
+    for (var i=0;i<maxD;i++) groups.forEach(function(g){ if(i<g.length) final.push(g[i]); });
+    for (var i=0;i<ecn;i++) ecb.forEach(function(g){ final.push(g[i]); });
+
+    var n = v*4+17;
+    var m=[], fn=[]; for (var r=0;r<n;r++){ m.push(new Array(n).fill(0)); fn.push(new Array(n).fill(0)); }
+    function set(r,c,val){ m[r][c]=val?1:0; fn[r][c]=1; }
+
+    function finder(r,c){ for(var i=-1;i<=7;i++) for(var j=-1;j<=7;j++){
+      var rr=r+i, cc=c+j; if(rr<0||cc<0||rr>=n||cc>=n) continue;
+      var on = (i>=0&&i<=6&&(j===0||j===6)) || (j>=0&&j<=6&&(i===0||i===6)) || (i>=2&&i<=4&&j>=2&&j<=4);
+      set(rr,cc,on); } }
+    finder(0,0); finder(0,n-7); finder(n-7,0);
+
+    var ap=ALIGN[v];
+    for (var a=0;a<ap.length;a++) for (var b=0;b<ap.length;b++){
+      var r=ap[a], c=ap[b];
+      if ((r<=8&&c<=8)||(r<=8&&c>=n-9)||(r>=n-9&&c<=8)) continue;
+      for(var i=-2;i<=2;i++) for(var j=-2;j<=2;j++)
+        set(r+i,c+j, Math.max(Math.abs(i),Math.abs(j))!==1); }
+
+    for (var i=8;i<n-8;i++){ set(6,i,i%2===0); set(i,6,i%2===0); }
+    set(n-8,8,1);
+    for (var i=0;i<9;i++){ if(!fn[8][i]) set(8,i,0); if(!fn[i][8]) set(i,8,0); }
+    for (var i=0;i<8;i++){ if(!fn[8][n-1-i]) set(8,n-1-i,0); if(!fn[n-1-i][8]) set(n-1-i,8,0); }
+    if (v>=7){ var vi=VINFO[v];
+      for (var i=0;i<18;i++){ var bit=(vi>>i)&1;
+        set(Math.floor(i/3), n-11+i%3, bit); set(n-11+i%3, Math.floor(i/3), bit); } }
+
+    var seq=[]; for (var i=0;i<final.length;i++) for(var b=7;b>=0;b--) seq.push((final[i]>>b)&1);
+    var idx=0, up=true;
+    for (var col=n-1; col>0; col-=2){ if(col===6) col--;
+      for (var s=0;s<n;s++){ var row = up ? n-1-s : s;
+        for (var d=0;d<2;d++){ var c=col-d;
+          if (fn[row][c]) continue;
+          m[row][c] = idx<seq.length ? seq[idx++] : 0; } }
+      up=!up; }
+
+    function penalty(g){
+      var p=0, N=g.length;
+      for (var r=0;r<N;r++){ var run=1; for(var c=1;c<N;c++){ if(g[r][c]===g[r][c-1]) run++; else { if(run>=5)p+=3+run-5; run=1; } } if(run>=5)p+=3+run-5; }
+      for (var c=0;c<N;c++){ var run=1; for(var r=1;r<N;r++){ if(g[r][c]===g[r-1][c]) run++; else { if(run>=5)p+=3+run-5; run=1; } } if(run>=5)p+=3+run-5; }
+      for (var r=0;r<N-1;r++) for(var c=0;c<N-1;c++){ var s=g[r][c]+g[r][c+1]+g[r+1][c]+g[r+1][c+1]; if(s===0||s===4)p+=3; }
+      var pat=[1,0,1,1,1,0,1,0,0,0,0], pat2=[0,0,0,0,1,0,1,1,1,0,1];
+      function has(arr,st,pt){ for(var k=0;k<11;k++) if(arr[st+k]!==pt[k]) return false; return true; }
+      for (var r=0;r<N;r++){ for(var c=0;c+11<=N;c++){ if(has(g[r],c,pat)||has(g[r],c,pat2)) p+=40; } }
+      for (var c=0;c<N;c++){ var col=[]; for(var r=0;r<N;r++) col.push(g[r][c]);
+        for(var r2=0;r2+11<=N;r2++) if(has(col,r2,pat)||has(col,r2,pat2)) p+=40; }
+      var dark=0; for(var r=0;r<N;r++) for(var c=0;c<N;c++) dark+=g[r][c];
+      p += Math.floor(Math.abs(dark*100/(N*N)-50)/5)*10;
+      return p;
+    }
+    function maskFn(k,r,c){
+      switch(k){ case 0: return (r+c)%2===0; case 1: return r%2===0; case 2: return c%3===0;
+        case 3: return (r+c)%3===0; case 4: return (Math.floor(r/2)+Math.floor(c/3))%2===0;
+        case 5: return (r*c)%2+(r*c)%3===0; case 6: return ((r*c)%2+(r*c)%3)%2===0;
+        default: return ((r+c)%2+(r*c)%3)%2===0; } }
+    function fmt(mask){ var d=(0<<3)|mask, r=d<<10;
+      for (var i=4;i>=0;i--) if (r>>(10+i)&1) r^=0x537<<i;
+      return ((d<<10)|r)^0x5412; }
+
+    var best=null, bestP=Infinity, bestMask=0;
+    for (var k=0;k<8;k++){
+      if (forceMask !== undefined && forceMask !== null && k !== forceMask) continue;
+      var g=m.map(function(row){return row.slice();});
+      for (var r=0;r<n;r++) for(var c=0;c<n;c++) if(!fn[r][c] && maskFn(k,r,c)) g[r][c]^=1;
+      var f=fmt(k);
+      for (var j=0;j<15;j++){ var bit=(f>>(14-j))&1;
+        /* copia 1 */
+        if (j<6) g[8][j]=bit;
+        else if (j===6) g[8][7]=bit;
+        else if (j===7) g[8][8]=bit;
+        else if (j===8) g[7][8]=bit;
+        else g[14-j][8]=bit;
+        /* copia 2 */
+        if (j<7) g[n-1-j][8]=bit;
+        else g[8][n-15+j]=bit; }
+      g[n-8][8]=1;
+      var p=penalty(g);
+      if(p<bestP){ bestP=p; best=g; bestMask=k; }
+    }
+    return { size:n, version:v, mask:bestMask, modules:best };
+  }
+  return { encode: encode };
+})();
+
+
+  function paintQRs() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-qr]'), function (box) {
+      var url = QRS[box.getAttribute('data-qr')];
+      if (!url) return;
+      if (box.getAttribute('data-done') === url) return;
+      try {
+        var r = QR.encode(url), n = r.size, quiet = 3, total = n + quiet * 2;
+        var cv = document.createElement('canvas');
+        var px = 8; cv.width = cv.height = total * px;
+        cv.style.width = '100%'; cv.style.height = 'auto'; cv.style.display = 'block';
+        cv.style.imageRendering = 'pixelated';
+        var g = cv.getContext('2d');
+        g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+        g.fillStyle = '#000';
+        for (var y = 0; y < n; y++) for (var x = 0; x < n; x++)
+          if (r.modules[y][x]) g.fillRect((x + quiet) * px, (y + quiet) * px, px, px);
+        box.innerHTML = '';
+        box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent';
+        box.appendChild(cv);
+        box.setAttribute('data-done', url);
+      } catch (e) { /* deja el marcador */ }
+    });
+  }
+
+  setClass('fin');
+  drawHeat();
+  drawAvg();
+  drawPicks();
+  paintQRs();
+  var h = parseInt((location.hash || '').slice(1), 10);
+  go(isNaN(h) ? 0 : h - 1);
+</script>

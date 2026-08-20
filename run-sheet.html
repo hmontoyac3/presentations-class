@@ -1,0 +1,698 @@
+<title>Run sheet · Behavioural Skills Seminar 20941</title>
+
+<style>
+  :root {
+    --paper:      #F5F7FA;
+    --surface:    #FFFFFF;
+    --ink:        #15181E;
+    --ink-soft:   #565E6D;
+    --ink-faint:  #8D95A3;
+    --rule:       #DDE2EA;
+    --rule-soft:  #EAEEF3;
+    --teach:      #12467F;
+    --teach-bg:   #E8EFF7;
+    --do:         #9B5A11;
+    --do-bg:      #F8EFDF;
+    --alert:      #94262A;
+    --alert-bg:   #F8E7E7;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, "Palatino Linotype", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:     #0F1216;
+      --surface:   #171B22;
+      --ink:       #E7EAEF;
+      --ink-soft:  #9AA3B2;
+      --ink-faint: #6C7686;
+      --rule:      #2A313B;
+      --rule-soft: #21272F;
+      --teach:     #7FB0E4;
+      --teach-bg:  #16252F;
+      --do:        #DFA45C;
+      --do-bg:     #2B2114;
+      --alert:     #E08B8B;
+      --alert-bg:  #2C1919;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:     #0F1216;
+    --surface:   #171B22;
+    --ink:       #E7EAEF;
+    --ink-soft:  #9AA3B2;
+    --ink-faint: #6C7686;
+    --rule:      #2A313B;
+    --rule-soft: #21272F;
+    --teach:     #7FB0E4;
+    --teach-bg:  #16252F;
+    --do:        #DFA45C;
+    --do-bg:     #2B2114;
+    --alert:     #E08B8B;
+    --alert-bg:  #2C1919;
+  }
+  :root[data-theme="light"] {
+    --paper:     #F5F7FA;
+    --surface:   #FFFFFF;
+    --ink:       #15181E;
+    --ink-soft:  #565E6D;
+    --ink-faint: #8D95A3;
+    --rule:      #DDE2EA;
+    --rule-soft: #EAEEF3;
+    --teach:     #12467F;
+    --teach-bg:  #E8EFF7;
+    --do:        #9B5A11;
+    --do-bg:     #F8EFDF;
+    --alert:     #94262A;
+    --alert-bg:  #F8E7E7;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .standfirst {
+    color: var(--ink-soft);
+    max-width: 62ch;
+    font-size: 16px;
+  }
+
+  .classes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .class-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--teach);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .class-card .code {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--teach);
+    font-weight: 600;
+  }
+  .class-card .prog { font-weight: 600; font-size: 17px; }
+  .class-card .when { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .fact { background: var(--surface); padding: 12px 14px; }
+  .fact dt { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  .fact dd { margin: 2px 0 0; font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .fact dd small { font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+
+  /* ---------- generic section ---------- */
+  section { display: flex; flex-direction: column; gap: 16px; }
+  h2 {
+    font-family: var(--serif);
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ink);
+  }
+  h3 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
+    font-weight: 600;
+  }
+  p { margin: 0; max-width: 68ch; }
+  .note { color: var(--ink-soft); font-size: 14px; max-width: 68ch; }
+
+  /* ---------- legend ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+  .key { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-soft); }
+  .swatch { width: 13px; height: 13px; border: 1px solid var(--rule); flex: none; }
+  .sw-teach { background: var(--teach-bg); border-left: 3px solid var(--teach); }
+  .sw-do { background: var(--do-bg); border-left: 3px solid var(--do); }
+  .sw-break { background: var(--rule-soft); border-left: 3px solid var(--ink-faint); }
+  .sw-buffer { background: repeating-linear-gradient(45deg, var(--rule-soft) 0 3px, transparent 3px 6px); border-left: 3px solid var(--rule); }
+
+  .att-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 19px; height: 19px; padding: 0 4px;
+    background: var(--alert); color: var(--surface);
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.02em; flex: none;
+  }
+  :root[data-theme="dark"] .att-chip, .att-chip { color: #FFF; }
+  @media (prefers-color-scheme: dark) { .att-chip { background: var(--alert); color: #16181C; } }
+  :root[data-theme="dark"] .att-chip { background: var(--alert); color: #16181C; }
+  :root[data-theme="light"] .att-chip { background: var(--alert); color: #FFF; }
+
+  /* ---------- screen strip callout ---------- */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .bar-demo {
+    display: flex; gap: 2px; align-items: stretch; height: 26px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.04em;
+  }
+  .bar-demo span {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--rule-soft); color: var(--ink-faint);
+    border-bottom: 2px solid var(--rule);
+    padding: 0 4px; white-space: nowrap; overflow: hidden;
+  }
+  .bar-demo .s { flex: 3; }
+  .bar-demo .b { flex: 1; background: transparent; }
+  .bar-demo .now { background: var(--teach-bg); color: var(--teach); border-bottom-color: var(--teach); font-weight: 700; }
+
+  /* ---------- run tables ---------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 660px; }
+  caption {
+    text-align: left; padding: 12px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink); font-weight: 700;
+  }
+  caption .cap-when { float: right; color: var(--ink-soft); font-weight: 400; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  th {
+    text-align: left; padding: 7px 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint); font-weight: 600;
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .t { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 13px; }
+  .t-fin { color: var(--ink); font-weight: 600; }
+  .t-afm { color: var(--ink-soft); }
+  .m { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-soft); font-size: 13px; white-space: nowrap; }
+  .what strong { font-weight: 600; }
+  .what .sub { display: block; color: var(--ink-soft); font-size: 13px; margin-top: 2px; }
+  .ref {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+    white-space: nowrap; letter-spacing: 0.03em;
+  }
+
+  tr.r-teach td:first-child { box-shadow: inset 3px 0 0 var(--teach); }
+  tr.r-teach { background: var(--teach-bg); }
+  tr.r-do td:first-child { box-shadow: inset 3px 0 0 var(--do); }
+  tr.r-do { background: var(--do-bg); }
+  tr.r-buffer { background: repeating-linear-gradient(45deg, var(--rule-soft) 0 4px, transparent 4px 8px); }
+  tr.r-buffer .what { color: var(--ink-faint); font-style: italic; }
+  tr.r-break td {
+    background: var(--rule-soft);
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 600;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  tr.r-out td {
+    background: var(--ink); color: var(--paper);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700;
+  }
+
+  /* ---------- checklist ---------- */
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .panel { background: var(--surface); border: 1px solid var(--rule); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
+  li { font-size: 14px; }
+  li code { font-family: var(--mono); font-size: 12px; background: var(--rule-soft); padding: 1px 4px; }
+  .pending { color: var(--do); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  footer strong { color: var(--ink); }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 28px 14px 72px; gap: 34px; }
+    h2 { font-size: 23px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Run sheet · minuto a minuto</div>
+    <h1>Behavioural Skills Seminar 20941</h1>
+    <p class="standfirst">Persuasive Presentations. Dos clases, ocho sesiones cada una, bloques de 90 minutos. Mismo diseño para las dos: AFM va exactamente una hora más tarde el viernes, y el sábado es idéntico.</p>
+
+    <div class="classes">
+      <div class="class-card">
+        <div class="code">CL. 44 · FIN</div>
+        <div class="prog">MSc in Finance</div>
+        <div class="when">Vie 11 y sáb 12 de septiembre</div>
+        <div class="when">Viernes arranca 13.00</div>
+      </div>
+      <div class="class-card">
+        <div class="code">CL. 41 · AFM</div>
+        <div class="prog">Accounting &amp; Financial Management</div>
+        <div class="when">Vie 18 y sáb 19 de septiembre</div>
+        <div class="when">Viernes arranca 14.00 · inauguración a.a.</div>
+      </div>
+    </div>
+
+    <dl class="facts">
+      <div class="fact"><dt>Sesiones</dt><dd>8 <small>3 vie · 5 sáb</small></dd></div>
+      <div class="fact"><dt>Asistencia</dt><dd>100% <small>8 de 8</small></dd></div>
+      <div class="fact"><dt>Grupos</dt><dd>10 <small>de 8</small></dd></div>
+      <div class="fact"><dt>Artículos</dt><dd>5 <small>2 grupos c/u</small></dd></div>
+      <div class="fact"><dt>Pitch</dt><dd>3 min <small>1 presentador</small></dd></div>
+      <div class="fact"><dt>Slides máx.</dt><dd>6</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h3>Cómo leer esta tabla</h3>
+    <div class="legend">
+      <span class="key"><span class="swatch sw-teach"></span> Hablas tú</span>
+      <span class="key"><span class="swatch sw-do"></span> Hacen ellos</span>
+      <span class="key"><span class="swatch sw-buffer"></span> Colchón, se sacrifica primero</span>
+      <span class="key"><span class="swatch sw-break"></span> Break oficial, no se mueve</span>
+      <span class="key"><span class="att-chip">A4</span> Toma de asistencia</span>
+    </div>
+    <p class="note">Los breaks los comparten los 24 seminarios en el mismo piso: desincronizarse mete ruido en las otras aulas. No se mueven ni se acortan.</p>
+  </section>
+
+  <section>
+    <h2>Siempre en pantalla</h2>
+    <div class="callout">
+      <h3>La barra de progreso del día</h3>
+      <p>Va dentro del patrón de diapositivas, no como overlay: un overlay real necesita software extra y el proyector es ajeno. Se duplica el diseño una vez por bloque moviendo el marcador.</p>
+      <div class="bar-demo" aria-hidden="true">
+        <span class="s">S1</span><span class="b">·</span><span class="s now">S2 — TIP 3a</span><span class="b">·</span><span class="s">S3</span>
+      </div>
+      <p class="note"><strong>Bloques, nunca minutos.</strong> Si pone «43 minutos para el break» miran la barra en vez de la clase, y cada retraso tuyo queda a la vista. Con segmentos gruesos, un desfase de diez minutos no se ve, y la información útil («queda un bloque») sí.</p>
+    </div>
+  </section>
+
+  <!-- ======================= VIERNES ======================= -->
+  <section>
+    <h2>Viernes · la lecture y el arranque del proyecto</h2>
+    <p class="note">Dos columnas de reloj: la primera es FIN, la segunda AFM. Todo lo demás es idéntico.</p>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 1 <span class="cap-when">FIN 13.00–14.30 · AFM 14.00–15.30</span></caption>
+        <thead>
+          <tr><th>FIN</th><th>AFM</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr>
+        </thead>
+        <tbody>
+          <tr class="r-teach">
+            <td class="t t-fin">13.00</td><td class="t t-afm">14.00</td><td class="m">25</td>
+            <td class="what"><strong><span class="att-chip">A1</span> Apertura</strong>
+              <span class="sub">Asistencia acompañada · honor code leído literal · estructura y TA · la opción non-attending como elección · quién eres · cómo entraron y dónde acaban · el contrato</span></td>
+            <td class="ref">Bloque 0</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">13.25</td><td class="t t-afm">14.25</td><td class="m">10</td>
+            <td class="what"><strong>Cementerio de presentaciones</strong>
+              <span class="sub">QR 1 · la peor presentación que sufriste, y una palabra de qué le faltaba · sale la nube · no la quites de pantalla, se usa dentro de 8 minutos</span></td>
+            <td class="ref">Ej. 3</td>
+          </tr>
+          <tr class="r-teach">
+            <td class="t t-fin">13.35</td><td class="t t-afm">14.35</td><td class="m">8</td>
+            <td class="what"><strong>El encuadre</strong>
+              <span class="sub">Las presentaciones son sobre cambio · el objetivo es UNA idea y persuadir · los 5 principios, con «comunicación = contenido + relación» · Mark Twain</span></td>
+            <td class="ref">s2, s3, s5, s6</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">13.43</td><td class="t t-afm">14.43</td><td class="m">10</td>
+            <td class="what"><strong>TIP 1 · clasificar su propia nube</strong>
+              <span class="sub">Vuelves a la nube y clasifican sus palabras en ethos, pathos y logos. Van a descubrir que casi todas sus quejas eran de pathos, y esa conclusión sale de ellos y no de ti</span></td>
+            <td class="ref">s7</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">13.53</td><td class="t t-afm">14.53</td><td class="m">18</td>
+            <td class="what"><strong>TIP 2 · Hero's Journey a la fuerza</strong>
+              <span class="sub">Teoría 6 · tríos 8 sobre el hecho aburrido · cosecha 4. La plantilla se queda proyectada los 8 minutos</span></td>
+            <td class="ref">Ej. 5 · s9–s11</td>
+          </tr>
+          <tr class="r-buffer">
+            <td class="t t-fin">14.11</td><td class="t t-afm">15.11</td><td class="m">19</td>
+            <td class="what">Colchón. Es mucho a propósito: la apertura es lo más difícil de cronometrar del fin de semana</td><td class="ref"></td>
+          </tr>
+          <tr class="r-break"><td colspan="5">Break · 14.30–14.45 &nbsp;/&nbsp; 15.30–15.45</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>Sesión 1 · sin video y sin actuación</h3>
+      <p>Cayeron dos bloques. <strong>El pitch tres veces</strong>, porque exigía que actuaras 2 min 15 s sola en el minuto 43 del primer día y todo el aprendizaje dependía de tu ejecución. <strong>Y el video de Zander</strong>, porque el pathos ya se experimenta dos veces más adelante, en el audio de Reagan y sobre todo en el No Small Talk, donde no lo observan: lo producen. Zander a 2008 y música clásica era además el artefacto con más distancia cultural del plan.</p>
+      <p class="note">Lo único que se rescata de Zander es su frase, dicha por ti en quince segundos dentro de TIP 5: «cuando su orquesta suena mal, la pregunta no es qué les pasa a mis músicos, sino quién estoy siendo yo para que los ojos de mis músicos no brillen».</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 2 <span class="cap-when">FIN 14.45–16.15 · AFM 15.45–17.15</span></caption>
+        <thead>
+          <tr><th>FIN</th><th>AFM</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr>
+        </thead>
+        <tbody>
+          <tr class="r-teach">
+            <td class="t t-fin">14.45</td><td class="t t-afm">15.45</td><td class="m">3</td>
+            <td class="what"><strong><span class="att-chip">A2</span> Asistencia</strong></td><td class="ref"></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">14.48</td><td class="t t-afm">15.48</td><td class="m">10</td>
+            <td class="what"><strong>TIP 3 · contraste</strong>
+              <span class="sub">Teoría 4 · ping-pong «what is / what could be» en parejas 6</span></td>
+            <td class="ref">s12</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">14.58</td><td class="t t-afm">15.58</td><td class="m">11</td>
+            <td class="what"><strong>TIP 3a · los 24 días, y Rosling</strong>
+              <span class="sub">QR 2 · el histograma es el material, no la respuesta · escala, comparación, contexto · clip BBC 200 países en 4 min</span></td>
+            <td class="ref">Ej. 2 · s13</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.09</td><td class="t t-afm">16.09</td><td class="m">7</td>
+            <td class="what"><strong>Rescata el gráfico horrible</strong>
+              <span class="sub">Dos decisiones por trío: cuál es <em>el</em> número, y contra qué se compara</span></td>
+            <td class="ref"><span class="pending">por construir</span></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.16</td><td class="t t-afm">16.16</td><td class="m">8</td>
+            <td class="what"><strong>TIP 3b · mismo dato, dos versiones</strong>
+              <span class="sub">Porcentaje contra historia de una persona · y ahí dices el diagnóstico en voz alta</span></td>
+            <td class="ref">s14, s15</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.24</td><td class="t t-afm">16.24</td><td class="m">7</td>
+            <td class="what"><strong>La pausa de tres segundos</strong>
+              <span class="sub">De pie. Primer reset físico de la sesión</span></td>
+            <td class="ref"><span class="pending">por construir</span></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.31</td><td class="t t-afm">16.31</td><td class="m">12</td>
+            <td class="what"><strong>TIP 4 · sprint de post-its</strong>
+              <span class="sub">Las 9 etapas comprimidas: 3 generar, 2 agrupar, 2 elegir mensaje</span></td>
+            <td class="ref">s16, s17</td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.43</td><td class="t t-afm">16.43</td><td class="m">8</td>
+            <td class="what"><strong>Reagan y el Challenger</strong>
+              <span class="sub">Audio real 4 min · después, cada frase para cuál de las cinco audiencias era</span></td>
+            <td class="ref">s18 · <span class="pending">falta audio</span></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">15.51</td><td class="t t-afm">16.51</td><td class="m">10</td>
+            <td class="what"><strong>TIP 5 · los 60 segundos de pie</strong>
+              <span class="sub">Todos a la vez, al vecino, pecho abierto y a los ojos · debrief de qué se sintió distinto · aquí entra Ambady: 6 segundos de video mudo bastan</span></td>
+            <td class="ref">s19 · Ej. 19</td>
+          </tr>
+          <tr class="r-teach">
+            <td class="t t-fin">16.01</td><td class="t t-afm">17.01</td><td class="m">7</td>
+            <td class="what"><strong>Cierre y grilla de evaluación</strong>
+              <span class="sub">Callback: la grilla es su propia nube de palabras de las 13.25</span></td>
+            <td class="ref">s20–s22</td>
+          </tr>
+          <tr class="r-buffer">
+            <td class="t t-fin">16.08</td><td class="t t-afm">17.08</td><td class="m">7</td>
+            <td class="what">Colchón</td><td class="ref"></td>
+          </tr>
+          <tr class="r-break"><td colspan="5">Break · 16.15–16.30 &nbsp;/&nbsp; 17.15–17.30</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 3 <span class="cap-when">FIN 16.30–18.00 · AFM 17.30–19.00</span></caption>
+        <thead>
+          <tr><th>FIN</th><th>AFM</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr>
+        </thead>
+        <tbody>
+          <tr class="r-teach">
+            <td class="t t-fin">16.30</td><td class="t t-afm">17.30</td><td class="m">5</td>
+            <td class="what"><strong><span class="att-chip">A3</span> Asistencia · grupos</strong>
+              <span class="sub">Van a Blackboard, ven su grupo, se recolocan físicamente</span></td>
+            <td class="ref"></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">16.35</td><td class="t t-afm">17.35</td><td class="m">25</td>
+            <td class="what"><strong>No Small Talk</strong>
+              <span class="sub">QR 3 predicción antes de explicar nada · la brecha con su propio dato · tres rondas 12 · QR 4 después · el puente al pathos</span></td>
+            <td class="ref">Ej. 12</td>
+          </tr>
+          <tr class="r-teach">
+            <td class="t t-fin">17.00</td><td class="t t-afm">18.00</td><td class="m">7</td>
+            <td class="what"><strong>La herramienta deja de ser la ventaja</strong>
+              <span class="sub">400.000 clerks menos y 600.000 contables más · Dimon: «learn how to be good in a meeting» · Huang: las respuestas son un commodity · y de ahí la política de IA por tramos</span></td>
+            <td class="ref">Ej. 13</td>
+          </tr>
+          <tr class="r-teach">
+            <td class="t t-fin">17.07</td><td class="t t-afm">18.07</td><td class="m">8</td>
+            <td class="what"><strong>Brief y tabla grupo → artículo</strong>
+              <span class="sub">Encuadre Shark Tank · el artículo es punto de partida, no tesis · máx. 6 slides · prohibido presentarse y prohibido resumir el artículo</span></td>
+            <td class="ref">s23 · <span class="pending">por escribir</span></td>
+          </tr>
+          <tr class="r-do">
+            <td class="t t-fin">17.15</td><td class="t t-afm">18.15</td><td class="m">40</td>
+            <td class="what"><strong>Trabajo en grupo</strong>
+              <span class="sub">Circulas con una sola pregunta: ¿cuál es el conflicto? Y si te responden repitiendo el dato: ¿a quién le duele?</span></td>
+            <td class="ref"></td>
+          </tr>
+          <tr class="r-teach">
+            <td class="t t-fin">17.55</td><td class="t t-afm">18.55</td><td class="m">5</td>
+            <td class="what"><strong>Cierre y tarea</strong>
+              <span class="sub">Cada uno lee el artículo y llega mañana con una reacción propia. No una idea de grupo</span></td>
+            <td class="ref"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= SÁBADO ======================= -->
+  <section>
+    <h2>Sábado · producción, pitches y cierre</h2>
+    <p class="note">Idéntico en las dos clases. Cinco sesiones, y la salida a las 17.30 depende del reto final.</p>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 4 <span class="cap-when">8.30–10.00</span></caption>
+        <thead><tr><th>Hora</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr></thead>
+        <tbody>
+          <tr class="r-teach"><td class="t t-fin">8.30</td><td class="m">8</td>
+            <td class="what"><strong><span class="att-chip">A4</span> Reencuadre y reglas del pitch</strong>
+              <span class="sub">3 minutos · un presentador · máx. 6 slides · prohibido presentarse y resumir</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">8.38</td><td class="m">10</td>
+            <td class="what"><strong>Las reacciones sobre la mesa</strong>
+              <span class="sub">Cada uno trae la suya de anoche. Aquí eligen</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">8.48</td><td class="m">12</td>
+            <td class="what"><strong>Checkpoint 1 · la idea en voz alta</strong>
+              <span class="sub">10 grupos, una frase, 30 s. Si no sale en una frase, no la tienen todavía</span></td><td class="ref">Ej. 15</td></tr>
+          <tr class="r-do"><td class="t t-fin">9.00</td><td class="m">30</td>
+            <td class="what"><strong>Estructura</strong><span class="sub">La plantilla del Hero's Journey. Sin slides todavía</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">9.30</td><td class="m">25</td>
+            <td class="what"><strong>El borrador escrito</strong>
+              <span class="sub">Texto plano: idea en una frase, conflicto, recomendación, tres argumentos. Sin diseño. Nivel AIAS 1: sin IA</span></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">9.55</td><td class="m">5</td>
+            <td class="what">Aviso: el borrador se entrega a las 10.15</td><td class="ref"></td></tr>
+          <tr class="r-break"><td colspan="4">Break · 10.00–10.15</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 5 <span class="cap-when">10.15–11.45</span></caption>
+        <thead><tr><th>Hora</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr></thead>
+        <tbody>
+          <tr class="r-teach"><td class="t t-fin">10.15</td><td class="m">3</td>
+            <td class="what"><strong><span class="att-chip">A5</span> Asistencia</strong></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">10.18</td><td class="m">12</td>
+            <td class="what"><strong>Entrega del borrador · Checkpoint 2 · presentador</strong>
+              <span class="sub">Si hay dos candidatos, cada uno dice el primer minuto en voz alta delante del grupo y comparan. Y quién aportó qué</span></td><td class="ref">Ej. 16</td></tr>
+          <tr class="r-do"><td class="t t-fin">10.30</td><td class="m">45</td>
+            <td class="what"><strong>Producción</strong><span class="sub">Máximo 6 slides. Circulas</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">11.15</td><td class="m">25</td>
+            <td class="what"><strong>Primer ensayo completo, con cronómetro</strong>
+              <span class="sub">Primera vez que alguien lo dice en voz alta de principio a fin</span></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">11.40</td><td class="m">5</td>
+            <td class="what">Aviso: a las 13.00 se congela el contenido</td><td class="ref"></td></tr>
+          <tr class="r-break"><td colspan="4">Lunch · 11.45–13.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 6 <span class="cap-when">13.00–14.30</span></caption>
+        <thead><tr><th>Hora</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr></thead>
+        <tbody>
+          <tr class="r-teach"><td class="t t-fin">13.00</td><td class="m">3</td>
+            <td class="what"><strong><span class="att-chip">A6</span> Asistencia</strong></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">13.03</td><td class="m">7</td>
+            <td class="what"><strong>Se cierra el contenido</strong>
+              <span class="sub">Suben el archivo a Blackboard. «Su presentación ya no se mejora tocando slides, se mejora diciéndola en voz alta»</span></td><td class="ref">Ej. 17</td></tr>
+          <tr class="r-do"><td class="t t-fin">13.10</td><td class="m">8</td>
+            <td class="what"><strong>Prueba técnica en el proyector</strong><span class="sub">Por tandas, mientras el resto ensaya</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">13.18</td><td class="m">52</td>
+            <td class="what"><strong>Ensayo</strong>
+              <span class="sub">Nivel AIAS 3: IA solo como entrenador de delivery, contra la grilla del curso. Pueden salir del aula. Que se graben con el móvil</span></td><td class="ref">Ej. 13</td></tr>
+          <tr class="r-teach"><td class="t t-fin">14.10</td><td class="m">15</td>
+            <td class="what"><strong>Los tres números, y las reglas de la tarde</strong>
+              <span class="sub">3 min 44 s en un deck · un minuto en YC · 6 segundos de video mudo · tipos de pregunta (una vez, y se quitan) · «no lo sé, lo miro y te contesto» es respuesta válida</span></td><td class="ref">Ej. 19</td></tr>
+          <tr class="r-buffer"><td class="t t-fin">14.25</td><td class="m">5</td><td class="what">Colchón</td><td class="ref"></td></tr>
+          <tr class="r-break"><td colspan="4">Break · 14.30–14.45</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 7 · los pitches <span class="cap-when">14.45–16.15</span></caption>
+        <thead><tr><th>Hora</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr></thead>
+        <tbody>
+          <tr class="r-teach"><td class="t t-fin">14.45</td><td class="m">3</td>
+            <td class="what"><strong><span class="att-chip">A7</span> Asistencia</strong></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">14.48</td><td class="m">7</td>
+            <td class="what"><strong>Reglas y se revela el orden</strong>
+              <span class="sub">Teléfonos boca abajo durante el pitch · ventana de 30 s para enviar · tres tickets de 50.000, uno en cada mitad · el feedback llega a los grupos sin nombres</span></td><td class="ref">Ej. 20</td></tr>
+          <tr class="r-do"><td class="t t-fin">14.55</td><td class="m">55</td>
+            <td class="what"><strong>Los 10 pitches</strong>
+              <span class="sub">Ciclo de 5 min 30 s por grupo: pitch 3 · ventana de envío 30 s · pregunta del shark sorteado 20 s · responde un miembro sorteado por ti 45 s · transición 30 s</span></td><td class="ref">Ej. 18, 20</td></tr>
+          <tr class="r-do"><td class="t t-fin">15.50</td><td class="m">8</td>
+            <td class="what"><strong>Peer feedback escrito del grupo par</strong>
+              <span class="sub">Los dos grupos con el mismo artículo. Es la lección del emparejamiento</span></td><td class="ref"></td></tr>
+          <tr class="r-buffer"><td class="t t-fin">15.58</td><td class="m">17</td>
+            <td class="what">Colchón real. Con Q&amp;A en vivo, algún pitch se pasa</td><td class="ref"></td></tr>
+          <tr class="r-break"><td colspan="4">Break · 16.15–16.30 · el TA prepara el reveal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Sesión 8 · cierre <span class="cap-when">16.30–18.00, se usan 60</span></caption>
+        <thead><tr><th>Hora</th><th>Min</th><th>Bloque</th><th>Ref.</th></tr></thead>
+        <tbody>
+          <tr class="r-teach"><td class="t t-fin">16.30</td><td class="m">3</td>
+            <td class="what"><strong><span class="att-chip">A8</span> Asistencia</strong></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">16.33</td><td class="m">5</td>
+            <td class="what"><strong>El reveal · fondos levantados</strong>
+              <span class="sub">Página en GitHub Pages. Solo el top 5 y el agregado de la sala. El resto va a cada grupo en privado</span></td><td class="ref">Ej. 20</td></tr>
+          <tr class="r-teach"><td class="t t-fin">16.38</td><td class="m">8</td>
+            <td class="what"><strong>Lo que dijo la sala</strong>
+              <span class="sub">Citas del formulario sobre lo que esos cinco hicieron bien · y dos o tres mejoras que salieron en varios grupos, en agregado</span></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">16.46</td><td class="m">4</td>
+            <td class="what"><strong>Tu feedback de delivery</strong><span class="sub">En agregado, sin nombrar grupos</span></td><td class="ref"></td></tr>
+          <tr class="r-do"><td class="t t-fin">16.50</td><td class="m">4</td>
+            <td class="what"><strong>Course evaluation</strong><span class="sub">En clase. val.unibocconi.it/dida</span></td><td class="ref">s26</td></tr>
+          <tr class="r-do"><td class="t t-fin">16.54</td><td class="m">21</td>
+            <td class="what"><strong>El reto final</strong>
+              <span class="sub">15 de preparación, 6 de pitches de 4 o 5 grupos sorteados. Convencerte de irse. «Estamos cansados» es una queja, no un argumento. Y al abrirlo: el capital levantado no cuenta aquí</span></td><td class="ref"></td></tr>
+          <tr class="r-teach"><td class="t t-fin">17.15</td><td class="m">12</td>
+            <td class="what"><strong>Tu respuesta y cierre real del seminario</strong></td><td class="ref"></td></tr>
+          <tr class="r-out"><td colspan="4">17.30 · salen — o 30 minutos de teoría hasta las 18.00 si no convencen</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lo que hay que llevar montado</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3>Formularios y QR</h3>
+        <ul>
+          <li><strong>QR 1</strong> · cementerio: la peor presentación que sufriste, y una palabra</li>
+          <li><strong>QR 2</strong> · los 24 días: una pregunta numérica, con histograma proyectable</li>
+          <li><strong>QR 3</strong> · No Small Talk «antes»: grupo, incomodidad y comodidad predichas, profundidad real y deseada</li>
+          <li><strong>QR 4</strong> · No Small Talk «después»: incomodidad y comodidad reales, una cosa que vas a recordar, y si te callaste algo</li>
+          <li><strong>Sábado</strong> · formulario de sharks con envío múltiple y captura de email: grupo, ¿inviertes?, qué funcionó, qué mejorarías</li>
+          <li><strong>Sábado</strong> · peer feedback del grupo par</li>
+        </ul>
+        <p class="note">Techo de 4 QR el viernes. Microsoft Forms con la cuenta de Bocconi captura el email solo y exporta a Excel.</p>
+      </div>
+      <div class="panel">
+        <h3>Material</h3>
+        <ul>
+          <li>Barra de progreso en el patrón de diapositivas, una versión por clase</li>
+          <li>Las tres versiones del pitch de TIP 1, ensayadas <span class="pending">la de pathos es la que hay que ensayar más</span></li>
+          <li>Preguntas guía para la slide 8 <span class="pending">falta</span></li>
+          <li>Clip de Rosling BBC, 4 min</li>
+          <li>Audio de Reagan, 4 min <span class="pending">falta</span></li>
+          <li>Un gráfico horrible real, de informe público <span class="pending">falta</span></li>
+          <li>El hecho aburrido: <em>FIN</em> una posición del 3% al 9% sin comprar nada · <em>AFM</em> el cobro de 42 a 51 días</li>
+          <li>5 artículos con link de biblioteca <span class="pending">falta</span></li>
+          <li>El brief <span class="pending">falta</span></li>
+          <li>Página HTML del reveal, con datos de prueba y el push ensayado</li>
+          <li>Selector de nombres, o papelitos y un vaso</li>
+          <li>Los 30 minutos de teoría de reserva, preparados de verdad</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Por confirmar</h3>
+        <ul>
+          <li>Nombre y correo del TA de cada clase</li>
+          <li>Matriculados, para cerrar el número de grupos</li>
+          <li>Ensayar el flujo del reveal en casa, una vez</li>
+          <li>Explicarle al TA su papel en el break de 16.15</li>
+          <li>Traducir todos los guiones al inglés</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Dónde esto se separa del deck heredado</strong>, por si alguien pregunta: grupos de 8 es lo que dice la slide 23 de Silvia (el 5 del transcript quedó sin confirmar). El pitch baja de 5 a 3 minutos, apoyado en que un inversor dedica 3 min 44 s a un deck completo y YC da un minuto en Demo Day. La votación cambia de forma, y Silvia dice explícitamente «you can do whatever you like for the voting». La IA entra solo después del congelamiento de contenido, como feedback, que es el uso que ella ya concedió en la reunión de junio. Y la salida a las 17.30 queda por dentro de su propio horario, que acaba a las 17.45.</p>
+    <p>Un presentador por grupo se mantiene: es requisito de estandarización entre los 24 seminarios. La participación de los demás se resuelve porque la pregunta del shark la responde un miembro sorteado, no el presentador.</p>
+    <p class="note">Detalle de cada bloque en <code>playbook_exercises_and_scripts.md</code> · calendario en <code>calendar_2026_confirmed.md</code></p>
+  </footer>
+
+</div>
