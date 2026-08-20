@@ -1125,6 +1125,7 @@
 <div id="notes"><h4>Nota para ti</h4><div id="notes-body"></div></div>
 
 <script>
+  var TEACH = /[?&]teach\b/.test(location.search);
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var segs = Array.prototype.slice.call(document.querySelectorAll('#bar .seg.sesion'));
   var i = 0;
@@ -1142,8 +1143,8 @@
       'Part ' + part + '<span class="dot">/</span><b>' + PARTS[part] + '</b>' +
       '<span class="dot">/</span>' + (cur.getAttribute('data-b') || '');
     document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
-    document.getElementById('notes-body').innerHTML =
-      '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
+    var nbody = document.getElementById('notes-body');
+    if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
     if (typeof syncLive === 'function') syncLive();
   }
@@ -1155,8 +1156,8 @@
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
     else if (e.key === 'Home') { go(0); }
     else if (e.key === 'End') { go(slides.length - 1); }
-    else if (e.key === 'n' || e.key === 'N') { document.getElementById('btn-notes').click(); }
-    else if (e.key === 'd' || e.key === 'D') { document.getElementById('btn-data').click(); }
+    else if (TEACH && (e.key === 'n' || e.key === 'N')) { document.getElementById('btn-notes').click(); }
+    else if (TEACH && (e.key === 'd' || e.key === 'D')) { document.getElementById('btn-data').click(); }
     else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); }
   });
   document.getElementById('stage').addEventListener('click', function (e) {
@@ -1172,7 +1173,7 @@
   document.getElementById('btn-afm').onclick = function () { setClass('afm'); drawHeat(); };
 
   var nb = document.getElementById('btn-notes');
-  nb.onclick = function () {
+  if (nb) nb.onclick = function () {
     var open = document.getElementById('notes').classList.toggle('open');
     nb.setAttribute('aria-pressed', String(open));
   };
@@ -1652,6 +1653,18 @@ var QR = (function () {
         box.setAttribute('data-done', url);
       } catch (e) { /* deja el marcador */ }
     });
+  }
+
+  if (!TEACH) {
+    ['btn-notes', 'btn-data'].forEach(function (id) {
+      var el = document.getElementById(id); if (el) el.style.display = 'none';
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-notes]'), function (el) {
+      el.removeAttribute('data-notes');
+    });
+    var np = document.getElementById('notes'), dp = document.getElementById('datapanel');
+    if (np) np.remove();
+    if (dp) dp.remove();
   }
 
   setClass('fin');
