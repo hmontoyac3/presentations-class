@@ -1262,7 +1262,7 @@
     }).join('');
   }
 
-  document.getElementById('apply').onclick = function () {
+  var bApply = document.getElementById('apply'); if (bApply) bApply.onclick = function () {
     votes = {};
     document.getElementById('votes').value.split(/\n/).forEach(function (line) {
       var m = line.match(/^\s*(.+?)[\s,;:\t]+(\d+)\s*$/);
@@ -1270,11 +1270,12 @@
     });
     drawHeat();
   };
-  document.getElementById('clearheat').onclick = function () {
-    votes = {}; document.getElementById('votes').value = ''; drawHeat();
+  var bClr = document.getElementById('clearheat');
+  if (bClr) bClr.onclick = function () {
+    votes = {}; var t = document.getElementById('votes'); if (t) t.value = ''; drawHeat();
   };
   var db = document.getElementById('btn-data');
-  db.onclick = function () {
+  if (db) db.onclick = function () {
     var open = document.getElementById('datapanel').classList.toggle('open');
     db.setAttribute('aria-pressed', String(open));
   };
@@ -1311,16 +1312,17 @@
     if (!pairs.length) {
       box.innerHTML = '<div class="pick empty">Pega las respuestas<br>en el panel D</div>' +
                       '<div class="pick empty">y pulsa Elegir</div>';
-      document.getElementById('pairinfo').textContent = '';
+      var pi0 = document.getElementById('pairinfo'); if (pi0) pi0.textContent = '';
       return;
     }
     var pr = pairs[pairIdx % pairs.length];
     box.innerHTML = card(entries[pr[0]]) + card(entries[pr[1]]);
-    document.getElementById('pairinfo').textContent =
-      'pareja ' + ((pairIdx % pairs.length) + 1) + ' de ' + pairs.length + ' · ' + entries.length + ' respuestas';
+    var pi = document.getElementById('pairinfo');
+    if (pi) pi.textContent = 'pareja ' + ((pairIdx % pairs.length) + 1) + ' de ' + pairs.length + ' · ' + entries.length + ' respuestas';
   }
   function drawPicks() {
-    var raw = document.getElementById('picksrc').value.trim();
+    var src = document.getElementById('picksrc');
+    var raw = src ? (src.value || '').trim() : '';
     entries = []; pairs = []; pairIdx = 0;
     if (raw) {
       var rows = raw.indexOf('\t') > -1
@@ -1340,17 +1342,17 @@
     }
     paint();
   }
-  document.getElementById('applypicks').onclick = drawPicks;
-  document.getElementById('nextpair').onclick = function () { if (pairs.length) { pairIdx++; paint(); } };
+  var bAp = document.getElementById('applypicks'); if (bAp) bAp.onclick = drawPicks;
+  var bNp = document.getElementById('nextpair'); if (bNp) bNp.onclick = function () { if (pairs.length) { pairIdx++; paint(); } };
 
   var avgIn = document.getElementById('avg');
   function drawAvg() {
-    var v = (avgIn.value || '').trim();
+    var v = avgIn ? (avgIn.value || '').trim() : '';
     Array.prototype.forEach.call(document.querySelectorAll('[data-avg]'), function (el) {
       el.textContent = v === '' ? '—' : v;
     });
   }
-  avgIn.addEventListener('input', drawAvg);
+  if (avgIn) avgIn.addEventListener('input', drawAvg);
 
 
   /* ============================================================
@@ -1389,6 +1391,7 @@
   var liveCache = {};
   function setLive(state) {
     var el = document.getElementById('live');
+    if (!el) return;
     el.style.display = state ? 'inline' : 'none';
     el.className = state === 'err' ? 'err' : (state === 'on' ? 'on' : '');
     el.textContent = state === 'err' ? '● sin datos' : '● en vivo';
@@ -1416,8 +1419,8 @@
       });
     });
     votes = tally;
-    document.getElementById('votes').value =
-      Object.keys(tally).map(function (k) { return k + ', ' + tally[k]; }).join('\n');
+    var ta = document.getElementById('votes');
+    if (ta) ta.value = Object.keys(tally).map(function (k) { return k + ', ' + tally[k]; }).join('\n');
     drawHeat();
   }
 
@@ -1431,7 +1434,7 @@
       tally[v] = (tally[v] || 0) + 1;
       if (tally[v] > n) { n = tally[v]; best = v; }
     });
-    if (best) { avgIn.value = best; drawAvg(); }
+    if (best && avgIn) { avgIn.value = best; drawAvg(); }
   }
 
   /* --- stories: dos al azar --- */
@@ -1449,7 +1452,7 @@
              (e.conf ? '<div class="conf"><b>Conflict:</b> ' + e.conf + '</div>' : '') +
              '</div>';
     }).join('');
-    document.getElementById('pairinfo').textContent = storyRows.length + ' respuestas · R para otra pareja';
+    var pi2 = document.getElementById('pairinfo'); if (pi2) pi2.textContent = storyRows.length + ' respuestas · R para otra pareja';
   }
   function liveStories(rows) {
     if (!rows || rows.length < 2) return;
@@ -1694,11 +1697,12 @@ var QR = (function () {
     if (dp) dp.remove();
   }
 
-  setClass('fin');
-  drawHeat();
-  drawAvg();
-  drawPicks();
-  paintQRs();
+  function safe(name, fn) { try { fn(); } catch (e) { if (window.console) console.warn('init ' + name + ':', e.message); } }
+  safe('qr', paintQRs);
+  safe('class', function () { setClass('fin'); });
+  safe('heat', drawHeat);
+  safe('avg', drawAvg);
+  safe('picks', drawPicks);
   var h = parseInt((location.hash || '').slice(1), 10);
   go(isNaN(h) ? 0 : h - 1);
 </script>
