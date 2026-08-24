@@ -1,7 +1,7 @@
 /* núcleo compartido de los formularios · Persuasive Presentations 20941 */
 
 /* Pega aquí la URL del Web App de Apps Script (acaba en /exec) */
-var ENDPOINT = '';
+var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3naMoFKoXxsPnSCK_W5zbtz2nIDAETfoTR7NQfnaM-vaNQ/exec';
 
 (function () {
   var form = document.querySelector('form');
