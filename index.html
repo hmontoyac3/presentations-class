@@ -477,7 +477,6 @@
       <p class="body"><b>1.</b> Pick three. Be honest, not diplomatic. If the one you actually want is not there, write it in.</p>
       <p class="body"><b>2.</b> A Bocconi graduate who finds a job: <b>how long</b> from graduating to starting? Pick one range. Don't look it up.</p>
       <p class="tiny" style="letter-spacing:0">under 2 weeks · 2–4 weeks · 1–2 months · 2–3 months · 3–6 months · 6–12 months · over a year</p>
-      <span class="short">[link corto]</span>
     </div>
   </div>
 </section>
@@ -548,7 +547,6 @@
     <div class="stack">
       <p class="body">Think of the last time you were in an audience — a class, a meeting, a conference — and you <b>stopped listening</b>.</p>
       <p class="body">What made you stop? And in one word: what was missing?</p>
-      <span class="short">[link corto]</span>
       <p class="tiny">No names, no courses from this university.</p>
     </div>
   </div>
@@ -761,7 +759,6 @@
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Submit both: <b>the number</b> and <b>the comparison</b>. One line each.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q4">QR 4</div>
-          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
         </div>
       </div>
   </div>
@@ -857,7 +854,6 @@
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Submit your one sentence. That is the whole submission.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q6">QR 6</div>
-          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
         </div>
       </div>
 </section>
@@ -915,7 +911,6 @@
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Same two exercises, from both sides. Four numbers.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q7">QR 7</div>
-          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
         </div>
       </div>
   </div>
@@ -969,7 +964,6 @@
     <div class="qrbox" data-qr="q8">PEGAR QR 8<br>antes</div>
     <div class="stack">
       <p class="body">You are about to have a conversation with your group. I am not going to tell you what about — and that is deliberate.</p>
-      <span class="short">[link corto]</span>
       <p class="tiny">This is not attendance. Attendance is the app, and we already did it.</p>
     </div>
   </div>
@@ -1020,7 +1014,6 @@
     <div class="qrbox" data-qr="q9">PEGAR QR 9<br>después</div>
     <div class="stack">
       <p class="body">Four answers about what just happened.</p>
-      <span class="short">[link corto]</span>
     </div>
   </div>
 </section>
@@ -1123,7 +1116,6 @@
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Last thing today: <b>one thing you are going to do differently tomorrow</b>, because of something that happened in this room. One line.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q10">QR 10</div>
-          <span class="short" style="font-size:clamp(12px,1.3vw,18px);padding:4px 9px">[link corto]</span>
         </div>
       </div>
     <p class="body">I will read all of them tonight, and some of them will be on screen at half past eight.</p>
@@ -1366,36 +1358,11 @@
 
   /* ============================================================
      DATOS EN VIVO
-     Pega aquí la URL CSV de cada hoja de respuestas.
-     Google Sheets: Archivo > Compartir > Publicar en la web >
-     elige la hoja > formato CSV > copia la URL.
-     Deja '' para que la slide use el modo manual del panel D.
-     OJO: el fetch NO funciona en la vista previa de claude.ai
-     (CSP). Funciona al desplegar en GitHub Pages.
+     Pega la URL del Web App de Apps Script, la que acaba en /exec.
+     La misma que en f/form.js. Vacío = las slides quedan en modo manual.
      ============================================================ */
-  var LIVE = {
-    companies: '',   // QR 1 · dónde te gustaría trabajar
-    timing:    '',   // QR 1 · cuánto tiempo se tarda
-    stories:   '',   // QR 3 · nombres / idea / conflicto
-    asymmetry: ''    // QR 7 · cuatro números
-  };
+  var ENDPOINT = '';
   var POLL_MS = 8000;
-
-  function parseCSV(t) {
-    var rows = [], row = [], f = '', q = false;
-    for (var k = 0; k < t.length; k++) {
-      var c = t[k];
-      if (q) {
-        if (c === '"') { if (t[k+1] === '"') { f += '"'; k++; } else q = false; }
-        else f += c;
-      } else if (c === '"') q = true;
-      else if (c === ',') { row.push(f); f = ''; }
-      else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; }
-      else if (c !== '\r') f += c;
-    }
-    if (f !== '' || row.length) { row.push(f); rows.push(row); }
-    return rows.filter(function (r) { return r.some(function (x) { return x.trim(); }); });
-  }
 
   var liveCache = {};
   function setLive(state) {
@@ -1406,11 +1373,14 @@
     el.textContent = state === 'err' ? '● sin datos' : '● en vivo';
   }
   function pull(slot) {
-    var url = LIVE[slot];
-    if (!url) return Promise.resolve(null);
+    if (!ENDPOINT) return Promise.resolve(null);
+    var url = ENDPOINT + (ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 'slot=' + slot + '&t=' + Date.now();
     return fetch(url, { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw 0; return r.text(); })
-      .then(function (t) { liveCache[slot] = parseCSV(t); setLive('on'); return liveCache[slot]; })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        if (!d || !d.rows) throw 0;
+        liveCache[slot] = d.rows; setLive('on'); return d.rows;
+      })
       .catch(function () { setLive('err'); return liveCache[slot] || null; });
   }
 
@@ -1499,28 +1469,29 @@
   }
 
   var LIVEMAP = {
-    'Dónde te gustaría': [['companies', liveCompanies], ['timing', liveTiming]],
-    'TIP 3a':            [['timing', liveTiming]],
-    'TIP 2':             [['stories', liveStories]],
-    'La asimetría':      [['asymmetry', liveAsymmetry]]
+    'Dónde te gustaría': { slot: 'q1', render: [liveCompanies, liveTiming] },
+    'TIP 3a':            { slot: 'q1', render: [liveTiming] },
+    'TIP 2':             { slot: 'q3', render: [liveStories] },
+    'La asimetría':      { slot: 'q7', render: [liveAsymmetry] }
   };
   var poller = null;
   function syncLive() {
     if (poller) { clearInterval(poller); poller = null; }
-    var b = slides[i].getAttribute('data-b');
-    var jobs = LIVEMAP[b] || [];
-    var active = jobs.filter(function (j) { return LIVE[j[0]]; });
-    if (!active.length) { setLive(false); return; }
-    var run = function () { active.forEach(function (j) { pull(j[0]).then(function (rows) { if (rows) j[1](rows); }); }); };
+    var job = LIVEMAP[slides[i].getAttribute('data-b')];
+    if (!job || !ENDPOINT) { setLive(false); return; }
+    var run = function () {
+      pull(job.slot).then(function (rows) {
+        if (!rows) return;
+        job.render.forEach(function (fn) { try { fn(rows); } catch (e) {} });
+      });
+    };
     run();
     poller = setInterval(run, POLL_MS);
   }
 
-
   /* ============================================================
      ENLACES DE LOS FORMULARIOS
-     Pega la URL de cada formulario. El QR se dibuja solo.
-     Vacío = se queda el marcador en pantalla.
+     Los QR se dibujan solos a partir de estas URLs.
      ============================================================ */
   var QRBASE = 'https://helenamontoyacalero.com/presentations-class/f/';
   var QRS = {
@@ -1668,7 +1639,6 @@ var QR = (function () {
   }
   return { encode: encode };
 })();
-
 
   function paintQRs() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-qr]'), function (box) {
