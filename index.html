@@ -1,3 +1,25 @@
+  function syncLive() {
+    if (poller) { clearInterval(poller); poller = null; }
+    var job = LIVEMAP[slides[i].getAttribute('data-b')];
+    if (!job || !ENDPOINT) { setLive(false); return; }
+    var run = function () {
+      if (job.slots) {
+        Promise.all(job.slots.map(pull)).then(function (all) {
+          if (!all[0] && !all[1]) return;
+          if (job.render && all[0]) job.render.forEach(function (fn) { try { fn(all[0]); } catch (e) {} });
+          if (job.render2 && all[0] && all[1]) { try { job.render2(all[0], all[1]); } catch (e) {} }
+        });
+        return;
+      }
+      var slot = typeof job.slot === 'function' ? job.slot() : job.slot;
+      pull(slot).then(function (rows) {
+        if (!rows) return;
+        job.render.forEach(function (fn) { try { fn(rows); } catch (e) {} });
+      });
+    };
+    run();
+    poller = setInterval(run, POLL_MS);
+  }
 <title>Viernes · Persuasive Presentations 20941</title>
 
 <style>
@@ -183,6 +205,22 @@
   :root[data-theme="dark"] .att { color: #16181C; }
   @media (prefers-color-scheme: dark) { .att { color: #16181C; } }
   :root[data-theme="light"] .att { color: #FFF; }
+
+  /* nube de palabras */
+  .cloud { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: center; padding: 8px 0; }
+  .cloud span { line-height: 1.05; color: var(--ink-soft); }
+  .cloud span b { color: var(--blue); font-weight: 700; }
+  /* recuento A/B */
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,2vw,30px); }
+  .ab div { border: 1px solid var(--rule); background: var(--card); padding: clamp(10px,1.4vw,20px); text-align: center; }
+  .ab .n { font-family: var(--mono); font-size: clamp(30px,6vw,84px); font-weight: 700; line-height: 1; color: var(--blue); }
+  .ab .l { font-size: clamp(12px,1.2vw,17px); color: var(--ink-soft); margin-top: 6px; }
+  .ab div.win { border-color: var(--blue); background: var(--blue-bg); }
+  /* citas */
+  .quotes { display: flex; flex-direction: column; gap: clamp(8px,1.2vh,16px); }
+  .quotes q { display: block; font-family: var(--serif); font-size: clamp(15px,1.9vw,28px); line-height: 1.2;
+    border-left: 4px solid var(--ochre); padding-left: clamp(10px,1.4vw,20px); quotes: none; }
+  .quotes q::before, .quotes q::after { content: ''; }
 
   /* heatmap */
   .heat { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 3px; }
@@ -557,7 +595,7 @@
 
 <section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="Lee tres o cuatro palabras en voz alta y no las comentes. Y la frase: «esto es, palabra por palabra, el temario de hoy, y no lo escribí yo». NO quites la nube: se usa otra vez en ocho minutos, en TIP 1.">
   <div class="kicker do">Why this room stops listening</div>
-  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:38vh;">Your words</div>
+  <div class="qrbox" id="cloud" style="width:100%;aspect-ratio:auto;min-height:34vh;">Your words</div>
   <h3>This is today's syllabus. And I did not write it.</h3>
 </section>
 
@@ -759,6 +797,12 @@
   </div>
 </section>
 
+<section data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="El remate: casi seguro han elegido numeros distintos, y los dos son defendibles. Esa es la leccion, no cual acertó. Lee dos en voz alta y pregunta a la sala cual habria elegido.">
+  <div class="kicker do">Same chart. Different numbers.</div>
+  <div class="quotes" id="chartpairs"></div>
+  <h3>You picked different numbers, and both are defensible. Which means deciding <em>which number to show</em> is the presentation, not a formatting detail.</h3>
+</section>
+
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3b" data-notes="La pregunta de la slide es literalmente la de ellos. Dos respuestas concretas: abrir y cerrar preguntando por qué, y cuidar el timing. Y el punto que se les escapa: desbalancear DAÑA la credibilidad, más emoción no es mejor.">
   <div class="kicker">Tip 3b · balance analytical and emotional appeal</div>
   <h2>Finance demands analytical appeal. So how much emotion can you use?</h2>
@@ -804,6 +848,7 @@
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3b" data-notes="ESTE es el remate y es el más importante de TIP 3b para esta clase concreta. Una clase de finanzas desconfía del pathos porque lo lee como manipulación, y tienen razón en desconfiar. La versión B no añade ni un dato que no esté en A: añade una persona y algo en juego. Eso es lo que hace que el pathos sea honesto. · Y ahí dices el diagnóstico del curso en voz alta: mañana van a producir versiones A impecables sin pensarlo, porque es su idioma.">
   <h1>Version B adds no evidence that version A did not already contain.</h1>
   <p class="lead">I invented a person and a morning, <b>and I told you she was invented</b>. I did not invent a finding.</p>
+  <div class="ab" id="abvote"></div>
   <div class="panel rule">
     <p class="body" style="max-width:62ch">That is the difference between pathos and manipulation, and it is why you are right to be suspicious of the second one. <b>You are allowed to make someone feel something. You are not allowed to invent the evidence.</b></p>
   </div>
@@ -854,6 +899,12 @@
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q6">Scan</div>
         </div>
       </div>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="Lee dos o tres en voz alta. Las que son una frase de verdad se distinguen a la primera de las que son dos frases pegadas con una coma. Ese contraste es todo el ejercicio.">
+  <div class="kicker do">One sentence each</div>
+  <div class="quotes" id="sentences"></div>
+  <h3>Some of these are one sentence. Some are two sentences wearing a comma.</h3>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Reagan" data-notes="Pon el audio real, 4 min. Ninguno lo ha oído. Después, cada frase: ¿para cuál de las cinco audiencias era? Esto enseña segmentación, que no aparece en ningún otro sitio del deck.">
@@ -971,7 +1022,7 @@
 
 <section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Proyecta las medias en vivo de las preguntas 3 y 4. Sale real ~2 contra deseada ~6, la brecha de Epley. Nómbrala como fallo de coordinación: todos quieren más profundidad y nadie empieza.">
   <div class="kicker do">Your own data, ninety seconds old</div>
-  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:30vh;"></div>
+  <div class="qrbox" id="depthgap" style="width:100%;aspect-ratio:auto;min-height:26vh;">Your two numbers</div>
   <h2>Almost everyone here would prefer a deeper conversation than the one they are about to have. And almost nobody was going to start it.</h2>
 </section>
 
@@ -1034,6 +1085,12 @@
       <p class="body">Four answers about what just happened.</p>
     </div>
   </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="AQUI esta el dato del dia. Las dos primeras cifras son lo que PREDIJERON hace quince minutos; las dos siguientes, lo que paso. Deja tres segundos entre unas y otras. · Y despues lee dos o tres de las cosas que dijeron que iban a recordar: eso es el pathos, en su propia voz.">
+  <div class="kicker">You predicted this fifteen minutes ago</div>
+  <div class="figs" id="nstnumbers"></div>
+  <div class="quotes" id="nstquotes"></div>
 </section>
 
 <section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Los dos estudios. Epley: sesenta ejecutivos en una conferencia financiera predijeron que sería insoportable. Aron 1997: lo único que predijo cercanía fue la profundidad, no los intereses compartidos.">
@@ -1146,7 +1203,10 @@
           <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q10">Scan</div>
         </div>
       </div>
-    <p class="body">I will read all of them tonight, and some of them will be on screen at half past eight.</p>
+    <div class="stack">
+      <p class="body">I will read all of them tonight, and some of them will be on screen at half past eight.</p>
+      <div class="quotes" id="commits"></div>
+    </div>
   </div>
 </section>
 
@@ -1436,6 +1496,96 @@
       });
   }
 
+
+  /* ===== utilidades de render ===== */
+  function colOf(rows, name) {
+    var h = rows[0] || [];
+    for (var k = 0; k < h.length; k++) if (String(h[k]).toLowerCase() === name) return k;
+    return -1;
+  }
+  function colVals(rows, name) {
+    var c = colOf(rows, name);
+    if (c < 0) return [];
+    return rows.slice(1).map(function (r) { return String(r[c] || '').trim(); }).filter(Boolean);
+  }
+  function meanOf(rows, name) {
+    var v = colVals(rows, name).map(function (x) { return parseFloat(String(x).replace(',', '.')); })
+             .filter(function (n) { return !isNaN(n); });
+    return v.length ? (v.reduce(function (a, b) { return a + b; }, 0) / v.length) : null;
+  }
+  function pickN(arr, n) {
+    var a = arr.slice(), out = [];
+    while (a.length && out.length < n) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+    return out;
+  }
+  function plain(box) { if (box) { box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent'; box.style.minHeight = '0'; } }
+
+  function renderCloud(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (w) {
+      w = w.toLowerCase().replace(/[^a-zá-úñ0-9 -]/gi, '').trim();
+      if (w.length > 1) tally[w] = (tally[w] || 0) + 1;
+    });
+    var ks = Object.keys(tally);
+    if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort(function (a, b) { return tally[b] - tally[a]; });
+    plain(box); box.className = 'cloud';
+    box.innerHTML = ks.slice(0, 40).map(function (k) {
+      var sz = 15 + Math.round((tally[k] / max) * 40);
+      var strong = tally[k] >= max * 0.6;
+      return '<span style="font-size:' + sz + 'px">' + (strong ? '<b>' + k + '</b>' : k) + '</span>';
+    }).join('');
+  }
+
+  function renderQuotes(id, rows, col, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var v = colVals(rows, col); if (!v.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(v, n).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+  }
+
+  function renderPairs(id, rows, a, bcol, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var ca = colOf(rows, a), cb = colOf(rows, bcol);
+    if (ca < 0) return;
+    var items = rows.slice(1).map(function (r) {
+      return { a: String(r[ca] || '').trim(), b: cb >= 0 ? String(r[cb] || '').trim() : '' };
+    }).filter(function (x) { return x.a; });
+    if (!items.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(items, n).map(function (x) {
+      return '<q><b>' + x.a + '</b>' + (x.b ? ' <span style="font-size:.72em;color:var(--ink-soft)">vs ' + x.b + '</span>' : '') + '</q>';
+    }).join('');
+  }
+
+  function renderAB(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (v) { tally[v] = (tally[v] || 0) + 1; });
+    var ks = Object.keys(tally); if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort();
+    box.innerHTML = ks.map(function (k) {
+      return '<div class="' + (tally[k] === max ? 'win' : '') + '"><div class="n">' + tally[k]
+           + '</div><div class="l">' + k + '</div></div>';
+    }).join('');
+  }
+
+  function renderMeans(id, rows, specs) {
+    var box = document.getElementById(id); if (!box) return;
+    var cells = [];
+    specs.forEach(function (sp) {
+      var m = meanOf(rows, sp[0]);
+      if (m !== null) cells.push('<div class="fig"><div class="n">' + m.toFixed(1)
+        + '</div><div class="l">' + sp[1] + '</div></div>');
+    });
+    if (!cells.length) return;
+    plain(box); box.className = 'figs';
+    box.innerHTML = cells.join('');
+  }
+
   /* si no se puede leer, decirlo en la caja en vez de dejarla en blanco */
   function markUnreachable() {
     var cur = slides[i];
@@ -1535,12 +1685,42 @@
   }
 
   function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
+
+  function liveWords(rows)   { renderCloud('cloud', rows, 'word'); }
+  function liveChart(rows)   { renderPairs('chartpairs', rows, 'number', 'against', 4); }
+  function liveVersion(rows) { renderAB('abvote', rows, 'version'); }
+  function liveSentence(rows){ renderQuotes('sentences', rows, 'sentence', 3); }
+  function liveDepth(rows)   { renderMeans('depthgap', rows,
+                                 [['depth_real','how deep they are now'], ['depth_want','how deep you want them']]); }
+  function liveCommit(rows)  { renderQuotes('commits', rows, 'commit', 3); }
+  function liveNST(before, after) {
+    var cells = [];
+    var p = meanOf(before, 'awk_pred'), r = meanOf(after, 'awk_real');
+    var pc = meanOf(before, 'ok_pred'),  rc = meanOf(after, 'ok_real');
+    if (p !== null) cells.push(['#8A93A2', p, 'awkward, predicted']);
+    if (r !== null) cells.push(['', r, 'awkward, actual']);
+    if (pc !== null) cells.push(['#8A93A2', pc, 'comfortable, predicted']);
+    if (rc !== null) cells.push(['', rc, 'comfortable, actual']);
+    var box = document.getElementById('nstnumbers');
+    if (box && cells.length) box.innerHTML = cells.map(function (c) {
+      return '<div class="fig"><div class="n"' + (c[0] ? ' style="color:' + c[0] + '"' : '')
+           + '>' + c[1].toFixed(1) + '</div><div class="l">' + c[2] + '</div></div>';
+    }).join('');
+    renderQuotes('nstquotes', after, 'remember', 2);
+  }
+
   var LIVEMAP = {
     'Dónde acaban':  { slot: slotQ1, render: [liveCompanies, liveTiming] },
     'Lo que falta':  { slot: slotQ1, render: [liveCompanies, liveTiming] },
-    'TIP 3a':        { slot: slotQ1, render: [liveTiming] },
+    'Cementerio':    { slot: 'q2',   render: [liveWords] },
     'TIP 2':         { slot: 'q3',   render: [liveStories] },
-    'La asimetría':  { slot: 'q7',   render: [liveAsymmetry] }
+    'TIP 3a':        { slot: slotQ1, render: [liveTiming] },
+    'Gráfico':       { slot: 'q4',   render: [liveChart] },
+    'TIP 3b':        { slot: 'q5',   render: [liveVersion] },
+    'TIP 4':         { slot: 'q6',   render: [liveSentence] },
+    'La asimetría':  { slot: 'q7',   render: [liveAsymmetry] },
+    'No Small Talk': { slots: ['q8', 'q9'], render2: liveNST, render: [liveDepth] },
+    'Cierre':        { slot: 'q10',  render: [liveCommit] }
   };
   var poller = null;
   function syncLive() {
