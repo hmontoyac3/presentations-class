@@ -1681,7 +1681,11 @@ var QR = (function () {
         box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent';
         box.appendChild(cv);
         box.setAttribute('data-done', url);
-      } catch (e) { /* deja el marcador */ }
+      } catch (e) {
+        box.innerHTML = '<span style="font-family:var(--mono);font-size:11px;line-height:1.4;'
+          + 'word-break:break-all;color:var(--ink)">' + url + '</span>';
+        box.setAttribute('data-done', url);
+      }
     });
   }
 
