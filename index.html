@@ -66,12 +66,6 @@
   #bar .sesion { flex: 6; }
   #bar .pausa { flex: 2; background: transparent; border-bottom-color: transparent; color: var(--ink-faint); font-size: 9px; }
   #bar .seg.on { background: var(--blue-bg); color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
-  #bar .now {
-    position: absolute; right: 12px; top: 11px;
-    font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
-    letter-spacing: 0.06em; text-transform: uppercase;
-    background: var(--paper); padding-left: 10px;
-  }
 
   /* ============ part strip ============ */
   #strip {
@@ -356,7 +350,6 @@
   <div class="seg sesion" data-s="2">S2 <span class="fin">14.45–16.15</span><span class="afm">15.45–17.15</span></div>
   <div class="seg pausa"><span class="fin">16.15</span><span class="afm">17.15</span></div>
   <div class="seg sesion" data-s="3">S3 <span class="fin">16.30–18.00</span><span class="afm">17.30–19.00</span></div>
-  <div class="now" id="nowlbl"></div>
 </div>
 
 <div id="strip"></div>
@@ -1196,7 +1189,8 @@
     var cur = slides[i];
     var s = cur.getAttribute('data-s');
     segs.forEach(function (g) { g.classList.toggle('on', g.getAttribute('data-s') === s); });
-    document.getElementById('nowlbl').textContent = cur.getAttribute('data-b') || '';
+    var nl = document.getElementById('nowlbl');
+    if (nl) nl.textContent = cur.getAttribute('data-b') || '';
     var part = cur.getAttribute('data-part') || '1';
     document.body.setAttribute('data-part', part);
     var PARTS = { '1': 'Why you are here', '2': 'How it actually works', '3': 'Your turn' };
@@ -1225,6 +1219,10 @@
     }
   }
   window.addEventListener('resize', function () { fitSlide(); });
+  window.addEventListener('hashchange', function () {
+    var n = parseInt((location.hash || '').slice(1), 10);
+    if (!isNaN(n) && n - 1 !== i) go(n - 1);
+  });
 
   document.addEventListener('keydown', function (e) {
     if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
