@@ -1208,8 +1208,23 @@
     if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
     if (typeof syncLive === 'function') syncLive();
+    if (typeof fitSlide === 'function') fitSlide();
   }
   function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+
+  /* ajusta la slide viva para que nunca se corte, sea cual sea el proyector */
+  function fitSlide() {
+    var s = slides[i];
+    if (!s) return;
+    s.style.zoom = '';
+    for (var pass = 0; pass < 3; pass++) {
+      var over = s.scrollHeight - s.clientHeight;
+      if (over <= 2) break;
+      var z = parseFloat(s.style.zoom || 1);
+      s.style.zoom = String(Math.max(0.55, z * (s.clientHeight / s.scrollHeight) * 0.985));
+    }
+  }
+  window.addEventListener('resize', function () { fitSlide(); });
 
   document.addEventListener('keydown', function (e) {
     if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
