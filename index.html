@@ -1523,10 +1523,11 @@
 
   function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
   var LIVEMAP = {
-    'Dónde te gustaría': { slot: slotQ1, render: [liveCompanies, liveTiming] },
-    'TIP 3a':            { slot: slotQ1, render: [liveTiming] },
-    'TIP 2':             { slot: 'q3', render: [liveStories] },
-    'La asimetría':      { slot: 'q7', render: [liveAsymmetry] }
+    'Dónde acaban':  { slot: slotQ1, render: [liveCompanies, liveTiming] },
+    'Lo que falta':  { slot: slotQ1, render: [liveCompanies, liveTiming] },
+    'TIP 3a':        { slot: slotQ1, render: [liveTiming] },
+    'TIP 2':         { slot: 'q3',   render: [liveStories] },
+    'La asimetría':  { slot: 'q7',   render: [liveAsymmetry] }
   };
   var poller = null;
   function syncLive() {
