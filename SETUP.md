@@ -31,6 +31,12 @@ Dos cosas que conviene saber:
 
 Es la misma URL en los dos.
 
+### Si actualizas el código del script más adelante
+
+**Implementar → Gestionar implementaciones → el lápiz de editar → Versión: «Nueva versión» → Implementar.**
+
+No uses «Nueva implementación»: eso genera una URL distinta y habría que volver a pegarla en los dos archivos.
+
 ## 3. Ya está
 
 No hay que publicar hojas, ni crear pestañas, ni escribir fórmulas. El script crea una pestaña por formulario la primera vez que alguien envía algo, y añade columnas si más adelante añades campos.
@@ -55,6 +61,14 @@ El resto de las capturas se guardan igual, solo que su reveal no está automatiz
 ## Privacidad
 
 El `GET` **nunca devuelve correos**: se filtran en el servidor, en la constante `PRIVATE` del script. Así que aunque alguien adivine la URL con `?slot=q3`, no saca identidades.
+
+## Rendimiento
+
+Medido con envíos simultáneos reales: la primera versión serializaba cada escritura con un lock y **15 envíos a la vez tardaban 22 segundos**, el último esperando los 22. Con 80 estudiantes eso habría fallado.
+
+La versión actual solo bloquea la primera escritura de cada formulario, la que crea la cabecera. El resto es una sola llamada de escritura sin lock. Un envío suelto tarda unos 2 segundos, que es lo normal en Apps Script.
+
+Si alguna vez cambias los campos de un formulario, ejecuta `limpiarCache()` a mano desde el editor para que vuelva a leer la cabecera.
 
 ## Antes del 11 de septiembre
 
