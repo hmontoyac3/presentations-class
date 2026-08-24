@@ -29,6 +29,11 @@
 <fieldset><h2>Which is THE number?</h2><input type="text" name="number" maxlength="120" data-count="c_number" placeholder="" data-required><div class="count" id="c_number"></div></fieldset><fieldset><h2>What do you compare it against?</h2><textarea name="against" maxlength="160" data-count="c_against" placeholder="" data-required></textarea><div class="count" id="c_against"></div></fieldset>
 <button class="send" type="submit">Send</button>
 <div class="err">Could not send. Check your connection and try again.</div>
+<div class="unwired-msg">
+  <strong>Nothing was saved.</strong>
+  <span>This form has no backend yet: <code>ENDPOINT</code> is empty in <code>f/form.js</code>. Set it up and the send will work — see <code>SETUP.md</code>.</span>
+</div>
+
 <p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
 </form>
 <div class="done"><div class="tick">✓</div><h2>Got it.</h2><p>You can close this and put the phone down.</p></div>

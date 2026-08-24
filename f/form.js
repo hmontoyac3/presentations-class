@@ -81,11 +81,10 @@ var ENDPOINT = '';
     send.textContent = 'Sending…';
     var payload = collect();
     if (!ENDPOINT) {
-      try {
-        var mm = location.pathname.match(/([^\/]+)\.html$/);
-        if (mm) localStorage.setItem('bsk_done_' + mm[1], String(Date.now()));
-      } catch (e) {}
-      document.body.classList.add('sent'); return;
+      document.body.classList.add('unwired');
+      send.disabled = false;
+      send.textContent = 'Send';
+      return;
     }
     fetch(ENDPOINT, {
       method: 'POST',

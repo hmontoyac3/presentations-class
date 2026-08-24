@@ -50,3 +50,10 @@ html.answered .form,html.answered .done{display:none!important}
 html.answered .already{display:flex}
 html.answered h1{color:var(--faint)}
 .already a.opt{text-decoration:none;color:var(--ink)}
+
+/* ---- sin endpoint configurado: aviso honesto, no un falso ✓ ---- */
+.unwired-msg{display:none;border-left:5px solid #B3261E;background:var(--card);padding:13px 16px;
+flex-direction:column;gap:6px}
+body.unwired .unwired-msg{display:flex}
+.unwired-msg strong{color:#B3261E}
+.unwired-msg code{font-family:var(--mono);font-size:12px;background:var(--paper);padding:1px 5px}
