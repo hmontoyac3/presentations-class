@@ -3,7 +3,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Which version moved you? · 20941</title>
-<link rel="stylesheet" href="style.css"></head>
+<link rel="stylesheet" href="style.css">
+<script>
+/* guarda por dispositivo: si ya se envió, no se vuelve a mostrar el formulario */
+(function () {
+  try {
+    var m = location.pathname.match(/([^\/]+)\.html$/);
+    var slot = m ? m[1] : '';
+    if (/[?&]reset\b/.test(location.search)) {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('bsk_done_') === 0) localStorage.removeItem(k); });
+      return;
+    }
+    if (slot && localStorage.getItem('bsk_done_' + slot)) {
+      document.documentElement.className += ' answered';
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
 <body><div class="wrap">
 <div class="eyebrow">Persuasive Presentations · 20941</div>
 <h1>Which version moved you?</h1>
@@ -15,4 +32,10 @@
 <p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
 </form>
 <div class="done"><div class="tick">✓</div><h2>Got it.</h2><p>You can close this and put the phone down.</p></div>
+<div class="already">
+  <div class="tick">✓</div>
+  <h2>You already answered this one.</h2>
+  <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
+  <a class="opt" href="./">Back to the list</a>
+</div>
 </div><script src="form.js"></script></body></html>

@@ -14,6 +14,16 @@
 - [ ] El clip de Rosling abierto en otra pestaña
 - [ ] `ENDPOINT` en `f/form.js` y en `index.html`, si quieres datos en vivo
 
+## Al probar los formularios tú misma
+
+Cada envío deja marcado ese formulario **en ese teléfono**, y al volver muestra «you already answered this one» en vez del formulario. Para desbloquearlos todos:
+
+`.../presentations-class/f/?reset`
+
+O el botón que aparece abajo del índice cuando hay alguno respondido. Hazlo antes del viernes o llegarás con tus propias pruebas marcadas.
+
+Es una guarda por dispositivo, no un candado: borrando datos del sitio o en incógnito se salta. Sirve para evitar envíos dobles y para que el índice quede limpio.
+
 ## Material físico
 
 - [ ] Una hoja A4 por trío para el sprint de ideas

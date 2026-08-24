@@ -80,13 +80,23 @@ var ENDPOINT = '';
     send.disabled = true;
     send.textContent = 'Sending…';
     var payload = collect();
-    if (!ENDPOINT) { document.body.classList.add('sent'); return; }
+    if (!ENDPOINT) {
+      try {
+        var mm = location.pathname.match(/([^\/]+)\.html$/);
+        if (mm) localStorage.setItem('bsk_done_' + mm[1], String(Date.now()));
+      } catch (e) {}
+      document.body.classList.add('sent'); return;
+    }
     fetch(ENDPOINT, {
       method: 'POST',
       /* text/plain evita el preflight, que Apps Script no responde */
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     }).then(function () {
+      try {
+        var m = location.pathname.match(/([^\/]+)\.html$/);
+        if (m) localStorage.setItem('bsk_done_' + m[1], String(Date.now()));
+      } catch (e) {}
       document.body.classList.add('sent');
     }).catch(function () {
       document.body.classList.add('failed');

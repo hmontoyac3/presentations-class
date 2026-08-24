@@ -43,3 +43,10 @@ body.sent .done{display:flex}
 .tick{font-size:44px;line-height:1;color:var(--ok)}
 .err{color:#B3261E;font-size:14px;display:none}
 body.failed .err{display:block}
+
+/* ---- ya respondido ---- */
+.already{display:none;flex-direction:column;gap:14px;align-items:flex-start}
+html.answered .form,html.answered .done{display:none!important}
+html.answered .already{display:flex}
+html.answered h1{color:var(--faint)}
+.already a.opt{text-decoration:none;color:var(--ink)}

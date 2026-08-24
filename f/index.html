@@ -10,6 +10,12 @@ a.opt b{font-family:var(--mono);font-size:12px;color:var(--blue);min-width:30px}
 a.opt span{color:var(--ink)}
 .day{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);
 border-bottom:1px solid var(--rule);padding-bottom:6px}
+a.opt.done{opacity:.45;pointer-events:none}
+a.opt.done b::after{content:" ✓";color:var(--ok)}
+a.opt.done span::after{content:" — answered";font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em}
+#resetbar{margin-top:6px}
+#resetbar button{font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+background:transparent;color:var(--faint);border:1px solid var(--rule);padding:6px 10px;cursor:pointer}
 </style></head>
 <body><div class="wrap">
 <div class="eyebrow">Behavioural Skills Seminar · 20941</div>
@@ -43,4 +49,25 @@ border-bottom:1px solid var(--rule);padding-bottom:6px}
 </div></fieldset>
 
 <p class="note">Answers go to your instructor. Anything shared with your group is anonymised.</p>
+<div id="resetbar"></div>
+<script>
+(function () {
+  try {
+    if (/[?&]reset\b/.test(location.search)) {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('bsk_done_') === 0) localStorage.removeItem(k); });
+      history.replaceState(null, '', location.pathname);
+    }
+    var done = 0;
+    document.querySelectorAll('a.opt[href$=".html"]').forEach(function (a) {
+      var m = a.getAttribute('href').match(/([^\/]+)\.html$/);
+      if (m && localStorage.getItem('bsk_done_' + m[1])) { a.className += ' done'; done++; }
+    });
+    if (done) {
+      var bar = document.getElementById('resetbar');
+      bar.innerHTML = '<button type="button">Clear the ' + done + ' answered on this phone</button>';
+      bar.firstChild.onclick = function () { location.search = '?reset'; };
+    }
+  } catch (e) {}
+})();
+</script>
 </div></body></html>
