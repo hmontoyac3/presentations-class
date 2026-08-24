@@ -1444,7 +1444,7 @@
     var tally = {};
     rows.slice(1).forEach(function (r) {
       r.forEach(function (cell) {
-        String(cell).split(/[;,]/).forEach(function (x) {
+        String(cell).split(/[|;,]/).forEach(function (x) {
           x = x.trim();
           if (x.length > 1 && !SKIP.test(x)) tally[x] = (tally[x] || 0) + 1;
         });
