@@ -489,7 +489,7 @@
   <div class="kicker">That list has a shape</div>
   <h2>Most of what you voted for is on it. Somebody who sat where you are sitting is already there.</h2>
   <div class="panel fin" style="padding:14px 18px">
-    <p class="body" style="max-width:64ch">It is investment banking, the Big Four and strategy consulting — and almost nothing else. <b>Private equity and hedge funds are not among the top recruiters.</b> No Blackstone, no KKR, no Apollo, no Citadel.</p>
+    <p class="body" style="max-width:64ch">It is investment banking, the Big Four and strategy consulting — and almost nothing else. <b>The buy side is barely there:</b> no Blackstone, no KKR, no Apollo in private equity, and no hedge fund at all.</p>
   </div>
   <div class="panel afm" style="padding:14px 18px">
     <p class="body" style="max-width:64ch">It is corporates, the Big Four, European banks and the ECB. <b>Goldman Sachs, J.P. Morgan and Morgan Stanley are not among the top recruiters of your programme</b> — they are of the Finance one.</p>
@@ -1196,7 +1196,7 @@
     var PARTS = { '1': 'Why you are here', '2': 'How it actually works', '3': 'Your turn' };
     document.getElementById('strip').innerHTML =
       'Part ' + part + '<span class="dot">/</span><b>' + PARTS[part] + '</b>' +
-      '<span class="dot">/</span>' + (cur.getAttribute('data-b') || '');
+      (TEACH ? '<span class="dot">/</span>' + (cur.getAttribute('data-b') || '') : '');
     document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
     var nbody = document.getElementById('notes-body');
     if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
