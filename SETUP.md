@@ -11,6 +11,17 @@ Una sola cosa que montar, y sirve para las dos.
    - Quién tiene acceso: **cualquier usuario**
 4. Copia la URL que acaba en `/exec`.
 
+### La pantalla de «Google hasn't verified this app»
+
+Sale siempre, y no es un error. Es tu propio script pidiéndote permiso a ti, y Google marca como no verificada cualquier app que no haya pasado su revisión para distribución a terceros.
+
+**Advanced** → **Go to [nombre] (unsafe)** → **Allow**.
+
+Dos cosas que conviene saber:
+
+- **Tus estudiantes no la ven nunca.** Con «ejecutar como: yo» y «acceso: cualquier usuario», ellos solo mandan datos a una URL: sin cuenta de Google, sin iniciar sesión, sin autorizar nada.
+- **Puedes reducir el permiso que pide.** En el editor: engranaje de *Configuración del proyecto* → marca **Mostrar archivo de manifiesto appsscript.json** → abre ese archivo y pega el contenido de `appsscript.json` de este repo. Eso limita el script a la hoja a la que está pegado, en vez de a todas tus hojas. Hazlo antes de desplegar.
+
 ## 2. Pega esa URL en dos sitios
 
 | Archivo | Variable | Para qué |

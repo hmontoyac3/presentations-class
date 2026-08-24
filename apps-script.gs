@@ -5,6 +5,16 @@
  *   POST  → guarda una respuesta en la pestaña de su formulario
  *   GET   → devuelve las respuestas de un formulario, para el deck
  *
+ * PERMISOS: en el editor, engranaje de Configuración del proyecto >
+ * marca "Mostrar archivo de manifiesto appsscript.json", abre ese
+ * archivo y pega el contenido de appsscript.json de este repo. Limita
+ * el permiso a la hoja a la que está pegado el script y nada más.
+ *
+ * LA PANTALLA DE "GOOGLE HASN'T VERIFIED THIS APP" es normal: es tu
+ * propio script pidiéndote permiso. Advanced > Go to ... (unsafe) >
+ * Allow. Tus estudiantes NUNCA la ven: ellos solo mandan datos a una
+ * URL, sin cuenta y sin autorizar nada.
+ *
  * MONTAJE, una vez:
  *  1. Hoja de cálculo nueva en Google Sheets.
  *  2. Extensiones > Apps Script. Borra todo y pega esto.
