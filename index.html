@@ -1661,6 +1661,179 @@
     if (storyRows.length >= 2) renderTwoStories();
   }
 
+  function liveAsymmetry(rows) {
+    renderMeans('asymbox', rows, [
+      ['pause_self',  'the pause, from inside'],
+      ['pause_other', 'how confident they looked'],
+      ['eyes_self',   'eye contact, from inside'],
+      ['eyes_other',  'how confident they looked']
+    ]);
+  }
+
+  /* ===== utilidades de render ===== */
+  function colOf(rows, name) {
+    var h = rows[0] || [];
+    for (var k = 0; k < h.length; k++) if (String(h[k]).toLowerCase() === name) return k;
+    return -1;
+  }
+  function colVals(rows, name) {
+    var c = colOf(rows, name);
+    if (c < 0) return [];
+    return rows.slice(1).map(function (r) { return String(r[c] || '').trim(); }).filter(Boolean);
+  }
+  function meanOf(rows, name) {
+    var v = colVals(rows, name).map(function (x) { return parseFloat(String(x).replace(',', '.')); })
+             .filter(function (n) { return !isNaN(n); });
+    return v.length ? (v.reduce(function (a, b) { return a + b; }, 0) / v.length) : null;
+  }
+  function pickN(arr, n) {
+    var a = arr.slice(), out = [];
+    while (a.length && out.length < n) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+    return out;
+  }
+  function plain(box) { if (box) { box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent'; box.style.minHeight = '0'; } }
+
+  function renderCloud(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (w) {
+      w = w.toLowerCase().replace(/[^a-zá-úñ0-9 -]/gi, '').trim();
+      if (w.length > 1) tally[w] = (tally[w] || 0) + 1;
+    });
+    var ks = Object.keys(tally);
+    if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort(function (a, b) { return tally[b] - tally[a]; });
+    plain(box); box.className = 'cloud';
+    box.innerHTML = ks.slice(0, 40).map(function (k) {
+      var sz = 15 + Math.round((tally[k] / max) * 40);
+      var strong = tally[k] >= max * 0.6;
+      return '<span style="font-size:' + sz + 'px">' + (strong ? '<b>' + k + '</b>' : k) + '</span>';
+    }).join('');
+  }
+
+  function renderQuotes(id, rows, col, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var v = colVals(rows, col); if (!v.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(v, n).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+  }
+
+  function renderPairs(id, rows, a, bcol, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var ca = colOf(rows, a), cb = colOf(rows, bcol);
+    if (ca < 0) return;
+    var items = rows.slice(1).map(function (r) {
+      return { a: String(r[ca] || '').trim(), b: cb >= 0 ? String(r[cb] || '').trim() : '' };
+    }).filter(function (x) { return x.a; });
+    if (!items.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(items, n).map(function (x) {
+      return '<q><b>' + x.a + '</b>' + (x.b ? ' <span style="font-size:.72em;color:var(--ink-soft)">vs ' + x.b + '</span>' : '') + '</q>';
+    }).join('');
+  }
+
+  function renderAB(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (v) { tally[v] = (tally[v] || 0) + 1; });
+    var ks = Object.keys(tally); if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort();
+    box.innerHTML = ks.map(function (k) {
+      return '<div class="' + (tally[k] === max ? 'win' : '') + '"><div class="n">' + tally[k]
+           + '</div><div class="l">' + k + '</div></div>';
+    }).join('');
+  }
+
+  function renderMeans(id, rows, specs) {
+    var box = document.getElementById(id); if (!box) return;
+    var cells = [];
+    specs.forEach(function (sp) {
+      var m = meanOf(rows, sp[0]);
+      if (m !== null) cells.push('<div class="fig"><div class="n">' + m.toFixed(1)
+        + '</div><div class="l">' + sp[1] + '</div></div>');
+    });
+    if (!cells.length) return;
+    plain(box); box.className = 'figs';
+    box.innerHTML = cells.join('');
+  }
+
+  /* si no se puede leer, decirlo en la caja en vez de dejarla en blanco */
+  function markUnreachable() {
+    var cur = slides[i];
+    if (!cur) return;
+    var boxes = cur.querySelectorAll('.qrbox:not([data-qr]), #picks');
+    Array.prototype.forEach.call(boxes, function (b) {
+      if (b.getAttribute('data-unreach')) return;
+      b.setAttribute('data-unreach', '1');
+      b.innerHTML = '<span style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;'
+        + 'line-height:1.6;color:var(--ink-faint);text-align:center">No live data here.<br>'
+        + 'This view cannot reach the responses.<br>Open the deployed deck instead.</span>';
+    });
+  }
+
+  /* --- companies: cuenta menciones en todas las celdas --- */
+  function liveCompanies(rows) {
+    if (!rows || rows.length < 2) return;
+    var SKIP = /week|month|year|\bday|^\d+$|@|^\d{1,2}\/\d{1,2}|^(yes|no|si|s\u00ed|a|b)$/i;
+    var tally = {};
+    rows.slice(1).forEach(function (r) {
+      r.forEach(function (cell) {
+        String(cell).split(/[|;,]/).forEach(function (x) {
+          x = x.trim();
+          if (x.length > 1 && !SKIP.test(x)) tally[x] = (tally[x] || 0) + 1;
+        });
+      });
+    });
+    votes = tally;
+    var ta = document.getElementById('votes');
+    if (ta) ta.value = Object.keys(tally).map(function (k) { return k + ', ' + tally[k]; }).join('\n');
+    drawHeat();
+  }
+
+  /* --- timing: rango más votado --- */
+  function liveTiming(rows) {
+    if (!rows || rows.length < 2) return;
+    var tally = {}, best = '', n = 0;
+    rows.slice(1).forEach(function (r) {
+      var v = (r[r.length - 1] || '').trim();
+      if (!v) return;
+      tally[v] = (tally[v] || 0) + 1;
+      if (tally[v] > n) { n = tally[v]; best = v; }
+    });
+    if (best && avgIn) { avgIn.value = best; drawAvg(); }
+  }
+
+  /* --- stories: dos al azar --- */
+  var storyRows = [];
+  function renderTwoStories() {
+    var box = document.getElementById('picks');
+    if (storyRows.length < 2) return;
+    var a = Math.floor(Math.random() * storyRows.length), b = a;
+    while (b === a) b = Math.floor(Math.random() * storyRows.length);
+    box.innerHTML = [a, b].map(function (i) {
+      var e = storyRows[i];
+      return '<div class="pick">' +
+             (e.who ? '<div class="who">' + e.who + '</div>' : '') +
+             '<div class="idea">' + e.idea + '</div>' +
+             (e.conf ? '<div class="conf"><b>Conflict:</b> ' + e.conf + '</div>' : '') +
+             '</div>';
+    }).join('');
+    var pi2 = document.getElementById('pairinfo'); if (pi2) pi2.textContent = storyRows.length + ' respuestas · R para otra pareja';
+  }
+  function liveStories(rows) {
+    if (!rows || rows.length < 2) return;
+    var body = rows.slice(1).filter(function (r) { return r.join('').trim(); });
+    storyRows = body.map(function (r) {
+      var c = r.map(function (x) { return (x || '').trim(); })
+               .filter(function (x) { return x && !/@/.test(x) && !/^\d{1,2}\/\d/.test(x); });
+      var who = c.length > 2 ? c.shift() : '';
+      return { who: who, idea: c.shift() || '', conf: c.join(' ') };
+    }).filter(function (e) { return e.idea; });
+    if (storyRows.length >= 2) renderTwoStories();
+  }
+
   /* --- asymmetry: cuatro medias --- */
   function liveAsymmetry(rows) {
     if (!rows || rows.length < 2) return;
