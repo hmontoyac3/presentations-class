@@ -1434,7 +1434,25 @@
         if (!d || !d.rows) throw 0;
         liveCache[slot] = d.rows; setLive('on'); return d.rows;
       })
-      .catch(function () { setLive('err'); return liveCache[slot] || null; });
+      .catch(function () {
+        setLive('err');
+        if (!liveCache[slot]) markUnreachable();
+        return liveCache[slot] || null;
+      });
+  }
+
+  /* si no se puede leer, decirlo en la caja en vez de dejarla en blanco */
+  function markUnreachable() {
+    var cur = slides[i];
+    if (!cur) return;
+    var boxes = cur.querySelectorAll('.qrbox:not([data-qr]), #picks');
+    Array.prototype.forEach.call(boxes, function (b) {
+      if (b.getAttribute('data-unreach')) return;
+      b.setAttribute('data-unreach', '1');
+      b.innerHTML = '<span style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;'
+        + 'line-height:1.6;color:var(--ink-faint);text-align:center">No live data here.<br>'
+        + 'This view cannot reach the responses.<br>Open the deployed deck instead.</span>';
+    });
   }
 
   /* --- companies: cuenta menciones en todas las celdas --- */
