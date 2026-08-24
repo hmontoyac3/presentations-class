@@ -1245,6 +1245,7 @@
       b.removeAttribute('data-done');
     });
     if (typeof paintQRs === 'function') paintQRs();
+    if (typeof syncLive === 'function') syncLive();
     document.getElementById('btn-fin').setAttribute('aria-pressed', String(c === 'fin'));
     document.getElementById('btn-afm').setAttribute('aria-pressed', String(c === 'afm'));
   }
@@ -1520,9 +1521,10 @@
     }
   }
 
+  function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
   var LIVEMAP = {
-    'Dónde te gustaría': { slot: 'q1', render: [liveCompanies, liveTiming] },
-    'TIP 3a':            { slot: 'q1', render: [liveTiming] },
+    'Dónde te gustaría': { slot: slotQ1, render: [liveCompanies, liveTiming] },
+    'TIP 3a':            { slot: slotQ1, render: [liveTiming] },
     'TIP 2':             { slot: 'q3', render: [liveStories] },
     'La asimetría':      { slot: 'q7', render: [liveAsymmetry] }
   };
@@ -1531,8 +1533,9 @@
     if (poller) { clearInterval(poller); poller = null; }
     var job = LIVEMAP[slides[i].getAttribute('data-b')];
     if (!job || !ENDPOINT) { setLive(false); return; }
+    var slot = typeof job.slot === 'function' ? job.slot() : job.slot;
     var run = function () {
-      pull(job.slot).then(function (rows) {
+      pull(slot).then(function (rows) {
         if (!rows) return;
         job.render.forEach(function (fn) { try { fn(rows); } catch (e) {} });
       });
