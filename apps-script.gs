@@ -113,3 +113,8 @@ function limpiarCache() {
   PropertiesService.getScriptProperties().deleteAllProperties();
   return 'cache borrada';
 }
+
+function json(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
