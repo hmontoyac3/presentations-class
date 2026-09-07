@@ -5,6 +5,22 @@
 1. **La URL acaba en `?teach`.** Sin eso desaparecen las notas y el panel de datos, y no avisa. Comprueba que abajo a la derecha se ven los botones **Notas** y **Votos**.
 2. **AFM: pulsa el botón AFM.** Arranca en FIN por defecto. Si no lo cambias proyectas la fecha, el horario, la lista de reclutadores, el hecho aburrido y el brief de la otra clase. Verifica que la primera slide dice **18 September**.
 
+## Las teclas, mientras das clase
+
+| | |
+|---|---|
+| `→` `espacio` | avanzar. En las slides por pasos saca el paso siguiente antes de cambiar de slide |
+| `←` | atrás, paso a paso también |
+| `t` | **cronómetro**: arranca y pausa. Está en las quince slides de ejercicio, arriba a la derecha |
+| `T` | vuelve a poner el tiempo entero |
+| `r` | en la cosecha de TIP 2, otra pareja |
+| `n` `d` | notas y panel de datos |
+
+El cronómetro se reinicia solo al cambiar de slide, así que cada ejercicio
+empieza limpio. Al llegar a cero no se para: sigue contando en rojo con un más
+delante, para que veas cuánto te has pasado. Un clic en él hace lo mismo que `t`
+y no avanza de slide.
+
 ## Falta rellenar
 
 - [ ] Los cinco títulos de artículo en la tabla grupo → artículo
