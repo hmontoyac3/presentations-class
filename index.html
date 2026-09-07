@@ -2145,8 +2145,9 @@ var QR = (function () {
     el.querySelector('.tval').textContent = tfmt(tLeft);
     var st = tLeft < 0 ? 'over' : (tRun ? 'run' : (tLeft === tDur ? 'idle' : 'pause'));
     el.setAttribute('data-state', st);
+    /* en reposo la etiqueta dice qué hacer, en vez de repetir el número */
     el.querySelector('.tlbl').textContent =
-      st === 'over' ? 'over' : (st === 'run' ? 'running' : (st === 'pause' ? 'paused' : tfmt(tDur)));
+      st === 'over' ? 'over' : (st === 'run' ? 'running' : (st === 'pause' ? 'paused · t' : 't to start'));
   }
   function tstop() { if (tick) { clearInterval(tick); tick = null; } tRun = false; }
   function treset() {
