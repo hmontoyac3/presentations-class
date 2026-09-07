@@ -40,7 +40,20 @@ YouTube trae imagen.
 
 ## Los identificadores de YouTube
 
-Los tres están **sin verificar**: se pusieron desde un entorno sin acceso a
-YouTube. Hay que abrir las tres slides con el proyector una vez antes del
-viernes. Para Reagan hay dos alternativas si la primera falla: `OkJZDxX4w6k` y
-`ynuDA8A42Ic`.
+Comprobados en Chrome contra el sitio real: los tres cargan el reproductor y el
+vídeo es el que tiene que ser.
+
+| Slide | Título que sale | Canal |
+|---|---|---|
+| TIP 3a | Hans Rosling's 200 Countries, 200 Years, 4 Minutes | BBC |
+| Reagan | President Reagan's Challenger Disaster Address, January 28, 1986 | AmericanRhetoric.com |
+| Bombas | Bombas Socks Cozies Up With Daymond, Shark Tank: How It Started | CNBC Ambition |
+
+**Lo que no se pudo comprobar es la reproducción.** Un clic automatizado dentro
+de un iframe de YouTube no cuenta como gesto de usuario, así que no se puede
+distinguir «el vídeo no se deja incrustar» de «el clic no llegó». Hay que darle
+al play a los tres una vez, a mano, con el proyector.
+
+Si alguno no arranca, dos salidas: cambiar el `data-yt` de esa etiqueta `.media`
+en `index.html`, o descargar el clip a `media/` y dejar de depender de nadie.
+Para Reagan hay dos alternativas ya localizadas: `OkJZDxX4w6k` y `ynuDA8A42Ic`.
