@@ -300,8 +300,12 @@
      que es lo que hace que el audio se calle al avanzar. */
   .media { position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
            border: 1px solid var(--rule); overflow: hidden; }
-  .media.audio { aspect-ratio: auto; min-height: 96px; background: var(--card);
-                 display: flex; align-items: center; justify-content: center; padding: 18px; }
+  /* La forma la decide el CONTENIDO, no una clase que haya que conmutar.
+     Antes se ponía y quitaba una clase .audio a mano y en el respaldo de
+     Reagan se quedaba puesta, así que el vídeo salía achatado en una
+     franja de 96px. Con :has() no hay nada que sincronizar. */
+  .media:has(audio) { aspect-ratio: auto; min-height: 96px; background: var(--card);
+                      display: flex; align-items: center; justify-content: center; padding: 18px; }
   .media iframe, .media video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
   .media audio { position: static; width: 100%; max-width: 520px; }
   .media .ph { position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -1019,7 +1023,7 @@
   <ul class="big" style="columns:2;column-gap:clamp(20px,3vw,50px)">
     <li>The country</li><li>The seven families</li><li>The children who saw it</li><li>The USSR</li><li>NASA</li>
   </ul>
-  <div class="media audio" data-file="media/reagan.mp3" data-yt="sNQLOOCU9W8" data-label="Reagan, address to the nation, 28 January 1986"></div>
+  <div class="media" data-file="media/reagan.mp3" data-yt="sNQLOOCU9W8" data-label="Reagan, address to the nation, 28 January 1986"></div>
   <p class="tiny">Reagan, address to the nation · 4 minutes</p>
 </section>
 
@@ -2073,7 +2077,6 @@ var QR = (function () {
       function embed() {
         if (box.getAttribute('data-on') !== '1') return;
         if (!yt) { ph(label + '. Falta el archivo en media/ y no hay identificador de YouTube.'); return; }
-        box.classList.remove('audio');
         box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt
           + '?rel=0&modestbranding=1&playsinline=1" title="' + label
           + '" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>';
@@ -2088,7 +2091,6 @@ var QR = (function () {
         el.setAttribute('playsinline', '');
         el.addEventListener('error', embed);
         el.src = file;
-        box.classList.toggle('audio', isAudio);
         box.innerHTML = '';
         box.appendChild(el);
       }
