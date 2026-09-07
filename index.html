@@ -1,3 +1,6 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Viernes · Persuasive Presentations 20941</title>
 
 <style>
@@ -286,6 +289,56 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* revelado por pasos dentro de una slide.
+     Se usa opacidad y NO display:none, para que la altura de la slide no
+     cambie al avanzar: si cambiara, fitSlide re-calcularia el zoom en cada
+     paso y la tipografia daria saltos delante de la clase. */
+  [data-step] { opacity: 0; pointer-events: none; transition: opacity .28s ease; }
+  [data-step].shown { opacity: 1; pointer-events: auto; }
+
+  .videocard .pendtag {
+    position: absolute; left: 10px; top: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--card);
+    background: var(--crimson); padding: 4px 8px;
+  }
+  .videoframe {
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    border: 1px solid var(--rule); background: #000; overflow: hidden;
+  }
+  .videoframe iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .appeal { display: flex; flex-direction: column; gap: 7px; }
+  .appeal h3 { margin: 0 0 2px; }
+  .appeal .k {
+    font-family: var(--mono); font-size: clamp(8px,.72vw,10px);
+    letter-spacing: .13em; text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 1px;
+  }
+  .appeal p { margin: 0; font-size: clamp(12px,1.15vw,16px); line-height: 1.36; color: var(--ink-soft); }
+  .appeal .miss { border-top: 1px solid var(--rule); padding-top: 7px; margin-top: 1px; }
+  .appeal .miss p { color: var(--crimson); }
+  /* tarjeta de video · marcador de posicion.
+     Para poner una captura real: sustituye el <svg> por
+     <img src="assets/anderson.jpg" alt=""> y no toques nada mas. */
+  .videocard {
+    position: relative; aspect-ratio: 16/9; width: 100%;
+    background: var(--card); border: 1px solid var(--rule);
+    overflow: hidden; display: block;
+  }
+  .videocard svg, .videocard img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .videocard .play {
+    position: absolute; inset: 0; margin: auto;
+    width: clamp(46px,6vw,78px); height: clamp(46px,6vw,78px);
+    border-radius: 50%; background: var(--card); border: 1px solid var(--rule);
+    box-shadow: 0 2px 14px rgba(0,0,0,.16);
+  }
+  .videocard .play::after {
+    content: ''; position: absolute; inset: 0; margin: auto;
+    width: 0; height: 0; margin-left: 38%;
+    border-left: clamp(15px,2vw,25px) solid var(--ink);
+    border-top: clamp(9px,1.2vw,15px) solid transparent;
+    border-bottom: clamp(9px,1.2vw,15px) solid transparent;
+  }
   .qrwrap { display: flex; gap: clamp(20px,3vw,54px); align-items: center; flex-wrap: wrap; }
   .qrbox {
     width: clamp(190px, 27vw, 380px); aspect-ratio: 1;
@@ -293,11 +346,6 @@
     display: flex; align-items: center; justify-content: center; text-align: center;
     font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
     letter-spacing: 0.08em; padding: 14px; line-height: 1.5;
-  }
-  .short {
-    font-family: var(--mono); font-size: clamp(15px,1.7vw,26px);
-    background: var(--card); border: 1px solid var(--rule); padding: 7px 14px;
-    display: inline-block; letter-spacing: 0.02em;
   }
 
   blockquote {
@@ -376,28 +424,18 @@
   <h1>Persuasive Presentations</h1>
   <p class="lead">Helena Montoya · <span class="fin">MSc Finance · Class 44</span><span class="afm">Accounting &amp; Financial Management · Class 41</span></p>
   <p class="tiny"><span class="fin">11–12 September 2026</span><span class="afm">18–19 September 2026</span></p>
+  <p class="tiny" style="margin-top:clamp(14px,2.4vh,30px);opacity:.62">Course director: Prof. Silvia Bagdadli</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="El enlace del día" data-notes="Escanean UNA vez y dejan la pestaña abierta todo el día. Las diez capturas salen de ahí, así que no vuelven a escanear nada. · Dilo despacio y espera: es el único escaneo obligatorio del viernes y si alguien se lo pierde, arrastra el problema hasta la tarde. · Los QR pequeños de las slides siguen ahí como respaldo para quien llegue tarde.">
-  <div class="kicker do">Scan this once. Then leave the tab open.</div>
-  <div class="qrwrap">
-    <div class="qrbox" data-qr="hub" style="width:clamp(210px,30vw,420px);aspect-ratio:1">Scan</div>
-    <div class="stack">
-      <h2 style="font-size:clamp(22px,3vw,40px)">Every time I ask you for something today, it is on that page.</h2>
-      <p class="lead">Every code you see later today is a shortcut to that same page. You never have to scan again.</p>
-      <span class="short">helenamontoyacalero.com/presentations-class/f/</span>
-    </div>
-  </div>
-</section>
 
-<section data-part="1" class="slide" data-s="1" data-b="Asistencia" data-notes="Lanza la asistencia AHORA y explícala mientras está abierta. «Esperemos a la asistencia, todavía faltan.» Mira el contador. Si ves connected from external, llama por nombre: es el momento de establecer que estás mirando.">
+<section data-part="1" class="slide" data-s="1" data-b="Asistencia" data-notes="Lanza la asistencia AHORA y explícala mientras está abierta. · Di las dos direcciones en voz alta, la tuya y la de Manu Sharma, el TA: manu punto sharma. Están en la slide, pero dichas se recuerdan. «Esperemos a la asistencia, todavía faltan.» Mira el contador. Si ves connected from external, llama por nombre: es el momento de establecer que estás mirando.">
   <div class="kicker rule">Attendance · 1 of 8 · <span class="fin">13.00 – 14.30</span><span class="afm">14.00 – 15.30</span></div>
   <h2>Register your attendance in the app now.</h2>
   <ul class="big">
     <li>Use the <b>Bocconi Wi-Fi</b>, not your own data</li>
     <li><b>8 out of 8 sessions.</b> Not 7. Not 90%</li>
     <li>Technical problem? Email me <b>and</b> the TA immediately, not on Monday</li>
-    <li class="tiny" style="list-style:none;margin-left:-1.1em">I will say both addresses out loud and they are on Blackboard</li>
+    <li class="tiny" style="list-style:none;margin-left:-1.1em">helena.montoya@phd.unibocconi.it &nbsp;·&nbsp; manu.sharma@unibocconi.it (Manu Sharma, TA). Both are on Blackboard too</li>
   </ul>
   <div class="panel info" style="padding:11px 15px">
     <h3>If you cannot make all eight</h3>
@@ -468,16 +506,23 @@
   <p class="body"><b>Most of you were never interviewed.</b> For almost everyone in this room, the decision was made from a file.</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="QR 1, noventa segundos, dos preguntas. No expliques para qué es ninguna: la de las empresas parece una encuesta simpática, y la del tiempo la usas dentro de dos horas en TIP 3a. Los rangos van en semanas Y meses a propósito, para no anclarles la unidad. Lee las opciones en voz alta una vez. Que no lo busquen y que no se pongan de acuerdo con el vecino.">
+<section data-part="1" class="slide" data-s="1" data-b="El enlace del día" data-notes="Escanean UNA vez y dejan la pestaña abierta todo el día. · Va aquí, pegada al primer formulario, y no al principio de la clase: escanean y lo usan en la slide siguiente, así que el código no queda huérfano ni se les olvida para qué era. Las diez capturas salen de ahí, así que no vuelven a escanear nada. · Dilo despacio y espera: es el único escaneo obligatorio del viernes y si alguien se lo pierde, arrastra el problema hasta la tarde. · Los QR pequeños de las slides siguen ahí como respaldo para quien llegue tarde, y llevan a esta MISMA página, no al formulario suelto: se escanee el que se escanee, se aterriza aquí y se elige desde aquí. · La dirección ya NO está escrita en ninguna slide, solo el código. Si a alguien le falla la cámara, dísela tú en voz alta o mándala por el canal de Blackboard: helenamontoyacalero.com barra presentations-class barra f.">
+  <div class="kicker do">Scan this once. Then leave the tab open.</div>
+  <div class="qrwrap">
+    <div class="qrbox" data-qr="hub" style="width:clamp(210px,30vw,420px);aspect-ratio:1">Scan</div>
+    <div class="stack">
+      <h2 style="font-size:clamp(22px,3vw,40px)">Every time I ask you for something today, it is on that page.</h2>
+      <p class="lead">Every code you see later today is a shortcut to that same page. You never have to scan again.</p>
+    </div>
+  </div>
+</section>
+<section data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="Formulario 1, noventa segundos, dos preguntas. En esta slide YA NO hay código: acaban de escanear en la anterior y la pestaña está abierta, así que solo tienen que elegir el formulario 1. Si alguien pregunta dónde está el QR, es señal de que no escaneó, y se resuelve volviendo una slide. No expliques para qué es ninguna: la de las empresas parece una encuesta simpática, y la del tiempo la usas dentro de dos horas en TIP 3a. Los rangos van en semanas Y meses a propósito, para no anclarles la unidad. Lee las opciones en voz alta una vez. Que no lo busquen y que no se pongan de acuerdo con el vecino.">
   <div class="kicker do">90 seconds · two questions</div>
   <h1>Where would you like to be working in two years?</h1>
-  <div class="qrwrap">
-    <div class="qrbox" data-qr="q1">Scan</div>
-    <div class="stack">
-      <p class="body"><b>1.</b> Pick three. Be honest, not diplomatic. If the one you actually want is not there, write it in.</p>
-      <p class="body"><b>2.</b> A Bocconi graduate who finds a job: <b>how long</b> from graduating to starting? Pick one range. Don't look it up.</p>
-      <p class="tiny" style="letter-spacing:0">under 2 weeks · 2–4 weeks · 1–2 months · 2–3 months · 3–6 months · 6–12 months · over a year</p>
-    </div>
+  <div class="stack">
+    <p class="body"><b>1.</b> Pick three. Be honest, not diplomatic. If the one you actually want is not there, write it in.</p>
+    <p class="body"><b>2.</b> A Bocconi graduate who finds a job: <b>how long</b> from graduating to starting? Pick one range. Don't look it up.</p>
+    <p class="tiny" style="letter-spacing:0">under 2 weeks · 2–4 weeks · 1–2 months · 2–3 months · 3–6 months · 6–12 months · over a year</p>
   </div>
 </section>
 
@@ -493,12 +538,9 @@
   <p class="tiny">Top recruiters, published on your programme's placement page</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="Lo que falta" data-notes="Esta slide habla de la FORMA de la lista, no de sus votos, así que funciona vote lo que vote la clase. · Si SÍ votaron el buy side, señala el bloque rojo de la slide anterior: «eso que quieren no está». · Si NADIE lo votó, mejor todavía y lo dices: «y fíjense en algo, ninguno de ustedes votó private equity tampoco: el camino que no existe también es el que no imaginan». · CUIDADO al afirmar: la lista dice «include, among others», no es exhaustiva, así que di «no están entre los principales reclutadores» y nunca «no ha ido nadie». Y no digas «no hay hedge funds» a secas: Blackstone, KKR y Apollo son private equity, y BlackRock sí está en la lista de FIN.">
+<section data-part="1" class="slide" data-s="1" data-b="Lo que falta" data-notes="Esta slide habla de la FORMA de la lista, no de sus votos, así que funciona vote lo que vote la clase. · En FIN ya no hay panel: la slide es el titular y el remate, y el detalle del buy side lo dices tú si la sala lo pide, no lo proyectas. · Si SÍ votaron el buy side, señala el bloque rojo de la slide anterior: «eso que quieren no está». · Si NADIE lo votó, mejor todavía y lo dices: «y fíjense en algo, ninguno de ustedes votó private equity tampoco: el camino que no existe también es el que no imaginan». · CUIDADO al afirmar en voz alta: la lista dice «include, among others», no es exhaustiva, así que di «no están entre los principales reclutadores» y nunca «no ha ido nadie». Y no digas «no hay hedge funds» a secas: Blackstone, KKR y Apollo son private equity, y BlackRock sí está en la lista de FIN.">
   <div class="kicker">That list has a shape</div>
   <h2>Most of what you voted for is on it. Somebody who sat where you are sitting is already there.</h2>
-  <div class="panel fin" style="padding:14px 18px">
-    <p class="body" style="max-width:64ch">It is investment banking, the Big Four and strategy consulting — and almost nothing else. <b>The buy side is barely there:</b> no Blackstone, no KKR, no Apollo in private equity, and no hedge fund at all.</p>
-  </div>
   <div class="panel afm" style="padding:14px 18px">
     <p class="body" style="max-width:64ch">It is corporates, the Big Four, European banks and the ECB. <b>Goldman Sachs, J.P. Morgan and Morgan Stanley are not among the top recruiters of your programme</b> — they are of the Finance one.</p>
   </div>
@@ -535,19 +577,25 @@
   <p class="body">There is no grade. That is deliberate: if this were graded you would make the safe presentation, and the safe presentation is the one that does not work.</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="La herramienta" data-notes="El arco histórico. Calculadora era un puesto de trabajo. Después la hoja de cálculo. El dato de Planet Money: cítalo como Planet Money, no como dato oficial.">
-  <div class="kicker">Since 1980, the first full year VisiCalc was on sale</div>
+<section data-part="1" class="slide" data-s="1" data-b="La herramienta" data-notes="El arco histórico, y ahora la slide lo explica sola en vez de dar por sabidos tres contextos. · Empieza por VisiCalc: 1979, la primera hoja de cálculo. Antes de eso una columna de números se sumaba a mano, y cambiar una cifra obligaba a rehacer la página entera. Se esperaba que acabara con la profesión contable. · La clave es la DIFERENCIA entre las dos filas: el empleo que desaparece es el que consistía en OPERAR la herramienta, y el que crece es el que consiste en decidir qué significan los números y defenderlo. No es «menos contables», es otra clase de contable. · El dato: cítalo como lectura de Planet Money, el podcast de economía de NPR, no como estadística oficial. Si alguien pregunta, di que son dos series ocupacionales de EE. UU. leídas por ellos. · Y el puente: la hoja de cálculo es el precedente de lo que les está pasando ahora con la IA.">
+  <div class="kicker">VisiCalc, 1979 · the first spreadsheet, and the first tool that was supposed to end the profession</div>
+  <p class="lead" style="max-width:64ch">Before it, a column of numbers was added by hand, and changing one figure meant redoing the page.</p>
   <div class="figs">
-    <div class="fig"><div class="n">−400k</div><div class="l">accounting clerk jobs in the US</div></div>
-    <div class="fig"><div class="n">+600k</div><div class="l">jobs for actual accountants</div></div>
+    <div class="fig"><div class="n">−400k</div><div class="l"><b>Clerks.</b> The job was operating the tool: entering, adding, checking</div></div>
+    <div class="fig"><div class="n">+600k</div><div class="l"><b>Accountants.</b> The job was deciding what the numbers meant, and defending it</div></div>
   </div>
-  <h2>On Planet Money's reading, the spreadsheet did not shrink the profession. The jobs that went were the ones that consisted of operating the tool.</h2>
-  <p class="tiny">Planet Money, NPR · two BLS occupational series, 1980 to today</p>
+  <h2 style="font-size:clamp(19px,2.5vw,34px)">The tool did not shrink the profession. It moved it, from the people who operated it to the people who could argue about what came out.</h2>
+  <p class="tiny">US jobs since 1980, as read by Planet Money, the NPR economics podcast. Their reading of two occupational series, not an official statistic.</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="La herramienta" data-notes="Dos citas, no cinco. Dimon primero, y SOLO EN FIN puedes decir «JPMorgan está en la lista que vieron hace un momento, no es un gurú opinando, es su posible jefe». En AFM NO está en su lista: ahí di «es la lista de Finance, o sea el jefe que quieren sus compañeros de al lado».">
+<section data-part="1" class="slide" data-s="1" data-b="La herramienta" data-notes="Dos citas, no cinco. Dimon primero, y SOLO EN FIN puedes decir «JPMorgan está en la lista que vieron hace un momento, no es un gurú opinando, es su posible jefe». En AFM NO está en su lista: ahí di «es la lista de Finance, o sea el jefe que quieren sus compañeros de al lado». · La cita de Huang no se sostiene sola, hay que desarmarla en voz alta y ahora la slide te ayuda. · QUÉ ES NVIDIA: fabrica los chips con los que se entrenan y se ejecutan casi todos los modelos de IA que ellos usan. O sea, no es alguien opinando desde fuera sobre la IA, es quien la vende. · QUÉ ES IP: propiedad intelectual, lo que posees y los demás no pueden copiar. Que un fabricante de chips diga que su activo más valioso son sus preguntas y no sus respuestas es la parte fuerte. · POR QUÉ LAS PREGUNTAS VALEN MÁS: una respuesta, una vez encontrada, se copia en un segundo y vale lo mismo para todo el mundo, que es lo que significa «commodity». Saber qué pregunta merece la pena hacer no se copia, porque depende de entender el problema. · Y el remate que enlaza con el curso: una respuesta se manda por correo, una pregunta hay que hacerla delante de alguien.">
   <blockquote>Critical thinking, learn skills, learn your EQ, <b>learn how to be good in a meeting</b>, how to communicate, how to write. You'll have plenty of jobs.<cite>Jamie Dimon, CEO of JPMorgan Chase · Fox News, December 2025</cite></blockquote>
   <blockquote style="border-left-color:var(--ochre)">The most valuable IP to me is not my answers, they're my questions. <b>The answers are a commodity.</b><cite>Jensen Huang, Nvidia · Cisco AI Summit, 2026</cite></blockquote>
+  <div class="cols3" style="margin-top:clamp(10px,1.6vh,22px)">
+    <div class="stack"><h3 style="font-size:clamp(13px,1.35vw,19px)">Nvidia</h3><p class="tiny" style="letter-spacing:0">Makes the chips that train and run almost every AI model you have used. Huang runs it. This is not a commentator on AI. It is the company selling it.</p></div>
+    <div class="stack"><h3 style="font-size:clamp(13px,1.35vw,19px)">IP</h3><p class="tiny" style="letter-spacing:0">Intellectual property: what you own and nobody else can copy. He is saying his is not what he knows. It is what he thinks to ask.</p></div>
+    <div class="stack"><h3 style="font-size:clamp(13px,1.35vw,19px)">Commodity</h3><p class="tiny" style="letter-spacing:0">An answer, once found, copies in a second and is worth the same to everyone. Knowing which question is worth asking does not copy, and it is asked out loud, in a room.</p></div>
+  </div>
 </section>
 
 <section data-part="1" class="slide" data-s="1" data-b="La herramienta" data-notes="La pregunta que cierra el bloque. En dos años todos van a tener su mismo máster, su mismo Excel Y las mismas herramientas de IA. Lo que queda no es una tarea, es una relación.">
@@ -568,7 +616,7 @@
   </div>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="Lee tres o cuatro palabras en voz alta y no las comentes. Y la frase: «esto es, palabra por palabra, el temario de hoy, y no lo escribí yo». NO quites la nube: se usa otra vez en ocho minutos, en TIP 1.">
+<section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="Lee tres o cuatro palabras en voz alta y no las comentes. Y la frase: «esto es, palabra por palabra, el temario de hoy, y no lo escribí yo». NO quites la nube: vuelve al final del sábado, cuando la grilla de evaluación resulta ser lo que ellos escribieron esta mañana.">
   <div class="kicker do">Why this room stops listening</div>
   <div class="qrbox" id="cloud" style="width:100%;aspect-ratio:auto;min-height:32vh;">Your words</div>
   <h3>This is today's syllabus. And I did not write it.</h3>
@@ -598,37 +646,131 @@
   <h3>The goal of everything this weekend: convey <b>one</b> idea, and persuade.</h3>
 </section>
 
-<section data-part="2" class="slide" data-s="1" data-b="TIP 1" data-notes="Aristóteles, rápido. Lo importante es la frase de abajo, que es el diagnóstico del curso dicho por la slide de Silvia. No la parafrasees: dila.">
-  <div class="kicker">Tip 1 · connect with the audience</div>
-  <div class="cols3">
-    <div class="stack"><h3>Ethos</h3><p class="body">Shared values and experience. You earn credibility, and they respect your idea.</p></div>
-    <div class="stack"><h3>Pathos</h3><p class="body">Pleasure and pain, to move the imagination. People make important decisions on feelings like these.</p></div>
-    <div class="stack"><h3>Logos</h3><p class="body">Structure, words, data. Evidence. Necessary in every presentation.</p></div>
+<section data-part="2" class="slide" data-s="1" data-b="Anderson" data-notes="Treinta segundos, ni uno más. Es una recomendación, no contenido: no lo pongas en clase y no lo resumas. · Dilo tal cual: no es idea tuya, lo propone la directora del curso, Silvia Bagdadli, y eso es justo lo que le da peso. · El enlace va en Blackboard, no en la slide. Si alguien lo pide en el momento, «TED, buscad TED's secret to great public speaking». · Y sigue a TIP 1 sin pausa: lo que Anderson llama «la idea» es exactamente lo que van a construir esta tarde, así que la transición se hace sola.">
+  <div class="kicker">Optional · recommended by the course director, Prof. Silvia Bagdadli</div>
+  <div class="cols2" style="gap:clamp(18px,3vw,48px);align-items:center">
+    <div class="videocard">
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Talk still placeholder">
+        <rect width="320" height="180" fill="var(--rule-soft)"/>
+        <rect x="96" y="150" width="128" height="30" fill="var(--rule)"/>
+        <circle cx="160" cy="74" r="30" fill="var(--ink-faint)" opacity=".28"/>
+        <circle cx="160" cy="132" r="44" fill="var(--ink-faint)" opacity=".22"/>
+      </svg>
+      <span class="play" aria-hidden="true"></span>
+    </div>
+    <div class="stack">
+      <h2 style="font-size:clamp(20px,2.6vw,36px)">TED's secret to great public speaking</h2>
+      <p class="lead">Chris Anderson. After a long career in journalism and publishing, he became the head of the TED Conference in 2002.</p>
+      <p class="body" style="max-width:56ch">Not homework, and nothing in this course depends on it. If you want one thing to watch before tomorrow morning, watch this one.</p>
+      <p class="tiny">Link on Blackboard</p>
+    </div>
   </div>
-  <div class="panel info">
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="TIP 1" data-notes="ESTA SLIDE VA POR PASOS: cada flecha saca una columna. Ethos, después pathos, después logos, y al final la frase de cierre. No las tengas las tres delante desde el principio, porque entonces leen en vez de escuchar. · Cada columna sigue el mismo orden, y ese orden es el que quieres que se les quede: qué es, por qué importa, un ejemplo, y qué pasa si te falta. · Las definiciones son las de la slide de Silvia, literales: ethical, emotional y logical appeal. Úsalas tal cual, que es el lenguaje común de los 24 seminarios. · Los ejemplos son tuyos y los puedes cambiar por algo de tu propia experiencia, que además es ethos en directo mientras lo cuentas. · La línea roja de cada columna, la de qué pasa si te falta, es la que engancha con el cementerio de hace veinte minutos: ellos ya han sufrido las tres. · Y la frase de cierre no la parafrasees, dila: las tres son necesarias, ninguna basta sola.">
+  <div class="kicker">Tip 1 · connect with the audience</div>
+  <h2 style="font-size:clamp(20px,2.6vw,36px)">Aristotle said persuasion needs three things.</h2>
+  <div class="cols3">
+
+    <div class="panel appeal" data-step="1" style="padding:13px 16px">
+      <h3>Ethos <span style="font-weight:400;color:var(--ink-faint)">· ethical appeal</span></h3>
+      <div><div class="k">What it is</div><p>Shared values and experiences, to gain credibility.</p></div>
+      <div><div class="k">Why it matters</div><p>The audience feels connected, and has respect for your idea.</p></div>
+      <div><div class="k">Sounds like</div><p>“I ran this desk for six years, and I got this wrong twice.”</p></div>
+      <div class="miss"><div class="k">Without it</div><p>They liked the idea and did not trust the person holding it.</p></div>
+    </div>
+
+    <div class="panel appeal" data-step="2" style="padding:13px 16px">
+      <h3>Pathos <span style="font-weight:400;color:var(--ink-faint)">· emotional appeal</span></h3>
+      <div><div class="k">What it is</div><p>Feelings of pleasure and pain, to stir imagination.</p></div>
+      <div><div class="k">Why it matters</div><p>People make important decisions based on emotions like these.</p></div>
+      <div><div class="k">Sounds like</div><p>Not “churn rose to nine per cent”, but “the client who left on Friday had been with us eleven years.”</p></div>
+      <div class="miss"><div class="k">Without it</div><p>They followed every slide, and did nothing on Monday.</p></div>
+    </div>
+
+    <div class="panel appeal" data-step="3" style="padding:13px 16px">
+      <h3>Logos <span style="font-weight:400;color:var(--ink-faint)">· logical appeal</span></h3>
+      <div><div class="k">What it is</div><p>Structure, words and data to support your idea. Evidence.</p></div>
+      <div><div class="k">Why it matters</div><p>It is necessary in all presentations, to convince your audience.</p></div>
+      <div><div class="k">Sounds like</div><p>One number, one comparison, one source. Then the claim they hold up.</p></div>
+      <div class="miss"><div class="k">Without it</div><p>They believed you in the room, and could not defend it to their boss.</p></div>
+    </div>
+
+  </div>
+  <div class="panel info" data-step="4">
     <p class="body" style="max-width:60ch">All three are necessary. <b>None of them is sufficient on its own.</b></p>
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="1" data-b="TIP 1" data-notes="Vuelve a la nube y que clasifiquen sus propias palabras. Van a descubrir que la mayoría era pathos y no logos: esa conclusión sale de ellos, NO la digas antes de que la digan. · NO afirmes que solo hay tres razones para dejar de escuchar: es falso (cansancio, el móvil, calor, ya te lo sabías) y alguien te lo va a decir. Aristóteles habla de qué necesita la persuasión, no de por qué se pierde la atención. · Las tres son una LENTE de diagnóstico, no una taxonomía cerrada. Si una palabra no encaja en ninguna columna, dilo tú primero: gana credibilidad y de paso enseña que el marco tiene límites.">
-  <div class="kicker do">Back to your word cloud · 8 minutes</div>
-  <h2>Aristotle said persuasion needs three things. Sort your words, and see which one was missing.</h2>
-  <div class="cols3">
-    <div class="panel" style="padding:12px 15px">
-      <h3>Ethos · I didn't buy <em>them</em></h3>
-      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">they were reading their own slides</li><li style="font-size:clamp(13px,1.2vw,17px)">they didn't know their own numbers</li><li style="font-size:clamp(13px,1.2vw,17px)">they dodged the first question</li><li style="font-size:clamp(13px,1.2vw,17px)">they didn't seem to believe it either</li></ul>
+<section data-part="2" class="slide" data-s="1" data-b="Bombas" data-notes="EL VÍDEO TODAVÍA NO ESTÁ PUESTO: lo que se ve es un marcador de posición con la etiqueta roja. No se pudo verificar el clip, así que se dejó sin incrustar a propósito. No es un fallo del deck. · PARA ACTIVARLO: en el código, borrar el bloque .videocard y descomentar el .videoframe que hay justo encima, con el identificador del vídeo bueno. Está explicado ahí mismo. · MIENTRAS NO ESTÉ, este bloque no se puede dar: sáltate las dos slides de Bombas y pasa directo a TIP 2. · Antes de darle al play, di las tres cosas que tienen que buscar, y NO las expliques: quiénes son, qué te hacen sentir, y qué pueden demostrar. Verlo con una tarea es lo que separa mirar de analizar. · No pauses el clip para comentar. El análisis va entero en la slide siguiente. · Contexto por si preguntan: temporada 6, 2014. Pedían 200.000 por el 10 por ciento.">
+  <div class="kicker">Tip 1 in the wild · Shark Tank, 2014</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">Two founders, socks, and one room of investors to convince.</h2>
+  <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
+    <!-- MARCADOR DE POSICIÓN. No se pudo verificar que este clip sea el
+         segmento del pitch ni que YouTube permita incrustarlo.
+         PARA ACTIVARLO: borra el bloque .videocard de abajo, descomenta el
+         .videoframe, y pon el identificador correcto detrás de /embed/.
+         Nada más hay que tocar.
+
+    <div class="videoframe">
+      <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+              title="Bombas on Shark Tank" allowfullscreen
+              allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
     </div>
-    <div class="panel" style="padding:12px 15px">
-      <h3>Pathos · I didn't care</h3>
-      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">why was I in that room</li><li style="font-size:clamp(13px,1.2vw,17px)">nothing was at stake</li><li style="font-size:clamp(13px,1.2vw,17px)">it was aimed at someone else</li><li style="font-size:clamp(13px,1.2vw,17px)">information, never a story</li></ul>
+    -->
+    <div class="videocard">
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Video placeholder">
+        <rect width="320" height="180" fill="var(--rule-soft)"/>
+        <rect x="0" y="150" width="320" height="30" fill="var(--rule)"/>
+        <circle cx="160" cy="78" r="34" fill="var(--ink-faint)" opacity=".26"/>
+      </svg>
+      <span class="play" aria-hidden="true"></span>
+      <span class="pendtag">Vídeo pendiente</span>
     </div>
-    <div class="panel" style="padding:12px 15px">
-      <h3>Logos · I couldn't follow</h3>
-      <ul class="big" style="gap:3px"><li style="font-size:clamp(13px,1.2vw,17px)">numbers with no point</li><li style="font-size:clamp(13px,1.2vw,17px)">twelve slides of the same chart</li><li style="font-size:clamp(13px,1.2vw,17px)">I never found out what they wanted</li><li style="font-size:clamp(13px,1.2vw,17px)">no structure, it just stopped</li></ul>
+    <div class="stack">
+      <p class="body">Watch for three things, and do not write anything down yet.</p>
+      <p class="body"><b>1.</b> Who are they?</p>
+      <p class="body"><b>2.</b> What do they make you feel?</p>
+      <p class="body"><b>3.</b> What can they prove?</p>
+      <p class="tiny">Season 6. They asked for $200,000 for ten per cent.</p>
     </div>
   </div>
-  <p class="lead" style="max-width:56ch">In your threes: take the biggest words on screen and put each one in a column. Two minutes in silence first, then argue. Some words will fit none of these — say so when it happens.</p>
 </section>
+
+<section data-part="2" class="slide" data-s="1" data-b="Bombas" data-notes="POR PASOS otra vez: una columna por flecha, después el dato, después la regla. · Antes de sacar cada columna, pregunta tú: ¿quiénes eran? ¿qué te hizo sentir? ¿qué podían demostrar? Que contesten ellos y tú sacas la columna que confirma. · CUIDADO CON LOS DATOS: los 450.000 dólares de ventas, el par donado por cada par vendido, los cuatro tiburones fuera y el trato de Daymond a 200.000 por el 17,5 por ciento están comprobados. Lo que NO puse en pantalla, porque no lo verifiqué, es el origen de la idea: que los calcetines son la prenda que más piden los albergues. Si lo confirmas antes del viernes, dilo en voz alta en la columna de pathos, porque es la parte que más mueve. · EL REMATE, que es el que quieres que se lleven: cuatro tiburones oyeron la donación como un coste y uno la oyó como un mercado. Mismo pitch, mismas tres apelaciones, lecturas opuestas. Por eso conocer a la audiencia es lo que decide dónde cargas el peso. · Y la regla final, dicha despacio: si no los conoces, equilibrio. El equilibrio es lo que se hace cuando no tienes información, no es una postura tibia.">
+  <div class="kicker">What each part of that pitch was doing</div>
+  <div class="cols3">
+
+    <div class="panel appeal" data-step="1" style="padding:13px 16px">
+      <h3>Ethos</h3>
+      <div><div class="k">The move</div><p>They did not walk in as sock salesmen. They walked in as the two people who had re-engineered the thing.</p></div>
+      <div><div class="k">The hard part</div><p>$450,000 in sales before they said a word. A track record is the one kind of credibility nobody argues with.</p></div>
+    </div>
+
+    <div class="panel appeal" data-step="2" style="padding:13px 16px">
+      <h3>Pathos</h3>
+      <div><div class="k">The move</div><p>One pair donated for every pair sold.</p></div>
+      <div><div class="k">The hard part</div><p>It stops being a sock and becomes a reason. Nobody in that room had to be talked into caring.</p></div>
+    </div>
+
+    <div class="panel appeal" data-step="3" style="padding:13px 16px">
+      <h3>Logos</h3>
+      <div><div class="k">The move</div><p>The ask, the equity, the sales, and what the product does that another sock does not.</p></div>
+      <div><div class="k">The hard part</div><p>It is what lets an investor defend the deal to somebody who felt nothing.</p></div>
+    </div>
+
+  </div>
+
+  <div class="panel" data-step="4" style="padding:12px 16px">
+    <p class="body" style="max-width:74ch">In studies of these pitches, <b>pathos is the most used appeal of the three</b>, more than half of everything said. Logos comes second. Ethos is used least of all.</p>
+  </div>
+
+  <div class="panel info" data-step="5" style="padding:12px 16px">
+    <p class="body" style="max-width:74ch">Four sharks heard the donation as a cost. One heard it as a market. <b>Same pitch, same three appeals, opposite readings.</b></p>
+    <p class="body" style="max-width:74ch">Know your audience and you can lean on one of the three. <b>If you do not know them, go for the balance.</b></p>
+  </div>
+</section>
+
 
 <section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="La plantilla. Recorre la introducción rápido y DETENTE en Conflict. Sin esa casilla tienen un informe. Y señala que Complication dice «opcional» pero es la que más les cuesta, porque están entrenados para presentar certeza.">
   <div class="kicker">Tip 2 · turn information into a story</div>
@@ -645,7 +787,7 @@
   <p class="tiny">Classic story structure, compressed for presentations · after Campbell, <em>The Hero with a Thousand Faces</em> (1949)</p>
 </section>
 
-<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="QR 3 al final: tres nombres, la idea en una línea y el conflicto en una línea. NADA MÁS. Ocho casillas escritas no caben en ocho minutos; dos líneas sí, en unos cuarenta y cinco segundos. Y así puedes elegir la cosecha viendo las veintisiete en vez de a oído. · ESTA slide se queda proyectada los 8 minutos completos: la plantilla tiene que estar delante mientras trabajan. · Circula con UNA sola pregunta: ¿cuál es el conflicto? · Si te contestan repitiendo el dato («pues que subió a 51 días»), la de seguimiento es: ¿y a quién le duele? · Dos tríos leen su versión en la cosecha. Elígelos mientras circulas, buscando dos que hayan ido por caminos distintos, y avísales antes.">
+<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="Formulario 3 del enlace del día, al final: tres nombres, la idea en una línea y el conflicto en una línea. NADA MÁS. Ocho casillas escritas no caben en ocho minutos; dos líneas sí, en unos cuarenta y cinco segundos. Y así puedes elegir la cosecha viendo las veintisiete en vez de a oído. · ESTA slide se queda proyectada los 8 minutos completos: la plantilla tiene que estar delante mientras trabajan. · Circula con UNA sola pregunta: ¿cuál es el conflicto? · Si te contestan repitiendo el dato («pues que subió a 51 días»), la de seguimiento es: ¿y a quién le duele? · Dos tríos leen su versión en la cosecha. Elígelos mientras circulas, buscando dos que hayan ido por caminos distintos, y avísales antes.">
   <div class="kicker do">8 minutes</div>
   <h2 style="font-size:clamp(20px,2.7vw,36px)">Threes, with the people beside you. Nobody moves seats — if you end up a four, stay a four.</h2>
   <p class="tiny">These two people are your three for the rest of the afternoon, including after the break. When I say pairs, the third watches one round and then takes a turn.</p>
@@ -680,7 +822,7 @@
 
 <!-- ══════════════════ SESIÓN 2 ══════════════════ -->
 
-<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="AUTOMÁTICO: pegas todas las respuestas en el panel D y pulsa Elegir. Compara las 27 dos a dos y saca la pareja con menos palabras en común, o sea la que localizó el conflicto en sitios más distintos. Si no te gusta, «Otra pareja» pasa a la siguiente. · Lo que dices en voz alta: mismo dato, dos historias, y ninguna es más verdadera; la diferencia está en dónde pusieron el conflicto. · Y el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar. · CRITERIO MANUAL si prefieres elegirlas tú: buscas las dos más DISTINTAS, no las dos mejores. · Criterio 1: que hayan puesto el conflicto en sitios diferentes (uno en el proceso, otro en una persona; uno en el riesgo, otro en el incentivo). · Criterio 2: que los MIP no coincidan. · Criterio 3: descarta las que solo reformulan el dato, no las uses ni como contraejemplo en público. · CUÁNDO: en el último minuto de los ocho, plántate al frente y lee la columna de idea en tu portátil. No hace falta leer las 27 completas, con la idea basta para ver quién divergió. · CÓMO PROYECTARLAS: panel D, pegas las dos separadas por una línea en blanco, Aplicar. Veinte segundos. · Léelas en voz alta e invita a los autores a completarlas. · Y cierra con el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar.">
+<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="AUTOMÁTICO: pegas todas las respuestas en el panel D y pulsa Elegir. Compara las 27 dos a dos y saca la pareja con menos palabras en común, o sea la que localizó el conflicto en sitios más distintos. Si no te gusta, «Otra pareja» pasa a la siguiente. · Lo que dices en voz alta: mismo dato, dos historias, y ninguna es más verdadera; la diferencia está en dónde pusieron el conflicto. · Y el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar. · CRITERIO MANUAL si prefieres elegirlas tú: buscas las dos más DISTINTAS, no las dos mejores. · Criterio 1: que hayan puesto el conflicto en sitios diferentes (uno en el proceso, otro en una persona; uno en el riesgo, otro en el incentivo). · Criterio 2: que los MIP no coincidan. · Criterio 3: descarta las que solo reformulan el dato, no las uses ni como contraejemplo en público. · CUÁNDO: en el último minuto de los ocho, plántate al frente y lee la columna de idea en tu portátil. No hace falta leer las 27 completas, con la idea basta para ver quién divergió. · CÓMO PROYECTARLAS: panel D, pegas las dos separadas por una línea en blanco, Aplicar. Veinte segundos. · DÉJALAS PUESTAS. Es el último ejercicio antes del break y es el único momento del día en que leen el trabajo de otro trío, así que el tiempo de lectura es el ejercicio, no el relleno. Proyecta la pareja y cállate un minuto largo, sin narrarla: son dos textos de dos líneas, pero puestos uno al lado del otro hay que compararlos, y eso no se hace en quince segundos. · Léelas en voz alta DESPUÉS de ese silencio, no antes, e invita a los autores a completarlas. · Solo entonces R para la siguiente pareja, y otra vez el mismo silencio. Dos parejas bien leídas valen más que cuatro pasadas de refilón: si vas justa, enseña una sola. · La pantalla ya no cambia sola aunque entren respuestas nuevas: la pareja se queda hasta que pulses R. · Y cierra con el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar.">
   <div class="picks" id="picks"></div>
 </section>
 
@@ -970,6 +1112,12 @@
   <p class="lead">When you come back you will be sitting with your project group. Check Blackboard.</p>
 </section>
 
+<section data-part="3" class="slide" data-s="3" data-b="Asistencia" data-notes="Asistencia 3 de 8, y va ANTES del divisor de la parte tres a propósito: la administración se despacha con la sesión todavía en marcha, y el divisor queda limpio para el cambio de tono. · Rápido, ya saben cómo va. Lánzala y déjala abierta mientras dices la hora de salida. · NO menciones grupos todavía: lo de recolocarse viene dos slides después y si lo adelantas aquí se levanta media clase a destiempo.">
+  <div class="kicker rule">Attendance · 3 of 8 · <span class="fin">16.30 – 18.00</span><span class="afm">17.30 – 19.00</span></div>
+  <h2>Register again, in the app.</h2>
+  <p class="lead">Last one today. We finish at <b class="fin">18.00</b><b class="afm">19.00</b>.</p>
+</section>
+
 <section data-part="3" class="slide divider" data-s="3" data-b="Su turno" data-notes="Segunda bisagra: se acaba la teoría y empieza el trabajo. Dilo explícito: «hasta aquí he hablado yo, de aquí al domingo hablan ustedes». A partir de esta slide todo lo que pasa lo hacen ellos.">
   <div class="partno">03</div>
   <div class="kicker">Part three · your turn</div>
@@ -977,13 +1125,13 @@
   <p class="lead">From here to tomorrow evening, you are the ones talking.</p>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="Grupos" data-notes="Asistencia 3 de 8. Van a Blackboard, ven su grupo y SE RECOLOCAN físicamente. No abras los artículos todavía: eso es en 40 minutos.">
-  <div class="kicker rule">Attendance · 3 of 8 · <span class="fin">16.30 – 18.00</span><span class="afm">17.30 – 19.00</span></div>
+<section data-part="3" class="slide" data-s="3" data-b="Grupos" data-notes="La asistencia ya está tomada dos slides atrás, así que aquí solo se levantan y se mueven. · SE RECOLOCAN FÍSICAMENTE, no vale «ya sé quién es mi grupo». Espera de pie a que termine el movimiento y no hables mientras dura: si narras por encima del ruido, nadie te oye y lo repites tres veces. · No abras los artículos todavía: eso es en 40 minutos.">
+  <div class="kicker do">Find your group</div>
   <h2>Go to Blackboard. Find your group. Move.</h2>
-  <p class="lead">Sit with them. You are going to spend sixteen hours together. We finish today at <b class="fin">18.00</b><b class="afm">19.00</b>.</p>
+  <p class="lead">Sit with them. You are going to spend sixteen hours together.</p>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="QR 8, ANTES de explicar de qué va la conversación. Que anoten de verdad: el ejercicio entero depende de este paso. Y di en voz alta que esto NO es la asistencia.">
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 8 del enlace del día, ANTES de explicar de qué va la conversación. Que anoten de verdad: el ejercicio entero depende de este paso. Y di en voz alta que esto NO es la asistencia.">
   <div class="kicker do">90 seconds · four numbers</div>
   <h2>Before I tell you anything.</h2>
   <div class="qrwrap">
@@ -1046,7 +1194,7 @@
 
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="QR 9, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 9 del enlace del día, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
   <div class="kicker do">60 seconds · same exercise, backwards</div>
   <table class="tbl" style="max-width:52ch"><tbody>
     <tr><td class="k">0–10</td><td>How awkward was it, really?</td></tr>
@@ -1231,10 +1379,37 @@
     var nbody = document.getElementById('notes-body');
     if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+    if (typeof paintSteps === 'function') paintSteps();
     if (typeof syncLive === 'function') syncLive();
     if (typeof fitSlide === 'function') fitSlide();
   }
-  function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+  var step = 0;
+  function maxStep(sl) {
+    var els = sl ? sl.querySelectorAll('[data-step]') : [];
+    var m = 0;
+    Array.prototype.forEach.call(els, function (el) {
+      m = Math.max(m, parseInt(el.getAttribute('data-step'), 10) || 0);
+    });
+    return m;
+  }
+  function paintSteps() {
+    var sl = slides[i]; if (!sl) return;
+    Array.prototype.forEach.call(sl.querySelectorAll('[data-step]'), function (el) {
+      el.classList.toggle('shown', (parseInt(el.getAttribute('data-step'), 10) || 0) <= step);
+    });
+  }
+  function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); step = 0; render(); }
+  /* avanza dentro de la slide si le quedan pasos, y solo entonces cambia de slide */
+  function adv(dir) {
+    var sl = slides[i], m = maxStep(sl);
+    if (dir > 0) {
+      if (step < m) { step++; paintSteps(); return; }
+      if (i < slides.length - 1) { i++; step = 0; render(); }
+      return;
+    }
+    if (step > 0) { step--; paintSteps(); return; }
+    if (i > 0) { i--; step = maxStep(slides[i]); render(); }
+  }
 
   /* ajusta la slide viva para que nunca se corte, sea cual sea el proyector */
   function fitSlide() {
@@ -1256,8 +1431,8 @@
 
   document.addEventListener('keydown', function (e) {
     if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
-    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
-    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); adv(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); adv(-1); }
     else if (e.key === 'Home') { go(0); }
     else if (e.key === 'End') { go(slides.length - 1); }
     else if (TEACH && (e.key === 'n' || e.key === 'N')) { document.getElementById('btn-notes').click(); }
@@ -1265,16 +1440,14 @@
     else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); }
   });
   document.getElementById('stage').addEventListener('click', function (e) {
-    go(i + (e.clientX < window.innerWidth * 0.25 ? -1 : 1));
+    adv(e.clientX < window.innerWidth * 0.25 ? -1 : 1);
   });
 
   function setClass(c) {
     document.body.setAttribute('data-class', c);
-    QRS.q1 = QRBASE + (c === 'afm' ? 'q1-afm.html' : 'q1-fin.html');
-    Array.prototype.forEach.call(document.querySelectorAll('[data-qr="q1"]'), function (b) {
-      b.removeAttribute('data-done');
-    });
-    if (typeof paintQRs === 'function') paintQRs();
+    /* El QR ya no cambia con la clase: todos apuntan al hub, y es el hub el que
+       ofrece el formulario 1 en versión FIN y en versión AFM. No hay que
+       repintar nada al cambiar de clase. */
     if (typeof syncLive === 'function') syncLive();
     document.getElementById('btn-fin').setAttribute('aria-pressed', String(c === 'fin'));
     document.getElementById('btn-afm').setAttribute('aria-pressed', String(c === 'afm'));
@@ -1619,10 +1792,14 @@
   }
 
   /* --- stories: dos al azar --- */
-  var storyRows = [];
+  /* Se pintan UNA vez y se quedan quietas. El refresco de datos entra cada ocho
+     segundos, y si repintara en cada vuelta cambiaría la pareja debajo de quien
+     la está leyendo. La pareja solo cambia cuando tú pulsas R. */
+  var storyRows = [], storiesPainted = false;
   function renderTwoStories() {
     var box = document.getElementById('picks');
     if (storyRows.length < 2) return;
+    storiesPainted = true;
     var a = Math.floor(Math.random() * storyRows.length), b = a;
     while (b === a) b = Math.floor(Math.random() * storyRows.length);
     box.innerHTML = [a, b].map(function (i) {
@@ -1633,7 +1810,7 @@
              (e.conf ? '<div class="conf"><b>Conflict:</b> ' + e.conf + '</div>' : '') +
              '</div>';
     }).join('');
-    var pi2 = document.getElementById('pairinfo'); if (pi2) pi2.textContent = storyRows.length + ' respuestas · R para otra pareja';
+    var pi2 = document.getElementById('pairinfo'); if (pi2) pi2.textContent = storyRows.length + ' respuestas · R para otra pareja · no cambia sola';
   }
   function liveStories(rows) {
     if (!rows || rows.length < 2) return;
@@ -1644,7 +1821,7 @@
       var who = c.length > 2 ? c.shift() : '';
       return { who: who, idea: c.shift() || '', conf: c.join(' ') };
     }).filter(function (e) { return e.idea; });
-    if (storyRows.length >= 2) renderTwoStories();
+    if (storyRows.length >= 2 && !storiesPainted) renderTwoStories();
   }
 
   /* --- asymmetry: cuatro medias --- */
@@ -1720,18 +1897,19 @@
      Los QR se dibujan solos a partir de estas URLs.
      ============================================================ */
   var QRBASE = 'https://helenamontoyacalero.com/presentations-class/f/';
+
+  /* UN SOLO DESTINO. Todos los QR del viernes, el grande de la slide 2 y los
+     pequeños de las slides de trabajo, codifican la MISMA URL: el hub.
+     Quien escanea siempre aterriza en el enlace del día y desde ahí elige el
+     formulario que toca. Nadie llega a una URL de formulario suelta, así que
+     nadie se queda con una pestaña muerta a media tarde.
+     El hub es quien tiene que llevar el formulario 1 en las dos versiones,
+     FIN y AFM, porque el QR ya no distingue de clase. */
+  var HUB = QRBASE;
   var QRS = {
-    q1:  QRBASE + 'q1-fin.html',   // se reescribe a q1-afm al cambiar de clase
-    q2:  QRBASE + 'q2.html',
-    q3:  QRBASE + 'q3.html',
-    q4:  QRBASE + 'q4.html',
-    q5:  QRBASE + 'q5.html',
-    q6:  QRBASE + 'q6.html',
-    q7:  QRBASE + 'q7.html',
-    q8:  QRBASE + 'q8.html',
-    q9:  QRBASE + 'q9.html',
-    q10: QRBASE + 'q10.html',
-    hub: QRBASE
+    q1: HUB, q2: HUB, q3: HUB, q4: HUB, q5: HUB,
+    q6: HUB, q7: HUB, q8: HUB, q9: HUB, q10: HUB,
+    hub: HUB
   };
 /* QR encoder · byte mode · EC level M · versions 1-10 */
 var QR = (function () {
