@@ -20,3 +20,9 @@ SB_20941_Persuasive Presentations AFM.pdf
 
 # Artículos de prensa de terceros, con derechos.
 articoli/
+
+# Listas de matriculados, asistencia y notas. Datos personales de
+# estudiantes: no van a un repositorio público, ni a uno privado sin
+# pensarlo dos veces.
+*.xlsx
+*.xls
