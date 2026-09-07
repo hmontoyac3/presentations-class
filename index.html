@@ -298,8 +298,13 @@
 
   /* reproductor · se monta al entrar en la slide y se DESTRUYE al salir,
      que es lo que hace que el audio se calle al avanzar. */
+  /* flex:none es obligatorio. La slide es un contenedor flex en columna,
+     así que un hijo directo se comprime para dejar sitio al texto y el
+     aspect-ratio se pierde: el vídeo de Reagan salía en una franja de
+     100px. Dentro de .cols2 no pasaba, y por eso Rosling y Bombas se
+     veían bien y este no. */
   .media { position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
-           border: 1px solid var(--rule); overflow: hidden; }
+           border: 1px solid var(--rule); overflow: hidden; flex: none; }
   /* La forma la decide el CONTENIDO, no una clase que haya que conmutar.
      Antes se ponía y quitaba una clase .audio a mano y en el respaldo de
      Reagan se quedaba puesta, así que el vídeo salía achatado en una
@@ -1023,7 +1028,7 @@
   <ul class="big" style="columns:2;column-gap:clamp(20px,3vw,50px)">
     <li>The country</li><li>The seven families</li><li>The children who saw it</li><li>The USSR</li><li>NASA</li>
   </ul>
-  <div class="media" data-file="media/reagan.mp3" data-yt="sNQLOOCU9W8" data-label="Reagan, address to the nation, 28 January 1986"></div>
+  <div class="media" style="max-width:min(100%,560px)" data-file="media/reagan.mp3" data-yt="sNQLOOCU9W8" data-label="Reagan, address to the nation, 28 January 1986"></div>
   <p class="tiny">Reagan, address to the nation · 4 minutes</p>
 </section>
 
