@@ -289,6 +289,38 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* CRONÓMETRO DE EJERCICIO
+     Va arriba a la derecha, alineado con el kicker, porque es la zona
+     que queda libre en todas las slides de ejercicio. Absoluto respecto
+     de la slide, así que no entra en el cálculo del auto-zoom. */
+  .slide { position: relative; }
+  .timer {
+    position: absolute; top: clamp(24px, 4vw, 68px); right: clamp(24px, 4vw, 68px);
+    z-index: 5; display: flex; align-items: baseline; gap: 9px;
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    background: var(--card); border: 1px solid var(--rule);
+    padding: 8px 13px; cursor: pointer; user-select: none;
+    box-shadow: 0 1px 8px rgba(0,0,0,.05);
+  }
+  .timer .tval { font-size: clamp(22px, 2.6vw, 38px); font-weight: 700;
+                 line-height: 1; letter-spacing: -.02em; color: var(--ink-faint); }
+  .timer .tlbl { font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+                 color: var(--ink-faint); }
+  .timer[data-state="run"]   { border-color: var(--ochre); }
+  .timer[data-state="run"]   .tval { color: var(--ochre); }
+  .timer[data-state="run"]   .tlbl { color: var(--ochre); }
+  .timer[data-state="pause"] { border-color: var(--blue); }
+  .timer[data-state="pause"] .tval { color: var(--blue); }
+  .timer[data-state="pause"] .tlbl { color: var(--blue); }
+  .timer[data-state="over"]  { border-color: var(--crimson); background: var(--crimson-bg); }
+  .timer[data-state="over"]  .tval { color: var(--crimson); }
+  .timer[data-state="over"]  .tlbl { color: var(--crimson); }
+  @media (prefers-reduced-motion: no-preference) {
+    .timer[data-state="over"] { animation: tflash 1.1s ease-in-out 3; }
+  }
+  @keyframes tflash { 50% { background: var(--crimson); border-color: var(--crimson); } }
+  .timer[data-state="over"] .tval, .timer[data-state="over"] .tlbl { mix-blend-mode: normal; }
+
   /* revelado por pasos dentro de una slide.
      Se usa opacidad y NO display:none, para que la altura de la slide no
      cambie al avanzar: si cambiara, fitSlide re-calcularia el zoom en cada
@@ -528,7 +560,7 @@
     </div>
   </div>
 </section>
-<section data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="Formulario 1, noventa segundos, dos preguntas. En esta slide YA NO hay código: acaban de escanear en la anterior y la pestaña está abierta, así que solo tienen que elegir el formulario 1. Si alguien pregunta dónde está el QR, es señal de que no escaneó, y se resuelve volviendo una slide. No expliques para qué es ninguna: la de las empresas parece una encuesta simpática, y la del tiempo la usas dentro de dos horas en TIP 3a. Los rangos van en semanas Y meses a propósito, para no anclarles la unidad. Lee las opciones en voz alta una vez. Que no lo busquen y que no se pongan de acuerdo con el vecino.">
+<section data-timer="90" data-part="1" class="slide" data-s="1" data-b="Dónde te gustaría" data-notes="Formulario 1, noventa segundos, dos preguntas. En esta slide YA NO hay código: acaban de escanear en la anterior y la pestaña está abierta, así que solo tienen que elegir el formulario 1. Si alguien pregunta dónde está el QR, es señal de que no escaneó, y se resuelve volviendo una slide. No expliques para qué es ninguna: la de las empresas parece una encuesta simpática, y la del tiempo la usas dentro de dos horas en TIP 3a. Los rangos van en semanas Y meses a propósito, para no anclarles la unidad. Lee las opciones en voz alta una vez. Que no lo busquen y que no se pongan de acuerdo con el vecino.">
   <div class="kicker do">90 seconds · two questions</div>
   <h1>Where would you like to be working in two years?</h1>
   <div class="stack">
@@ -615,7 +647,7 @@
   <p class="lead">So what is going to tell you apart?</p>
 </section>
 
-<section data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="El puente hacia la teoría, no un juego: acabas de decir que este es su espacio para equivocarse, y ahora arrancas desde lo que ya saben. · PREEMPTIVO, dilo con humor mientras escanean: «y sí, antes de que alguien lo intente: no vale esta, que todavía no he empezado». Defusa el chiste y demuestra que vas por delante. · Sin nombres y sin cursos de esta universidad. · Tres minutos, cierra cuando el contador se estanque, no al 100%. · Proyecta solo la nube de la palabra única, no las respuestas largas.">
+<section data-timer="120" data-part="1" class="slide" data-s="1" data-b="Cementerio" data-notes="El puente hacia la teoría, no un juego: acabas de decir que este es su espacio para equivocarse, y ahora arrancas desde lo que ya saben. · PREEMPTIVO, dilo con humor mientras escanean: «y sí, antes de que alguien lo intente: no vale esta, que todavía no he empezado». Defusa el chiste y demuestra que vas por delante. · Sin nombres y sin cursos de esta universidad. · Tres minutos, cierra cuando el contador se estanque, no al 100%. · Proyecta solo la nube de la palabra única, no las respuestas largas.">
   <div class="kicker do">Two minutes · scan this</div>
   <h2>You already know what does not work. You have sat through it.</h2>
   <div class="qrwrap">
@@ -779,7 +811,7 @@
   <p class="tiny">Classic story structure, compressed for presentations · after Campbell, <em>The Hero with a Thousand Faces</em> (1949)</p>
 </section>
 
-<section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="Formulario 3 del enlace del día, al final: tres nombres, la idea en una línea y el conflicto en una línea. NADA MÁS. Ocho casillas escritas no caben en ocho minutos; dos líneas sí, en unos cuarenta y cinco segundos. Y así puedes elegir la cosecha viendo las veintisiete en vez de a oído. · ESTA slide se queda proyectada los 8 minutos completos: la plantilla tiene que estar delante mientras trabajan. · Circula con UNA sola pregunta: ¿cuál es el conflicto? · Si te contestan repitiendo el dato («pues que subió a 51 días»), la de seguimiento es: ¿y a quién le duele? · Dos tríos leen su versión en la cosecha. Elígelos mientras circulas, buscando dos que hayan ido por caminos distintos, y avísales antes.">
+<section data-timer="480" data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="Formulario 3 del enlace del día, al final: tres nombres, la idea en una línea y el conflicto en una línea. NADA MÁS. Ocho casillas escritas no caben en ocho minutos; dos líneas sí, en unos cuarenta y cinco segundos. Y así puedes elegir la cosecha viendo las veintisiete en vez de a oído. · ESTA slide se queda proyectada los 8 minutos completos: la plantilla tiene que estar delante mientras trabajan. · Circula con UNA sola pregunta: ¿cuál es el conflicto? · Si te contestan repitiendo el dato («pues que subió a 51 días»), la de seguimiento es: ¿y a quién le duele? · Dos tríos leen su versión en la cosecha. Elígelos mientras circulas, buscando dos que hayan ido por caminos distintos, y avísales antes.">
   <div class="kicker do">8 minutes</div>
   <h2 style="font-size:clamp(20px,2.7vw,36px)">Threes, with the people beside you. Nobody moves seats — if you end up a four, stay a four.</h2>
   <p class="tiny">These two people are your three for the rest of the afternoon, including after the break. When I say pairs, the third watches one round and then takes a turn.</p>
@@ -831,22 +863,43 @@
   <p class="lead"> Next break at <b class="fin">16.15</b><b class="afm">17.15</b>.</p>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Cuatro minutos de teoría. El contraste ejecuta la tesis del curso: es lo que empuja a la audiencia hacia lo que podría haber.">
+<section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Cuatro minutos de teoría, y ahora la slide hace el trabajo: antes eran cuatro flechas sin ejemplo y no se entendía qué había que hacer hasta que ya lo estaban haciendo. · Lee UNO de los cuatro pares en voz alta, entero, el «es» y el «podría ser». Con uno basta para que vean el mecanismo; los otros tres los leen ellos en diez segundos. · Y di la frase de arriba, que es la que unifica los cuatro: son el mismo movimiento, no cuatro técnicas. · El recuadro rojo NO es decoración, es el enunciado del ejercicio que viene: por eso está aquí y no en la slide siguiente. Léelo literal y espera dos segundos. · Si te sobra tiempo, el mejor ejemplo eres tú: «hace veinte minutos les dije que 400.000 empleos desaparecieron. Eso es información. El insight es que la que se quedó tuvo un año para decidir en qué lado caía».">
   <div class="kicker">Tip 3 · contrast</div>
-  <h2>The gap between what is and what could be is built with contrast.</h2>
+  <h2 style="font-size:clamp(20px,2.6vw,36px)">The gap between what is and what could be is built with contrast.</h2>
+  <p class="lead" style="max-width:70ch">Four moves. They are all the same move: say where things <b>are</b>, then where they <b>could be</b>. The gap is the argument.</p>
   <div class="cols2">
-    <ul class="big">
-      <li>Disadvantage → opportunity</li>
-      <li>Information → insight</li>
-    </ul>
-    <ul class="big">
-      <li>Ordinary → special</li>
-      <li>Question → answer</li>
-    </ul>
+
+    <div class="panel appeal" style="padding:12px 15px">
+      <h3 style="font-size:clamp(14px,1.4vw,20px)">Disadvantage → opportunity</h3>
+      <div><div class="k">is</div><p>We are the smallest desk on the floor.</p></div>
+      <div><div class="k">could be</div><p>Which is why we can take the positions nobody else can be bothered to size.</p></div>
+    </div>
+
+    <div class="panel appeal" style="padding:12px 15px">
+      <h3 style="font-size:clamp(14px,1.4vw,20px)">Information → insight</h3>
+      <div><div class="k">is</div><p>Churn was nine per cent last year.</p></div>
+      <div><div class="k">could be</div><p>One client in eleven left before anyone here had met them.</p></div>
+    </div>
+
+    <div class="panel appeal" style="padding:12px 15px">
+      <h3 style="font-size:clamp(14px,1.4vw,20px)">Ordinary → special</h3>
+      <div><div class="k">is</div><p>The monthly collections report.</p></div>
+      <div><div class="k">could be</div><p>The one page your CFO reads before the board call.</p></div>
+    </div>
+
+    <div class="panel appeal" style="padding:12px 15px">
+      <h3 style="font-size:clamp(14px,1.4vw,20px)">Question → answer</h3>
+      <div><div class="k">is</div><p>Why did collections slip to fifty-one days?</p></div>
+      <div><div class="k">could be</div><p>Because we changed who signs off, and nobody told the team.</p></div>
+    </div>
+
+  </div>
+  <div class="panel rule">
+    <p class="body" style="max-width:74ch">In a minute you are going to do this out loud, in your threes. One rule: the <b>could be</b> has to be concrete enough to picture. <b>“It could be better” is not a contrast, it is a wish.</b></p>
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Ping-pong. Tú eres metrónomo: anuncias dominio, arrancas, cantas el cambio. Ronda 1 es tonta a propósito. La regla: el «podría ser» tiene que ser concreto, no «mejor».">
+<section data-timer="240" data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="Ping-pong. Tú eres metrónomo: anuncias dominio, arrancas con el cronómetro, cantas el cambio. · La regla ya la leyeron en la slide anterior, así que aquí NO la vuelvas a explicar: solo señálala si alguien dice «mejor». · Ronda 1 es tonta a propósito, para que se rían y arranquen. · Cronómetro: 4 minutos, tecla t. Cinco rondas entran justas, unos cuarenta y cinco segundos cada una.">
   <div class="kicker do">Your threes · 5 rounds · about 4 minutes</div>
   <h2>A says what is. B answers with what could be. Immediately. Then rotate.</h2>
   <ol class="big">
@@ -856,7 +909,7 @@
     <li>A financial report nobody reads</li>
     <li>The job you want in two years</li>
   </ol>
-  <div class="panel rule"><p class="body">"It could be better" does not count. Concrete enough to picture.</p></div>
+  <div class="panel rule"><p class="body">Concrete enough to picture. You know the rule.</p></div>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Proyecta el histograma ANTES de dar la respuesta. «El más optimista dijo X, el más pesimista Y. Misma clase, misma información, y respuestas que se diferencian en un factor de Z.» Esa dispersión es la lección: un número sin referencia no se puede interpretar. Y es lo que le va a pasar a su audiencia mañana.">
@@ -891,7 +944,7 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="Treinta segundos de silencio mientras lo miran. Pregunta qué intenta decir: nadie va a poder. Y el encuadre importa: esto lo aprobó gente muy competente. Dos decisiones, no rediseñar.">
+<section data-timer="300" data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="Treinta segundos de silencio mientras lo miran. Pregunta qué intenta decir: nadie va a poder. Y el encuadre importa: esto lo aprobó gente muy competente. Dos decisiones, no rediseñar.">
   <div class="kicker do">Your three · 5 minutes · two decisions only</div>
   <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:34vh;">CHART GOES HERE<br>— annual report or investor deck, public source —</div>
   <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
@@ -968,7 +1021,7 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="La pausa" data-notes="Todos de pie. Una frase con contenido, y tres segundos de silencio mirando a los ojos. Tres rondas cada uno. El debrief es lo que enseña: desde dentro eterno, desde fuera seguridad.">
+<section data-timer="240" data-part="2" class="slide" data-s="2" data-b="La pausa" data-notes="Todos de pie. Una frase con contenido, y tres segundos de silencio mirando a los ojos. Tres rondas cada uno. El debrief es lo que enseña: desde dentro eterno, desde fuera seguridad.">
   <div class="kicker do">Everyone up · 4 minutes</div>
   <h1>Say one sentence about why you chose Milan. Then three seconds of silence, looking at them.</h1>
   <ul class="big">
@@ -999,7 +1052,7 @@
   <div class="panel rule"><p class="body">Visualising is stage nine of nine. Tomorrow at half past ten, when you open PowerPoint, you will be starting at stage nine.</p></div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="Tú cantas las tres fases y no dejas que se adelanten. En los tres primeros minutos NO se descarta nada: si alguien dice una tontería se escribe igual. Es el fallo por defecto.">
+<section data-timer="420" data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="Tú cantas las tres fases y no dejas que se adelanten. En los tres primeros minutos NO se descarta nada: si alguien dice una tontería se escribe igual. Es el fallo por defecto.">
   <div class="kicker do">Your three · 7 minutes</div>
   <h2 style="font-size:clamp(19px,2.4vw,32px)">Why nobody reads the report you are about to spend your career writing.</h2>
   <table class="tbl"><tbody>
@@ -1056,7 +1109,7 @@
   <blockquote style="font-size:clamp(18px,2.3vw,32px)">Who am I being, that my players' eyes are not shining?<cite>Benjamin Zander, conductor</cite></blockquote>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 5" data-notes="Todos de pie, todos a la vez, sesenta segundos al vecino. Tema fácil: por qué eligieron este máster. Tres condiciones y la tercera es la que importa. El debrief de este ejercicio NO es verbal: lo recoge el formulario de la slide siguiente. No hagas las dos cosas.">
+<section data-timer="60" data-part="2" class="slide" data-s="2" data-b="TIP 5" data-notes="Todos de pie, todos a la vez, sesenta segundos al vecino. Tema fácil: por qué eligieron este máster. Tres condiciones y la tercera es la que importa. El debrief de este ejercicio NO es verbal: lo recoge el formulario de la slide siguiente. No hagas las dos cosas.">
   <div class="kicker do">Everyone up · same pair as the pause · 60 seconds each</div>
   <h2 style="font-size:clamp(19px,2.4vw,32px)">Tell them why you chose this master's.</h2>
   <h1>Do not take your eyes off them. Not once.</h1>
@@ -1067,7 +1120,7 @@
   </ul>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Un solo envío que cubre los dos ejercicios de pie del día. Proyecta las cuatro medias juntas: sentir contra observar, en la pausa y en el minuto de contacto visual. La brecha entre las dos columnas es el aprendizaje de delivery de todo el viernes, y ahora es un número y no una levantada de manos.">
+<section data-timer="60" data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Un solo envío que cubre los dos ejercicios de pie del día. Proyecta las cuatro medias juntas: sentir contra observar, en la pausa y en el minuto de contacto visual. La brecha entre las dos columnas es el aprendizaje de delivery de todo el viernes, y ahora es un número y no una levantada de manos.">
   <div class="kicker do">60 seconds · four numbers</div>
   <h2>What it felt like from the inside, and what it looked like from the outside.</h2>
   <p class="lead" style="max-width:46ch">Every answer 0 to 10. 0 = not at all, 10 = extremely.</p>
@@ -1135,7 +1188,7 @@
   <p class="lead">Sit with them. You are going to spend sixteen hours together.</p>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 8 del enlace del día, ANTES de explicar de qué va la conversación. Que anoten de verdad: el ejercicio entero depende de este paso. Y di en voz alta que esto NO es la asistencia.">
+<section data-timer="90" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 8 del enlace del día, ANTES de explicar de qué va la conversación. Que anoten de verdad: el ejercicio entero depende de este paso. Y di en voz alta que esto NO es la asistencia.">
   <div class="kicker do">90 seconds · four numbers</div>
   <h2>Before I tell you anything.</h2>
   <div class="qrwrap">
@@ -1163,7 +1216,7 @@
   </ol>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 1, 3 min. El grupo elige una. Es tonta a propósito, para que se suelten.">
+<section data-timer="180" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 1, 3 min. El grupo elige una. Es tonta a propósito, para que se suelten.">
   <div class="kicker do">Round 1 · 3 minutes · pick one</div>
   <ul class="big">
     <li>As a kid, did you ever have a crush on a cartoon character?</li>
@@ -1176,7 +1229,7 @@
 
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 2, 4 min. Una sola para todos.">
+<section data-timer="240" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 2, 4 min. Una sola para todos.">
   <div class="kicker do">Round 2 · 4 minutes</div>
   <h1>What is the hardest thing you have ever learned to do, and what did it cost you?</h1>
   <div class="panel rule" style="padding:8px 13px;border-left-width:4px">
@@ -1185,7 +1238,7 @@
 
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 3, 5 min. El salto. La tercera opción es la vía de escape para los grupos que se bloqueen: no la ofrezcas primero.">
+<section data-timer="300" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Ronda 3, 5 min. El salto. La tercera opción es la vía de escape para los grupos que se bloqueen: no la ofrezcas primero.">
   <div class="kicker do">Round 3 · 5 minutes · pick one</div>
   <ul class="big">
     <li>One of the most embarrassing moments of your life</li>
@@ -1198,7 +1251,7 @@
 
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 9 del enlace del día, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
+<section data-timer="60" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 9 del enlace del día, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
   <div class="kicker do">60 seconds · same exercise, backwards</div>
   <table class="tbl" style="max-width:52ch"><tbody>
     <tr><td class="k">0–10</td><td>How awkward was it, really?</td></tr>
@@ -1308,7 +1361,7 @@
   <p class="lead">Two groups share each article. Tomorrow you give each other feedback — so listen to them carefully.</p>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="Trabajo" data-notes="Cuarenta minutos. Circula con UNA pregunta: ¿cuál es el conflicto? Y si te responden repitiendo el artículo: ¿y a quién le duele? No sobre-asesores: es competitivo.">
+<section data-timer="2400" data-part="3" class="slide" data-s="3" data-b="Trabajo" data-notes="Cuarenta minutos. Circula con UNA pregunta: ¿cuál es el conflicto? Y si te responden repitiendo el artículo: ¿y a quién le duele? No sobre-asesores: es competitivo.">
   <div class="kicker do">40 minutes · start now</div>
   <h1>Do not choose an idea today.</h1>
   <table class="tbl" style="max-width:44ch"><tbody>
@@ -1387,6 +1440,7 @@
     var nbody = document.getElementById('notes-body');
     if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+    if (typeof treset === 'function') treset();
     if (typeof paintSteps === 'function') paintSteps();
     if (typeof syncLive === 'function') syncLive();
     if (typeof fitSlide === 'function') fitSlide();
@@ -1448,12 +1502,14 @@
     else if (e.key === 'End') { go(slides.length - 1); }
     else if (TEACH && (e.key === 'n' || e.key === 'N')) { document.getElementById('btn-notes').click(); }
     else if (TEACH && (e.key === 'd' || e.key === 'D')) { document.getElementById('btn-data').click(); }
+    else if (e.key === 't') { e.preventDefault(); if (typeof ttoggle === 'function') ttoggle(); }
+    else if (e.key === 'T') { e.preventDefault(); if (typeof treset === 'function') treset(); }
     else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); }
   });
   /* Un clic en el escenario avanza, PERO no si cae dentro de algo con lo
      que se interactúa. Sin esto, darle al play a un vídeo salta de slide,
      que es exactamente lo que no quieres delante de la clase. */
-  var NOADV = '.media, video, audio, iframe, button, a, input, textarea, select, label, .qrbox, #picks';
+  var NOADV = '.media, video, audio, iframe, button, a, input, textarea, select, label, .qrbox, #picks, .timer';
   document.getElementById('stage').addEventListener('click', function (e) {
     if (e.target && e.target.closest && e.target.closest(NOADV)) return;
     adv(e.clientX < window.innerWidth * 0.25 ? -1 : 1);
@@ -2061,6 +2117,68 @@ var QR = (function () {
 })();
 
   /* ============================================================
+     CRONÓMETRO DE EJERCICIO
+     Cada slide con data-timer lleva uno. El valor sale del texto que
+     ya se proyecta en el kicker, así que la cuenta y lo que leen los
+     alumnos no pueden discrepar.
+       t          arranca y pausa
+       T (mayús)  vuelve a poner el tiempo entero
+       clic       lo mismo que t
+     Se reinicia solo al cambiar de slide, así que cada ejercicio
+     empieza limpio. Al llegar a cero no se para: sigue contando
+     hacia arriba en rojo, con un más delante, para que se vea de un
+     vistazo cuánto te has pasado.
+     ============================================================ */
+  var tick = null, tLeft = 0, tDur = 0, tRun = false;
+
+  function tfmt(sec) {
+    var over = sec < 0, a = Math.abs(sec);
+    var m = Math.floor(a / 60), r = a % 60;
+    return (over ? '+' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+  function tbox() {
+    var sl = slides[i];
+    return sl ? sl.querySelector('.timer') : null;
+  }
+  function tpaint() {
+    var el = tbox(); if (!el) return;
+    el.querySelector('.tval').textContent = tfmt(tLeft);
+    var st = tLeft < 0 ? 'over' : (tRun ? 'run' : (tLeft === tDur ? 'idle' : 'pause'));
+    el.setAttribute('data-state', st);
+    el.querySelector('.tlbl').textContent =
+      st === 'over' ? 'over' : (st === 'run' ? 'running' : (st === 'pause' ? 'paused' : tfmt(tDur)));
+  }
+  function tstop() { if (tick) { clearInterval(tick); tick = null; } tRun = false; }
+  function treset() {
+    tstop();
+    var sl = slides[i];
+    tDur = sl ? (parseInt(sl.getAttribute('data-timer'), 10) || 0) : 0;
+    tLeft = tDur;
+    tpaint();
+  }
+  function ttoggle() {
+    if (!tDur) return;
+    if (tRun) { tstop(); tpaint(); return; }
+    tRun = true;
+    tick = setInterval(function () { tLeft--; tpaint(); }, 1000);
+    tpaint();
+  }
+  /* se inyecta una vez, en cada slide que declare duración */
+  function tbuild() {
+    Array.prototype.forEach.call(document.querySelectorAll('.slide[data-timer]'), function (sl) {
+      if (sl.querySelector('.timer')) return;
+      var el = document.createElement('div');
+      el.className = 'timer';
+      el.setAttribute('data-state', 'idle');
+      el.setAttribute('role', 'timer');
+      el.setAttribute('title', 't arranca y pausa · T reinicia');
+      el.innerHTML = '<span class="tval"></span><span class="tlbl"></span>';
+      el.addEventListener('click', function (ev) { ev.stopPropagation(); ttoggle(); });
+      sl.appendChild(el);
+    });
+  }
+
+  /* ============================================================
      VÍDEO Y AUDIO
      Un solo componente. En cada .media se pone:
        data-file  archivo local, dentro de media/. Es lo PREFERIDO:
@@ -2174,6 +2292,7 @@ var QR = (function () {
   }
 
   function safe(name, fn) { try { fn(); } catch (e) { if (window.console) console.warn('init ' + name + ':', e.message); } }
+  safe('timer', tbuild);
   safe('qr', paintQRs);
   safe('class', function () { setClass('fin'); });
   safe('heat', drawHeat);
