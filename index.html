@@ -2071,6 +2071,7 @@ var QR = (function () {
           + '<span class="what">' + msg + '</span></div>';
       }
       function embed() {
+        if (box.getAttribute('data-on') !== '1') return;
         if (!yt) { ph(label + '. Falta el archivo en media/ y no hay identificador de YouTube.'); return; }
         box.classList.remove('audio');
         box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt
@@ -2078,18 +2079,31 @@ var QR = (function () {
           + '" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>';
       }
 
-      if (file) {
+      function useFile() {
+        if (box.getAttribute('data-on') !== '1') return;
         var isAudio = /\.(mp3|m4a|aac|wav|ogg)$/i.test(file);
         var el = document.createElement(isAudio ? 'audio' : 'video');
         el.setAttribute('controls', '');
         el.setAttribute('preload', 'metadata');
         el.setAttribute('playsinline', '');
-        el.src = file;
-        /* si el archivo no está, se cae al respaldo sin decir nada */
         el.addEventListener('error', embed);
+        el.src = file;
         box.classList.toggle('audio', isAudio);
         box.innerHTML = '';
         box.appendChild(el);
+      }
+
+      if (file) {
+        /* Se comprueba el archivo con una peticion HEAD en vez de fiarse
+           del evento error del reproductor. Medido en Chrome contra el
+           sitio real: con un archivo que devuelve 404, el <video> se
+           queda en networkState 2, o sea "cargando", con error null, y
+           NO dispara error nunca. El respaldo no entraba y quedaba un
+           reproductor muerto en pantalla. */
+        if (location.protocol === 'file:') { useFile(); return; }
+        fetch(file, { method: 'HEAD' })
+          .then(function (r) { if (box.getAttribute('data-on') === '1') { r.ok ? useFile() : embed(); } })
+          .catch(function () { if (box.getAttribute('data-on') === '1') embed(); });
         return;
       }
       embed();
