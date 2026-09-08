@@ -292,6 +292,18 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* LA DIVISIÓN DE TIP 3 · una idea, tres aplicaciones.
+     Va en la primera slide de cada subtip, para que se vea dónde estás
+     y que los tres son el mismo movimiento en tres sitios distintos. */
+  .subtips { display: flex; flex-wrap: wrap; gap: clamp(10px,1.6vw,28px); align-items: baseline;
+             font-family: var(--mono); font-size: clamp(9px,.92vw,12.5px);
+             letter-spacing: .1em; text-transform: uppercase;
+             border-bottom: 1px solid var(--rule); padding-bottom: 7px; }
+  .subtips span { color: var(--ink-faint); }
+  .subtips span b { color: var(--ink-faint); margin-right: .5em; }
+  .subtips span.on { color: var(--ink); font-weight: 700; }
+  .subtips span.on b { color: var(--ochre); }
+
   /* HISTOGRAMA DE RESPUESTAS · la dispersión de TIP 3a */
   .hist { display: flex; flex-direction: column; gap: clamp(4px,.7vh,9px); width: 100%; }
   .hrow { display: grid; grid-template-columns: 13ch 1fr 3ch; gap: clamp(8px,1.2vw,18px); align-items: center; }
@@ -1076,6 +1088,7 @@
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3" data-notes="DOS GOLPES, y el silencio entre ellos es el ejercicio. · El titular son dos órdenes que se pueden seguir, a propósito: «use contrast to make it appealing» está en el kicker porque es la etiqueta del curso, pero proyectada como titular no dice qué hacer, y su explicación completa la da el párrafo literal de la slide siguiente. · Las dos órdenes del titular son exactamente las dos columnas de abajo, así que la slide se explica sola. · La izquierda ya está puesta al llegar. No la comentes: es la frase que trabajaron justo antes del break. La etiqueta en pantalla no dice cuántos minutos hace a propósito, para que siga siendo verdad aunque cambie el minutado. Pregunta «¿y?» y CÁLLATE. Se quedan en blanco, y ese blanco es exactamente lo que siente su audiencia cuando les das un dato pelado. · Entonces la derecha, SEGUNDO clic. Lo que hay que decir en voz alta: no hay ni un dato nuevo. Misma cifra, misma información, una frase de diferencia. · TERCER clic, las cuatro formas, y ahora sí tienen función: en el ejercicio van a tener que declarar cuál usaron. No las expliques una por una, léelas y sigue. · EN FIN, el paso que hay que dar explícito, porque si no la frase parece salida de la nada: si el peso subió del 3 al 9 sin comprar nada, es que la posición subió de precio. O sea que la concentración de riesgo se triplicó sola. Nadie firmó eso, y hoy es la posición más grande del libro. Si la sala se queda dudando, pregunta «¿y por qué creen que subió el peso si no compraron?» y sale de ellos. · EN AFM el paso es más corto y casi no hace falta explicarlo: si tardan nueve días más en pagarte, esos nueve días los estás financiando tú. · Están lado a lado a propósito: el hueco entre las dos columnas ES el contraste. · Los cuatro nombres de abajo, rápido y sin explicarlos. Son cuatro etiquetas del mismo movimiento, no cuatro técnicas. · El porqué va en la slide siguiente, así que aquí no lo adelantes: primero que lo sientan.">
+  <div class="subtips"><span class="on"><b>3</b>use contrast</span><span><b>3a</b>guide the interpretation of data</span><span><b>3b</b>balance analytical and emotional</span></div>
   <div class="kicker">Tip 3 · contrast · “make it appealing”</div>
   <h2 style="font-size:clamp(19px,2.4vw,33px)">Say where things are. Then say where they could be.</h2>
   <p class="lead" style="max-width:70ch">The gap between those two sentences is the contrast. It is also the only part the room reacts to.</p>
@@ -1195,7 +1208,9 @@
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Proyecta el histograma ANTES de dar la respuesta. «El más optimista dijo X, el más pesimista Y. Misma clase, misma información, y respuestas que se diferencian en un factor de Z.» Esa dispersión es la lección: un número sin referencia no se puede interpretar. Y es lo que le va a pasar a su audiencia mañana.">
-  <div class="kicker">Tip 3a · you answered this two hours ago, before I told you anything</div>
+  <div class="subtips"><span><b>3</b>use contrast</span><span class="on"><b>3a</b>guide the interpretation of data</span><span><b>3b</b>balance analytical and emotional</span></div>
+  <div class="kicker">Tip 3a · guide the interpretation of data</div>
+  <p class="lead" style="max-width:74ch">You answered this two hours ago, before I told you anything.</p>
   <div class="qrbox" id="timehist" style="width:100%;aspect-ratio:auto;min-height:26vh;">Your answers</div>
   <h3>Same class. Same information, which was none. Now look at the spread.</h3>
 </section>
@@ -1253,6 +1268,7 @@
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3b" data-notes="La pregunta de la slide es literalmente la de ellos. Dos respuestas concretas: abrir y cerrar preguntando por qué, y cuidar el timing. Y el punto que se les escapa: desbalancear DAÑA la credibilidad, más emoción no es mejor.">
+  <div class="subtips"><span><b>3</b>use contrast</span><span><b>3a</b>guide the interpretation of data</span><span class="on"><b>3b</b>balance analytical and emotional</span></div>
   <div class="kicker">Tip 3b · balance analytical and emotional appeal</div>
   <h2>Finance demands analytical appeal. So how much emotion can you use?</h2>
   <table class="tbl">
