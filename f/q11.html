@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Make it matter to the CIO · 20941</title>
+<link rel="stylesheet" href="style.css">
+<script>
+/* guarda por dispositivo: si ya se envió, no se vuelve a mostrar el formulario */
+(function () {
+  try {
+    var m = location.pathname.match(/([^\/]+)\.html$/);
+    var slot = m ? m[1] : '';
+    if (/[?&]reset\b/.test(location.search)) {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('bsk_done_') === 0) localStorage.removeItem(k); });
+      return;
+    }
+    if (slot && localStorage.getItem('bsk_done_' + slot)) {
+      document.documentElement.className += ' answered';
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">Persuasive Presentations · 20941</div>
+<h1>Make it matter to the CIO</h1>
+<p>One submission per trio. Your best opening, in 30 words or fewer. Three of these get projected, with no names on them.</p>
+<form class="form" data-slot="q11">
+<fieldset><h2>The three of you</h2><input type="text" name="names" maxlength="90" data-count="c_names" placeholder="Marco, Anna, Luca" data-required><div class="count" id="c_names"></div></fieldset><fieldset><h2>Your opening</h2><textarea name="opening" maxlength="200" data-count="c_opening" placeholder="What changed, why it matters, and why somebody has to act" data-required></textarea><div class="count" id="c_opening"></div></fieldset><fieldset><h2>Which contrast did you use?</h2><div class="opts" data-group="form" data-required><button class="opt">Disadvantage → opportunity</button><button class="opt">Information → insight</button><button class="opt">Ordinary → special</button><button class="opt">Question → answer</button></div></fieldset>
+<button class="send" type="submit">Send</button>
+<div class="err">Could not send. Check your connection and try again.</div>
+<div class="unwired-msg">
+  <strong>Nothing was saved.</strong>
+  <span>This form has no backend yet: <code>ENDPOINT</code> is empty in <code>f/form.js</code>. Set it up and the send will work — see <code>SETUP.md</code>.</span>
+</div>
+
+<p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
+</form>
+<div class="done"><div class="tick">✓</div><h2>Got it.</h2><p>You can close this and put the phone down.</p></div>
+<div class="already">
+  <div class="tick">✓</div>
+  <h2>You already answered this one.</h2>
+  <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
+  <a class="opt" href="./">Back to the list</a>
+</div>
+</div><script src="form.js"></script></body></html>
