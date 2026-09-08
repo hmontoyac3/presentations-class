@@ -195,7 +195,10 @@
   .ab .n { font-family: var(--mono); font-size: clamp(28px,5.4vw,76px); font-weight: 700; line-height: 1; color: var(--blue); }
   .ab .l { font-size: clamp(12px,1.2vw,17px); color: var(--ink-soft); margin-top: 6px; }
   .ab div.win { border-color: var(--blue); background: var(--blue-bg); }
-  .quotes { display: flex; flex-direction: column; gap: clamp(8px,1.2vh,16px); }
+  /* flex:none obligatorio. La slide es flex en columna y plain() pone
+     min-height:0 al pintar, así que sin esto la caja se encoge por debajo
+     de su contenido y las citas se derraman encima de lo que venga abajo. */
+  .quotes { display: flex; flex-direction: column; gap: clamp(8px,1.2vh,16px); flex: none; }
   .quotes q { display: block; font-family: var(--serif); font-size: clamp(15px,1.85vw,27px); line-height: 1.2;
     border-left: 4px solid var(--ochre); padding-left: clamp(10px,1.4vw,20px); quotes: none; }
   .quotes q::before, .quotes q::after { content: ''; }
