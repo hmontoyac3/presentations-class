@@ -6,9 +6,9 @@ repositorio. Se descargan una vez y se dejan con **estos nombres exactos**.
 | Archivo | Qué es | Dónde sale |
 |---|---|---|
 | `rosling.mp4` | Hans Rosling, 200 países, 200 años, BBC. 4 min | TIP 3a |
-| `reagan.mp3` | Reagan, discurso a la nación, 28 enero 1986. 4 min | Reagan |
 | `bombas.mp4` | Bombas en Shark Tank, temporada 6 | Bombas |
 | `ikea.mp4` | IKEA, *Lamp*, 2002, de Spike Jonze. 60 s | TIP 2 |
+| `marriott.mp4` | Marriott + Starwood, 2015. Arne Sorenson | Una operación, cuatro audiencias |
 
 ## Por qué el archivo local y no YouTube
 
@@ -41,9 +41,9 @@ cd ~/Documents/Teaching/Behavioral_skills_seminar_/media
 yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
        -o rosling.mp4 "https://www.youtube.com/watch?v=jbkSRLYSojo"
 
-# Reagan · solo audio, que es lo que se quiere en esa slide
-yt-dlp -x --audio-format mp3 \
-       -o reagan.mp3 "https://www.youtube.com/watch?v=sNQLOOCU9W8"
+# Marriott + Starwood
+yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
+       -o marriott.mp4 "https://www.youtube.com/watch?v=DDR_EBNuK3M"
 
 # Bombas · Shark Tank
 yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
