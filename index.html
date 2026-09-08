@@ -289,6 +289,25 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* RECAP ACUMULATIVO
+     La misma slide seis veces. Empieza con los cinco huecos vacíos y
+     cada tip rellena el suyo, así que el avance del día se ve en vez
+     de contarse. La fila recién ganada va en ocre. */
+  .recap { display: flex; flex-direction: column; }
+  .rline { display: grid; grid-template-columns: 2.6em 1fr; gap: clamp(10px,1.4vw,22px);
+           align-items: baseline; padding: clamp(7px,1.1vh,13px) clamp(8px,1vw,16px);
+           border-bottom: 1px solid var(--rule-soft); }
+  .rnum { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+          font-size: clamp(15px,1.7vw,25px); color: var(--blue); }
+  .rt { font-size: clamp(15px,1.6vw,23px); font-weight: 600; line-height: 1.2; }
+  .rd { font-size: clamp(12px,1.2vw,17px); color: var(--ink-soft); margin-top: 3px; line-height: 1.35; }
+  .rbar { display: none; height: 3px; background: var(--rule); width: min(46%, 340px); }
+  .rline[data-locked] .rnum { color: var(--ink-faint); opacity: .5; }
+  .rline[data-locked] .rt, .rline[data-locked] .rd { display: none; }
+  .rline[data-locked] .rbar { display: block; }
+  .rline[data-new] { background: var(--ochre-bg); }
+  .rline[data-new] .rnum { color: var(--ochre); }
+
   /* CRONÓMETRO DE EJERCICIO
      Va arriba a la derecha, alineado con el kicker, porque es la zona
      que queda libre en todas las slides de ejercicio. Absoluto respecto
@@ -731,6 +750,33 @@
   <h3>The goal of everything this weekend: convey <b>one</b> idea, and persuade.</h3>
 </section>
 
+<section data-part="2" class="slide" data-s="1" data-b="Recap" data-notes="Treinta segundos, y es una promesa: estos son los cinco, y esta misma slide va a volver cinco veces. No leas los nombres, no los tienen todavía: solo di que son cinco y que se van a ir llenando. · La gracia es que el avance del día se VEA. A los que están contando las horas les das una barra de progreso honesta.">
+  <div class="kicker">The five tips</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">Five tips today. This slide comes back after every one of them.</h2>
+  <div class="recap">
+    <div class="rline" data-locked>
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
+</section>
+
 <section data-part="2" class="slide" data-s="1" data-b="Anderson" data-notes="Treinta segundos, ni uno más. Es una recomendación, no contenido: no lo pongas en clase y no lo resumas. · Dilo tal cual: no es idea tuya, lo propone la directora del curso, Silvia Bagdadli, y eso es justo lo que le da peso. · El enlace va en Blackboard, no en la slide. Si alguien lo pide en el momento, «TED, buscad TED's secret to great public speaking». · Y sigue a TIP 1 sin pausa: lo que Anderson llama «la idea» es exactamente lo que van a construir esta tarde, así que la transición se hace sola.">
   <div class="kicker">Optional · recommended by the course director, Prof. Silvia Bagdadli</div>
   <div class="cols2" style="gap:clamp(18px,3vw,48px);align-items:center">
@@ -837,6 +883,33 @@
 </section>
 
 
+<section data-part="2" class="slide" data-s="1" data-b="Recap" data-notes="Quince segundos. Ya tienen uno. Lee solo la línea del tip 1 y sigue. · Si te sobra tiempo, la pregunta que lo fija: «¿cuál de los tres les falló en la peor presentación que sufrieron?»">
+  <div class="kicker">So far · 1 of 5</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">Where we are.</h2>
+  <div class="recap">
+    <div class="rline" data-new>
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
+</section>
+
 <section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="La plantilla. Recorre la introducción rápido y DETENTE en Conflict. Sin esa casilla tienen un informe. Y señala que Complication dice «opcional» pero es la que más les cuesta, porque están entrenados para presentar certeza.">
   <div class="kicker">Tip 2 · turn information into a story</div>
   <div class="tmpl">
@@ -928,6 +1001,33 @@
 
 <section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="AUTOMÁTICO: pegas todas las respuestas en el panel D y pulsa Elegir. Compara las 27 dos a dos y saca la pareja con menos palabras en común, o sea la que localizó el conflicto en sitios más distintos. Si no te gusta, «Otra pareja» pasa a la siguiente. · Lo que dices en voz alta: mismo dato, dos historias, y ninguna es más verdadera; la diferencia está en dónde pusieron el conflicto. · Y el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar. · CRITERIO MANUAL si prefieres elegirlas tú: buscas las dos más DISTINTAS, no las dos mejores. · Criterio 1: que hayan puesto el conflicto en sitios diferentes (uno en el proceso, otro en una persona; uno en el riesgo, otro en el incentivo). · Criterio 2: que los MIP no coincidan. · Criterio 3: descarta las que solo reformulan el dato, no las uses ni como contraejemplo en público. · CUÁNDO: en el último minuto de los ocho, plántate al frente y lee la columna de idea en tu portátil. No hace falta leer las 27 completas, con la idea basta para ver quién divergió. · CÓMO PROYECTARLAS: panel D, pegas las dos separadas por una línea en blanco, Aplicar. Veinte segundos. · DÉJALAS PUESTAS. Es el último ejercicio antes del break y es el único momento del día en que leen el trabajo de otro trío, así que el tiempo de lectura es el ejercicio, no el relleno. Proyecta la pareja y cállate un minuto largo, sin narrarla: son dos textos de dos líneas, pero puestos uno al lado del otro hay que compararlos, y eso no se hace en quince segundos. · Léelas en voz alta DESPUÉS de ese silencio, no antes, e invita a los autores a completarlas. · Solo entonces R para la siguiente pareja, y otra vez el mismo silencio. Dos parejas bien leídas valen más que cuatro pasadas de refilón: si vas justa, enseña una sola. · La pantalla ya no cambia sola aunque entren respuestas nuevas: la pareja se queda hasta que pulses R. · Y cierra con el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar.">
   <div class="picks" id="picks"></div>
+</section>
+
+<section data-part="2" class="slide" data-s="1" data-b="Recap" data-notes="Quince segundos, y justo antes del break, que es el mejor sitio para un recuento: se van con dos cerrados y la sensación de que esto avanza.">
+  <div class="kicker">So far · 2 of 5</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">Where we are.</h2>
+  <div class="recap">
+    <div class="rline">
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-new>
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
 </section>
 
 <section data-part="2" class="slide breakslide" data-s="1" data-b="Break" data-notes="El break es a hora fija y lo comparten los 24 seminarios del piso: si te desincronizas, el ruido entra en las otras aulas. No lo alargues y no lo acortes. Di la hora de vuelta en voz alta y déjala proyectada.">
@@ -1135,6 +1235,33 @@
   </div>
 </section>
 
+<section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Quince segundos. Tres de cinco, y es el ecuador. Aquí sí conviene señalar que el 3 se ha llevado cuatro slides porque es el que más cuesta.">
+  <div class="kicker">So far · 3 of 5</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">Where we are.</h2>
+  <div class="recap">
+    <div class="rline">
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-new>
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
+</section>
+
 <section data-timer="240" data-part="2" class="slide" data-s="2" data-b="La pausa" data-notes="Todos de pie. Una frase con contenido, y tres segundos de silencio mirando a los ojos. Tres rondas cada uno. El debrief es lo que enseña: desde dentro eterno, desde fuera seguridad.">
   <div class="kicker do">Everyone up · 4 minutes</div>
   <h1>Say one sentence about why you chose Milan. Then three seconds of silence, looking at them.</h1>
@@ -1186,6 +1313,33 @@
   <div class="kicker do">One sentence each</div>
   <div class="quotes" id="sentences"></div>
   <h3>Some of these are one sentence. Some are two sentences wearing a comma.</h3>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Quince segundos. Cuatro de cinco, y el que falta es el único que se hace de pie. Dilo, que crea expectativa.">
+  <div class="kicker">So far · 4 of 5</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">Where we are.</h2>
+  <div class="recap">
+    <div class="rline">
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-new>
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-locked>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Reagan" data-notes="Pon el audio real, 4 min. Ninguno lo ha oído. Se reproduce AQUÍ. · Con media/reagan.mp3 sale un reproductor de audio, que es lo que quieres: sin imagen, obliga a escuchar. Si el archivo no está, cae al vídeo de YouTube y entonces sí hay imagen. · Al avanzar se corta solo. Después, cada frase: ¿para cuál de las cinco audiencias era? Esto enseña segmentación, que no aparece en ningún otro sitio del deck.">
@@ -1259,6 +1413,33 @@
   <div id="asymbox" class="qrbox" style="width:100%;aspect-ratio:auto;min-height:32vh;">Your four numbers</div>
   <h2>Most of what feels like too much from the inside reads as confidence from the outside.</h2>
   <p class="lead">Tomorrow, when it feels like too much, that is the signal you are doing it right.</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Los cinco. Aquí sí párate: es el resumen de todo lo que has enseñado hoy y lo último que ven antes del cierre. Léelos los cinco en voz alta, despacio, y no añadas nada. · Y el puente: mañana no se añade ninguno, mañana se usan.">
+  <div class="kicker">So far · 5 of 5</div>
+  <h2 style="font-size:clamp(18px,2.2vw,30px)">That is all five. Tomorrow you do not learn a new one, you use these.</h2>
+  <div class="recap">
+    <div class="rline">
+      <div class="rnum">1</div>
+      <div><div class="rt">Connect with the audience</div><div class="rd">Ethos, pathos, logos. All three are necessary, none of them is sufficient on its own.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">2</div>
+      <div><div class="rt">Turn information into a story</div><div class="rd">Talk through the eight boxes, write down two. The conflict is the one holding it up.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">3</div>
+      <div><div class="rt">Contrast</div><div class="rd">Where things are, then where they could be, back and forth. And never leave a number alone.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline">
+      <div class="rnum">4</div>
+      <div><div class="rt">It is a process</div><div class="rd">Generate, cluster, one sentence. In that order, and never the other way round.</div><div class="rbar"></div></div>
+    </div>
+    <div class="rline" data-new>
+      <div class="rnum">5</div>
+      <div><div class="rt">Presentation in action</div><div class="rd">What feels like too much from the inside reads as confidence from the outside.</div><div class="rbar"></div></div>
+    </div>
+  </div>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Cierre" data-notes="El callback. «Comparen esto con la nube de palabras de esta mañana: son la misma cosa.» La grilla deja de ser una rúbrica impuesta y resulta ser lo que ellos escribieron a las 13.25.">
