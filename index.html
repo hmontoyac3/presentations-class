@@ -292,6 +292,13 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* Cada QR con el número de formulario debajo. Van juntos en un .qwrap
+     para que en las filas flex cuenten como una sola pieza y la etiqueta
+     no se coloque al lado del código. */
+  .qwrap2 { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: none; }
+  .qnum { font-family: var(--mono); font-size: clamp(9px,.9vw,12px); font-weight: 700;
+          letter-spacing: .12em; text-transform: uppercase; color: var(--ochre); }
+
   /* LA DIVISIÓN DE TIP 3 · una idea, tres aplicaciones.
      Va en la primera slide de cada subtip, para que se vea dónde estás
      y que los tres son el mismo movimiento en tres sitios distintos. */
@@ -531,7 +538,7 @@
 <section data-part="1" class="slide" data-s="1" data-b="El enlace del día" data-notes="Escanean UNA vez y dejan la pestaña abierta todo el día. · Va aquí, pegada al primer formulario, y no al principio de la clase: escanean y lo usan en la slide siguiente, así que el código no queda huérfano ni se les olvida para qué era. Las diez capturas salen de ahí, así que no vuelven a escanear nada. · Dilo despacio y espera: es el único escaneo obligatorio del viernes y si alguien se lo pierde, arrastra el problema hasta la tarde. · Los QR pequeños de las slides siguen ahí como respaldo para quien llegue tarde, y llevan a esta MISMA página, no al formulario suelto: se escanee el que se escanee, se aterriza aquí y se elige desde aquí. · La dirección ya NO está escrita en ninguna slide, solo el código. Si a alguien le falla la cámara, dísela tú en voz alta o mándala por el canal de Blackboard: helenamontoyacalero.com barra presentations-class barra f.">
   <div class="kicker do">Scan this once. Then leave the tab open.</div>
   <div class="qrwrap">
-    <div class="qrbox" data-qr="hub" style="width:clamp(210px,30vw,420px);aspect-ratio:1">Scan</div>
+    <div class="qwrap2"><div class="qrbox" data-qr="hub" style="width:clamp(210px,30vw,420px);aspect-ratio:1">Scan</div><span class="qnum">Scan once</span></div>
     <div class="stack">
       <h2 style="font-size:clamp(22px,3vw,40px)">Every time I ask you for something today, it is on that page.</h2>
       <p class="lead">Every code you see later today is a shortcut to that same page. You never have to scan again.</p>
@@ -737,7 +744,7 @@
   <div class="kicker do">Two minutes · scan this</div>
   <h2>You already know what does not work. You have sat through it.</h2>
   <div class="qrwrap">
-    <div class="qrbox" data-qr="q2">Scan</div>
+    <div class="qwrap2"><div class="qrbox" data-qr="q2">Scan</div><span class="qnum">Form 2</span></div>
     <div class="stack">
       <p class="body">Think of the last time you were in an audience — a class, a meeting, a conference — and you <b>stopped listening</b>.</p>
       <p class="body">What made you stop? And in one word: what was missing?</p>
@@ -989,7 +996,7 @@
       </div>
       <div class="panel info" style="padding:11px 15px;border-left-width:4px">
         <div style="display:flex;gap:14px;align-items:center">
-          <div class="qrbox" style="width:clamp(120px,14vw,190px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q3">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(120px,14vw,190px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q3">Scan</div><span class="qnum">Form 3</span></div>
           <div>
             <h3 style="font-size:clamp(14px,1.45vw,21px)">At minute 5, one of you sends two lines</h3>
             <p class="body" style="font-size:clamp(12px,1.2vw,17px);max-width:none">The <b>three names</b>, the <b>one sentence</b> you want the CIO to remember, and <b>the decision</b> in one line. Not the whole story.</p>
@@ -1150,9 +1157,9 @@
       </div>
       <div class="panel info" style="padding:11px 15px;border-left-width:4px">
         <div style="display:flex;gap:14px;align-items:center">
-          <div class="qrbox" style="width:clamp(112px,13vw,176px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q11">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(112px,13vw,176px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q11">Scan</div><span class="qnum">Form 11</span></div>
           <div>
-            <h3 style="font-size:clamp(14px,1.45vw,21px)">Form 11 · one per trio</h3>
+            <h3 style="font-size:clamp(14px,1.45vw,21px)">One per trio</h3>
             <p class="body" style="font-size:clamp(12px,1.2vw,17px);max-width:none">Your pair of sentences and <b>which of the four forms</b> you used. <b>Three get projected, no names.</b></p>
           </div>
         </div>
@@ -1261,9 +1268,9 @@
       </div>
       <div class="panel info" style="padding:11px 15px;border-left-width:4px">
         <div style="display:flex;gap:14px;align-items:center">
-          <div class="qrbox" style="width:clamp(104px,12vw,164px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q4">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(104px,12vw,164px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q4">Scan</div><span class="qnum">Form 4</span></div>
           <div>
-            <h3 style="font-size:clamp(14px,1.42vw,20px)">Form 4 · one per trio</h3>
+            <h3 style="font-size:clamp(14px,1.42vw,20px)">One per trio</h3>
             <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">Opportunity or risk, your sentence, and your names.</p>
           </div>
         </div>
@@ -1272,8 +1279,9 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="El remate: casi seguro eligieron numeros distintos, y los dos son defendibles. Esa es la leccion, no cual acertó. Lee dos en voz alta y pregunta cual habria elegido la sala.">
+<section data-part="2" class="slide" data-s="2" data-b="Gráfico" data-notes="Las frases ROTAN SOLAS cada diez segundos, tres cada vez, con un fundido. Te quedas en la slide y van pasando; R fuerza otra terna. · Solo rotan si hay más de tres envíos: con tres o menos se quedan quietas, que si no parpadearían sin cambiar nada. · Lo que dices mientras pasan, y es todo el ejercicio: no hay respuesta correcta. Lo que separa una buena de una floja es si la comparación le sirve al gestor. · EL MOMENTO QUE HAY QUE CAZAR: si dos tríos eligieron relaciones opuestas sobre las mismas cifras, una oportunidad y un riesgo, párate en esas dos. Es el mejor ejemplo del día de que elegir qué número enseñar ES la presentación. · Al salir de la slide la rotación se para sola.">
   <div class="kicker do">Same paragraph. Different relationships.</div>
+  <p class="tiny" style="letter-spacing:0">Three at a time, changing. R for another three.</p>
   <div class="quotes" id="chartpairs"></div>
   <h3>You picked different relationships, and more than one is defensible. Which means deciding <em>which number to show</em> is the presentation, not a formatting detail.</h3>
 </section>
@@ -1318,7 +1326,7 @@
   </div>
   <div class="panel info" style="padding:11px 15px;border-left-width:4px">
     <div style="display:flex;gap:14px;align-items:center">
-      <div class="qrbox" data-qr="q5" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none">Scan</div>
+      <div class="qwrap2"><div class="qrbox" data-qr="q5" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none">Scan</div><span class="qnum">Form 5</span></div>
       <div>
         <h3 style="font-size:clamp(14px,1.45vw,21px)">A or B?</h3>
         <p class="body" style="font-size:clamp(12px,1.2vw,17px);max-width:none">Vote on your own phone, not with your hand. <b>Five words for why.</b></p>
@@ -1405,7 +1413,7 @@
       <div class="panel info" style="padding:10px 14px;border-left-width:4px">
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none"><b>One submission per trio:</b> your one sentence. That is all.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
-          <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q6">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q6">Scan</div><span class="qnum">Form 6</span></div>
         </div>
       </div>
 </section>
@@ -1503,7 +1511,7 @@
       <div class="panel info" style="padding:10px 14px;border-left-width:4px">
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none"><b>One each</b>, not one per trio. Four numbers.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
-          <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q7">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q7">Scan</div><span class="qnum">Form 7</span></div>
         </div>
       </div>
   </div>
@@ -1588,7 +1596,7 @@
   <div class="kicker do">90 seconds · four numbers</div>
   <h2>Before I tell you anything.</h2>
   <div class="qrwrap">
-    <div class="qrbox" data-qr="q8">Scan</div>
+    <div class="qwrap2"><div class="qrbox" data-qr="q8">Scan</div><span class="qnum">Form 8</span></div>
     <div class="stack">
       <p class="body">You are about to have a conversation with your group. I am not going to tell you what about — and that is deliberate.</p>
       <p class="tiny">This is not attendance. Attendance is the app, and we already did it.</p>
@@ -1656,7 +1664,7 @@
     <tr><td class="k">yes / no</td><td>Was there something you almost said and didn't?</td></tr>
   </tbody></table>
   <div class="qrwrap">
-    <div class="qrbox" data-qr="q9">Scan</div>
+    <div class="qwrap2"><div class="qrbox" data-qr="q9">Scan</div><span class="qnum">Form 9</span></div>
     <div class="stack">
       <p class="body">Four answers about what just happened.</p>
     </div>
@@ -1776,7 +1784,7 @@
       <div class="panel info" style="padding:10px 14px;border-left-width:4px">
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Last thing today: <b>one thing you are going to do differently tomorrow</b>, because of something that happened in this room. One line.</p>
         <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
-          <div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q10">Scan</div>
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(118px,13vw,178px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q10">Scan</div><span class="qnum">Form 10</span></div>
         </div>
       </div>
     <div class="stack">
