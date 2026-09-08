@@ -289,6 +289,17 @@
   .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
 
   /* QR */
+  /* HISTOGRAMA DE RESPUESTAS · la dispersión de TIP 3a */
+  .hist { display: flex; flex-direction: column; gap: clamp(4px,.7vh,9px); width: 100%; }
+  .hrow { display: grid; grid-template-columns: 13ch 1fr 3ch; gap: clamp(8px,1.2vw,18px); align-items: center; }
+  .hrow .hl { font-family: var(--mono); font-size: clamp(10px,1vw,14px); color: var(--ink-soft); text-align: right; }
+  .hrow .hb { background: var(--rule-soft); height: clamp(16px,2.4vh,30px); }
+  .hrow .hb i { display: block; height: 100%; background: var(--blue-bg); border-right: 3px solid var(--blue); }
+  .hrow .hn { font-family: var(--mono); font-variant-numeric: tabular-nums;
+              font-size: clamp(11px,1.1vw,16px); color: var(--ink-faint); }
+  .hrow.win .hb i { background: var(--ochre-bg); border-right-color: var(--ochre); }
+  .hrow.win .hl, .hrow.win .hn { color: var(--ochre); font-weight: 700; }
+
   /* RECAP ACUMULATIVO
      La misma slide seis veces. Empieza con los cinco huecos vacíos y
      cada tip rellena el suyo, así que el avance del día se ve en vez
@@ -1186,7 +1197,7 @@
 
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Proyecta el histograma ANTES de dar la respuesta. «El más optimista dijo X, el más pesimista Y. Misma clase, misma información, y respuestas que se diferencian en un factor de Z.» Esa dispersión es la lección: un número sin referencia no se puede interpretar. Y es lo que le va a pasar a su audiencia mañana.">
   <div class="kicker">Tip 3a · you answered this two hours ago, before I told you anything</div>
-  <div class="qrbox" style="width:100%;aspect-ratio:auto;min-height:26vh;">Your answers</div>
+  <div class="qrbox" id="timehist" style="width:100%;aspect-ratio:auto;min-height:26vh;">Your answers</div>
   <h3>Same class. Same information, which was none. Now look at the spread.</h3>
 </section>
 
@@ -2204,6 +2215,34 @@
   }
 
   /* --- timing: rango más votado --- */
+  /* El histograma que la slide prometía y no dibujaba. Va en el orden real
+     de los rangos, no por frecuencia ni alfabético: la forma de la
+     dispersión solo se lee si el eje va de menos a más tiempo. */
+  var TIMING_ORDER = ['under 2 weeks', '2–4 weeks', '1–2 months', '2–3 months',
+                      '3–6 months', '6–12 months', 'over a year'];
+  function liveHist(rows) {
+    var box = document.getElementById('timehist');
+    if (!box || !rows || rows.length < 2) return;
+    var tally = {}, total = 0;
+    rows.slice(1).forEach(function (r) {
+      var v = String(r[r.length - 1] || '').trim();
+      if (!v) return;
+      tally[v] = (tally[v] || 0) + 1; total++;
+    });
+    if (!total) return;
+    var keys = TIMING_ORDER.filter(function (k) { return tally[k]; });
+    Object.keys(tally).forEach(function (k) { if (TIMING_ORDER.indexOf(k) < 0) keys.push(k); });
+    var max = Math.max.apply(null, keys.map(function (k) { return tally[k]; }));
+    plain(box); box.className = 'hist';
+    box.innerHTML = keys.map(function (k) {
+      var n = tally[k], w = Math.max(Math.round(n / max * 100), 4);
+      return '<div class="hrow' + (n === max ? ' win' : '') + '">'
+              + '<div class="hl">' + k + '</div>'
+              + '<div class="hb"><i style="width:' + w + '%"></i></div>'
+              + '<div class="hn">' + n + '</div></div>';
+    }).join('');
+  }
+
   function liveTiming(rows) {
     if (!rows || rows.length < 2) return;
     var tally = {}, best = '', n = 0;
@@ -2286,7 +2325,7 @@
     'Lo que falta':  { slot: slotQ1, render: [liveCompanies, liveTiming] },
     'Cementerio':    { slot: 'q2',   render: [liveWords] },
     'TIP 2':         { slot: 'q3',   render: [liveStories] },
-    'TIP 3a':        { slot: slotQ1, render: [liveTiming] },
+    'TIP 3a':        { slot: slotQ1, render: [liveTiming, liveHist] },
     'Gráfico':       { slot: 'q4',   render: [liveChart] },
     'TIP 3b':        { slot: 'q5',   render: [liveVersion] },
     'TIP 4':         { slot: 'q6',   render: [liveSentence] },
