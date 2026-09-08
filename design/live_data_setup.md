@@ -7,7 +7,7 @@ y lo que se sirve en `helenamontoyacalero.com/presentations-class/`.
 |---|---|
 | `index.html` | el deck del viernes. Es lo que se proyecta |
 | `run-sheet.html` | el minutado |
-| `f/` | el hub y las once páginas de formulario |
+| `f/` | el hub y las doce páginas de formulario |
 | `apps-script.gs` | el backend |
 | `CHECKLIST.md` | la comprobación antes de entrar al aula |
 | `design/` | el material de diseño, esto incluido |
@@ -24,8 +24,8 @@ comprobar primero en qué repo se está trabajando.
 
 Tres piezas, y las tres existen y funcionan:
 
-1. **El hub**, en `f/`. Un índice y once páginas de formulario, `q1-fin`,
-   `q1-afm` y `q2` a `q10`. Es donde aterrizan todos los QR del deck.
+1. **El hub**, en `f/`. Un índice y doce páginas de formulario, `q1-fin`,
+   `q1-afm`, `q2` a `q10` y `q11`, la apertura contrastada de TIP 3. Es donde aterrizan todos los QR del deck.
 2. **Un Web App de Apps Script**, el código está en `apps-script.gs` de ese repo.
    `POST` con el JSON en el cuerpo guarda una respuesta, `GET ?slot=` devuelve las
    respuestas para el deck. Está pensado para 80 envíos simultáneos: solo bloquea

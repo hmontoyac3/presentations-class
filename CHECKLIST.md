@@ -47,6 +47,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las once páginas de `f/` desde el móvil
+- [ ] Abrir las doce páginas de `f/` desde el móvil
+- [ ] **Borrar las filas ZZTEST de la pestaña `q11`**, que son pruebas
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Los grupos publicados en Blackboard
