@@ -2413,8 +2413,8 @@
      FIN y AFM, porque el QR ya no distingue de clase. */
   var HUB = QRBASE;
   var QRS = {
-    q1: HUB, q2: HUB, q3: HUB, q4: HUB, q5: HUB,
-    q6: HUB, q7: HUB, q8: HUB, q9: HUB, q10: HUB,
+    q1: HUB, q2: HUB, q3: HUB, q4: HUB, q5: HUB, q6: HUB,
+    q7: HUB, q8: HUB, q9: HUB, q10: HUB, q11: HUB,
     hub: HUB
   };
 /* QR encoder · byte mode · EC level M · versions 1-10 */
@@ -2688,8 +2688,11 @@ var QR = (function () {
 
   function paintQRs() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-qr]'), function (box) {
-      var url = QRS[box.getAttribute('data-qr')];
-      if (!url) return;
+      /* Si el slot no está en el mapa, al hub igualmente. Antes se salía
+         sin pintar y la caja se quedaba con el texto «Scan», que en clase
+         parece un QR que no cargó. Como todos apuntan al mismo sitio, el
+         valor por defecto correcto es el hub. */
+      var url = QRS[box.getAttribute('data-qr')] || HUB;
       if (box.getAttribute('data-done') === url) return;
       try {
         var r = QR.encode(url), n = r.size, quiet = 3, total = n + quiet * 2;
