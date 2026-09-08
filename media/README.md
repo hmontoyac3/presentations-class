@@ -8,6 +8,7 @@ repositorio. Se descargan una vez y se dejan con **estos nombres exactos**.
 | `rosling.mp4` | Hans Rosling, 200 países, 200 años, BBC. 4 min | TIP 3a |
 | `reagan.mp3` | Reagan, discurso a la nación, 28 enero 1986. 4 min | Reagan |
 | `bombas.mp4` | Bombas en Shark Tank, temporada 6 | Bombas |
+| `ikea.mp4` | IKEA, *Lamp*, 2002, de Spike Jonze. 60 s | TIP 2 |
 
 ## Por qué el archivo local y no YouTube
 
@@ -47,7 +48,15 @@ yt-dlp -x --audio-format mp3 \
 # Bombas · Shark Tank
 yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
        -o bombas.mp4 "https://www.youtube.com/watch?v=WpPhs7OipzQ"
+
+# IKEA · Lamp, el anuncio de TIP 2
+yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
+       -o ikea.mp4 "https://www.youtube.com/watch?v=jU-cori12KU"
 ```
+
+De los cuatro, el de IKEA es el que **sí se ha comprobado que se deja
+incrustar**: cargado dentro de una página real muestra el reproductor y el
+vídeo correcto, sin error. Así que ese funciona aunque no lo descargues.
 
 Si alguno da error de formato, `yt-dlp -F <url>` lista lo que hay y se elige
 otro. Y si el vídeo no es el trozo correcto, se busca otro y se cambia solo el
