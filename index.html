@@ -1820,6 +1820,7 @@
     slides.forEach(function (s, n) { s.classList.toggle('live', n === i); });
     var cur = slides[i];
     if (lastLive && lastLive !== cur && typeof unmountMedia === 'function') unmountMedia(lastLive);
+    if (typeof stopChart === 'function') stopChart();
     if (typeof mountMedia === 'function') mountMedia(cur);
     lastLive = cur;
     var s = cur.getAttribute('data-s');
@@ -2208,31 +2209,45 @@
   }
 
   function liveWords(rows)    { renderCloud('cloud', rows, 'word'); }
-  /* Antes proyectaba pares número/contra. Ahora el ejercicio pide una FRASE
-     que relacione dos números, así que se proyectan frases, con su etiqueta
-     de oportunidad o riesgo delante si viene. Se pintan una vez y solo
-     cambian con R, para que no se muevan mientras la sala las lee. */
-  var chartPainted = false;
-  function liveChart(rows) {
+  /* Las frases del párrafo. A diferencia de la cosecha de TIP 2, estas SÍ
+     rotan solas mientras estés en la slide: son cortas, hay muchas, y lo
+     que se quiere es que la sala vea la variedad, no leer tres despacio.
+     Cambian cada diez segundos con un fundido, y solo si hay más de tres
+     para enseñar. R fuerza el cambio. Al salir de la slide se para. */
+  var chartItems = [], chartTimer = null;
+  function paintChart() {
     var box = document.querySelector('.slide.live #chartpairs');
-    if (!box) return;
-    var sent = colVals(rows, 'sentence');
-    if (!sent.length) return;
-    if (chartPainted) return;
-    chartPainted = true;
-    var st = colOf(rows, 'stance');
+    if (!box || !chartItems.length) return;
+    plain(box); box.className = 'quotes';
+    box.style.transition = 'opacity .35s ease';
+    box.style.opacity = '0';
+    setTimeout(function () {
+      var b = document.querySelector('.slide.live #chartpairs');
+      if (!b) return;
+      b.innerHTML = pickN(chartItems, 3).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+      b.style.opacity = '1';
+    }, 350);
+  }
+  function stopChart() { if (chartTimer) { clearInterval(chartTimer); chartTimer = null; } }
+  function liveChart(rows) {
+    if (!document.querySelector('.slide.live #chartpairs')) return;
+    var cs = colOf(rows, 'sentence'), st = colOf(rows, 'stance');
+    if (cs < 0) return;
     var items = rows.slice(1).map(function (r) {
-      var t = String(r[colOf(rows, 'sentence')] || '').trim();
+      var t = String(r[cs] || '').trim();
       if (!t) return null;
       var tag = st >= 0 ? String(r[st] || '').trim() : '';
       return (tag ? '<b style="font-family:var(--mono);font-size:.62em;letter-spacing:.1em;'
              + 'text-transform:uppercase;color:var(--ochre)">' + tag + '</b> ' : '') + t;
     }).filter(Boolean);
     if (!items.length) return;
-    plain(box); box.className = 'quotes';
-    box.innerHTML = pickN(items, 3).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+    chartItems = items;
+    if (!chartTimer) {
+      paintChart();
+      if (items.length > 3) chartTimer = setInterval(paintChart, 10000);
+    }
   }
-  function reChart() { chartPainted = false; liveChart(liveCache['q4'] || []); }
+  function reChart() { paintChart(); }
   function liveVersion(rows)  { renderAB('abvote', rows, 'version'); }
   function liveSentence(rows) { renderQuotes('sentences', rows, 'sentence', 3); }
   function liveDepth(rows)    { renderMeans('depthgap', rows,
