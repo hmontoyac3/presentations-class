@@ -26,3 +26,8 @@ articoli/
 # pensarlo dos veces.
 *.xlsx
 *.xls
+
+# Vídeo y audio de terceros. Se descargan a mano, ver media/README.md
+media/*.mp4
+media/*.mp3
+media/*.m4a

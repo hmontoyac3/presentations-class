@@ -1,7 +1,7 @@
 # Archivos de vídeo y audio
 
-Vacía a propósito: aquí no hay nada versionado, porque son archivos grandes y de
-terceros. Se descargan a mano y se dejan con **estos nombres exactos**.
+Vacía a propósito: son archivos grandes y de terceros, así que no van al
+repositorio. Se descargan una vez y se dejan con **estos nombres exactos**.
 
 | Archivo | Qué es | Dónde sale |
 |---|---|---|
@@ -9,51 +9,64 @@ terceros. Se descargan a mano y se dejan con **estos nombres exactos**.
 | `reagan.mp3` | Reagan, discurso a la nación, 28 enero 1986. 4 min | Reagan |
 | `bombas.mp4` | Bombas en Shark Tank, temporada 6 | Bombas |
 
-## Cómo funciona
+## Por qué el archivo local y no YouTube
 
-Cada slide con vídeo lleva una etiqueta así:
+El deck intenta el archivo primero y, si no está, cae al vídeo incrustado de
+YouTube. Pero **algunos clips tienen la incrustación desactivada por su
+propietario**: en esos, darle al play no reproduce, abre YouTube en otra
+pestaña. Contra eso no hay parámetro que valga.
 
-```html
-<div class="media" data-file="media/rosling.mp4" data-yt="jbkSRLYSojo"></div>
+Con el archivo en `media/` eso desaparece: sale el reproductor del navegador,
+dentro de la slide, y además deja de depender de la wifi del aula y de los
+anuncios.
+
+**Comprobado**: con el archivo presente, la slide monta un `<video>` nativo y
+reproduce sin que aparezca ningún iframe de YouTube.
+
+## Cómo descargarlos
+
+Una vez, en el Terminal:
+
+```bash
+brew install yt-dlp
 ```
 
-El deck intenta el archivo local primero. **Si no está, cae al vídeo de YouTube
-sin decir nada**, así que la clase se puede dar sin haber descargado nada.
+Y después, desde esta carpeta:
 
-El archivo local es mejor en un aula, por tres razones que se notan justo en el
-peor momento: no depende de la wifi de Bocconi, no mete anuncios antes del clip,
-y no se puede quedar «no disponible en este país» ni «el propietario no permite
-incrustarlo».
+```bash
+cd ~/Documents/Teaching/Behavioral_skills_seminar_/media
 
-Para `reagan.mp3`, si el archivo está sale un reproductor de **audio**, sin
-imagen, que es lo que se quiere: obliga a escuchar. Si no está, el respaldo de
-YouTube trae imagen.
+# Rosling · BBC
+yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
+       -o rosling.mp4 "https://www.youtube.com/watch?v=jbkSRLYSojo"
+
+# Reagan · solo audio, que es lo que se quiere en esa slide
+yt-dlp -x --audio-format mp3 \
+       -o reagan.mp3 "https://www.youtube.com/watch?v=sNQLOOCU9W8"
+
+# Bombas · Shark Tank
+yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
+       -o bombas.mp4 "https://www.youtube.com/watch?v=WpPhs7OipzQ"
+```
+
+Si alguno da error de formato, `yt-dlp -F <url>` lista lo que hay y se elige
+otro. Y si el vídeo no es el trozo correcto, se busca otro y se cambia solo el
+identificador del `data-yt` en la etiqueta `.media` de esa slide, en
+`index.html`.
+
+720p sobra para proyectar y pesa la cuarta parte que 1080p.
+
+## Ojo: no se suben al repositorio
+
+`.gitignore` no los excluye todavía por nombre, pero **no los subas**: son de
+terceros y pesan. Si quieres que git los ignore, añade `media/*.mp4` y
+`media/*.mp3`.
 
 ## Detalles del reproductor
 
 - Se monta al entrar en la slide y **se destruye al salir**, así que el sonido se
-  corta solo al avanzar. No hay que acordarse de pausar.
-- Un clic en el reproductor **ya no salta de slide**. Antes cualquier clic en la
-  pantalla avanzaba, así que darle al play te cambiaba la slide.
-- Con el foco en el reproductor, la barra espaciadora es play y pausa, no avanzar.
-  Las flechas siguen navegando siempre.
-
-## Los identificadores de YouTube
-
-Comprobados en Chrome contra el sitio real: los tres cargan el reproductor y el
-vídeo es el que tiene que ser.
-
-| Slide | Título que sale | Canal |
-|---|---|---|
-| TIP 3a | Hans Rosling's 200 Countries, 200 Years, 4 Minutes | BBC |
-| Reagan | President Reagan's Challenger Disaster Address, January 28, 1986 | AmericanRhetoric.com |
-| Bombas | Bombas Socks Cozies Up With Daymond, Shark Tank: How It Started | CNBC Ambition |
-
-**Lo que no se pudo comprobar es la reproducción.** Un clic automatizado dentro
-de un iframe de YouTube no cuenta como gesto de usuario, así que no se puede
-distinguir «el vídeo no se deja incrustar» de «el clic no llegó». Hay que darle
-al play a los tres una vez, a mano, con el proyector.
-
-Si alguno no arranca, dos salidas: cambiar el `data-yt` de esa etiqueta `.media`
-en `index.html`, o descargar el clip a `media/` y dejar de depender de nadie.
-Para Reagan hay dos alternativas ya localizadas: `OkJZDxX4w6k` y `ynuDA8A42Ic`.
+  corta solo al avanzar.
+- Un clic en el reproductor **no salta de slide**, y con el foco puesto en él la
+  barra espaciadora es play y pausa. Las flechas siguen navegando siempre.
+- `reagan.mp3` sale como reproductor de audio, sin imagen, que es lo que se
+  quiere ahí. Si falta y tira del respaldo de YouTube, entonces sí hay imagen.
