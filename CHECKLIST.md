@@ -26,7 +26,7 @@ y no avanza de slide.
 
 | | |
 |---|---|
-| Viernes | `index.html?teach` · 85 slides · sesiones 1–3 |
+| Viernes | `index.html?teach` · 86 slides · sesiones 1–3 |
 | Sábado | `saturday.html?teach` · 36 slides · sesiones 4–8 |
 
 Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay que

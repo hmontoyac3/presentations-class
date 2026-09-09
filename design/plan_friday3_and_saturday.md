@@ -30,16 +30,22 @@ grupos no cabe, y con seis la tarde se queda corta.
 
 | | | |
 |---|---|---|
-| 16.30–16.38 | A buscar grupo y moverse | 8 min |
-| 16.38–17.06 | **No Small Talk** | 28 min · el ejercicio entero, tres rondas |
-| 17.06–17.26 | El proyecto | 20 min · entregable, tiempos, cómo se juzga |
+| 16.30–16.36 | A buscar grupo y moverse | 6 min |
+| 16.36–17.08 | **No Small Talk** | 32 min · dos rondas en mitades, la tercera con los nueve |
+| 17.08–17.26 | El proyecto | 18 min |
 | 17.26–17.36 | Elegir un problema | 10 min |
 | 17.36–17.49 | Interrogarlo y escribirlo | 13 min · form 13 |
-| 17.49–17.58 | Nueve declaraciones | 9 min · un minuto por equipo, de pie |
-| 17.58–18.00 | Cierre | «Mañana inventan la solución» |
+| 17.49–17.58 | Nueve declaraciones | 9 min |
+| 17.58–18.00 | Cierre | 2 min |
 
 Suma exactamente 90. **No Small Talk se queda**, que es lo que hace que el
 grupo funcione al día siguiente, y no hizo falta pasar nada al sábado.
+
+**Con nueve por grupo el ejercicio hay que partirlo.** Nueve personas
+respondiendo por turnos es una cola, no una conversación, así que las rondas 1 y
+2 se hacen en dos círculos de cuatro y cinco, y solo la ronda 3 es con los
+nueve. Los tiempos suben en consecuencia: 4, 5 y 7 minutos en vez de 3, 4 y 5.
+Son 18 minutos de reloj y 32 de bloque.
 
 Lo que se ajustó para que quepa: interrogar el problema y escribir el brief son
 **un solo bloque de 13 minutos**, no 20 + 16. Funciona porque las cuatro
@@ -81,16 +87,18 @@ las diez de la mañana que a las cinco de la tarde.
 Hook · Problem · Solution · Evidence · Contrast · Ask.
 
 Plazos internos: 10.35 historia acordada · 11.00 primer pitch completo y
-**escrito** · 11.15 se abre PowerPoint por primera vez (seis slides y la
-landing) · 11.25 primera pasada cronometrada · 11.40 versión de la mañana.
+**escrito** · 11.15 se construye la landing · 11.25 primera pasada
+cronometrada · 11.40 versión de la mañana.
 
-La regla de «nada de slides hasta las once» es el TIP 4 convertido en horario:
-estructura antes que diapositivas. Y hace falta que esté aquí y no más tarde,
+Que no haya deck es el TIP 4 convertido en regla: sin la etapa nueve donde
+esconderse, las otras ocho hay que hacerlas. Y la página no se toca hasta las
+once, cuando ya saben qué tiene que decir. Y hace falta que esté aquí y no más tarde,
 porque la sesión 6 es ensayo entero y no tiene hueco para producir nada.
 
-### Landing page, no web
+### Landing page, y nada más
 
-Una pantalla: nombre, una promesa, un visual, una llamada a la acción. El logo
+**No hay deck.** El único soporte visual del pitch es una pantalla: nombre,
+una promesa, un visual, una llamada a la acción. El logo
 es opcional y vale cero puntos. Esto es deliberado: sin el límite, el seminario
 de habilidades se convierte en un concurso de Canva, y ganan por el pitch, no
 porque un modelo les haya hecho una identidad de marca bonita.
@@ -147,3 +155,4 @@ respondiste»: es el único que se envía varias veces desde el mismo teléfono.
   partida son seis problemas y no una lectura.
 - **Un presentador** y los 5 o 10 minutos por grupo.
 - La **web funcional** como entregable, sustituida por la landing de una pantalla.
+- El **deck de seis slides**. No hay slides: la landing es el único visual.
