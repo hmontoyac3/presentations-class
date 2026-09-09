@@ -109,8 +109,12 @@ y punto. Suman 2:20, y los 40 segundos que sobran son lo que evita que se pasen
 de tres.
 
 Plazos internos: 11.00 las seis secciones decididas · 11.10 página publicada ·
-11.20 primer pitch completo y **escrito** · 11.30 primera pasada cronometrada ·
-11.40 versión de la mañana.
+11.25 primer pitch completo y **escrito** · 11.40 versión de la mañana.
+
+**En la sesión 5 no se ensaya.** Se construye. El ensayo es toda la tarde, y no
+se puede ensayar algo que todavía no está escrito: un grupo de pie repitiéndose
+el pitch a las once y media es un grupo que se está escondiendo de terminarlo.
+La primera vez que lo dicen entero es a las 13.14, con otro equipo delante.
 
 ### Las declaraciones, y por qué están el sábado
 
