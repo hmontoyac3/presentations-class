@@ -86,13 +86,31 @@ sesión 4 en 60 minutos útiles y el día en **390**.
 Si no cabe en la frase, no hay oferta, hay un tema. Es mucho mejor descubrirlo a
 las diez de la mañana que a las cinco de la tarde.
 
-### La arquitectura del pitch
+### Se construyen dos cosas, en este orden
 
-Hook · Problem · Solution · Evidence · Contrast · Ask.
+Primero la **landing page**, después el **pitch**. El orden no es arbitrario:
+decidir qué va en la página obliga a cerrar el nombre, la cifra y el ask, que si
+no siguen abiertos a las dos de la tarde. Y la frase que hay que decir en voz
+alta es que la página es un decorado y el pitch es la prueba.
 
-Plazos internos: 10.55 historia acordada · 11.10 primer pitch completo y
-**escrito** · 11.20 se construye la landing · 11.30 primera pasada
-cronometrada · 11.40 versión de la mañana.
+Las seis secciones de la landing y la estructura de cinco partes del pitch salen
+del ejercicio de Shark Tank del **Managerial Skills Seminar**
+(`Managerial_skills_seminar/communication/SHARK_TANK_AI_BOTS.md`), para que las
+dos asignaturas usen el mismo estándar.
+
+**La landing, seis secciones:** hero (nombre, tagline, CTA) · problema en una
+frase · solución y por qué es distinta · traction, una cifra inventada pero
+defendible · el ask, «€100.000 por un X%» y ellos eligen X · equipo con nombres
+y roles.
+
+**El pitch, cinco partes:** hook ~20s (se abre con el problema, nunca con los
+nombres) · solución ~30s · proof ~60s · ask ~20s, dicho en voz alta · close ~10s
+y punto. Suman 2:20, y los 40 segundos que sobran son lo que evita que se pasen
+de tres.
+
+Plazos internos: 11.00 las seis secciones decididas · 11.10 página publicada ·
+11.20 primer pitch completo y **escrito** · 11.30 primera pasada cronometrada ·
+11.40 versión de la mañana.
 
 ### Las declaraciones, y por qué están el sábado
 

@@ -27,13 +27,13 @@ y no avanza de slide.
 | | |
 |---|---|
 | Viernes | `index.html?teach` · 85 slides · sesiones 1–3 |
-| Sábado | `saturday.html?teach` · 39 slides · sesiones 4–8 |
+| Sábado | `saturday.html?teach` · 40 slides · sesiones 4–8 |
 
 Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay que
 recorrer el viernes entero para llegar.
 
 **El ciclo de pitches** (sesión 7) son cuatro slides que se repiten nueve veces:
-pitch 28 → voto 29 → preguntas 30 → transición 31. Desde la transición vuelves
+pitch 29 → voto 30 → preguntas 31 → transición 32. Desde la transición vuelves
 al pitch con `←` tres veces, y `]` pasa al equipo siguiente. El número grande
 que se proyecta es el contador, y va de 1 a 9.
 
