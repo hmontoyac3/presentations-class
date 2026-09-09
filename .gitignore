@@ -31,3 +31,10 @@ articoli/
 media/*.mp4
 media/*.mp3
 media/*.m4a
+
+# Reparto de equipos generado desde el listado de matriculados.
+# Son NOMBRES DE ESTUDIANTES y este repositorio es público: no se suben.
+# Viven en la pestaña `teams` de la hoja de cálculo, que es privada, y el deck
+# los lee desde ahí en tiempo real. Se regeneran con tools/make_teams.py.
+teams_*.csv
+teams_paste.tsv

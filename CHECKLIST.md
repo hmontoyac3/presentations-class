@@ -27,20 +27,24 @@ y no avanza de slide.
 | | |
 |---|---|
 | Viernes | `index.html?teach` · 85 slides · sesiones 1–3 |
-| Sábado | `saturday.html?teach` · 40 slides · sesiones 4–8 |
+| Sábado | `saturday.html?teach` · 38 slides · sesiones 4–8 |
 
 Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay que
 recorrer el viernes entero para llegar.
 
-**El ciclo de pitches** (sesión 7) son cuatro slides que se repiten nueve veces:
-pitch 29 → voto 30 → preguntas 31 → transición 32. Desde la transición vuelves
-al pitch con `←` tres veces, y `]` pasa al equipo siguiente. El número grande
-que se proyecta es el contador, y va de 1 a 9.
+**El ciclo de pitches** (sesión 7) son tres slides que se repiten nueve veces:
+pitch 30 → voto 31 → comentarios 32. Desde la de comentarios vuelves al pitch
+con `←` dos veces, y `]` pasa al equipo siguiente. El número grande que se
+proyecta es el contador, y va de 1 a 9.
+
+En la de comentarios, **Draw two names** saca dos personas de la clase que no
+sean del equipo que presenta. Se puede pulsar las veces que haga falta. Depende
+de la pestaña `teams` de la hoja: ver `SETUP_TEAMS.md`.
 
 ## Falta rellenar
 
-- [ ] **Nueve grupos por clase en Blackboard.** FIN 89 alumnos → 9 grupos de 10. AFM 79 → 9 grupos de 9. El sábado la aritmética depende de que sean nueve: 9 × 8 min = 72 de los 90 de la sesión 7
-- [ ] La carpeta compartida donde suben la landing a las 14.25
+- [x] ~~Nueve equipos por clase~~ — hechos con `tools/make_teams.py`. FIN: ocho de 10 y uno de 9. AFM: siete de 9 y dos de 8. **Si falta gente, no se reorganizan**
+- [ ] **Pegar `teams_paste.tsv` en la pestaña `teams`** de la hoja. Sin eso el sorteo de nombres del sábado cae al plan B. Ver `SETUP_TEAMS.md`
 - [ ] **Vaciar la bandeja el viernes por la noche**: nueve correos, uno por equipo, con el problema elegido. Es lo único que te llevas del viernes
 - [ ] Los cinco ejemplos reales para la slide «los cinco tips, esta tarde» (slide 33 del sábado) — se apuntan en el break de las 16.15, no antes
 - [ ] El audio de Reagan, descargado. Si no está, se corta el bloque y se lee el párrafo final en voz alta
@@ -68,4 +72,4 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Si se quedan, el marcador del sábado arranca con dos votos fantasma
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
-- [ ] Los grupos publicados en Blackboard, nueve por clase
+- [ ] Los nueve equipos publicados donde ellos los vean (Blackboard o proyectados). Salen de `teams_fin.csv` y `teams_afm.csv`

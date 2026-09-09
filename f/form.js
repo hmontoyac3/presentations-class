@@ -16,6 +16,19 @@ var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3
     });
   }
 
+  /* Campos que se repiten envío tras envío (el voto de inversión son nueve):
+     data-remember guarda el valor y lo repone, para que solo se teclee una vez. */
+  form.querySelectorAll('[data-remember]').forEach(function (el) {
+    var key = 'bsk_r_' + (el.getAttribute('data-remember') || el.name);
+    try {
+      var v = localStorage.getItem(key);
+      if (v) el.value = v;
+    } catch (e) {}
+    el.addEventListener('change', function () {
+      try { localStorage.setItem(key, el.value.trim()); } catch (e) {}
+    });
+  });
+
   /* botones de opción única y múltiple */
   form.querySelectorAll('[data-group]').forEach(function (g) {
     var multi = g.hasAttribute('data-multi');

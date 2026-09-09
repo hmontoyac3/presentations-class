@@ -322,6 +322,28 @@
   .subtips span.on b { color: var(--ochre); }
 
   /* HISTOGRAMA DE RESPUESTAS · la dispersión de TIP 3a */
+  /* dos personas sorteadas del público */
+  .picks { flex: none; display: flex; gap: clamp(12px,1.8vw,28px); width: 100%; }
+  .pickcard {
+    flex: 1 1 0; min-width: 0; padding: clamp(10px,1.4vh,18px) clamp(12px,1.4vw,20px);
+    background: var(--card); border-left: 4px solid var(--crimson);
+  }
+  .pickcard .pn {
+    font-family: var(--sans); font-weight: 700; color: var(--ink);
+    font-size: clamp(18px,2.4vw,34px); line-height: 1.1;
+  }
+  .pickcard .pw {
+    margin-top: 6px; color: var(--ink-soft); font-size: clamp(11px,1.08vw,15px);
+    line-height: 1.35;
+  }
+  #drawbtn {
+    font-family: var(--mono); font-size: clamp(11px,1.05vw,14px);
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 8px 16px; border: 2px solid var(--ink); background: var(--ink);
+    color: #FFF; cursor: pointer;
+  }
+  #drawbtn:hover { background: var(--crimson); border-color: var(--crimson); }
+
   /* tabla del debrief: una fila por equipo */
   .whytable { flex: none; width: 100%; display: flex; flex-direction: column; gap: 2px; }
   .wrow {
@@ -887,30 +909,45 @@
   <p class="lead">One more after this.</p>
 </section>
 
-<section data-part="7" class="slide" data-s="7" data-b="Reglas pitch" data-notes="DOS MINUTOS Y NO MÁS: cada minuto que gastes aquí se lo quitas a un grupo. · Lo único imprescindible: los ocho minutos por equipo, y que TODO EL MUNDO vota en todos los pitches aunque solo tenga tres fichas. Repítelo: se vota siempre, se gasta ficha solo tres veces. · La escasez es lo que hace el ejercicio: si todos dicen que sí a todos, no ha pasado nada y se lo dices tal cual. · Y el cierre: los que están escuchando no son público, son inversores, y su trabajo es tan difícil como el de los que presentan.">
-  <div class="kicker">14.45 – 16.15 · nine pitches</div>
-  <h2>Eight minutes per team, and I keep the clock.</h2>
+<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Enlace" data-notes="TRES MINUTOS Y NO PASES DE AQUÍ HASTA QUE TODOS LO TENGAN ABIERTO. Es lo que hace que la sesión funcione. · Que lo abran, escriban su nombre y su número de equipo AHORA, y dejen la pestaña abierta el resto de la tarde. Con eso solo tienen que tocar tres campos por pitch. · EL NOMBRE ES OBLIGATORIO y hay que explicar por qué sin que suene a amenaza: es como te salen los nombres para comentar. Si no lo ponen, no pueden salir sorteados, y eso lo van a entender rápido. · Levanta la mano y pide que levanten la suya los que ya lo tengan. No arranques con el equipo uno hasta ver la sala llena de manos.">
+  <div class="kicker do">Before we start · everybody, now</div>
+  <h2>Open this and leave it open all afternoon.</h2>
+  <div class="qrwrap">
+    <div class="qwrap2"><div class="qrbox" data-qr="q17">Scan</div><span class="qnum">Form 17</span></div>
+    <div class="stack">
+      <p class="body">Fill in <b>your name</b> and <b>your own team number</b> once. They stay filled in for the other eight.</p>
+      <div class="panel rule" style="padding:9px 14px;border-left-width:4px">
+        <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none">Your name is how you get called on. After each pitch I draw two people from the room, and only people who voted are in the draw.</p>
+      </div>
+      <p class="tiny">Hands up when you have it open. We do not start until the room is full of hands.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="7" class="slide" data-s="7" data-b="Reglas pitch" data-notes="DOS MINUTOS Y NO MÁS: cada minuto aquí se lo quitas a un equipo. · Lo imprescindible: siete minutos por equipo, y que TODO EL MUNDO vota en todos los pitches aunque solo tenga tres fichas. Repítelo: se vota siempre, se gasta ficha solo tres veces. · La escasez es lo que hace el ejercicio: si todos dicen que sí a todos, no ha pasado nada y se lo dices tal cual. · Y el cierre: los que escuchan no son público, son inversores, y su trabajo es tan difícil como el de los que presentan.">
+  <div class="kicker">14.50 – 16.15 · nine pitches</div>
+  <h2>Seven minutes per team, and I keep the clock.</h2>
   <div class="cols2" style="align-items:start">
     <div class="panel">
       <h3>Each team</h3>
       <table class="tbl" style="max-width:38ch"><tbody>
-        <tr><td class="k">3:00</td><td>The pitch. Hard stop</td></tr>
+        <tr><td class="k">3:00</td><td>Your page on the screen, and the pitch</td></tr>
         <tr><td class="k">0:30</td><td>Silent vote, on your phone</td></tr>
-        <tr><td class="k">3:00</td><td>Two questions from the room</td></tr>
-        <tr><td class="k">1:30</td><td>Result, and the next team stands up</td></tr>
+        <tr><td class="k">3:00</td><td>Two people from the room, drawn at random</td></tr>
+        <tr><td class="k">0:30</td><td>Next team stands up</td></tr>
       </tbody></table>
     </div>
     <div class="panel rule">
-      <h3>You have three tokens and there are nine companies</h3>
+      <h3>Three tokens, nine companies</h3>
       <p class="body" style="max-width:48ch"><b>You vote on every pitch.</b> But you can only spend three tokens all afternoon, so a yes is expensive.</p>
-      <p class="body" style="max-width:48ch">If everybody funds everybody, nothing happened here. Scarcity is the whole exercise, and it is also how it works outside.</p>
+      <p class="body" style="max-width:48ch">If everybody funds everybody, nothing happened here. Scarcity is the exercise, and it is also how it works outside.</p>
     </div>
   </div>
-  <p class="lead">Nobody in this room is an audience this afternoon. You are all investors, and your job is as hard as theirs.</p>
+  <p class="lead">Nobody is an audience this afternoon. You are all investors, and your job is as hard as theirs.</p>
 </section>
 
-<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Pitch" data-notes="ESTE ES EL CICLO Y SE REPITE NUEVE VECES. · ] pasa al equipo siguiente, [ vuelve al anterior. El número grande de la izquierda es el que se proyecta. · Desde la slide de transición, vuelves aquí con ← tres veces y pulsas ] para el siguiente equipo. · t arranca el reloj, T lo reinicia. ARRANCA EL RELOJ ANTES DE QUE ABRAN LA BOCA. · A los tres minutos se corta. Córtalo de verdad la primera vez, con una sonrisa, porque si no lo haces con el grupo 1 no lo puedes hacer con el 7.">
-  <div class="kicker do">Pitch · three minutes · hard stop</div>
+<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Pitch" data-notes="ESTE ES EL CICLO Y SE REPITE NUEVE VECES. · ] pasa al equipo siguiente, [ vuelve al anterior. El número grande es el que se proyecta. · Desde la slide de comentarios vuelves aquí con ← dos veces, y luego ] para el siguiente. · ANTES DE ARRANCAR EL RELOJ: que pongan su landing page en pantalla. Es lo primero, y el equipo uno va a olvidarse. · t arranca y pausa, T reinicia. · A los tres minutos se corta. Córtalo de verdad con el equipo 1, con una sonrisa, porque si no lo haces ahí no lo puedes hacer con el 7.">
+  <div class="kicker do">Page up · pitch · three minutes · hard stop</div>
   <div class="cols2" style="align-items:center;gap:clamp(14px,3vw,50px)">
     <div class="stack" style="align-items:center">
       <div class="k" style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)">Team</div>
@@ -918,14 +955,14 @@
       <p class="tiny">] next team · [ previous</p>
     </div>
     <div class="stack">
-      <h2 style="font-size:clamp(20px,2.6vw,36px)">Two presenters. Everyone answers afterwards.</h2>
-      <p class="body">Hook · problem · solution · evidence · contrast · <b>ask</b>.</p>
+      <h2 style="font-size:clamp(20px,2.6vw,36px)">Your page on the screen. Two of you speak.</h2>
+      <p class="body">Hook · solution · proof · <b>ask</b> · close.</p>
       <p class="lead">Three minutes. I stop you, and it costs you nothing except the end of your sentence.</p>
     </div>
   </div>
 </section>
 
-<section data-timer="30" data-part="7" class="slide" data-s="7" data-b="Voto" data-notes="TREINTA SEGUNDOS Y EN SILENCIO. Nada de comentarios entre ellos mientras votan: eso es exactamente lo que arruina el dato. · Recuerda en voz alta antes de arrancar el reloj: se vota SIEMPRE, se gasta ficha solo tres veces en toda la tarde. · Si alguien pregunta si puede cambiar el voto después, no.">
+<section data-timer="30" data-part="7" class="slide" data-s="7" data-b="Voto" data-notes="TREINTA SEGUNDOS Y EN SILENCIO. Nada de comentarios entre ellos mientras votan: eso es lo que arruina el dato. · Recuerda antes de arrancar el reloj: se vota SIEMPRE, se gasta ficha solo tres veces en toda la tarde. · Y que escriban de verdad las dos frases del formulario, porque es lo que van a leer si les toca comentar. Dilo una vez al principio y ya. · Si alguien pregunta si puede cambiar el voto después, no.">
   <div class="kicker do">30 seconds · silent · no talking</div>
   <h2>Would you invest?</h2>
   <div class="qrwrap">
@@ -933,33 +970,20 @@
     <div class="stack">
       <p class="body">Team <b id="teamno2">1</b>. Yes or no, what moved you, and what would have changed your vote.</p>
       <p class="lead">Three tokens. Nine companies. Spend them where you would actually put the money.</p>
-      <p class="tiny">Vote on every pitch, even when you are not spending.</p>
+      <p class="tiny">Write the two lines properly — they are what you read out if you get drawn.</p>
     </div>
   </div>
 </section>
 
-<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Preguntas" data-notes="TRES MINUTOS, DOS PREGUNTAS. Ni una más, aunque la sala esté encendida: si dejas tres, pierdes un grupo entero al final de la tarde. · Tú eliges quién pregunta y elige a gente distinta cada vez. Ten una pregunta tuya preparada por si la sala se queda muda: «¿quién paga, exactamente?» funciona siempre. · Y vigila que conteste alguien que NO haya presentado. Es la mitad del sentido de la regla de los dos presentadores.">
-  <div class="kicker do">Two questions · three minutes</div>
-  <h2>Anyone on the team can answer. Preferably somebody who did not present.</h2>
-  <div class="panel rule">
-    <p class="body" style="max-width:80ch">Investors: ask the question you actually have, not the polite one. <b>"Who exactly pays for this?"</b> is a fair question and it is the one that decides most rounds.</p>
+<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Comentarios" data-notes="TRES MINUTOS Y AQUÍ SE ENSEÑA. · Pulsa el botón. Salen dos nombres de gente que YA ha votado a este equipo y que NO es de este equipo. Si alguno no está o no te convence, vuelve a pulsar y salen otros dos. · Debajo de cada nombre aparece lo que esa persona escribió, así que si se queda en blanco, se lo lees tú y ya tiene por dónde empezar. · LA REGLA que hay que hacer cumplir: una cosa que funcionó y una para mejorar. En ese orden y las dos. Si solo dicen la buena, pídeles la otra. · Noventa segundos cada uno como mucho. · Luego: ← ← y ] para el siguiente equipo.">
+  <div class="kicker do">Two people from the room · 90 seconds each</div>
+  <h2 style="font-size:clamp(18px,2.3vw,32px)">One thing that worked. One thing to improve.</h2>
+  <div id="picked" class="picks"><p class="tiny">Press the button.</p></div>
+  <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+    <button id="drawbtn" onclick="drawTwo()">Draw two names</button>
+    <span class="tiny">Press again for two different people</span>
   </div>
-  <p class="lead">Two questions only. There are nine teams and the clock does not care.</p>
-</section>
-
-<section data-timer="90" data-part="7" class="slide" data-s="7" data-b="Transición" data-notes="NOVENTA SEGUNDOS Y AQUÍ SE ENSEÑA, en trozos de veinte segundos. · Mira el marcador, y llama a UNA persona que invirtió y a UNA que no. Treinta segundos cada una, cronometrados. Elige gente distinta cada vuelta y no dejes que se conviertan en un seminario. · Esa comparación, repetida nueve veces, es el aprendizaje real de la tarde: el mismo pitch, dos lecturas opuestas, y las dos razonables. · Luego: ← ← ← y ] para el siguiente equipo.">
-  <div class="kicker">Where the money is going</div>
-  <div class="hist" id="votebars"></div>
-  <div class="cols2" style="align-items:start">
-    <div class="panel info">
-      <h3>Thirty seconds each</h3>
-      <p class="body" style="max-width:48ch">One person who invested. One person who did not. Same pitch, opposite readings, and both of them are reasonable.</p>
-    </div>
-    <div class="stack">
-      <div class="quotes" id="votewhy"></div>
-    </div>
-  </div>
-  <p class="tiny">Next team: ← ← ← then ]</p>
+  <p class="tiny">Next team: ← ← then ]</p>
 </section>
 
 <section data-part="7" class="slide" data-s="7" data-b="Fin pitches" data-notes="Respira con ellos. Han presentado los nueve. · No des resultados todavía: el recuento es después del break, y esos quince minutos de espera valen mucho. · Dilo: en tres minutos cada uno han hecho lo que ayer por la mañana les parecía imposible.">
@@ -985,51 +1009,43 @@
 </section>
 
 <section data-part="8" class="slide" data-s="8" data-b="Debrief" data-notes="VEINTE MINUTOS Y ES LA CLASE ENTERA. Aquí es donde el fin de semana se convierte en algo que se llevan. · La tabla sale sola de los votos: una fila por equipo, lo que hizo invertir y lo que frenó. Recórrela equipo por equipo, no la leas entera de corrido. · R baraja y saca otras frases de los mismos equipos, así que si una fila se queda corta, pulsa R y vuelve a mirarla. · EL GIRO, y es lo único que tienes que decir tú: casi ninguna de esas razones es sobre el producto. Son sobre cómo lo contaron. Dilo después de recorrer tres o cuatro filas, no antes. · Y una pregunta abierta a la sala: ¿alguien cambió de opinión durante las preguntas? Esa mano levantada vale más que cualquier cosa que digas tú.">
-  <div class="kicker">16.40 – 17.00 · what actually made people invest</div>
+  <div class="kicker">16.40 – 17.05 · what actually made people invest</div>
   <h2 style="font-size:clamp(18px,2.3vw,32px)">Your own reasons, team by team.</h2>
   <div id="whysummary" class="whytable"><p class="tiny">Waiting for the votes…</p></div>
   <p class="lead" style="max-width:84ch">Almost none of these are about the product. <b>They are judgements about a presentation</b> — and you made nine of them this afternoon without being taught how.</p>
   <p class="tiny">R to pull different answers from the same teams</p>
 </section>
 
-<section data-part="8" class="slide" data-s="8" data-b="Los cinco" data-notes="CINCO MINUTOS Y VA CON PASOS: uno por tip, y en cada uno señala un grupo concreto de esta tarde que lo hizo. Prepara los cinco ejemplos durante el break, apuntados en un papel. Sin ejemplos reales esta slide es una lista y no vale nada. · El remate es la última línea: no aprendieron cinco técnicas, hicieron una sala entera con ellas.">
-  <div class="kicker">The five tips, this afternoon</div>
-  <h2>You did not watch these work. You used them.</h2>
-  <ol class="big">
-    <li data-step="1"><b>Start with why they should care.</b> Every pitch that opened with the person, not the product, got a vote</li>
-    <li data-step="2"><b>One idea.</b> The teams you remember are the teams you can describe in one sentence</li>
-    <li data-step="3"><b>Contrast.</b> Before and after. No number travelled alone this afternoon</li>
-    <li data-step="4"><b>Structure before slides.</b> You had no deck to hide behind, and it turned out you did not need one</li>
-    <li data-step="5"><b>Delivery.</b> The content froze at ten past one. Everything that improved after that was you</li>
-  </ol>
-  <p class="lead" data-step="6">Five techniques is not what happened here. <b>You persuaded a room of people who had no reason to say yes</b>, and you did it in three minutes.</p>
-</section>
-
-<section data-timer="900" data-part="8" class="slide" data-s="8" data-b="Reflexión" data-notes="QUINCE MINUTOS: primero cinco en grupo, hablando, y luego el formulario individual. En ese orden, porque solos no se acuerdan de nada. · La pregunta del grupo, en voz alta: ¿en qué momento exacto de hoy cambió nuestro pitch? · La segunda pregunta del formulario es la incómoda y es la que importa. Diles que no hay nota y que la leo yo sola. · Que no se vayan sin enviarlo: es la última captura del fin de semana.">
-  <div class="kicker do">17.00 – 17.15 · five minutes talking, then ten alone</div>
-  <h2>First with your group, out loud: at what exact moment did our pitch change today?</h2>
-  <div class="qrwrap">
-    <div class="qwrap2"><div class="qrbox" data-qr="q18">Scan</div><span class="qnum">Form 18</span></div>
+<section data-part="8" class="slide" data-s="8" data-b="Recap" data-notes="VEINTE MINUTOS Y ES EL CIERRE ENTERO DEL FIN DE SEMANA. Ve paso a paso con la flecha y en cada uno señala algo CONCRETO que pasó en esta sala. Prepáralos en el break de las 16.15, apuntados en un papel: sin ejemplos reales esto es una lista y no vale nada. · El viernes lo tienen medio olvidado, así que la primera mitad es recordarles lo que hicieron: la lista de reclutadores, la conversación con desconocidos, los cinco tips. · La segunda mitad son los cinco tips vistos DESDE esta tarde, que es lo que los convierte en algo suyo y no en teoría de una slide. · El remate es la última línea y se dice de pie, despacio, sin añadir nada después. · Y después de esta slide, la de gracias y se van. No alargues.">
+  <div class="kicker">The two days</div>
+  <h2 style="font-size:clamp(18px,2.3vw,32px)">What you actually did here.</h2>
+  <div class="cols2" style="align-items:start;gap:clamp(16px,2.4vw,40px)">
     <div class="stack">
-      <p class="body">Then on your own: which skill improved your pitch, what weakened your credibility, and what you would change if you pitched again tomorrow.</p>
-      <p class="tiny">Individual, not per group. No grade attached, and I am the only person who reads it.</p>
-    </div>
-  </div>
-</section>
-
-<section data-part="8" class="slide" data-s="8" data-b="Cierre" data-notes="QUINCE MINUTOS Y SE ACABA. Bájate del estrado. · El puente con el resto del máster es lo único que tienes que decir bien: la próxima vez que hablen no habrá cronómetro ni fichas, pero habrá exactamente la misma pregunta en la cabeza de quien escucha, «¿por qué debería importarme esto?». · Y la frase con la que quieres que salgan: la habilidad no era hablar bien, era decidir qué merece los tres minutos de otra persona. · Correo y gracias. No alargues.">
-  <div class="kicker">17.15 – 17.30</div>
-  <h1>Next time there will be no timer and no tokens. The question in the room will be identical.</h1>
-  <p class="lead">"Why should I care about this?" Somebody is asking it in every meeting you will ever be in, and almost nobody answers it in the first fifteen seconds.</p>
-  <div class="cols2" style="align-items:start">
-    <div class="panel info">
-      <h3>What you actually learned</h3>
-      <p class="body" style="max-width:48ch">Not how to speak well. <b>How to decide what deserves three minutes of somebody else's attention</b> — and then how to give them a reason to stay for the second one.</p>
+      <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:11px 15px" data-step="1">
+        <h3 style="font-size:clamp(14px,1.4vw,20px)">Friday</h3>
+        <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">You found out where this degree actually sends people, and that the gap is not technical. You had a real conversation with strangers you did not choose. You got five tips.</p>
+      </div>
+      <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:11px 15px" data-step="2">
+        <h3 style="font-size:clamp(14px,1.4vw,20px)">Saturday morning</h3>
+        <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">You turned a problem into a person with a name, invented something somebody would pay for, and fitted it into one sentence and one screen.</p>
+      </div>
+      <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:11px 15px" data-step="3">
+        <h3 style="font-size:clamp(14px,1.4vw,20px)">Saturday afternoon</h3>
+        <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">You froze the content at ten past one and spent three hours on nothing but delivery. Then you asked a room with money for some of it.</p>
+      </div>
     </div>
     <div class="stack">
-      <div class="quotes" id="reflect"></div>
+      <h3 style="font-size:clamp(14px,1.45vw,20px)" data-step="4">And the five tips, seen from this afternoon</h3>
+      <ol class="big" style="gap:2px">
+        <li style="font-size:clamp(12px,1.2vw,17px)" data-step="4"><b>Start with why they should care.</b> The pitches that opened with the person, not the product</li>
+        <li style="font-size:clamp(12px,1.2vw,17px)" data-step="5"><b>One idea.</b> The teams you remember are the ones you can describe in a sentence</li>
+        <li style="font-size:clamp(12px,1.2vw,17px)" data-step="6"><b>Contrast.</b> No number travelled alone this afternoon</li>
+        <li style="font-size:clamp(12px,1.2vw,17px)" data-step="7"><b>Structure before slides.</b> No deck to hide behind, and you did not need one</li>
+        <li style="font-size:clamp(12px,1.2vw,17px)" data-step="8"><b>Delivery.</b> Everything that improved after 13.10 was you</li>
+      </ol>
     </div>
   </div>
+  <p class="lead" data-step="9">Next time there is no timer and no tokens, but the question in the room is identical: <b>why should I care about this?</b> Almost nobody answers it in the first fifteen seconds. You now do.</p>
 </section>
 
 <section data-part="8" class="slide divider" data-s="8" data-b="Gracias" data-notes="Quince segundos. Nombre, correo, gracias, y se van. No añadas nada.">
@@ -1149,6 +1165,8 @@
       var el = document.getElementById(id);
       if (el) el.textContent = String(TEAM);
     });
+    var pk = document.getElementById('picked');
+    if (pk) pk.innerHTML = '<p class="tiny">Press the button.</p>';
   }
 
   document.addEventListener('keydown', function (e) {
@@ -1717,7 +1735,101 @@
     }).join('');
   }
 
-  function liveVotes(rows)  { paintBars('votebars', rows, false); renderQuotes('votewhy', rows, 'why', 2); }
+  /* ── Sorteo de dos personas del público para comentar el pitch ──
+     Sale de las filas del form 17: quien ya votó a ESTE equipo está en la sala
+     y tiene una opinión escrita. Se excluye a los del propio equipo, y se
+     deduplica por nombre porque cada persona vota nueve veces a lo largo de la
+     tarde (una por equipo). */
+  /* La lista de equipos vive en la pestaña `teams` de la hoja (privada), NO en
+     este archivo: son nombres de estudiantes y el repositorio es público.
+     Columnas: name · team · class (fin|afm). Se pide una vez y se cachea. */
+  var roster = null, rosterAsked = false;
+  function loadRoster() {
+    if (rosterAsked || !ENDPOINT) return;
+    rosterAsked = true;
+    pull('teams').then(function (rows) {
+      if (!rows || rows.length < 2) return;
+      var cn = colOf(rows, 'name'), ct = colOf(rows, 'team'), cc = colOf(rows, 'class');
+      if (cn < 0 || ct < 0) return;
+      roster = [];
+      for (var k = 1; k < rows.length; k++) {
+        var n = String(rows[k][cn] || '').trim();
+        if (!n) continue;
+        roster.push({
+          name: n,
+          team: String(rows[k][ct] || '').trim(),
+          cls: cc >= 0 ? String(rows[k][cc] || '').trim().toLowerCase() : ''
+        });
+      }
+    });
+  }
+
+  var pickRows = null;
+
+  /* Pool preferente: el listado de la clase, excluyendo al equipo que presenta.
+     Si la pestaña `teams` no está puesta, se cae al plan B y sortea entre quien
+     ya ha votado a ese equipo, que al menos garantiza que está en la sala. */
+  function pickPool() {
+    var t = String(TEAM);
+    var cls = document.body.getAttribute('data-class') || 'fin';
+    if (roster && roster.length) {
+      var out = [];
+      for (var i = 0; i < roster.length; i++) {
+        var p = roster[i];
+        if (p.cls && p.cls !== cls) continue;
+        if (p.team === t) continue;
+        out.push({ name: p.name, why: '' });
+      }
+      if (out.length) return out;
+    }
+    if (!pickRows) return [];
+    var cv = colOf(pickRows, 'voter'), cm = colOf(pickRows, 'myteam');
+    var ct = colOf(pickRows, 'team'),  cw = colOf(pickRows, 'why');
+    if (cv < 0 || ct < 0) return [];
+    var seen = {}, res = [];
+    for (var k = 1; k < pickRows.length; k++) {
+      var r = pickRows[k];
+      var name = String(r[cv] || '').trim();
+      if (!name) continue;
+      if (String(r[ct] || '').trim() !== t) continue;
+      if (cm >= 0 && String(r[cm] || '').trim() === t) continue;
+      var key = name.toLowerCase();
+      if (seen[key]) continue;
+      seen[key] = 1;
+      res.push({ name: name, why: cw >= 0 ? String(r[cw] || '').trim() : '' });
+    }
+    return res;
+  }
+
+  function drawTwo() {
+    var box = document.getElementById('picked'); if (!box) return;
+    var pool = pickPool();
+    if (!pool.length) {
+      box.innerHTML = '<p class="tiny">No votes in yet for team ' + TEAM + '. Give it a few seconds and press again.</p>';
+      return;
+    }
+    box.innerHTML = pickN(pool, Math.min(2, pool.length)).map(function (p) {
+      var why = p.why || wroteWhat(p.name);
+      return '<div class="pickcard"><div class="pn">' + p.name + '</div>'
+           + (why ? '<div class="pw">' + why + '</div>' : '') + '</div>';
+    }).join('');
+  }
+  /* Si esa persona ya escribió algo sobre este equipo, se muestra debajo:
+     así nadie se queda en blanco cuando le toca hablar. */
+  function wroteWhat(name) {
+    if (!pickRows) return '';
+    var cv = colOf(pickRows, 'voter'), ct = colOf(pickRows, 'team'), cw = colOf(pickRows, 'why');
+    if (cv < 0 || ct < 0 || cw < 0) return '';
+    var t = String(TEAM), n = name.toLowerCase();
+    for (var k = 1; k < pickRows.length; k++) {
+      if (String(pickRows[k][ct] || '').trim() !== t) continue;
+      if (String(pickRows[k][cv] || '').trim().toLowerCase() !== n) continue;
+      return String(pickRows[k][cw] || '').trim();
+    }
+    return '';
+  }
+
+  window.drawTwo = drawTwo;
   function liveFinal(rows)  { paintBars('finalbars', rows, true); }
   /* Resumen del debrief: una fila por equipo, con lo que hizo invertir a la
      gente y lo que la frenó. Sale de las mismas filas del form 17: el `why` de
@@ -1771,7 +1883,7 @@
   function reWhy() { if (lastWhyRows) liveWhy(lastWhyRows); }
 
   var LIVEMAP = {
-    'Transición':  { slot: 'q17', render: [liveVotes] },
+    'Comentarios': { slot: 'q17', render: [function (r) { pickRows = r; loadRoster(); }] },
     'Resultados':  { slot: 'q17', render: [liveFinal] },
     'Debrief':     { slot: 'q17', render: [function (r) { lastWhyRows = r; liveWhy(r); }] },
     'Cierre':      { slot: 'q18', render: [liveReflect] }
