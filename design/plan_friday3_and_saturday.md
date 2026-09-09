@@ -64,16 +64,15 @@ The person who might pay is ___. We chose it because ___.»*
 
 ## Sábado
 
-La sala abre a las **8.30** con café y la asistencia A4 se toma a esa hora. El
-trabajo oficial arranca a las **9.00**, y en las slides va marcado con un
-asterisco rojo para que nadie asuma que 8.30 es opcional ni que 9.00 es la hora
-de la asistencia. Los 30 minutos de margen absorben las
-llegadas y te dan tiempo para leer los nueve correos de la noche anterior.
+El sábado **empieza a las 9.00**, no a las 8.30. La ventana oficial de la sesión
+4 es 8.30–10.00, pero se arranca a las nueve en punto y la asistencia A4 se toma
+ahí mismo: los rezagados se apuntan a mano y no se para la clase. Eso deja la
+sesión 4 en 60 minutos útiles y el día en **390**.
 
 | Sesión | Hora | Qué |
 |---|---|---|
-| 4 | 8.30–10.00 | 9.00 interrogar el problema (25) · 9.25 inventar la oferta (30) · gate 10.00 |
-| 5 | 10.15–11.45 | Nueve declaraciones de la oferta (10) · arquitectura · construir |
+| 4 | 9.00–10.00 | Asistencia · 9.10 interrogar (20) · 9.30 inventar la oferta (25) · gate 10.00 |
+| 5 | 10.15–11.45 | Nueve declaraciones (10) · arquitectura · cómo hacer la landing · construir (55) |
 | — | 11.45–13.00 | Comida, 75 minutos |
 | 6 | 13.00–14.30 | Contenido congelado a las 13.10. Ensayo cruzado |
 | 7 | 14.45–16.15 | Nueve pitches, 8 minutos cada uno |
@@ -107,6 +106,22 @@ Que no haya deck es el TIP 4 convertido en regla: sin la etapa nueve donde
 esconderse, las otras ocho hay que hacerlas. Y la página no se toca hasta las
 once, cuando ya saben qué tiene que decir. Y hace falta que esté aquí y no más tarde,
 porque la sesión 6 es ensayo entero y no tiene hueco para producir nada.
+
+### El orden para construir la landing
+
+Van a abrir Lovable lo primero y a pedirle cosas hasta que salga algo, y a media
+mañana estarán sin créditos y con una página que no dice nada. Por eso el orden
+va en pantalla y con pasos:
+
+1. Hablarlo con el chat que ya usen, dándole el contexto entero: la frase de la
+   oferta, para quién, quién paga, las seis partes del pitch.
+2. Pedirle **el prompt**, no la página.
+3. Solo entonces, pegarlo en Lovable.
+
+Los dos primeros pasos son gratis y son donde se decide. Lovable no es donde se
+piensa, es donde se construye una vez ya se sabe. Cualquier otra herramienta
+vale, y conviene decirlo para que nadie se bloquee: lo que se juzga es la
+promesa, no la herramienta.
 
 ### Landing page, y nada más
 
