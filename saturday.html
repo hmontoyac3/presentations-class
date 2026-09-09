@@ -184,6 +184,7 @@
     font-size: clamp(11px, 1.15vw, 15px); letter-spacing: 0.12em;
   }
   .sched tr.lunch .hh { font-weight: 700; color: var(--ink); }
+  .sched .ast, .ast { color: var(--crimson); font-weight: 700; }
   .sched .what { color: var(--ink-faint); font-size: clamp(11px,1.1vw,15px); }
   .sched tr.lunch .len { float: right; letter-spacing: 0; text-transform: none; font-family: var(--mono); color: var(--ink-faint); }
   .att {
@@ -512,7 +513,7 @@
 
 
 <div id="bar">
-  <div class="seg sesion" data-s="4">S4 8.30–10.00</div>
+  <div class="seg sesion" data-s="4">S4 8.30*–10.00</div>
   <div class="seg pausa">10.00</div>
   <div class="seg sesion" data-s="5">S5 10.15–11.45</div>
   <div class="seg pausa">lunch</div>
@@ -533,7 +534,7 @@
   <div class="kicker"><span class="fin">Saturday 12 September</span><span class="afm">Saturday 19 September</span> · day two</div>
   <h1>Today you invent it, you build it, and you sell it.</h1>
   <p class="lead">Yesterday you chose a problem. In eight hours somebody in this room decides whether to put money into what you did with it.</p>
-  <p class="body">Room open from 8.30. We start at 9.00.</p>
+  <p class="body"><b>8.30<span class="ast">*</span></b> room open, coffee, attendance. <b>9.00</b> we start working.</p>
 </section>
 
 <section data-part="4" class="slide" data-s="4" data-b="Asistencia" data-notes="La asistencia es a las 8.30, no a las nueve. Insiste, porque el que llegue a las 8.55 va a perderla y luego es un problema tuyo. · Cinco tomas hoy. Dilo una vez y no vuelvas a repetirlo en todo el día.">
@@ -546,7 +547,7 @@
 <section data-part="4" class="slide" data-s="4" data-b="Horario sábado" data-notes="TREINTA SEGUNDOS y es un mapa. Señala tres cosas con la mano y nada más: la hora de congelar el contenido (13.10), la hora de subir (14.25) y la hora en que se abre la sala de inversores (14.45). · El hueco del mediodía es largo a propósito y hay que decirlo: 75 minutos. Que no se vayan lejos. · Acabamos a las 17.30, y decirlo por la mañana compra buena voluntad todo el día.">
   <div class="kicker">Today, exactly</div>
   <table class="sched"><tbody>
-    <tr><td class="hh">8.30 – 10.00</td><td>Session 4 · invent the offer</td><td><span class="att">A4</span></td></tr>
+    <tr><td class="hh">8.30<span class="ast">*</span> – 10.00</td><td>Session 4 · invent the offer</td><td><span class="att">A4</span></td></tr>
     <tr class="pausa"><td class="hh">10.00 – 10.15</td><td colspan="2">break</td></tr>
     <tr><td class="hh">10.15 – 11.45</td><td>Session 5 · build the pitch</td><td><span class="att">A5</span></td></tr>
     <tr class="pausa lunch"><td class="hh">11.45 – 13.00</td><td colspan="2">lunch<span class="len">75 min · the long gap</span></td></tr>
@@ -556,6 +557,7 @@
     <tr class="pausa"><td class="hh">16.15 – 16.30</td><td colspan="2">break</td></tr>
     <tr><td class="hh">16.30 – 17.30</td><td>Session 8 · funding, debrief, close</td><td><span class="att">A8</span></td></tr>
   </tbody></table>
+  <p class="tiny"><b class="ast">*</b> Room open at 8.30 with coffee and the attendance register. <b>We start working at 9.00.</b></p>
   <p class="lead">Three times that matter: <b>13.10</b> content freezes · <b>14.25</b> everything uploaded · <b>14.45</b> the room opens its wallet.</p>
 </section>
 

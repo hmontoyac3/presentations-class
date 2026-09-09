@@ -30,13 +30,23 @@ grupos no cabe, y con seis la tarde se queda corta.
 
 | | | |
 |---|---|---|
-| 16.30–16.42 | Conocer al equipo | Nombres, algo que no está en el CV, una fuerza, algo que quieren mejorar |
-| 16.42–17.00 | El proyecto | Entregable, tiempos, audiencia y cómo se juzga |
-| 17.00–17.12 | Elegir un problema | Uno de los seis, o el suyo |
-| 17.12–17.32 | Interrogarlo | Usuario concreto, quién paga, ejemplo real, por qué ahora |
-| 17.32–17.48 | Escribir el brief | Form 13 |
-| 17.48–17.58 | Nueve declaraciones | Un minuto por equipo, de pie |
+| 16.30–16.38 | A buscar grupo y moverse | 8 min |
+| 16.38–17.06 | **No Small Talk** | 28 min · el ejercicio entero, tres rondas |
+| 17.06–17.26 | El proyecto | 20 min · entregable, tiempos, cómo se juzga |
+| 17.26–17.36 | Elegir un problema | 10 min |
+| 17.36–17.49 | Interrogarlo y escribirlo | 13 min · form 13 |
+| 17.49–17.58 | Nueve declaraciones | 9 min · un minuto por equipo, de pie |
 | 17.58–18.00 | Cierre | «Mañana inventan la solución» |
+
+Suma exactamente 90. **No Small Talk se queda**, que es lo que hace que el
+grupo funcione al día siguiente, y no hizo falta pasar nada al sábado.
+
+Lo que se ajustó para que quepa: interrogar el problema y escribir el brief son
+**un solo bloque de 13 minutos**, no 20 + 16. Funciona porque las cuatro
+preguntas *son* los campos del formulario 13: no discuten y luego copian, sino
+que contestan escribiendo. Elegir el problema baja de 12 a 10 y las
+declaraciones de 10 a 9, que con nueve grupos siguen siendo sesenta segundos
+por equipo.
 
 La declaración es literal: *«We chose ___. The person with the problem is ___.
 The person who might pay is ___. We chose it because ___.»*
@@ -44,7 +54,9 @@ The person who might pay is ___. We chose it because ___.»*
 ## Sábado
 
 La sala abre a las **8.30** con café y la asistencia A4 se toma a esa hora. El
-trabajo oficial arranca a las **9.00**. Los 30 minutos de margen absorben las
+trabajo oficial arranca a las **9.00**, y en las slides va marcado con un
+asterisco rojo para que nadie asuma que 8.30 es opcional ni que 9.00 es la hora
+de la asistencia. Los 30 minutos de margen absorben las
 llegadas y te dan tiempo para leer los nueve briefs de la noche anterior.
 
 | Sesión | Hora | Qué |
@@ -128,9 +140,9 @@ respondiste»: es el único que se envía varias veces desde el mismo teléfono.
 
 ## Lo que se cayó del plan anterior
 
-- **No Small Talk** (los 35 minutos de preguntas escalonadas) no cabe en la
-  sesión 3 nueva. Las slides están guardadas en `parked/no-small-talk-slides.html`
-  y se restauran pegándolas antes de la slide «Brief» del viernes.
+- El bloque de doce minutos de «tres cosas cada uno», que fue un intento de
+  sustituir No Small Talk por una versión corta. No hizo falta.
+
 - Los **artículos de prensa** y la tabla grupo → artículo. Ahora el punto de
   partida son seis problemas y no una lectura.
 - **Un presentador** y los 5 o 10 minutos por grupo.
