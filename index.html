@@ -177,6 +177,14 @@
     border-bottom: 1px solid var(--rule);
   }
   .sched tr.pausa .hh { font-weight: 400; color: var(--ink-faint); }
+  /* el almuerzo no es un break de 15: son 75 minutos. Se marca como corte real del dia. */
+  .sched tr.lunch td {
+    padding: 12px 8px; color: var(--ink); background: rgba(0,0,0,.04);
+    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+    font-size: clamp(11px, 1.15vw, 15px); letter-spacing: 0.12em;
+  }
+  .sched tr.lunch .hh { font-weight: 700; color: var(--ink); }
+  .sched tr.lunch .len { float: right; letter-spacing: 0; text-transform: none; font-family: var(--mono); color: var(--ink-faint); }
   .att {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 26px; padding: 2px 5px; background: var(--crimson); color: #FFF;
@@ -628,7 +636,7 @@
         <tr><td class="hh">8.30 – 10.00</td><td>Session 4 · build</td><td><span class="att">A4</span></td></tr>
         <tr class="pausa"><td class="hh">10.00 – 10.15</td><td colspan="2">break</td></tr>
         <tr><td class="hh">10.15 – 11.45</td><td>Session 5 · build</td><td><span class="att">A5</span></td></tr>
-        <tr class="pausa"><td class="hh">11.45 – 13.00</td><td colspan="2">lunch</td></tr>
+        <tr class="pausa lunch"><td class="hh">11.45 – 13.00</td><td colspan="2">lunch<span class="len">75 min · the long gap</span></td></tr>
         <tr><td class="hh">13.00 – 14.30</td><td>Session 6 · content frozen, rehearse</td><td><span class="att">A6</span></td></tr>
         <tr class="pausa"><td class="hh">14.30 – 14.45</td><td colspan="2">break</td></tr>
         <tr><td class="hh">14.45 – 16.15</td><td>Session 7 · pitches</td><td><span class="att">A7</span></td></tr>
@@ -1766,7 +1774,7 @@
   </div>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="Brief" data-notes="TREINTA SEGUNDOS y es un mapa, no contenido. Sirve para una cosa: que dejen de preguntarse cuánto queda y qué va a pasar. · Señala los tres bloques con la mano y no leas las líneas pequeñas. · Lo único que hay que decir en voz alta es la última fila: mañana a las cinco menos cuarto se abre la sala de inversores y ahí se acaba el ensayo. Todo lo demás son horas para llegar a eso. · Si preguntan por la nota, recuérdalo otra vez: no hay. Lo que hay es una sala decidiendo si te da el dinero.">
+<section data-part="3" class="slide" data-s="3" data-b="Brief" data-notes="TREINTA SEGUNDOS y es un mapa, no contenido. Sirve para una cosa: que dejen de preguntarse cuánto queda y qué va a pasar. · Señala los tres bloques con la mano y no leas las líneas pequeñas. · Lo único que hay que decir en voz alta es la última fila: mañana a las tres menos cuarto (14.45) se abre la sala de inversores y ahí se acaba el ensayo. Todo lo demás son horas para llegar a eso. · Si preguntan por la nota, recuérdalo otra vez: no hay. Lo que hay es una sala decidiendo si te da el dinero.">
   <div class="kicker">Where the rest of this goes</div>
   <h2 style="font-size:clamp(20px,2.6vw,36px)">Everything from here is preparation for forty minutes tomorrow afternoon.</h2>
   <div class="cols3">
