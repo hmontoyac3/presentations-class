@@ -322,6 +322,22 @@
   .subtips span.on b { color: var(--ochre); }
 
   /* HISTOGRAMA DE RESPUESTAS · la dispersión de TIP 3a */
+  /* tabla del debrief: una fila por equipo */
+  .whytable { flex: none; width: 100%; display: flex; flex-direction: column; gap: 2px; }
+  .wrow {
+    display: grid; grid-template-columns: 4ch 5ch 1fr 1fr;
+    gap: clamp(8px,1.1vw,16px); align-items: baseline;
+    padding: 4px 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(10px,1.02vw,14px); line-height: 1.3;
+  }
+  .wrow .wt { font-family: var(--mono); font-weight: 700; color: var(--crimson); }
+  .wrow .wn { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-faint); }
+  .wrow .wy { color: var(--ink); }
+  .wrow .wnq { color: var(--ink-soft); }
+  .wrow.whead { border-bottom: 2px solid var(--ink); font-family: var(--mono);
+    font-size: clamp(9px,.92vw,12px); letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-faint); }
+  .wrow.whead .wt, .wrow.whead .wy, .wrow.whead .wnq { color: var(--ink-faint); font-weight: 400; }
   .hist { flex: none; display: flex; flex-direction: column; gap: clamp(4px,.7vh,9px); width: 100%; }
   .hrow { display: grid; grid-template-columns: 13ch 1fr 3ch; gap: clamp(8px,1.2vw,18px); align-items: center; }
   .hrow .hl { font-family: var(--mono); font-size: clamp(10px,1vw,14px); color: var(--ink-soft); text-align: right; }
@@ -755,8 +771,8 @@
   <p class="lead">Six of eight. Two left after this one.</p>
 </section>
 
-<section data-timer="600" data-part="6" class="slide" data-s="6" data-b="Últimas decisiones" data-notes="DIEZ MINUTOS Y SON DECISIONES, NO TRABAJO NUEVO. Dilo así. · Lo que tienen que cerrar es qué se queda fuera, no qué se añade. Van a querer añadir. · Cronómetro visible y avisa a los ocho minutos. A la una y diez se acabó, sin excepciones, y si te saltas esa tú, no vuelves a tener credibilidad con el reloj en todo el día.">
-  <div class="kicker do">13.00 – 13.10 · ten minutes</div>
+<section data-timer="480" data-part="6" class="slide" data-s="6" data-b="Últimas decisiones" data-notes="OCHO MINUTOS Y SON DECISIONES, NO TRABAJO NUEVO. Dilo así. · Lo que tienen que cerrar es qué se queda fuera, no qué se añade. Van a querer añadir. · Cronómetro visible y avisa a los seis minutos. A la una y diez se acabó, sin excepciones, y si te saltas esa tú, no vuelves a tener credibilidad con el reloj en todo el día.">
+  <div class="kicker do">13.02 – 13.10 · eight minutes</div>
   <h2>Last content decisions. What comes <em>out</em>, not what goes in.</h2>
   <p class="lead">Three minutes is about four hundred words. Read your pitch and count. Whatever does not survive the count is not a loss — it is the thing that was going to make the room stop listening.</p>
   <div class="panel rule">
@@ -764,15 +780,22 @@
   </div>
 </section>
 
-<section data-part="6" class="slide" data-s="6" data-b="Freeze" data-notes="PÁRATE. Esta slide se dice de pie, en silencio, y se deja tres segundos antes de hablar. · Es el momento pedagógico del día: a partir de aquí el contenido ya no es la variable. Lo único que pueden cambiar en las próximas cuatro horas es cómo lo dicen. Y van a descubrir que eso cambia muchísimo más de lo que creen. · Si alguien protesta, la respuesta es una frase: en una sala real nadie te da cuatro horas más de contenido, te da tres minutos.">
+<section data-timer="240" data-part="6" class="slide" data-s="6" data-b="Freeze" data-notes="PÁRATE. El titular se dice de pie, en silencio, y se dejan tres segundos antes de hablar. · Es el momento pedagógico del día: a partir de aquí el contenido ya no es la variable, y van a descubrir que lo que queda cambia mucho más de lo que creen. · SOLO ENTONCES pulsa la flecha y aparece el QR. El envío es lo que hace que el congelado sea real y no una frase bonita: lo que me manden es lo que dicen a las tres. · Cuatro minutos para enviarlo y no más. El que no lo mande, lo mando yo desde su mesa. · Si alguien protesta, una frase: en una sala real nadie te da cuatro horas más de contenido, te da tres minutos.">
   <div class="kicker rule">13.10</div>
-  <h1 style="font-size:clamp(34px,6vw,86px)">Content frozen.</h1>
+  <h1 style="font-size:clamp(30px,5.4vw,76px)">Content frozen.</h1>
   <p class="lead">From now until a quarter past four, the only thing you can change is <b>how you say it</b>.</p>
-  <p class="body">That is not a restriction, it is the experiment. You are about to find out how much of persuasion was never in the words.</p>
+  <div class="qrwrap" data-step="1">
+    <div class="qwrap2"><div class="qrbox" data-qr="q19">Scan</div><span class="qnum">Form 19</span></div>
+    <div class="stack">
+      <h3>Send me what you just froze</h3>
+      <p class="body">The pitch word for word, your two presenters, and the link to your page. Four minutes.</p>
+      <p class="tiny">What you send is what you say at a quarter to three. That is what makes this a freeze and not a suggestion.</p>
+    </div>
+  </div>
 </section>
 
-<section data-timer="1500" data-part="6" class="slide" data-s="6" data-b="Ensayo" data-notes="VEINTICINCO MINUTOS. Empareja según la tabla y que se muevan físicamente, no que giren la silla. · Reparte los tiempos en voz alta: tres minutos uno, tres el otro, y el resto para las tres preguntas. El trío tiene tres pases, así que apúrales tú. · Tu trabajo aquí es circular y ESCUCHAR EL FEEDBACK, no los pitches. En cuanto oigas «me ha gustado», interrumpe y pide las tres preguntas. · Grupo 9 está en el trío con el 7 y el 8.">
-  <div class="kicker do">13.10 – 13.35 · rehearse with another team</div>
+<section data-timer="1260" data-part="6" class="slide" data-s="6" data-b="Ensayo" data-notes="VEINTIÚN MINUTOS. Empareja según la tabla y que se muevan físicamente, no que giren la silla. · Reparte los tiempos en voz alta: tres minutos uno, tres el otro, y el resto para las tres preguntas. El trío tiene tres pases, así que apúrales tú. · Tu trabajo aquí es circular y ESCUCHAR EL FEEDBACK, no los pitches. En cuanto oigas «me ha gustado», interrumpe y pide las tres preguntas. · Grupo 9 está en el trío con el 7 y el 8.">
+  <div class="kicker do">13.14 – 13.35 · rehearse with another team</div>
   <h2>Stand up, move, and say it to strangers.</h2>
   <div class="cols2" style="align-items:start">
     <div class="panel">
@@ -947,13 +970,12 @@
   <p class="lead">Nobody was graded. <b>You were funded, or you were not.</b> And the team with the most tokens is not the team with the best idea — it is the team that made you believe it fastest.</p>
 </section>
 
-<section data-part="8" class="slide" data-s="8" data-b="Debrief" data-notes="VEINTE MINUTOS Y ES LA CLASE ENTERA. Aquí es donde el fin de semana se convierte en algo que se llevan. · Empieza por los datos: lee en voz alta lo que la gente escribió en «qué te movió». Van a ser cosas como «entendí quién paga», «me lo creí», «me acuerdo del ejemplo». · Y ahora el giro: ninguna de esas razones es sobre el producto. Todas son sobre cómo lo contaron. · Pregunta abierta a la sala: ¿alguien cambió de opinión durante las preguntas? Esa mano levantada vale más que cualquier cosa que digas tú.">
+<section data-part="8" class="slide" data-s="8" data-b="Debrief" data-notes="VEINTE MINUTOS Y ES LA CLASE ENTERA. Aquí es donde el fin de semana se convierte en algo que se llevan. · La tabla sale sola de los votos: una fila por equipo, lo que hizo invertir y lo que frenó. Recórrela equipo por equipo, no la leas entera de corrido. · R baraja y saca otras frases de los mismos equipos, así que si una fila se queda corta, pulsa R y vuelve a mirarla. · EL GIRO, y es lo único que tienes que decir tú: casi ninguna de esas razones es sobre el producto. Son sobre cómo lo contaron. Dilo después de recorrer tres o cuatro filas, no antes. · Y una pregunta abierta a la sala: ¿alguien cambió de opinión durante las preguntas? Esa mano levantada vale más que cualquier cosa que digas tú.">
   <div class="kicker">16.40 – 17.00 · what actually made people invest</div>
-  <h2>Read your own reasons. Almost none of them are about the product.</h2>
-  <div class="quotes" id="whyquotes"></div>
-  <div class="panel rule">
-    <p class="body" style="max-width:82ch">"I understood who pays." "I remembered the example." "I believed her." Those are not judgements about a business. <b>They are judgements about a presentation</b>, and you made nine of them this afternoon without being taught how.</p>
-  </div>
+  <h2 style="font-size:clamp(18px,2.3vw,32px)">Your own reasons, team by team.</h2>
+  <div id="whysummary" class="whytable"><p class="tiny">Waiting for the votes…</p></div>
+  <p class="lead" style="max-width:84ch">Almost none of these are about the product. <b>They are judgements about a presentation</b> — and you made nine of them this afternoon without being taught how.</p>
+  <p class="tiny">R to pull different answers from the same teams</p>
 </section>
 
 <section data-part="8" class="slide" data-s="8" data-b="Los cinco" data-notes="CINCO MINUTOS Y VA CON PASOS: uno por tip, y en cada uno señala un grupo concreto de esta tarde que lo hizo. Prepara los cinco ejemplos durante el break, apuntados en un papel. Sin ejemplos reales esta slide es una lista y no vale nada. · El remate es la última línea: no aprendieron cinco técnicas, hicieron una sala entera con ellas.">
@@ -1133,7 +1155,7 @@
        al entrar en la slide contaría también los pasos hacia atrás. */
     else if (e.key === ']') { e.preventDefault(); setTeam(TEAM + 1); }
     else if (e.key === '[') { e.preventDefault(); setTeam(TEAM - 1); }
-    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); if (typeof renderT3 === 'function') renderT3(); if (typeof reChart === 'function') reChart(); }
+    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); if (typeof renderT3 === 'function') renderT3(); if (typeof reChart === 'function') reChart(); if (typeof reWhy === 'function') reWhy(); }
   });
   /* Un clic en el escenario avanza, PERO no si cae dentro de algo con lo
      que se interactúa. Sin esto, darle al play a un vídeo salta de slide,
@@ -1683,14 +1705,61 @@
 
   function liveVotes(rows)  { paintBars('votebars', rows, false); renderQuotes('votewhy', rows, 'why', 2); }
   function liveFinal(rows)  { paintBars('finalbars', rows, true); }
-  function liveWhy(rows)    { renderQuotes('whyquotes', rows, 'why', 4); }
+  /* Resumen del debrief: una fila por equipo, con lo que hizo invertir a la
+     gente y lo que la frenó. Sale de las mismas filas del form 17: el `why` de
+     los que votaron Yes contra el de los que votaron No (y si un No no
+     escribió razón, se usa su `change`, que dice lo mismo por el otro lado). */
+  function whyByTeam(rows) {
+    var ct = colOf(rows, 'team'), ci = colOf(rows, 'invest');
+    var cw = colOf(rows, 'why'),  cc = colOf(rows, 'change');
+    if (ct < 0 || ci < 0 || cw < 0) return null;
+    var by = {};
+    for (var k = 1; k < rows.length; k++) {
+      var t = String(rows[k][ct] || '').trim();
+      if (!t) continue;
+      if (!by[t]) by[t] = { yes: [], no: [], n: 0, y: 0 };
+      var yes = /^y/i.test(String(rows[k][ci] || '').trim());
+      var why = String(rows[k][cw] || '').trim();
+      if (!why && cc >= 0) why = String(rows[k][cc] || '').trim();
+      by[t].n++;
+      if (yes) by[t].y++;
+      if (why) by[t][yes ? 'yes' : 'no'].push(why);
+    }
+    return by;
+  }
+
+  function clip(t, n) { return t.length > n ? t.slice(0, n - 1).replace(/[\s,.;:]+$/, '') + '…' : t; }
+
+  function liveWhy(rows) {
+    var box = document.getElementById('whysummary'); if (!box) return;
+    var by = whyByTeam(rows); if (!by) return;
+    var out = [], any = false;
+    for (var g = 1; g <= 9; g++) {
+      var d = by[String(g)];
+      if (!d) continue;
+      any = true;
+      var a = d.yes.length ? clip(pickN(d.yes, 1)[0], 90) : '—';
+      var b = d.no.length  ? clip(pickN(d.no, 1)[0], 90)  : '—';
+      out.push('<div class="wrow"><span class="wt">' + g + '</span>'
+             + '<span class="wn">' + d.y + '/' + d.n + '</span>'
+             + '<span class="wy">' + a + '</span>'
+             + '<span class="wnq">' + b + '</span></div>');
+    }
+    if (!any) return;
+    box.innerHTML = '<div class="wrow whead"><span class="wt">Team</span><span class="wn">✓</span>'
+                  + '<span class="wy">What made them invest</span>'
+                  + '<span class="wnq">What stopped the others</span></div>' + out.join('');
+  }
   function liveReflect(rows){ renderQuotes('reflect', rows, 'again', 3); }
 
   function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
+  var lastWhyRows = null;
+  function reWhy() { if (lastWhyRows) liveWhy(lastWhyRows); }
+
   var LIVEMAP = {
     'Transición':  { slot: 'q17', render: [liveVotes] },
     'Resultados':  { slot: 'q17', render: [liveFinal] },
-    'Debrief':     { slot: 'q17', render: [liveWhy] },
+    'Debrief':     { slot: 'q17', render: [function (r) { lastWhyRows = r; liveWhy(r); }] },
     'Cierre':      { slot: 'q18', render: [liveReflect] }
   };
   var poller = null;

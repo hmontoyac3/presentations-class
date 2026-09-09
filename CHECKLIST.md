@@ -13,7 +13,7 @@
 | `←` | atrás, paso a paso también |
 | `t` | **cronómetro**: arranca y pausa. Está en las quince slides de ejercicio, arriba a la derecha |
 | `T` | vuelve a poner el tiempo entero |
-| `r` | en la cosecha de TIP 2, otra pareja. En el sábado, baraja las citas en vivo |
+| `r` | en la cosecha de TIP 2, otra pareja. En el sábado, otras frases en el debrief |
 | `]` `[` | **solo el sábado**: siguiente / anterior equipo en el ciclo de pitches |
 | `n` `d` | notas y panel de datos |
 
@@ -64,7 +64,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las páginas de `f/` desde el móvil. **El form 13 ya no se usa**: el problema llega por correo el viernes por la noche
+- [ ] Abrir las páginas de `f/` desde el móvil (20 en total). **El form 13 ya no se usa**: el problema llega por correo el viernes por la noche
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Si se quedan, el marcador del sábado arranca con dos votos fantasma
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces

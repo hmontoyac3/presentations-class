@@ -153,6 +153,24 @@ Cada estudiante tiene **tres fichas** y hay nueve empresas. Se vota en todos los
 pitches, pero solo se gastan tres fichas en toda la tarde. La escasez es lo que
 hace el ejercicio: sin ella dicen que sí a todo y no ha pasado nada.
 
+### El congelado se manda, no se anuncia
+
+A las 13.10 el titular «content frozen» se dice de pie y en silencio, y solo
+después aparece el QR del **formulario 19**: el pitch palabra por palabra, los
+dos presentadores y el enlace de la página. Cuatro minutos. Lo que mandan es lo
+que dicen a las tres menos cuarto, y eso es lo que convierte el congelado en una
+regla y no en una frase bonita.
+
+### El debrief sale de los votos, ordenado por equipo
+
+La slide del debrief no son frases sueltas: es una tabla con **una fila por
+equipo**, el recuento de fichas, lo que hizo invertir a quien invirtió y lo que
+frenó a quien no. Sale sola del formulario 17 y se recorre equipo por equipo.
+`R` saca otras respuestas de los mismos equipos.
+
+El remate lo pones tú, y solo después de recorrer tres o cuatro filas: casi
+ninguna de esas razones es sobre el producto.
+
 ### Sesión 8, y por qué acaba a las 17.30
 
 Sesenta minutos bastan: recuento (10), debrief sobre qué hizo invertir a la
@@ -168,6 +186,7 @@ que una hora de actividad artificial.
 | 14 | La oferta en una frase · sábado 10.00 |
 | 15 | Versión de la mañana · sábado 11.40 |
 | 16 | Peer feedback · sábado 13.35 |
+| 19 | **Contenido congelado** · sábado 13.10, uno por equipo |
 | 17 | Voto de inversión · sesión 7, **nueve veces por persona** |
 | 18 | Reflexión de cierre · sábado 17.05 |
 
