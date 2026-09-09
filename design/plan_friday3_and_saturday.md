@@ -175,13 +175,19 @@ Cada estudiante tiene **tres fichas** y hay nueve empresas. Se vota en todos los
 pitches, pero solo se gastan tres fichas en toda la tarde. La escasez es lo que
 hace el ejercicio: sin ella dicen que sí a todo y no ha pasado nada.
 
-### El congelado se manda, no se anuncia
+### La sesión 6 tiene una sola entrega, y va al final
 
-A las 13.10 el titular «content frozen» se dice de pie y en silencio, y solo
-después aparece el QR del **formulario 19**: el pitch palabra por palabra, los
-dos presentadores y el enlace de la página. Cuatro minutos. Lo que mandan es lo
-que dicen a las tres menos cuarto, y eso es lo que convierte el congelado en una
-regla y no en una frase bonita.
+El orden es: congelar (13.07, sin mandar nada) → **ensayo interno** dentro de su
+propio equipo, 20 minutos, que es la primera vez que lo dicen entero → **ensayo
+cruzado** con otro equipo, 28 minutos, con las tres preguntas **habladas y sin
+formulario** → 14 minutos para arreglarlo → y **a las 14.09 la única entrega**:
+el pitch ya corregido con el feedback, más el enlace de la página.
+
+El peer feedback por QR se ha eliminado (el formulario 16 está en `parked/`).
+Escribirlo costaba quince minutos y lo importante era decírselo a la cara, que
+es más rápido y más incómodo. Y la entrega al final vale mucho más que al
+principio, porque lo que llega es la versión que ya incorpora lo que les
+dijeron.
 
 ### El debrief sale de los votos, ordenado por equipo
 
@@ -207,8 +213,7 @@ que una hora de actividad artificial.
 | 13 | Problem brief · viernes 17.32 |
 | 14 | La oferta en una frase · sábado 10.00 |
 | 15 | Versión de la mañana · sábado 11.40 |
-| 16 | Peer feedback · sábado 13.35 |
-| 19 | **Contenido congelado** · sábado 13.10, uno por equipo |
+| 19 | **El pitch arreglado** · sábado 14.09, uno por equipo |
 | 17 | Voto de inversión · sesión 7, **nueve veces por persona** |
 | 18 | Reflexión de cierre · sábado 17.05 |
 
