@@ -32,14 +32,19 @@ grupos no cabe, y con seis la tarde se queda corta.
 |---|---|---|
 | 16.30–16.36 | A buscar grupo y moverse | 6 min |
 | 16.36–17.08 | **No Small Talk** | 32 min · dos rondas en mitades, la tercera con los nueve |
-| 17.08–17.26 | El proyecto | 18 min |
-| 17.26–17.36 | Elegir un problema | 10 min |
-| 17.36–17.49 | Interrogarlo y escribirlo | 13 min · form 13 |
-| 17.49–17.58 | Nueve declaraciones | 9 min |
-| 17.58–18.00 | Cierre | 2 min |
+| 17.08–17.35 | El proyecto, y sus preguntas | 27 min |
+| 17.35–17.55 | Si sobra tiempo: elegir el problema | 20 min · si no, se elige esa noche |
+| 17.55–18.00 | Cierre | 5 min |
 
 Suma exactamente 90. **No Small Talk se queda**, que es lo que hace que el
 grupo funcione al día siguiente, y no hizo falta pasar nada al sábado.
+
+**El viernes cierra en el proyecto.** Interrogar el problema y las nueve
+declaraciones se han movido al sábado por la mañana, donde caben mejor y donde
+la declaración pasa a ser de la *oferta* y no del problema. Lo único que sale
+del viernes es un **correo por equipo** con el problema elegido y quién lo
+tiene, a helena.montoya@unibocconi.it. Si sobra tiempo en clase lo eligen ahí;
+si no, esa noche.
 
 **Con nueve por grupo el ejercicio hay que partirlo.** Nueve personas
 respondiendo por turnos es una cola, no una conversación, así que las rondas 1 y
@@ -63,12 +68,12 @@ La sala abre a las **8.30** con café y la asistencia A4 se toma a esa hora. El
 trabajo oficial arranca a las **9.00**, y en las slides va marcado con un
 asterisco rojo para que nadie asuma que 8.30 es opcional ni que 9.00 es la hora
 de la asistencia. Los 30 minutos de margen absorben las
-llegadas y te dan tiempo para leer los nueve briefs de la noche anterior.
+llegadas y te dan tiempo para leer los nueve correos de la noche anterior.
 
 | Sesión | Hora | Qué |
 |---|---|---|
-| 4 | 8.30–10.00 | Inventar la oferta. Gate a las 10.00: la frase |
-| 5 | 10.15–11.45 | Construir el pitch. Arquitectura de seis partes |
+| 4 | 8.30–10.00 | 9.00 interrogar el problema (25) · 9.25 inventar la oferta (30) · gate 10.00 |
+| 5 | 10.15–11.45 | Nueve declaraciones de la oferta (10) · arquitectura · construir |
 | — | 11.45–13.00 | Comida, 75 minutos |
 | 6 | 13.00–14.30 | Contenido congelado a las 13.10. Ensayo cruzado |
 | 7 | 14.45–16.15 | Nueve pitches, 8 minutos cada uno |
@@ -86,9 +91,17 @@ las diez de la mañana que a las cinco de la tarde.
 
 Hook · Problem · Solution · Evidence · Contrast · Ask.
 
-Plazos internos: 10.35 historia acordada · 11.00 primer pitch completo y
-**escrito** · 11.15 se construye la landing · 11.25 primera pasada
+Plazos internos: 10.55 historia acordada · 11.10 primer pitch completo y
+**escrito** · 11.20 se construye la landing · 11.30 primera pasada
 cronometrada · 11.40 versión de la mañana.
+
+### Las declaraciones, y por qué están el sábado
+
+Nueve equipos, sesenta segundos, de pie, diciendo la frase de la oferta. Están
+justo después del break de las 10.15 por dos razones: es la primera vez que
+hablan de pie ese día, y es un control de que los nueve tienen oferta de verdad
+y no un tema. En el plan anterior estaban el viernes y eran sobre el problema;
+sobre la oferta valen más.
 
 Que no haya deck es el TIP 4 convertido en regla: sin la etapa nueve donde
 esconderse, las otras ocho hay que hacerlas. Y la página no se toca hasta las

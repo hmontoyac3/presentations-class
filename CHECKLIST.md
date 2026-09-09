@@ -26,21 +26,22 @@ y no avanza de slide.
 
 | | |
 |---|---|
-| Viernes | `index.html?teach` · 86 slides · sesiones 1–3 |
-| Sábado | `saturday.html?teach` · 36 slides · sesiones 4–8 |
+| Viernes | `index.html?teach` · 84 slides · sesiones 1–3 |
+| Sábado | `saturday.html?teach` · 37 slides · sesiones 4–8 |
 
 Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay que
 recorrer el viernes entero para llegar.
 
 **El ciclo de pitches** (sesión 7) son cuatro slides que se repiten nueve veces:
-pitch 25 → voto 26 → preguntas 27 → transición 28. Desde la transición vuelves
+pitch 26 → voto 27 → preguntas 28 → transición 29. Desde la transición vuelves
 al pitch con `←` tres veces, y `]` pasa al equipo siguiente. El número grande
 que se proyecta es el contador, y va de 1 a 9.
 
 ## Falta rellenar
 
 - [ ] **Nueve grupos por clase en Blackboard.** FIN 89 alumnos → 9 grupos de 10. AFM 79 → 9 grupos de 9. El sábado la aritmética depende de que sean nueve: 9 × 8 min = 72 de los 90 de la sesión 7
-- [ ] La carpeta compartida donde suben slides y landing page a las 14.25
+- [ ] La carpeta compartida donde suben la landing a las 14.25
+- [ ] **Vaciar la bandeja el viernes por la noche**: nueve correos, uno por equipo, con el problema elegido. Es lo único que te llevas del viernes
 - [ ] Los cinco ejemplos reales para la slide «los cinco tips, esta tarde» (slide 33 del sábado) — se apuntan en el break de las 16.15, no antes
 - [ ] El audio de Reagan, descargado. Si no está, se corta el bloque y se lee el párrafo final en voz alta
 - [ ] El clip de Rosling abierto en otra pestaña
@@ -63,7 +64,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las diecinueve páginas de `f/` desde el móvil
+- [ ] Abrir las páginas de `f/` desde el móvil. **El form 13 ya no se usa**: el problema llega por correo el viernes por la noche
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Si se quedan, el marcador del sábado arranca con dos votos fantasma
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
