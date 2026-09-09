@@ -1,0 +1,2024 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sábado · Persuasive Presentations 20941</title>
+
+<style>
+  :root {
+    --paper:     #F4F6F9;
+    --card:      #FFFFFF;
+    --ink:       #14171D;
+    --ink-soft:  #4E5665;
+    --ink-faint: #8A93A2;
+    --rule:      #D9DFE8;
+    --rule-soft: #E9EDF2;
+    --blue:      #0F4179;
+    --blue-bg:   #E6EEF7;
+    --ochre:     #8F5310;
+    --ochre-bg:  #F9F0E1;
+    --crimson:   #8C2328;
+    --crimson-bg:#F8E8E8;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, "Palatino Linotype", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#0D1014; --card:#151A20; --ink:#E9ECF1; --ink-soft:#9BA4B3; --ink-faint:#69727F;
+      --rule:#293039; --rule-soft:#1F252C;
+      --blue:#7DB0E6; --blue-bg:#132330; --ochre:#DCA45F; --ochre-bg:#2A2013;
+      --crimson:#E08B8B; --crimson-bg:#2B1818;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#0D1014; --card:#151A20; --ink:#E9ECF1; --ink-soft:#9BA4B3; --ink-faint:#69727F;
+    --rule:#293039; --rule-soft:#1F252C;
+    --blue:#7DB0E6; --blue-bg:#132330; --ochre:#DCA45F; --ochre-bg:#2A2013;
+    --crimson:#E08B8B; --crimson-bg:#2B1818;
+  }
+  :root[data-theme="light"] {
+    --paper:#F4F6F9; --card:#FFFFFF; --ink:#14171D; --ink-soft:#4E5665; --ink-faint:#8A93A2;
+    --rule:#D9DFE8; --rule-soft:#E9EDF2;
+    --blue:#0F4179; --blue-bg:#E6EEF7; --ochre:#8F5310; --ochre-bg:#F9F0E1;
+    --crimson:#8C2328; --crimson-bg:#F8E8E8;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); margin: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* ============ progress bar ============ */
+  #bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: stretch; gap: 2px;
+    padding: 6px 10px 0; z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  #bar .seg {
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-family: var(--mono); font-size: 10px; font-variant-numeric: tabular-nums; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    background: var(--rule-soft); border-bottom: 3px solid var(--rule);
+    white-space: nowrap; overflow: hidden; padding: 0 6px;
+  }
+  #bar .sesion { flex: 6; }
+  #bar .pausa { flex: 2; background: transparent; border-bottom-color: transparent; color: var(--ink-faint); font-size: 9px; }
+  #bar .seg.on { background: var(--blue-bg); color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
+
+  /* ============ part strip ============ */
+  #strip {
+    position: fixed; top: 40px; left: 0; right: 0; height: 26px; z-index: 49;
+    display: flex; align-items: center; padding: 0 14px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    border-bottom: 1px solid var(--rule); background: var(--card); color: var(--ink-faint);
+  }
+  #strip b { color: var(--ink); font-weight: 700; letter-spacing: 0.14em; }
+  #strip .dot { margin: 0 9px; opacity: .45; }
+  body[data-part="2"] #strip { background: var(--blue-bg); border-bottom-color: var(--blue); }
+  body[data-part="2"] #strip b { color: var(--blue); }
+  body[data-part="3"] #strip { background: var(--ochre-bg); border-bottom-color: var(--ochre); }
+  body[data-part="3"] #strip b { color: var(--ochre); }
+
+  .slide.breakslide { background: var(--rule-soft); justify-content: center; align-items: flex-start; }
+  .slide.breakslide .bigtime {
+    font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+    font-size: clamp(44px, 10vw, 132px); line-height: .9; letter-spacing: -0.04em; color: var(--ink);
+  }
+
+  /* ============ divider slides ============ */
+  .slide.divider { background: var(--ink); color: var(--paper); justify-content: flex-end; }
+  .slide.divider .kicker { color: var(--paper); opacity: .6; }
+  .slide.divider h1, .slide.divider h2 { color: var(--paper); }
+  .slide.divider .lead, .slide.divider .body { color: var(--paper); opacity: .82; max-width: 44ch; }
+  .slide.divider .partno {
+    font-family: var(--mono); font-size: clamp(48px, 11vw, 150px); line-height: .85;
+    font-weight: 700; color: var(--paper); opacity: .16; letter-spacing: -0.04em;
+  }
+
+  /* ============ stage ============ */
+  #stage { position: fixed; inset: 66px 0 34px; display: flex; }
+  .slide {
+    display: none; width: 100%; height: 100%;
+    padding: clamp(28px, 4.5vw, 76px);
+    flex-direction: column; justify-content: center; gap: clamp(12px, 1.6vh, 26px);
+  }
+  .slide.live { display: flex; }
+  .slide > * { margin: 0; }
+
+  .kicker {
+    font-family: var(--mono); font-size: clamp(11px, 1.1vw, 14px);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); font-weight: 600;
+  }
+  .kicker.do { color: var(--ochre); }
+  .kicker.rule { color: var(--crimson); }
+
+  h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(34px, 6.4vw, 88px); line-height: 1.02;
+    letter-spacing: -0.02em; text-wrap: balance;
+  }
+  h2 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(28px, 4.2vw, 58px); line-height: 1.08;
+    letter-spacing: -0.015em; text-wrap: balance;
+  }
+  h3 {
+    font-size: clamp(19px, 2.1vw, 30px); font-weight: 650; line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .lead { font-size: clamp(17px, 1.85vw, 27px); line-height: 1.4; color: var(--ink-soft); max-width: 34ch; }
+  .body { font-size: clamp(15px, 1.4vw, 21px); line-height: 1.5; max-width: 46ch; }
+  .tiny { font-family: var(--mono); font-size: clamp(11px, 1vw, 14px); color: var(--ink-faint); letter-spacing: 0.04em; }
+
+  ul.big { padding-left: 1.1em; display: flex; flex-direction: column; gap: clamp(7px, 1.1vh, 16px); }
+  ul.big li { font-size: clamp(16px, 1.65vw, 25px); line-height: 1.32; max-width: 44ch; }
+  ol.big { padding-left: 1.4em; display: flex; flex-direction: column; gap: clamp(7px, 1.1vh, 16px); }
+  ol.big li { font-size: clamp(16px, 1.65vw, 25px); line-height: 1.32; max-width: 44ch; }
+  li b, .body b, .lead b { font-weight: 700; color: var(--ink); }
+
+  /* big number */
+  .figs { display: flex; flex-wrap: wrap; gap: clamp(18px, 3vw, 60px); align-items: flex-end; }
+  .fig .n {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: clamp(38px, 7.5vw, 108px); line-height: 0.95; font-weight: 700;
+    letter-spacing: -0.03em; color: var(--blue);
+  }
+  .fig .l { font-size: clamp(13px, 1.2vw, 17px); color: var(--ink-soft); max-width: 16ch; margin-top: 6px; line-height: 1.3; }
+
+  /* recruiter grid */
+  .logos {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+  }
+  .logos span {
+    background: var(--card); padding: 9px 10px;
+    font-size: clamp(11px, 1.05vw, 15px); color: var(--ink);
+    display: flex; align-items: center; line-height: 1.2;
+  }
+
+  /* schedule */
+  .sched { width: 100%; border-collapse: collapse; }
+  .sched td {
+    padding: 5px 8px 5px 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(12px, 1.25vw, 18px); line-height: 1.25; vertical-align: middle;
+  }
+  .sched .hh {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    white-space: nowrap; font-weight: 700; color: var(--ink);
+  }
+  .sched tr.pausa td {
+    color: var(--ink-faint); font-family: var(--mono);
+    font-size: clamp(10px, 1.05vw, 14px); letter-spacing: 0.1em; text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sched tr.pausa .hh { font-weight: 400; color: var(--ink-faint); }
+  /* el almuerzo no es un break de 15: son 75 minutos. Se marca como corte real del dia. */
+  .sched tr.lunch td {
+    padding: 12px 8px; color: var(--ink); background: rgba(0,0,0,.04);
+    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+    font-size: clamp(11px, 1.15vw, 15px); letter-spacing: 0.12em;
+  }
+  .sched tr.lunch .hh { font-weight: 700; color: var(--ink); }
+  .sched .what { color: var(--ink-faint); font-size: clamp(11px,1.1vw,15px); }
+  .sched tr.lunch .len { float: right; letter-spacing: 0; text-transform: none; font-family: var(--mono); color: var(--ink-faint); }
+  .att {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 26px; padding: 2px 5px; background: var(--crimson); color: #FFF;
+    font-family: var(--mono); font-size: clamp(9px, 0.95vw, 12px); font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  :root[data-theme="dark"] .att { color: #16181C; }
+  @media (prefers-color-scheme: dark) { .att { color: #16181C; } }
+  :root[data-theme="light"] .att { color: #FFF; }
+
+  .cloud { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: center; padding: 8px 0; }
+  .cloud span { line-height: 1.05; color: var(--ink-soft); }
+  .cloud span b { color: var(--blue); font-weight: 700; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,2vw,30px); }
+  .ab div { border: 1px solid var(--rule); background: var(--card); padding: clamp(10px,1.4vw,20px); text-align: center; }
+  .ab .n { font-family: var(--mono); font-size: clamp(28px,5.4vw,76px); font-weight: 700; line-height: 1; color: var(--blue); }
+  .ab .l { font-size: clamp(12px,1.2vw,17px); color: var(--ink-soft); margin-top: 6px; }
+  .ab div.win { border-color: var(--blue); background: var(--blue-bg); }
+  /* flex:none obligatorio. La slide es flex en columna y plain() pone
+     min-height:0 al pintar, así que sin esto la caja se encoge por debajo
+     de su contenido y las citas se derraman encima de lo que venga abajo. */
+  .quotes { display: flex; flex-direction: column; gap: clamp(8px,1.2vh,16px); flex: none; }
+  .quotes q { display: block; font-family: var(--serif); font-size: clamp(15px,1.85vw,27px); line-height: 1.2;
+    border-left: 4px solid var(--ochre); padding-left: clamp(10px,1.4vw,20px); quotes: none; }
+  .quotes q::before, .quotes q::after { content: ''; }
+
+  /* heatmap */
+  .heat { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 3px; }
+  .heat .c {
+    padding: 9px 10px; font-size: clamp(11px, 1.05vw, 15px); line-height: 1.2;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    border: 1px solid var(--rule); background: var(--card); color: var(--ink-faint);
+  }
+  .heat .c b { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.85em; opacity: .75; }
+  .heat .c.h0 b { display: none; }
+  .heat .c.h1 { background: var(--blue-bg); color: var(--ink); border-color: var(--blue-bg); }
+  .heat .c.h2 { background: color-mix(in srgb, var(--blue) 26%, var(--card)); color: var(--ink); border-color: transparent; }
+  .heat .c.h3 { background: color-mix(in srgb, var(--blue) 58%, var(--card)); color: #FFF; border-color: transparent; font-weight: 600; }
+  .heat .c.h4 { background: var(--blue); color: #FFF; border-color: transparent; font-weight: 700; }
+  :root[data-theme="dark"] .heat .c.h3, :root[data-theme="dark"] .heat .c.h4 { color: #0D1014; }
+  @media (prefers-color-scheme: dark) { .heat .c.h3, .heat .c.h4 { color: #0D1014; } }
+  :root[data-theme="light"] .heat .c.h3, :root[data-theme="light"] .heat .c.h4 { color: #FFF; }
+
+  .heat.gap .c {
+    background: transparent; border: 2px dashed var(--crimson); color: var(--crimson);
+    font-weight: 600;
+  }
+  .heat.gap .c b { display: inline; opacity: 1; }
+  .heatlegend { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: clamp(9px,0.95vw,12px); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .heatlegend i { width: 22px; height: 11px; display: inline-block; border: 1px solid var(--rule); }
+
+  #datapanel {
+    position: fixed; bottom: 34px; left: 0; right: 0; z-index: 46;
+    background: var(--card); border-top: 2px solid var(--ochre);
+    padding: 12px 16px; display: none; gap: 10px; flex-direction: column;
+  }
+  #datapanel.open { display: flex; }
+  #datapanel textarea {
+    width: 100%; height: 90px; font-family: var(--mono); font-size: 12px;
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); padding: 8px; resize: vertical;
+  }
+  #datapanel .r { display: flex; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  #datapanel button { font: inherit; text-transform: uppercase; letter-spacing: .08em; background: var(--ochre); color: #FFF; border: 0; padding: 6px 12px; cursor: pointer; }
+
+  /* generic table */
+  table { border-collapse: collapse; width: 100%; }
+  .tbl th {
+    text-align: left; font-family: var(--mono); font-size: clamp(10px,0.95vw,13px);
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint);
+    padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); font-weight: 600;
+  }
+  .tbl td {
+    padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(14px, 1.35vw, 20px); vertical-align: top; line-height: 1.3;
+  }
+  .tbl td.k { font-weight: 700; white-space: nowrap; color: var(--blue); }
+
+  /* template grid (hero's journey) */
+  .tmpl { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .tmpl .row { display: grid; grid-template-columns: 150px 1fr; gap: 1px; background: var(--rule); }
+  .tmpl .h, .tmpl .c { background: var(--card); padding: 8px 12px; font-size: clamp(13px,1.25vw,19px); line-height: 1.3; }
+  .tmpl .h { font-family: var(--mono); font-size: clamp(10px,0.95vw,13px); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); display: flex; align-items: center; }
+  .tmpl .row.key .c { background: var(--ochre-bg); font-weight: 700; }
+  .tmpl .row.key .h { color: var(--ochre); }
+
+  .tmpl.compact .row { grid-template-columns: 96px 1fr; }
+  .tmpl.compact .h, .tmpl.compact .c { padding: 5px 8px; font-size: clamp(11px,1.05vw,15px); }
+  .tmpl.compact .h { font-size: clamp(9px,0.85vw,11px); }
+
+  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,1.8vw,28px); }
+  .pick {
+    border: 1px solid var(--rule); background: var(--card);
+    border-top: 4px solid var(--blue); padding: clamp(12px,1.6vw,22px);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .pick:nth-child(2) { border-top-color: var(--ochre); }
+  .pick .who { font-family: var(--mono); font-size: clamp(9px,0.9vw,12px); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .pick .idea { font-family: var(--serif); font-size: clamp(16px,1.9vw,29px); line-height: 1.16; letter-spacing: -0.01em; }
+  .pick .conf { font-size: clamp(13px,1.3vw,19px); line-height: 1.35; color: var(--ink-soft); }
+  .pick .conf b { color: var(--ink); }
+  .pick.empty { border-top-color: var(--rule); align-items: center; justify-content: center; min-height: 22vh;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: .08em; text-align: center; }
+
+  /* exercise / rule panels */
+  .panel {
+    border-left: 5px solid var(--ochre); background: var(--ochre-bg);
+    padding: clamp(14px,1.8vw,26px) clamp(16px,2vw,30px);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .panel.rule { border-left-color: var(--crimson); background: var(--crimson-bg); }
+  .panel.info { border-left-color: var(--blue); background: var(--blue-bg); }
+  .panel h3 { font-size: clamp(17px,1.7vw,26px); }
+  .panel ul.big li, .panel ol.big li { font-size: clamp(15px,1.45vw,22px); }
+
+  /* QR */
+  /* Cada QR con el número de formulario debajo. Van juntos en un .qwrap
+     para que en las filas flex cuenten como una sola pieza y la etiqueta
+     no se coloque al lado del código. */
+  .qwrap2 { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: none; }
+  .qnum { font-family: var(--mono); font-size: clamp(9px,.9vw,12px); font-weight: 700;
+          letter-spacing: .12em; text-transform: uppercase; color: var(--ochre); }
+
+  /* LA DIVISIÓN DE TIP 3 · una idea, tres aplicaciones.
+     Va en la primera slide de cada subtip, para que se vea dónde estás
+     y que los tres son el mismo movimiento en tres sitios distintos. */
+  .subtips { display: flex; flex-wrap: wrap; gap: clamp(10px,1.6vw,28px); align-items: baseline;
+             font-family: var(--mono); font-size: clamp(9px,.92vw,12.5px);
+             letter-spacing: .1em; text-transform: uppercase;
+             border-bottom: 1px solid var(--rule); padding-bottom: 7px; }
+  .subtips span { color: var(--ink-faint); }
+  .subtips span b { color: var(--ink-faint); margin-right: .5em; }
+  .subtips span.on { color: var(--ink); font-weight: 700; }
+  .subtips span.on b { color: var(--ochre); }
+
+  /* HISTOGRAMA DE RESPUESTAS · la dispersión de TIP 3a */
+  .hist { flex: none; display: flex; flex-direction: column; gap: clamp(4px,.7vh,9px); width: 100%; }
+  .hrow { display: grid; grid-template-columns: 13ch 1fr 3ch; gap: clamp(8px,1.2vw,18px); align-items: center; }
+  .hrow .hl { font-family: var(--mono); font-size: clamp(10px,1vw,14px); color: var(--ink-soft); text-align: right; }
+  .hrow .hb { background: var(--rule-soft); height: clamp(16px,2.4vh,30px); }
+  .hrow .hb i { display: block; height: 100%; background: var(--blue-bg); border-right: 3px solid var(--blue); }
+  .hrow .hn { font-family: var(--mono); font-variant-numeric: tabular-nums;
+              font-size: clamp(11px,1.1vw,16px); color: var(--ink-faint); }
+  .hrow.win .hb i { background: var(--ochre-bg); border-right-color: var(--ochre); }
+  .hrow.win .hl, .hrow.win .hn { color: var(--ochre); font-weight: 700; }
+
+  /* RECAP ACUMULATIVO
+     La misma slide seis veces. Empieza con los cinco huecos vacíos y
+     cada tip rellena el suyo, así que el avance del día se ve en vez
+     de contarse. La fila recién ganada va en ocre. */
+  .recap { display: flex; flex-direction: column; }
+  .rline { display: grid; grid-template-columns: 2.6em 1fr; gap: clamp(10px,1.4vw,22px);
+           align-items: baseline; padding: clamp(7px,1.1vh,13px) clamp(8px,1vw,16px);
+           border-bottom: 1px solid var(--rule-soft); }
+  .rnum { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+          font-size: clamp(15px,1.7vw,25px); color: var(--blue); }
+  .rt { font-size: clamp(15px,1.6vw,23px); font-weight: 600; line-height: 1.2; }
+  .rd { font-size: clamp(12px,1.2vw,17px); color: var(--ink-soft); margin-top: 3px; line-height: 1.35; }
+  .rbar { display: none; height: 3px; background: var(--rule); width: min(46%, 340px); }
+  .rline[data-locked] .rnum { color: var(--ink-faint); opacity: .5; }
+  .rline[data-locked] .rt, .rline[data-locked] .rd { display: none; }
+  .rline[data-locked] .rbar { display: block; }
+  .rline[data-new] { background: var(--ochre-bg); }
+  .rline[data-new] .rnum { color: var(--ochre); }
+
+  /* CRONÓMETRO DE EJERCICIO
+     Va arriba a la derecha, alineado con el kicker, porque es la zona
+     que queda libre en todas las slides de ejercicio. Absoluto respecto
+     de la slide, así que no entra en el cálculo del auto-zoom. */
+  .slide { position: relative; }
+  .timer {
+    position: absolute; top: clamp(24px, 4vw, 68px); right: clamp(24px, 4vw, 68px);
+    z-index: 5; display: flex; align-items: baseline; gap: 9px;
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    background: var(--card); border: 1px solid var(--rule);
+    padding: 8px 13px; cursor: pointer; user-select: none;
+    box-shadow: 0 1px 8px rgba(0,0,0,.05);
+  }
+  .timer .tval { font-size: clamp(22px, 2.6vw, 38px); font-weight: 700;
+                 line-height: 1; letter-spacing: -.02em; color: var(--ink-faint); }
+  .timer .tlbl { font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+                 color: var(--ink-faint); }
+  .timer[data-state="run"]   { border-color: var(--ochre); }
+  .timer[data-state="run"]   .tval { color: var(--ochre); }
+  .timer[data-state="run"]   .tlbl { color: var(--ochre); }
+  .timer[data-state="pause"] { border-color: var(--blue); }
+  .timer[data-state="pause"] .tval { color: var(--blue); }
+  .timer[data-state="pause"] .tlbl { color: var(--blue); }
+  .timer[data-state="over"]  { border-color: var(--crimson); background: var(--crimson-bg); }
+  .timer[data-state="over"]  .tval { color: var(--crimson); }
+  .timer[data-state="over"]  .tlbl { color: var(--crimson); }
+  @media (prefers-reduced-motion: no-preference) {
+    .timer[data-state="over"] { animation: tflash 1.1s ease-in-out 3; }
+  }
+  @keyframes tflash { 50% { background: var(--crimson); border-color: var(--crimson); } }
+  .timer[data-state="over"] .tval, .timer[data-state="over"] .tlbl { mix-blend-mode: normal; }
+
+  /* revelado por pasos dentro de una slide.
+     Se usa opacidad y NO display:none, para que la altura de la slide no
+     cambie al avanzar: si cambiara, fitSlide re-calcularia el zoom en cada
+     paso y la tipografia daria saltos delante de la clase. */
+  [data-step] { opacity: 0; pointer-events: none; transition: opacity .28s ease; }
+  [data-step].shown { opacity: 1; pointer-events: auto; }
+
+  /* reproductor · se monta al entrar en la slide y se DESTRUYE al salir,
+     que es lo que hace que el audio se calle al avanzar. */
+  /* flex:none es obligatorio. La slide es un contenedor flex en columna,
+     así que un hijo directo se comprime para dejar sitio al texto y el
+     aspect-ratio se pierde: el vídeo de Reagan salía en una franja de
+     100px. Dentro de .cols2 no pasaba, y por eso Rosling y Bombas se
+     veían bien y este no. */
+  .media { position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
+           border: 1px solid var(--rule); overflow: hidden; flex: none; }
+  /* La forma la decide el CONTENIDO, no una clase que haya que conmutar.
+     Antes se ponía y quitaba una clase .audio a mano y en el respaldo de
+     Reagan se quedaba puesta, así que el vídeo salía achatado en una
+     franja de 96px. Con :has() no hay nada que sincronizar. */
+  .media:has(audio) { aspect-ratio: auto; min-height: 96px; background: var(--card);
+                      display: flex; align-items: center; justify-content: center; padding: 18px; }
+  .media iframe, .media video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .media audio { position: static; width: 100%; max-width: 520px; }
+  .media .ph { position: absolute; inset: 0; display: flex; flex-direction: column;
+               align-items: center; justify-content: center; gap: 9px; background: var(--card);
+               text-align: center; padding: 16px; }
+  .media .ph .tag { font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+                    text-transform: uppercase; color: var(--card); background: var(--crimson); padding: 4px 8px; }
+  .media .ph .what { font-size: clamp(12px,1.2vw,16px); color: var(--ink-soft); max-width: 44ch; }
+  .appeal { display: flex; flex-direction: column; gap: 7px; }
+  .appeal h3 { margin: 0 0 2px; }
+  .appeal .k {
+    font-family: var(--mono); font-size: clamp(8px,.72vw,10px);
+    letter-spacing: .13em; text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 1px;
+  }
+  .appeal p { margin: 0; font-size: clamp(12px,1.15vw,16px); line-height: 1.36; color: var(--ink-soft); }
+  .appeal .miss { border-top: 1px solid var(--rule); padding-top: 7px; margin-top: 1px; }
+  .appeal .miss p { color: var(--crimson); }
+  /* tarjeta de video · marcador de posicion.
+     Para poner una captura real: sustituye el <svg> por
+     <img src="assets/anderson.jpg" alt=""> y no toques nada mas. */
+  .videocard {
+    position: relative; aspect-ratio: 16/9; width: 100%;
+    background: var(--card); border: 1px solid var(--rule);
+    overflow: hidden; display: block;
+  }
+  .videocard svg, .videocard img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .videocard .play {
+    position: absolute; inset: 0; margin: auto;
+    width: clamp(46px,6vw,78px); height: clamp(46px,6vw,78px);
+    border-radius: 50%; background: var(--card); border: 1px solid var(--rule);
+    box-shadow: 0 2px 14px rgba(0,0,0,.16);
+  }
+  .videocard .play::after {
+    content: ''; position: absolute; inset: 0; margin: auto;
+    width: 0; height: 0; margin-left: 38%;
+    border-left: clamp(15px,2vw,25px) solid var(--ink);
+    border-top: clamp(9px,1.2vw,15px) solid transparent;
+    border-bottom: clamp(9px,1.2vw,15px) solid transparent;
+  }
+  .qrwrap { display: flex; gap: clamp(20px,3vw,54px); align-items: center; flex-wrap: wrap; }
+  .qrbox {
+    width: clamp(190px, 27vw, 380px); aspect-ratio: 1;
+    border: 3px dashed var(--rule); background: var(--card);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+    letter-spacing: 0.08em; padding: 14px; line-height: 1.5;
+  }
+
+  blockquote {
+    border-left: 5px solid var(--blue); padding-left: clamp(14px,1.8vw,28px);
+    font-family: var(--serif); font-size: clamp(21px, 3vw, 44px);
+    line-height: 1.22; letter-spacing: -0.012em; max-width: 32ch;
+  }
+  cite { display: block; font-family: var(--mono); font-style: normal; font-size: clamp(11px,1.05vw,15px); color: var(--ink-faint); letter-spacing: 0.06em; margin-top: 14px; text-transform: uppercase; }
+
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px,2.6vw,50px); align-items: start; }
+  .cols3 { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(14px,2vw,34px); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: clamp(10px,1.4vh,20px); }
+
+  /* only-FIN / only-AFM */
+  .fin, .afm { display: none; }
+  body[data-class="fin"] .fin { display: revert; }
+  body[data-class="afm"] .afm { display: revert; }
+  body[data-class="fin"] .figs.fin, body[data-class="afm"] .figs.afm { display: flex; }
+  body[data-class="fin"] .logos.fin, body[data-class="afm"] .logos.afm { display: grid; }
+  body[data-class="fin"] .panel.fin, body[data-class="afm"] .panel.afm { display: flex; }
+
+  /* ============ chrome ============ */
+  #chrome {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 34px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 12px; background: var(--paper);
+    border-top: 1px solid var(--rule); z-index: 50;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.05em;
+  }
+  #chrome button {
+    font: inherit; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--card); color: var(--ink-soft);
+    border: 1px solid var(--rule); padding: 4px 9px; cursor: pointer;
+  }
+  #chrome button[aria-pressed="true"] { background: var(--blue); color: var(--paper); border-color: var(--blue); }
+  #chrome button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  #chrome .sp { margin-left: auto; }
+  #clock { font-variant-numeric: tabular-nums; color: var(--ink); }
+  #live { color: var(--ochre); letter-spacing: .1em; }
+  #live.on { color: #1E9E5A; }
+  #live.err { color: var(--crimson); }
+
+  #notes {
+    position: fixed; bottom: 34px; left: 0; right: 0; max-height: 42vh; overflow-y: auto;
+    background: var(--card); border-top: 2px solid var(--blue);
+    padding: 16px 20px; z-index: 45; display: none;
+    font-size: 14px; line-height: 1.5; color: var(--ink);
+  }
+  #notes.open { display: block; }
+  #notes h4 { margin: 0 0 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); }
+  #notes p { margin: 0 0 8px; max-width: 90ch; }
+  #notes em { color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide.live { animation: in .18s ease-out; }
+    @keyframes in { from { opacity: 0; } to { opacity: 1; } }
+  }
+</style>
+
+
+<div id="bar">
+  <div class="seg sesion" data-s="4">S4 8.30–10.00</div>
+  <div class="seg pausa">10.00</div>
+  <div class="seg sesion" data-s="5">S5 10.15–11.45</div>
+  <div class="seg pausa">lunch</div>
+  <div class="seg sesion" data-s="6">S6 13.00–14.30</div>
+  <div class="seg pausa">14.30</div>
+  <div class="seg sesion" data-s="7">S7 14.45–16.15</div>
+  <div class="seg pausa">16.15</div>
+  <div class="seg sesion" data-s="8">S8 16.30–17.30</div>
+</div>
+
+<div id="strip"></div>
+
+<div id="stage">
+
+<!-- ══════════════════ SESIÓN 4 ══════════════════ -->
+
+<section data-part="4" class="slide" data-s="4" data-b="Apertura sábado" data-notes="COMPROBACIONES ANTES DE PROYECTAR. · 1) La URL acaba en ?teach, si no no hay notas ni panel de datos y no avisa. · 2) AFM: pulsa el botón AFM. Verifica que esta slide dice 19 September. · 3) Abre el panel D una vez para confirmar que los datos del viernes siguen llegando. · A las 8.30 la sala está abierta pero no empieza la clase: café, preguntas y montaje. Toma la asistencia a las 8.30 igual, y díselo en voz alta, porque van a asumir que empieza a las nueve. · Tono: hoy no eres profesora, eres la persona que lleva el reloj.">
+  <div class="kicker"><span class="fin">Saturday 12 September</span><span class="afm">Saturday 19 September</span> · day two</div>
+  <h1>Today you invent it, you build it, and you sell it.</h1>
+  <p class="lead">Yesterday you chose a problem. In eight hours somebody in this room decides whether to put money into what you did with it.</p>
+  <p class="body">Room open from 8.30. We start at 9.00.</p>
+</section>
+
+<section data-part="4" class="slide" data-s="4" data-b="Asistencia" data-notes="La asistencia es a las 8.30, no a las nueve. Insiste, porque el que llegue a las 8.55 va a perderla y luego es un problema tuyo. · Cinco tomas hoy. Dilo una vez y no vuelvas a repetirlo en todo el día.">
+  <div class="kicker rule">Attendance · 4 of 8 · 8.30 – 10.00</div>
+  <h2>Register now, in the app.</h2>
+  <p class="lead">Five registrations today. This one closes even if we have not started working yet.</p>
+  <p class="tiny">Problems: Manu Sharma · manu.sharma@unibocconi.it</p>
+</section>
+
+<section data-part="4" class="slide" data-s="4" data-b="Horario sábado" data-notes="TREINTA SEGUNDOS y es un mapa. Señala tres cosas con la mano y nada más: la hora de congelar el contenido (13.10), la hora de subir (14.25) y la hora en que se abre la sala de inversores (14.45). · El hueco del mediodía es largo a propósito y hay que decirlo: 75 minutos. Que no se vayan lejos. · Acabamos a las 17.30, y decirlo por la mañana compra buena voluntad todo el día.">
+  <div class="kicker">Today, exactly</div>
+  <table class="sched"><tbody>
+    <tr><td class="hh">8.30 – 10.00</td><td>Session 4 · invent the offer</td><td><span class="att">A4</span></td></tr>
+    <tr class="pausa"><td class="hh">10.00 – 10.15</td><td colspan="2">break</td></tr>
+    <tr><td class="hh">10.15 – 11.45</td><td>Session 5 · build the pitch</td><td><span class="att">A5</span></td></tr>
+    <tr class="pausa lunch"><td class="hh">11.45 – 13.00</td><td colspan="2">lunch<span class="len">75 min · the long gap</span></td></tr>
+    <tr><td class="hh">13.00 – 14.30</td><td>Session 6 · content frozen, rehearse</td><td><span class="att">A6</span></td></tr>
+    <tr class="pausa"><td class="hh">14.30 – 14.45</td><td colspan="2">break</td></tr>
+    <tr><td class="hh">14.45 – 16.15</td><td>Session 7 · nine pitches</td><td><span class="att">A7</span></td></tr>
+    <tr class="pausa"><td class="hh">16.15 – 16.30</td><td colspan="2">break</td></tr>
+    <tr><td class="hh">16.30 – 17.30</td><td>Session 8 · funding, debrief, close</td><td><span class="att">A8</span></td></tr>
+  </tbody></table>
+  <p class="lead">Three times that matter: <b>13.10</b> content freezes · <b>14.25</b> everything uploaded · <b>14.45</b> the room opens its wallet.</p>
+</section>
+
+<section data-part="4" class="slide" data-s="4" data-b="Anoche" data-notes="Esta slide es para las 8.55, cuando ya están casi todos. · Lee DOS briefs en voz alta, no nueve, y elige uno muy concreto y uno todavía vago. No digas cuál es cuál: pregunta a la sala «¿de cuál de los dos puedo hacerme una imagen?». · Es el recordatorio de la única regla del día de ayer: una persona con nombre, no «las empresas».">
+  <div class="kicker">What you left me last night</div>
+  <h2>Nine problems. The ones that will work today are the ones with a person in them.</h2>
+  <div class="quotes" id="satbriefs"></div>
+  <p class="lead">If yours still says "companies" or "young people", you have ten minutes to fix it before it costs you the whole morning.</p>
+</section>
+
+<section data-timer="3300" data-part="4" class="slide" data-s="4" data-b="Inventar" data-notes="ARRANCA A LAS 9.00 EN PUNTO y pon el cronómetro. Son 55 minutos hasta el gate de las 10.00. · Di la regla de oro antes de soltarlos: no se abre PowerPoint hasta las once. Primero se escribe el pitch, luego se hacen slides para ese pitch. Van a intentarlo antes. · Recorre los nueve grupos con la pregunta 4 en la boca, que es donde se cae la mitad: «¿y qué hace hoy esa persona en vez de esto?». Si contestan «nada», no han buscado. · A los 40 minutos avisa de que quedan 15 y de que el gate NO se mueve.">
+  <div class="kicker do">9.00 – 10.00 · invent the offer · no slides yet</div>
+  <h2>Four decisions. That is the whole morning.</h2>
+  <ol class="big">
+    <li><b>What is it?</b> The product or the service. One thing, that somebody can buy</li>
+    <li><b>Who uses it?</b> The person you named last night, or a sharper version of them</li>
+    <li><b>What changes for them?</b> Their situation before, and after. Concretely</li>
+    <li><b>Why yours?</b> They are solving this somehow today. What is wrong with how they do it</li>
+  </ol>
+  <div class="panel rule">
+    <p class="body" style="max-width:80ch">You are not starting from zero: you spent ninety minutes yesterday on the problem, which is the part most people skip. <b>Nobody opens PowerPoint before eleven o'clock.</b> You write the pitch first, then you make slides for it.</p>
+  </div>
+</section>
+
+<section data-timer="600" data-part="4" class="slide" data-s="4" data-b="Gate" data-notes="EL GATE ES A LAS 10.00 Y NO SE MUEVE. Dilo dos veces. · La frase es el filtro: si no cabe, no tienen oferta, tienen un tema. Y es muchísimo mejor descubrirlo ahora que a las cinco de la tarde. · Si un grupo no llega, que envíe la versión mala igualmente. Una frase mala a las diez se arregla; el silencio no. · Mientras envían, tú ya estás leyendo: en el break decides a quién visitas primero.">
+  <div class="kicker do">Deadline 10.00 · one per group</div>
+  <h2>If it does not fit in this sentence, you do not have it yet.</h2>
+  <div class="panel info">
+    <p class="lead" style="max-width:78ch">For <b>[specific user]</b>, we provide <b>[solution]</b>, which changes <b>[current situation]</b> into <b>[better situation]</b>. The buyer is <b>[X]</b>.</p>
+  </div>
+  <div class="qrwrap">
+    <div class="qwrap2"><div class="qrbox" data-qr="q14">Scan</div><span class="qnum">Form 14</span></div>
+    <div class="stack">
+      <p class="body">Send the bad version rather than nothing. A bad sentence at ten o'clock is a morning's work. Silence at ten o'clock is a lost day.</p>
+      <p class="tiny">The deadline does not move. I read all nine over the break.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="4" class="slide" data-s="4" data-b="Las ofertas" data-notes="Dos minutos, no más, y es la slide más valiosa de la mañana. · Lee tres en voz alta y para en la que tenga el comprador distinto del usuario: ahí está la lección entera del día. «Esta la usa una persona y la paga otra. Eso no es un problema, es el negocio, pero cambia a quién le hablas a las tres de la tarde.» · Pulsa R para barajar y ver otras. · No corrijas en público a ningún grupo por su nombre.">
+  <div class="kicker">Nine offers, ten minutes old</div>
+  <h2>The buyer and the user are not always the same person. That decides who you talk to at a quarter to three.</h2>
+  <div class="quotes" id="satoffers"></div>
+  <p class="tiny">R to shuffle</p>
+</section>
+
+<section data-part="4" class="slide breakslide" data-s="4" data-b="Break" data-notes="Quince minutos de verdad. Aprovecha para leer las nueve frases y decidir a qué dos grupos visitas primero a las 10.15.">
+  <div class="kicker">Break</div>
+  <div class="bigtime">10.00 – 10.15</div>
+  <p class="lead">Fifteen minutes. Come back with coffee, because the next block is the one that decides your afternoon.</p>
+</section>
+
+<!-- ══════════════════ SESIÓN 5 ══════════════════ -->
+
+<section data-part="5" class="slide" data-s="5" data-b="Asistencia" data-notes="Segunda del día, quinta de ocho. Rápido.">
+  <div class="kicker rule">Attendance · 5 of 8 · 10.15 – 11.45</div>
+  <h2>Register again, in the app.</h2>
+  <p class="lead">Next stop is lunch at 11.45.</p>
+</section>
+
+<section data-part="5" class="slide" data-s="5" data-b="Arquitectura" data-notes="DIEZ MINUTOS Y ES LO ÚNICO QUE EXPLICAS HOY. Ve paso a paso con la flecha, no lo sueltes todo de golpe. · La parte que hay que defender es la 1: el hook no es un adorno, es el único trozo que la sala tiene garantizado escuchar. Recuérdales los 3 minutos 44 de DocSend de ayer. · La 5 es donde se aplica el TIP 3: contraste. Sin antes y después no hay historia, hay una descripción. · Y la 6 es la que TODOS se van a dejar: pedir. Van a acabar el pitch con «gracias». Diles que un pitch que no pide, no consigue.">
+  <div class="kicker">Three minutes, six parts</div>
+  <h2>This is the architecture. You do not have to invent the shape as well.</h2>
+  <ol class="big">
+    <li data-step="1"><b>Hook</b> — make us care. The first fifteen seconds, and the only part everyone hears</li>
+    <li data-step="2"><b>Problem</b> — show the current reality. Short, you told us yesterday</li>
+    <li data-step="3"><b>Solution</b> — what are you proposing? One thing</li>
+    <li data-step="4"><b>Evidence</b> — why might it work? A number, a comparable, a real case</li>
+    <li data-step="5"><b>Contrast</b> — before versus after. This is tip three, and it is where the pitch becomes a story</li>
+    <li data-step="6"><b>Ask</b> — what do you want from the room? Be specific, and say the number</li>
+  </ol>
+  <div class="panel rule" data-step="7">
+    <p class="body" style="max-width:80ch">Every pitch that fails today will fail in the same two places: it will spend ninety seconds on the problem, and it will end with "thank you" instead of an ask. <b>A pitch that does not ask, does not get.</b></p>
+  </div>
+</section>
+
+<section data-part="5" class="slide" data-s="5" data-b="Plazos" data-notes="Léelos y déjala puesta mientras trabajan si quieres. · El sentido de los plazos internos no es controlarlos: es que ninguno de ellos llegue a la una de la tarde sin haber dicho el pitch en voz alta ni una vez. Eso es lo que hay que impedir hoy. · Insiste en las 11.25: la primera vez cronometrada. Todos van a ir a cinco minutos y les va a horrorizar. Que pase por la mañana y no en la sala de inversores.">
+  <div class="kicker do">10.15 – 11.45 · build the pitch</div>
+  <h2>Four checkpoints. Say it out loud before you write it down.</h2>
+  <table class="tbl" style="max-width:70ch"><tbody>
+    <tr><td class="k">10.35</td><td>Story agreed. Which of the six parts carries the weight</td></tr>
+    <tr><td class="k">11.00</td><td>First complete pitch, <b>written</b>. Bad is fine, complete is not optional</td></tr>
+    <tr><td class="k">11.15</td><td><b>Now</b> you open PowerPoint. Six slides maximum, and the landing page</td></tr>
+    <tr><td class="k">11.25</td><td><b>First timed run.</b> Out loud, standing, with a phone timer</td></tr>
+    <tr><td class="k">11.40</td><td>Morning version submitted</td></tr>
+  </tbody></table>
+  <div class="panel rule">
+    <p class="body" style="max-width:80ch">At 11.25 your pitch will run to five minutes and you will hate it. <b>Good.</b> Cutting two minutes on a Saturday morning is easy. Cutting them at a quarter to three, in front of people with money, is not possible.</p>
+  </div>
+</section>
+
+<section data-part="5" class="slide" data-s="5" data-b="Landing" data-notes="DOS MINUTOS Y CORTA EN SECO. Esta slide existe para evitar que el seminario se convierta en un concurso de Canva. · Dilo explícito: no es una web, es UNA pantalla, y el diseño no puntúa. El logo es opcional y no da puntos. · La única línea que importa es la promesa. Es el mismo ejercicio de una sola idea del TIP 2, en otro formato. · Si alguien pregunta si puede usar IA para la imagen: sí, es forma, no es sustancia.">
+  <div class="kicker">The landing page</div>
+  <h2>One screen. Not a website.</h2>
+  <div class="cols2" style="align-items:stretch">
+    <div class="panel">
+      <h3>Four things, and nothing else</h3>
+      <ul class="big" style="gap:2px">
+        <li style="font-size:clamp(13px,1.28vw,18px)">The <b>name</b></li>
+        <li style="font-size:clamp(13px,1.28vw,18px)"><b>One promise</b>, in one line</li>
+        <li style="font-size:clamp(13px,1.28vw,18px)"><b>One visual</b></li>
+        <li style="font-size:clamp(13px,1.28vw,18px)">One <b>call to action</b></li>
+      </ul>
+    </div>
+    <div class="panel rule">
+      <h3>The design is not scored</h3>
+      <p class="body" style="max-width:48ch">A logo is optional and it is worth zero points. Make it if it is fun.</p>
+      <p class="body" style="max-width:48ch">You win because of the pitch, not because a model produced a beautiful brand identity in ninety seconds. <b>Everyone in this room has access to the same model.</b></p>
+    </div>
+  </div>
+  <p class="lead">The one promise is the hardest line you will write today. It is tip two again, with a smaller box.</p>
+</section>
+
+<section data-timer="4200" data-part="5" class="slide" data-s="5" data-b="Construir" data-notes="SETENTA MINUTOS DE TRABAJO Y TÚ CIRCULAS. Deja el cronómetro puesto y esta slide proyectada. · Tu única pregunta en las mesas, repetida nueve veces: «dímelo en voz alta, ahora». En cuanto lo dicen se oyen, y se arregla solo. No leas sus documentos. · A las 11.00 párales treinta segundos y pregunta a la sala cuántos han dicho el pitch entero en voz alta. Los que no levanten la mano son tus siguientes visitas. · A las 11.40, entrega.">
+  <div class="kicker do">Work · 10.15 – 11.45</div>
+  <h1>Say it out loud before you write it down.</h1>
+  <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
+    <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:13px 16px">
+      <ul class="big" style="gap:3px">
+        <li style="font-size:clamp(14px,1.35vw,20px)"><b>10.35</b> story agreed</li>
+        <li style="font-size:clamp(14px,1.35vw,20px)"><b>11.00</b> first complete pitch, written</li>
+        <li style="font-size:clamp(14px,1.35vw,20px)"><b>11.15</b> slides and landing page</li>
+        <li style="font-size:clamp(14px,1.35vw,20px)"><b>11.25</b> first timed run, standing</li>
+        <li style="font-size:clamp(14px,1.35vw,20px)"><b>11.40</b> morning version in</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <div class="panel info" style="padding:11px 15px;border-left-width:4px">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div class="qwrap2"><div class="qrbox" style="width:clamp(104px,12vw,164px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="q15">Scan</div><span class="qnum">Form 15</span></div>
+          <div>
+            <h3 style="font-size:clamp(14px,1.42vw,20px)">11.40 · morning version</h3>
+            <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">The six parts, in plain text. No design. This is the evidence that the substance is yours.</p>
+          </div>
+        </div>
+      </div>
+      <p class="body" style="max-width:48ch">No slides until <b>11.00</b>. When you finally open PowerPoint they will take you fifteen minutes, because by then you will know what they have to say.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="5" class="slide breakslide" data-s="5" data-b="Lunch" data-notes="SETENTA Y CINCO MINUTOS, que es mucho, y hay que decir la hora de vuelta dos veces. · Dilo también: a la una y diez se congela el contenido, así que la comida NO es tiempo de trabajo, es tiempo de descanso. El que trabaje comiendo llega peor a la tarde. · Y una frase que ayuda: esta tarde no se mejora el contenido, se mejora cómo lo dicen. Son cosas distintas.">
+  <div class="kicker">Lunch</div>
+  <div class="bigtime">11.45 – 13.00</div>
+  <p class="lead">Seventy-five minutes. Back here at <b>13.00</b>, and at <b>13.10</b> the content freezes.</p>
+  <p class="body">Do not work through lunch. This afternoon is not about improving what you say — it is about improving how you say it, and that needs a functioning brain.</p>
+</section>
+
+<!-- ══════════════════ SESIÓN 6 ══════════════════ -->
+
+<section data-part="6" class="slide" data-s="6" data-b="Asistencia" data-notes="Sexta de ocho. Van a llegar goteando de la comida: toma la asistencia a y cinco, no a en punto, pero no esperes más.">
+  <div class="kicker rule">Attendance · 6 of 8 · 13.00 – 14.30</div>
+  <h2>Register again, in the app.</h2>
+  <p class="lead">Six of eight. Two left after this one.</p>
+</section>
+
+<section data-timer="600" data-part="6" class="slide" data-s="6" data-b="Últimas decisiones" data-notes="DIEZ MINUTOS Y SON DECISIONES, NO TRABAJO NUEVO. Dilo así. · Lo que tienen que cerrar es qué se queda fuera, no qué se añade. Van a querer añadir. · Cronómetro visible y avisa a los ocho minutos. A la una y diez se acabó, sin excepciones, y si te saltas esa tú, no vuelves a tener credibilidad con el reloj en todo el día.">
+  <div class="kicker do">13.00 – 13.10 · ten minutes</div>
+  <h2>Last content decisions. What comes <em>out</em>, not what goes in.</h2>
+  <p class="lead">Three minutes is about four hundred words. Read your pitch and count. Whatever does not survive the count is not a loss — it is the thing that was going to make the room stop listening.</p>
+  <div class="panel rule">
+    <p class="body" style="max-width:80ch">Choose your <b>two lead presenters</b> now, and remember: everyone answers in the questions. Whoever spoke last night is not one of the two.</p>
+  </div>
+</section>
+
+<section data-part="6" class="slide" data-s="6" data-b="Freeze" data-notes="PÁRATE. Esta slide se dice de pie, en silencio, y se deja tres segundos antes de hablar. · Es el momento pedagógico del día: a partir de aquí el contenido ya no es la variable. Lo único que pueden cambiar en las próximas cuatro horas es cómo lo dicen. Y van a descubrir que eso cambia muchísimo más de lo que creen. · Si alguien protesta, la respuesta es una frase: en una sala real nadie te da cuatro horas más de contenido, te da tres minutos.">
+  <div class="kicker rule">13.10</div>
+  <h1 style="font-size:clamp(34px,6vw,86px)">Content frozen.</h1>
+  <p class="lead">From now until a quarter past four, the only thing you can change is <b>how you say it</b>.</p>
+  <p class="body">That is not a restriction, it is the experiment. You are about to find out how much of persuasion was never in the words.</p>
+</section>
+
+<section data-timer="1500" data-part="6" class="slide" data-s="6" data-b="Ensayo" data-notes="VEINTICINCO MINUTOS. Empareja según la tabla y que se muevan físicamente, no que giren la silla. · Reparte los tiempos en voz alta: tres minutos uno, tres el otro, y el resto para las tres preguntas. El trío tiene tres pases, así que apúrales tú. · Tu trabajo aquí es circular y ESCUCHAR EL FEEDBACK, no los pitches. En cuanto oigas «me ha gustado», interrumpe y pide las tres preguntas. · Grupo 9 está en el trío con el 7 y el 8.">
+  <div class="kicker do">13.10 – 13.35 · rehearse with another team</div>
+  <h2>Stand up, move, and say it to strangers.</h2>
+  <div class="cols2" style="align-items:start">
+    <div class="panel">
+      <h3>Who with</h3>
+      <table class="tbl" style="max-width:36ch"><tbody>
+        <tr><td class="k">1 ↔ 2</td><td>pair</td></tr>
+        <tr><td class="k">3 ↔ 4</td><td>pair</td></tr>
+        <tr><td class="k">5 ↔ 6</td><td>pair</td></tr>
+        <tr><td class="k">7 ↔ 8 ↔ 9</td><td>triad, three rounds</td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel rule">
+      <h3>Standing, timed, no notes in your hand</h3>
+      <p class="body" style="max-width:48ch">Three minutes each, timed by the other group. Then the three questions on the next slide, and nothing else.</p>
+      <p class="body" style="max-width:48ch">If you read it, they will tell you. That is what they are for.</p>
+    </div>
+  </div>
+</section>
+
+<section data-timer="900" data-part="6" class="slide" data-s="6" data-b="Feedback" data-notes="QUINCE MINUTOS: feedback y revisión. · Las tres preguntas son deliberadamente brutales y hay que defenderlas: «qué recuerdas» sin mirar notas es el test de una sola idea; «dónde dejaste de creer» es el test de credibilidad; «qué quitarías» es el único feedback accionable en quince minutos. · Prohibido «me ha gustado». Dilo antes de soltarlos y córtalo cuando lo oigas. · El QR es una entrega, y sirve para que el feedback quede escrito y no se evapore.">
+  <div class="kicker do">13.35 – 13.50 · feedback, then fix it</div>
+  <h2>Three questions. Nothing else, and no compliments.</h2>
+  <ol class="big">
+    <li><b>What do you remember?</b> From memory, without your notes. If nothing, say nothing — that is the most useful sentence of the afternoon</li>
+    <li><b>Where did you stop believing?</b> The exact moment</li>
+    <li><b>What should they remove?</b> Something specific</li>
+  </ol>
+  <div class="qrwrap">
+    <div class="qwrap2"><div class="qrbox" data-qr="q16">Scan</div><span class="qnum">Form 16</span></div>
+    <div class="stack">
+      <p class="body">Write it down as well as saying it. Spoken feedback evaporates in four minutes, and you have a pitch to fix.</p>
+      <p class="tiny">"That was interesting" is banned. It was banned yesterday too.</p>
+    </div>
+  </div>
+</section>
+
+<section data-timer="1200" data-part="6" class="slide" data-s="6" data-b="Segundo ensayo" data-notes="VEINTE MINUTOS: segundo pase cronometrado, con los cambios metidos. · Esta vez que lo hagan de pie y SIN papel. Nada en las manos. · Tu frase de circulación: «¿en qué ha cambiado respecto a hace media hora?». Si no saben contestar, no han usado el feedback. · A las 14.10 corta aunque no hayan acabado.">
+  <div class="kicker do">13.50 – 14.10 · second timed run</div>
+  <h2>Again, with the changes. Nothing in your hands.</h2>
+  <p class="lead">Second run, standing, timed. If it is still over three minutes, cut now — because at a quarter to three I stop you mid-sentence and that is a worse way to lose thirty seconds.</p>
+  <div class="panel rule">
+    <p class="body" style="max-width:80ch">Ask each other one question at the end: <b>what changed since half past one?</b> If nobody can answer it, the feedback did not land and you have twenty minutes to make it land.</p>
+  </div>
+</section>
+
+<section data-timer="900" data-part="6" class="slide" data-s="6" data-b="Subida" data-notes="ESTA ES LA SLIDE QUE SALVA LA SESIÓN 7 Y HAY QUE SER INFLEXIBLE. · UN solo ordenador. Nada de nueve portátiles: si dejas que cada grupo conecte el suyo, los 90 segundos de transición se convierten en tres minutos y pierdes veinte minutos de sesión. · A las 14.25 se cierra la carpeta. El que suba tarde presenta con lo que haya. · Comprueba tú misma que los nueve archivos abren, ahora, no a las tres menos cuarto. · Y el orden de presentación: sorteo delante de ellos, es más justo y más divertido.">
+  <div class="kicker do">14.10 – 14.25 · upload · then the room resets</div>
+  <h2>One computer. Nine files. Fifteen minutes.</h2>
+  <div class="cols2" style="align-items:stretch">
+    <div class="panel rule">
+      <h3>Non-negotiable</h3>
+      <p class="body" style="max-width:48ch">Everything uploaded by <b>14.25</b>. Slides and landing page, in the shared folder, named with your group number.</p>
+      <p class="body" style="max-width:48ch"><b>No laptop swaps.</b> Everything runs from this machine. A group that arrives with a cable loses its own three minutes.</p>
+    </div>
+    <div class="panel info">
+      <h3>Then</h3>
+      <p class="body" style="max-width:48ch">Two lead presenters named. Speaking order drawn in front of you.</p>
+      <p class="body" style="max-width:48ch">Chairs turned to face the front. This stops being a workshop and becomes a room with money in it.</p>
+    </div>
+  </div>
+  <p class="tiny">14.25 – 14.30 room reset · break 14.30 – 14.45</p>
+</section>
+
+<section data-part="6" class="slide breakslide" data-s="6" data-b="Break" data-notes="Quince minutos. Úsalos para comprobar que los nueve archivos abren desde el ordenador de la sala y que el orden está escrito en algún sitio visible.">
+  <div class="kicker">Break</div>
+  <div class="bigtime">14.30 – 14.45</div>
+  <p class="lead">Fifteen minutes. When you come back, the room has money.</p>
+</section>
+
+<!-- ══════════════════ SESIÓN 7 ══════════════════ -->
+
+<section data-part="7" class="slide" data-s="7" data-b="Asistencia" data-notes="Séptima de ocho, y rápido: esta sesión va con el reloj muy justo.">
+  <div class="kicker rule">Attendance · 7 of 8 · 14.45 – 16.15</div>
+  <h2>Register again, in the app.</h2>
+  <p class="lead">One more after this.</p>
+</section>
+
+<section data-part="7" class="slide" data-s="7" data-b="Reglas pitch" data-notes="DOS MINUTOS Y NO MÁS: cada minuto que gastes aquí se lo quitas a un grupo. · Lo único imprescindible: los ocho minutos por equipo, y que TODO EL MUNDO vota en todos los pitches aunque solo tenga tres fichas. Repítelo: se vota siempre, se gasta ficha solo tres veces. · La escasez es lo que hace el ejercicio: si todos dicen que sí a todos, no ha pasado nada y se lo dices tal cual. · Y el cierre: los que están escuchando no son público, son inversores, y su trabajo es tan difícil como el de los que presentan.">
+  <div class="kicker">14.45 – 16.15 · nine pitches</div>
+  <h2>Eight minutes per team, and I keep the clock.</h2>
+  <div class="cols2" style="align-items:start">
+    <div class="panel">
+      <h3>Each team</h3>
+      <table class="tbl" style="max-width:38ch"><tbody>
+        <tr><td class="k">3:00</td><td>The pitch. Hard stop</td></tr>
+        <tr><td class="k">0:30</td><td>Silent vote, on your phone</td></tr>
+        <tr><td class="k">3:00</td><td>Two questions from the room</td></tr>
+        <tr><td class="k">1:30</td><td>Result, and the next team stands up</td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel rule">
+      <h3>You have three tokens and there are nine companies</h3>
+      <p class="body" style="max-width:48ch"><b>You vote on every pitch.</b> But you can only spend three tokens all afternoon, so a yes is expensive.</p>
+      <p class="body" style="max-width:48ch">If everybody funds everybody, nothing happened here. Scarcity is the whole exercise, and it is also how it works outside.</p>
+    </div>
+  </div>
+  <p class="lead">Nobody in this room is an audience this afternoon. You are all investors, and your job is as hard as theirs.</p>
+</section>
+
+<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Pitch" data-notes="ESTE ES EL CICLO Y SE REPITE NUEVE VECES. · ] pasa al equipo siguiente, [ vuelve al anterior. El número grande de la izquierda es el que se proyecta. · Desde la slide de transición, vuelves aquí con ← tres veces y pulsas ] para el siguiente equipo. · t arranca el reloj, T lo reinicia. ARRANCA EL RELOJ ANTES DE QUE ABRAN LA BOCA. · A los tres minutos se corta. Córtalo de verdad la primera vez, con una sonrisa, porque si no lo haces con el grupo 1 no lo puedes hacer con el 7.">
+  <div class="kicker do">Pitch · three minutes · hard stop</div>
+  <div class="cols2" style="align-items:center;gap:clamp(14px,3vw,50px)">
+    <div class="stack" style="align-items:center">
+      <div class="k" style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)">Team</div>
+      <div id="teamno" style="font-family:var(--mono);font-weight:700;font-size:clamp(80px,16vw,220px);line-height:.9;color:var(--crimson)">1</div>
+      <p class="tiny">] next team · [ previous</p>
+    </div>
+    <div class="stack">
+      <h2 style="font-size:clamp(20px,2.6vw,36px)">Two presenters. Everyone answers afterwards.</h2>
+      <p class="body">Hook · problem · solution · evidence · contrast · <b>ask</b>.</p>
+      <p class="lead">Three minutes. I stop you, and it costs you nothing except the end of your sentence.</p>
+    </div>
+  </div>
+</section>
+
+<section data-timer="30" data-part="7" class="slide" data-s="7" data-b="Voto" data-notes="TREINTA SEGUNDOS Y EN SILENCIO. Nada de comentarios entre ellos mientras votan: eso es exactamente lo que arruina el dato. · Recuerda en voz alta antes de arrancar el reloj: se vota SIEMPRE, se gasta ficha solo tres veces en toda la tarde. · Si alguien pregunta si puede cambiar el voto después, no.">
+  <div class="kicker do">30 seconds · silent · no talking</div>
+  <h2>Would you invest?</h2>
+  <div class="qrwrap">
+    <div class="qwrap2"><div class="qrbox" data-qr="q17">Scan</div><span class="qnum">Form 17</span></div>
+    <div class="stack">
+      <p class="body">Team <b id="teamno2">1</b>. Yes or no, what moved you, and what would have changed your vote.</p>
+      <p class="lead">Three tokens. Nine companies. Spend them where you would actually put the money.</p>
+      <p class="tiny">Vote on every pitch, even when you are not spending.</p>
+    </div>
+  </div>
+</section>
+
+<section data-timer="180" data-part="7" class="slide" data-s="7" data-b="Preguntas" data-notes="TRES MINUTOS, DOS PREGUNTAS. Ni una más, aunque la sala esté encendida: si dejas tres, pierdes un grupo entero al final de la tarde. · Tú eliges quién pregunta y elige a gente distinta cada vez. Ten una pregunta tuya preparada por si la sala se queda muda: «¿quién paga, exactamente?» funciona siempre. · Y vigila que conteste alguien que NO haya presentado. Es la mitad del sentido de la regla de los dos presentadores.">
+  <div class="kicker do">Two questions · three minutes</div>
+  <h2>Anyone on the team can answer. Preferably somebody who did not present.</h2>
+  <div class="panel rule">
+    <p class="body" style="max-width:80ch">Investors: ask the question you actually have, not the polite one. <b>"Who exactly pays for this?"</b> is a fair question and it is the one that decides most rounds.</p>
+  </div>
+  <p class="lead">Two questions only. There are nine teams and the clock does not care.</p>
+</section>
+
+<section data-timer="90" data-part="7" class="slide" data-s="7" data-b="Transición" data-notes="NOVENTA SEGUNDOS Y AQUÍ SE ENSEÑA, en trozos de veinte segundos. · Mira el marcador, y llama a UNA persona que invirtió y a UNA que no. Treinta segundos cada una, cronometrados. Elige gente distinta cada vuelta y no dejes que se conviertan en un seminario. · Esa comparación, repetida nueve veces, es el aprendizaje real de la tarde: el mismo pitch, dos lecturas opuestas, y las dos razonables. · Luego: ← ← ← y ] para el siguiente equipo.">
+  <div class="kicker">Where the money is going</div>
+  <div class="hist" id="votebars"></div>
+  <div class="cols2" style="align-items:start">
+    <div class="panel info">
+      <h3>Thirty seconds each</h3>
+      <p class="body" style="max-width:48ch">One person who invested. One person who did not. Same pitch, opposite readings, and both of them are reasonable.</p>
+    </div>
+    <div class="stack">
+      <div class="quotes" id="votewhy"></div>
+    </div>
+  </div>
+  <p class="tiny">Next team: ← ← ← then ]</p>
+</section>
+
+<section data-part="7" class="slide" data-s="7" data-b="Fin pitches" data-notes="Respira con ellos. Han presentado los nueve. · No des resultados todavía: el recuento es después del break, y esos quince minutos de espera valen mucho. · Dilo: en tres minutos cada uno han hecho lo que ayer por la mañana les parecía imposible.">
+  <div class="kicker">That is nine</div>
+  <h1>Twenty-seven minutes ago none of you had said this out loud to a room.</h1>
+  <p class="lead">Break. The count happens at half past four, in front of everybody.</p>
+  <div class="bigtime">16.15 – 16.30</div>
+</section>
+
+<!-- ══════════════════ SESIÓN 8 ══════════════════ -->
+
+<section data-part="8" class="slide" data-s="8" data-b="Asistencia" data-notes="La octava y última. Dilo así, porque es la que se les olvida con las ganas de irse.">
+  <div class="kicker rule">Attendance · 8 of 8 · 16.30 – 17.30</div>
+  <h2>Register one last time.</h2>
+  <p class="lead">Eight of eight. This is the one people forget.</p>
+</section>
+
+<section data-part="8" class="slide" data-s="8" data-b="Resultados" data-notes="DIEZ MINUTOS Y ES TEATRO, así que hazlo bien. · De abajo arriba, no de arriba abajo. Y aplaude cada uno. · La frase que hay que decir antes de los números: no hay notas, hay dinero, y el dinero es de ellos. · Después del ganador, una advertencia que importa: el que más fichas tiene no es el que tenía la mejor idea, es el que mejor la contó. Eso es literalmente la asignatura.">
+  <div class="kicker">16.30 – 16.40 · the count</div>
+  <h2>Where the room put its money.</h2>
+  <div class="hist" id="finalbars"></div>
+  <p class="lead">Nobody was graded. <b>You were funded, or you were not.</b> And the team with the most tokens is not the team with the best idea — it is the team that made you believe it fastest.</p>
+</section>
+
+<section data-part="8" class="slide" data-s="8" data-b="Debrief" data-notes="VEINTE MINUTOS Y ES LA CLASE ENTERA. Aquí es donde el fin de semana se convierte en algo que se llevan. · Empieza por los datos: lee en voz alta lo que la gente escribió en «qué te movió». Van a ser cosas como «entendí quién paga», «me lo creí», «me acuerdo del ejemplo». · Y ahora el giro: ninguna de esas razones es sobre el producto. Todas son sobre cómo lo contaron. · Pregunta abierta a la sala: ¿alguien cambió de opinión durante las preguntas? Esa mano levantada vale más que cualquier cosa que digas tú.">
+  <div class="kicker">16.40 – 17.00 · what actually made people invest</div>
+  <h2>Read your own reasons. Almost none of them are about the product.</h2>
+  <div class="quotes" id="whyquotes"></div>
+  <div class="panel rule">
+    <p class="body" style="max-width:82ch">"I understood who pays." "I remembered the example." "I believed her." Those are not judgements about a business. <b>They are judgements about a presentation</b>, and you made nine of them this afternoon without being taught how.</p>
+  </div>
+</section>
+
+<section data-part="8" class="slide" data-s="8" data-b="Los cinco" data-notes="CINCO MINUTOS Y VA CON PASOS: uno por tip, y en cada uno señala un grupo concreto de esta tarde que lo hizo. Prepara los cinco ejemplos durante el break, apuntados en un papel. Sin ejemplos reales esta slide es una lista y no vale nada. · El remate es la última línea: no aprendieron cinco técnicas, hicieron una sala entera con ellas.">
+  <div class="kicker">The five tips, this afternoon</div>
+  <h2>You did not watch these work. You used them.</h2>
+  <ol class="big">
+    <li data-step="1"><b>Start with why they should care.</b> Every pitch that opened with the person, not the product, got a vote</li>
+    <li data-step="2"><b>One idea.</b> The teams you remember are the teams you can describe in one sentence</li>
+    <li data-step="3"><b>Contrast.</b> Before and after. No number travelled alone this afternoon</li>
+    <li data-step="4"><b>Structure before slides.</b> You built for two hours before you opened PowerPoint, and it took twenty minutes</li>
+    <li data-step="5"><b>Delivery.</b> The content froze at ten past one. Everything that improved after that was you</li>
+  </ol>
+  <p class="lead" data-step="6">Five techniques is not what happened here. <b>You persuaded a room of people who had no reason to say yes</b>, and you did it in three minutes.</p>
+</section>
+
+<section data-timer="900" data-part="8" class="slide" data-s="8" data-b="Reflexión" data-notes="QUINCE MINUTOS: primero cinco en grupo, hablando, y luego el formulario individual. En ese orden, porque solos no se acuerdan de nada. · La pregunta del grupo, en voz alta: ¿en qué momento exacto de hoy cambió nuestro pitch? · La segunda pregunta del formulario es la incómoda y es la que importa. Diles que no hay nota y que la leo yo sola. · Que no se vayan sin enviarlo: es la última captura del fin de semana.">
+  <div class="kicker do">17.00 – 17.15 · five minutes talking, then ten alone</div>
+  <h2>First with your group, out loud: at what exact moment did our pitch change today?</h2>
+  <div class="qrwrap">
+    <div class="qwrap2"><div class="qrbox" data-qr="q18">Scan</div><span class="qnum">Form 18</span></div>
+    <div class="stack">
+      <p class="body">Then on your own: which skill improved your pitch, what weakened your credibility, and what you would change if you pitched again tomorrow.</p>
+      <p class="tiny">Individual, not per group. No grade attached, and I am the only person who reads it.</p>
+    </div>
+  </div>
+</section>
+
+<section data-part="8" class="slide" data-s="8" data-b="Cierre" data-notes="QUINCE MINUTOS Y SE ACABA. Bájate del estrado. · El puente con el resto del máster es lo único que tienes que decir bien: la próxima vez que hablen no habrá cronómetro ni fichas, pero habrá exactamente la misma pregunta en la cabeza de quien escucha, «¿por qué debería importarme esto?». · Y la frase con la que quieres que salgan: la habilidad no era hablar bien, era decidir qué merece los tres minutos de otra persona. · Correo y gracias. No alargues.">
+  <div class="kicker">17.15 – 17.30</div>
+  <h1>Next time there will be no timer and no tokens. The question in the room will be identical.</h1>
+  <p class="lead">"Why should I care about this?" Somebody is asking it in every meeting you will ever be in, and almost nobody answers it in the first fifteen seconds.</p>
+  <div class="cols2" style="align-items:start">
+    <div class="panel info">
+      <h3>What you actually learned</h3>
+      <p class="body" style="max-width:48ch">Not how to speak well. <b>How to decide what deserves three minutes of somebody else's attention</b> — and then how to give them a reason to stay for the second one.</p>
+    </div>
+    <div class="stack">
+      <div class="quotes" id="reflect"></div>
+    </div>
+  </div>
+</section>
+
+<section data-part="8" class="slide divider" data-s="8" data-b="Gracias" data-notes="Quince segundos. Nombre, correo, gracias, y se van. No añadas nada.">
+  <div class="kicker">Behavioural Skills Seminar 20941 · Persuasive Presentations</div>
+  <h1>Thank you.</h1>
+  <p class="lead">Helena Montoya · helena.montoya@unibocconi.it</p>
+  <p class="body">TA: Manu Sharma · manu.sharma@unibocconi.it<br>Course director: Prof. Silvia Bagdadli</p>
+</section>
+
+</div>
+
+<div id="chrome">
+  <button id="btn-fin" aria-pressed="true">FIN · cl.44</button>
+  <button id="btn-afm" aria-pressed="false">AFM · cl.41</button>
+  <button id="btn-notes" aria-pressed="false">Notas · N</button>
+  <button id="btn-data" aria-pressed="false">Votos · D</button>
+  <span class="sp"></span>
+  <span id="live" style="display:none">●</span>
+  <span id="counter"></span>
+  <span id="clock"></span>
+</div>
+
+<div id="datapanel">
+  <div class="r">Pega los resultados del formulario: una empresa y su número por línea. Coma, tab o espacios. <button id="apply">Aplicar</button> <button id="clearheat" style="background:var(--rule);color:var(--ink)">Limpiar</button></div>
+  <div class="r">Rango más votado por la clase: <input id="avg" type="text" placeholder="p. ej. 3–6 months" style="font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--rule);padding:5px 8px;width:170px"> <span style="opacity:.7">aparece en las dos slides de TIP 3a (27 y 28)</span></div>
+  <textarea id="votes" spellcheck="false" placeholder="Goldman Sachs, 24&#10;McKinsey &amp; Company 19&#10;Citadel 11&#10;BlackRock 8"></textarea>
+  <div class="r">Cosecha de TIP 2: pega <b>todas</b> las respuestas del export (nombres · idea · conflicto, separadas por tabulador). Elige las dos más distintas solo. <button id="applypicks">Elegir</button> <button id="nextpair" style="background:var(--rule);color:var(--ink)">Otra pareja</button> <span id="pairinfo" style="opacity:.7"></span></div>
+  <textarea id="picksrc" spellcheck="false" placeholder="Marco, Anna, Luca&#9;Risk nobody decided to take is the most dangerous kind&#9;The committee reviews purchases and never what grows on its own&#10;Sofia, Ahmed, Chiara&#9;A win you cannot explain is a win you cannot repeat&#10;..."></textarea>
+</div>
+
+<div id="notes"><h4>Nota para ti</h4><div id="notes-body"></div></div>
+
+<script>
+  var TEACH = /[?&]teach\b/.test(location.search);
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var segs = Array.prototype.slice.call(document.querySelectorAll('#bar .seg.sesion'));
+  var i = 0;
+
+  var lastLive = null;
+  function render() {
+    slides.forEach(function (s, n) { s.classList.toggle('live', n === i); });
+    var cur = slides[i];
+    if (lastLive && lastLive !== cur && typeof unmountMedia === 'function') unmountMedia(lastLive);
+    if (typeof stopChart === 'function') stopChart();
+    if (typeof mountMedia === 'function') mountMedia(cur);
+    lastLive = cur;
+    var s = cur.getAttribute('data-s');
+    segs.forEach(function (g) { g.classList.toggle('on', g.getAttribute('data-s') === s); });
+    var nl = document.getElementById('nowlbl');
+    if (nl) nl.textContent = cur.getAttribute('data-b') || '';
+    var part = cur.getAttribute('data-part') || '1';
+    document.body.setAttribute('data-part', part);
+    var PARTS = { '4': 'Invent the offer', '5': 'Build the pitch',
+                  '6': 'Content frozen', '7': 'The pitches', '8': 'Funding and close' };
+    document.getElementById('strip').innerHTML =
+      'Part ' + part + '<span class="dot">/</span><b>' + PARTS[part] + '</b>' +
+      (TEACH ? '<span class="dot">/</span>' + (cur.getAttribute('data-b') || '') : '');
+    document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
+    var nbody = document.getElementById('notes-body');
+    if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
+    if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+    if (typeof treset === 'function') treset();
+    if (typeof paintSteps === 'function') paintSteps();
+    if (typeof syncLive === 'function') syncLive();
+    if (typeof fitSlide === 'function') fitSlide();
+  }
+  var step = 0;
+  function maxStep(sl) {
+    var els = sl ? sl.querySelectorAll('[data-step]') : [];
+    var m = 0;
+    Array.prototype.forEach.call(els, function (el) {
+      m = Math.max(m, parseInt(el.getAttribute('data-step'), 10) || 0);
+    });
+    return m;
+  }
+  function paintSteps() {
+    var sl = slides[i]; if (!sl) return;
+    Array.prototype.forEach.call(sl.querySelectorAll('[data-step]'), function (el) {
+      el.classList.toggle('shown', (parseInt(el.getAttribute('data-step'), 10) || 0) <= step);
+    });
+  }
+  function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); step = 0; render(); }
+  /* avanza dentro de la slide si le quedan pasos, y solo entonces cambia de slide */
+  function adv(dir) {
+    var sl = slides[i], m = maxStep(sl);
+    if (dir > 0) {
+      if (step < m) { step++; paintSteps(); return; }
+      if (i < slides.length - 1) { i++; step = 0; render(); }
+      return;
+    }
+    if (step > 0) { step--; paintSteps(); return; }
+    if (i > 0) { i--; step = maxStep(slides[i]); render(); }
+  }
+
+  /* ajusta la slide viva para que nunca se corte, sea cual sea el proyector */
+  function fitSlide() {
+    var s = slides[i];
+    if (!s) return;
+    s.style.zoom = '';
+    for (var pass = 0; pass < 3; pass++) {
+      var over = s.scrollHeight - s.clientHeight;
+      if (over <= 2) break;
+      var z = parseFloat(s.style.zoom || 1);
+      s.style.zoom = String(Math.max(0.55, z * (s.clientHeight / s.scrollHeight) * 0.985));
+    }
+  }
+  window.addEventListener('resize', function () { fitSlide(); });
+  window.addEventListener('hashchange', function () {
+    var n = parseInt((location.hash || '').slice(1), 10);
+    if (!isNaN(n) && n - 1 !== i) go(n - 1);
+  });
+
+  var TEAM = 1;
+  function setTeam(n) {
+    TEAM = Math.max(1, Math.min(9, n));
+    ['teamno', 'teamno2'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = String(TEAM);
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+    /* con el foco en un reproductor, el espacio es play/pausa y no debe
+       avanzar también. Las flechas sí siguen navegando. */
+    if (e.key === ' ' && e.target && e.target.closest && e.target.closest('.media, video, audio, iframe')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); adv(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); adv(-1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(slides.length - 1); }
+    else if (TEACH && (e.key === 'n' || e.key === 'N')) { document.getElementById('btn-notes').click(); }
+    else if (TEACH && (e.key === 'd' || e.key === 'D')) { document.getElementById('btn-data').click(); }
+    else if (e.key === 't') { e.preventDefault(); if (typeof ttoggle === 'function') ttoggle(); }
+    else if (e.key === 'T') { e.preventDefault(); if (typeof treset === 'function') treset(); }
+    /* Contador de equipo del ciclo de pitches. Manual a propósito: la sala
+       vuelve atrás tres slides para el siguiente grupo, y un auto-incremento
+       al entrar en la slide contaría también los pasos hacia atrás. */
+    else if (e.key === ']') { e.preventDefault(); setTeam(TEAM + 1); }
+    else if (e.key === '[') { e.preventDefault(); setTeam(TEAM - 1); }
+    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); if (typeof renderT3 === 'function') renderT3(); if (typeof reChart === 'function') reChart(); }
+  });
+  /* Un clic en el escenario avanza, PERO no si cae dentro de algo con lo
+     que se interactúa. Sin esto, darle al play a un vídeo salta de slide,
+     que es exactamente lo que no quieres delante de la clase. */
+  var NOADV = '.media, video, audio, iframe, button, a, input, textarea, select, label, .qrbox, #picks, .timer';
+  document.getElementById('stage').addEventListener('click', function (e) {
+    if (e.target && e.target.closest && e.target.closest(NOADV)) return;
+    adv(e.clientX < window.innerWidth * 0.25 ? -1 : 1);
+  });
+
+  function setClass(c) {
+    document.body.setAttribute('data-class', c);
+    /* El QR ya no cambia con la clase: todos apuntan al hub, y es el hub el que
+       ofrece el formulario 1 en versión FIN y en versión AFM. No hay que
+       repintar nada al cambiar de clase. */
+    if (typeof syncLive === 'function') syncLive();
+    document.getElementById('btn-fin').setAttribute('aria-pressed', String(c === 'fin'));
+    document.getElementById('btn-afm').setAttribute('aria-pressed', String(c === 'afm'));
+  }
+  document.getElementById('btn-fin').onclick = function () { setClass('fin'); drawHeat(); };
+  document.getElementById('btn-afm').onclick = function () { setClass('afm'); drawHeat(); };
+
+  var nb = document.getElementById('btn-notes');
+  if (nb) nb.onclick = function () {
+    var open = document.getElementById('notes').classList.toggle('open');
+    nb.setAttribute('aria-pressed', String(open));
+  };
+
+  function tick() {
+    var d = new Date();
+    document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  setInterval(tick, 10000); tick();
+
+  /* ---------- heatmap ---------- */
+  var RECRUITERS = {
+    fin: ['Goldman Sachs','J.P. Morgan','Morgan Stanley','BlackRock','Bank of America Merrill Lynch',
+          'Barclays','Citigroup','Deutsche Bank','UBS','HSBC Group','BNP Paribas','Credit Agricole Group',
+          'Lazard','Rothschild','Mediobanca','Royal Bank of Canada','London Stock Exchange Group',
+          'Intesa Sanpaolo','UniCredit','McKinsey & Company','The Boston Consulting Group',
+          'Deloitte','EY','KPMG','PwC'],
+    afm: ['European Central Bank','Amazon',"L'Oréal",'Luxottica','Pirelli','General Electric',
+          'Accenture','Accuracy','Banco Santander','Bank of America Merrill Lynch','BNP Paribas','BPCE',
+          'HSBC Group','Societe Generale','Marsh & McLennan','Intesa Sanpaolo','UniCredit','UBI Banca',
+          'Mediobanca','UBS','McKinsey & Company','The Boston Consulting Group',
+          'Deloitte','EY','KPMG','PwC','Partners Consulenti e Professionisti Associati']
+  };
+  var votes = {};
+
+  function norm(x) { return String(x).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]/g,''); }
+  function match(name) {
+    var n = norm(name);
+    for (var k in votes) {
+      var v = norm(k);
+      if (v === n) return votes[k];
+      if (v.length > 4 && n.length > 4 && (v.indexOf(n) === 0 || n.indexOf(v) === 0)) return votes[k];
+    }
+    return 0;
+  }
+
+  function drawHeat() {
+    var cls = document.body.getAttribute('data-class');
+    var list = RECRUITERS[cls] || [];
+    var vals = list.map(match);
+    var max = Math.max.apply(null, vals.concat([0]));
+    var real = document.getElementById('heat-real');
+    real.innerHTML = list.map(function (name, k) {
+      var v = vals[k], lvl = 0;
+      if (max > 0 && v > 0) lvl = Math.min(4, Math.ceil(v / max * 4));
+      return '<div class="c h' + lvl + '"><span>' + name + '</span><b>' + v + '</b></div>';
+    }).join('');
+
+    var used = {};
+    list.forEach(function (name) {
+      var n = norm(name);
+      for (var k in votes) { var v = norm(k);
+        if (v === n || (v.length > 4 && n.length > 4 && (v.indexOf(n) === 0 || n.indexOf(v) === 0))) used[k] = 1; }
+    });
+    var gap = Object.keys(votes).filter(function (k) { return !used[k] && votes[k] > 0; })
+                    .sort(function (a, b) { return votes[b] - votes[a]; });
+    document.getElementById('gapwrap').style.display = gap.length ? 'flex' : 'none';
+    document.getElementById('heat-gap').innerHTML = gap.map(function (k) {
+      return '<div class="c"><span>' + k + '</span><b>' + votes[k] + '</b></div>';
+    }).join('');
+  }
+
+  var bApply = document.getElementById('apply'); if (bApply) bApply.onclick = function () {
+    votes = {};
+    document.getElementById('votes').value.split(/\n/).forEach(function (line) {
+      var m = line.match(/^\s*(.+?)[\s,;:\t]+(\d+)\s*$/);
+      if (m) votes[m[1].trim()] = parseInt(m[2], 10);
+    });
+    drawHeat();
+  };
+  var bClr = document.getElementById('clearheat');
+  if (bClr) bClr.onclick = function () {
+    votes = {}; var t = document.getElementById('votes'); if (t) t.value = ''; drawHeat();
+  };
+  var db = document.getElementById('btn-data');
+  if (db) db.onclick = function () {
+    var open = document.getElementById('datapanel').classList.toggle('open');
+    db.setAttribute('aria-pressed', String(open));
+  };
+
+  var STOP = ('the a an and or but of to in on for with that this it is was were be been as at by from '
+            + 'we they he she i you his her their our its not no nor so if then than there here which who whom '
+            + 'what when where why how all any both each few more most other some such only own same too very '
+            + 'can will just should now do does did have has had would could').split(' ');
+  var pairs = [], pairIdx = 0, entries = [];
+
+  function toks(t) {
+    return String(t).toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+      .filter(function (w) { return w.length > 2 && STOP.indexOf(w) < 0; });
+  }
+  function distance(a, b) {
+    var A = {}, n = 0, inter = 0;
+    toks(a).forEach(function (w) { if (!A[w]) { A[w] = 1; n++; } });
+    var B = {}, m = 0;
+    toks(b).forEach(function (w) { if (!B[w]) { B[w] = 1; m++; } });
+    for (var w in A) if (B[w]) inter++;
+    var uni = n + m - inter;
+    return uni === 0 ? 0 : 1 - inter / uni;
+  }
+  function card(e, k) {
+    if (!e) return '<div class="pick empty">—</div>';
+    return '<div class="pick">' +
+           (e.who ? '<div class="who">' + e.who + '</div>' : '') +
+           '<div class="idea">' + e.idea + '</div>' +
+           (e.conf ? '<div class="conf"><b>The decision:</b> ' + e.conf + '</div>' : '') +
+           '</div>';
+  }
+  function paint() {
+    var box = document.getElementById('picks');
+    if (!pairs.length) {
+      box.innerHTML = '<div class="pick empty">—</div><div class="pick empty">—</div>';
+      var pi0 = document.getElementById('pairinfo'); if (pi0) pi0.textContent = '';
+      return;
+    }
+    var pr = pairs[pairIdx % pairs.length];
+    box.innerHTML = card(entries[pr[0]]) + card(entries[pr[1]]);
+    var pi = document.getElementById('pairinfo');
+    if (pi) pi.textContent = 'pareja ' + ((pairIdx % pairs.length) + 1) + ' de ' + pairs.length + ' · ' + entries.length + ' respuestas';
+  }
+  function drawPicks() {
+    var src = document.getElementById('picksrc');
+    var raw = src ? (src.value || '').trim() : '';
+    entries = []; pairs = []; pairIdx = 0;
+    if (raw) {
+      var rows = raw.indexOf('\t') > -1
+        ? raw.split(/\n/).filter(function (l) { return l.trim(); }).map(function (l) { return l.split('\t'); })
+        : raw.split(/\n\s*\n/).map(function (b) { return b.split(/\n/); });
+      rows.forEach(function (c) {
+        c = c.map(function (x) { return (x || '').trim(); }).filter(Boolean);
+        if (!c.length) return;
+        var who = c.length > 2 ? c.shift() : '';
+        entries.push({ who: who, idea: c.shift() || '', conf: c.join(' ') });
+      });
+      for (var a = 0; a < entries.length; a++)
+        for (var b = a + 1; b < entries.length; b++)
+          pairs.push([a, b, distance(entries[a].idea + ' ' + entries[a].conf,
+                                     entries[b].idea + ' ' + entries[b].conf)]);
+      pairs.sort(function (x, y) { return y[2] - x[2]; });
+    }
+    paint();
+  }
+  var bAp = document.getElementById('applypicks'); if (bAp) bAp.onclick = drawPicks;
+  var bNp = document.getElementById('nextpair'); if (bNp) bNp.onclick = function () { if (pairs.length) { pairIdx++; paint(); } };
+
+  var avgIn = document.getElementById('avg');
+  function drawAvg() {
+    var v = avgIn ? (avgIn.value || '').trim() : '';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-avg]'), function (el) {
+      el.textContent = v === '' ? '—' : v;
+    });
+  }
+  if (avgIn) avgIn.addEventListener('input', drawAvg);
+
+
+  /* ============================================================
+     DATOS EN VIVO
+     Pega la URL del Web App de Apps Script, la que acaba en /exec.
+     La misma que en f/form.js. Vacío = las slides quedan en modo manual.
+     ============================================================ */
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3naMoFKoXxsPnSCK_W5zbtz2nIDAETfoTR7NQfnaM-vaNQ/exec';
+  var POLL_MS = 8000;
+
+  var liveCache = {};
+  function setLive(state) {
+    var el = document.getElementById('live');
+    if (!el) return;
+    el.style.display = state ? 'inline' : 'none';
+    el.className = state === 'err' ? 'err' : (state === 'on' ? 'on' : '');
+    el.textContent = state === 'err' ? '● sin datos' : '● en vivo';
+  }
+  function pull(slot) {
+    if (!ENDPOINT) return Promise.resolve(null);
+    var url = ENDPOINT + (ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 'slot=' + slot + '&t=' + Date.now();
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        if (!d || !d.rows) throw 0;
+        liveCache[slot] = d.rows; setLive('on'); return d.rows;
+      })
+      .catch(function () {
+        setLive('err');
+        if (!liveCache[slot]) markUnreachable();
+        return liveCache[slot] || null;
+      });
+  }
+
+  /* si no se puede leer, decirlo en la caja en vez de dejarla en blanco */
+  function markUnreachable() {
+    var cur = slides[i];
+    if (!cur) return;
+    var boxes = cur.querySelectorAll('.qrbox:not([data-qr]), #picks');
+    Array.prototype.forEach.call(boxes, function (b) {
+      if (b.getAttribute('data-unreach')) return;
+      b.setAttribute('data-unreach', '1');
+      b.innerHTML = '<span style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;'
+        + 'line-height:1.6;color:var(--ink-faint);text-align:center">No live data here.<br>'
+        + 'This view cannot reach the responses.<br>Open the deployed deck instead.</span>';
+    });
+  }
+
+  /* ===== utilidades de render ===== */
+  function colOf(rows, name) {
+    var h = rows[0] || [];
+    for (var k = 0; k < h.length; k++) if (String(h[k]).toLowerCase() === name) return k;
+    return -1;
+  }
+  function colVals(rows, name) {
+    var c = colOf(rows, name);
+    if (c < 0) return [];
+    return rows.slice(1).map(function (r) { return String(r[c] || '').trim(); }).filter(Boolean);
+  }
+  function meanOf(rows, name) {
+    var v = colVals(rows, name).map(function (x) { return parseFloat(String(x).replace(',', '.')); })
+             .filter(function (n) { return !isNaN(n); });
+    return v.length ? (v.reduce(function (a, b) { return a + b; }, 0) / v.length) : null;
+  }
+  function pickN(arr, n) {
+    var a = arr.slice(), out = [];
+    while (a.length && out.length < n) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+    return out;
+  }
+  function plain(box) { if (box) { box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent'; box.style.minHeight = '0'; } }
+  function renderCloud(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (w) {
+      w = w.toLowerCase().replace(/[^a-z\u00e0-\u00ff0-9 -]/gi, '').trim();
+      if (w.length > 1) tally[w] = (tally[w] || 0) + 1;
+    });
+    var ks = Object.keys(tally); if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort(function (a, b) { return tally[b] - tally[a]; });
+    plain(box); box.className = 'cloud';
+    box.innerHTML = ks.slice(0, 40).map(function (k) {
+      return '<span style="font-size:' + (15 + Math.round((tally[k] / max) * 40)) + 'px">'
+        + (tally[k] >= max * 0.6 ? '<b>' + k + '</b>' : k) + '</span>';
+    }).join('');
+  }
+  function renderQuotes(id, rows, col, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var v = colVals(rows, col); if (!v.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(v, n).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+  }
+  function renderPairs(id, rows, a, bcol, n) {
+    var box = document.getElementById(id); if (!box) return;
+    var ca = colOf(rows, a), cb = colOf(rows, bcol); if (ca < 0) return;
+    var items = rows.slice(1).map(function (r) {
+      return { a: String(r[ca] || '').trim(), b: cb >= 0 ? String(r[cb] || '').trim() : '' };
+    }).filter(function (x) { return x.a; });
+    if (!items.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(items, n).map(function (x) {
+      return '<q><b>' + x.a + '</b>' + (x.b ? ' <span style="font-size:.7em;color:var(--ink-soft)">vs ' + x.b + '</span>' : '') + '</q>';
+    }).join('');
+  }
+  function renderAB(id, rows, col) {
+    var box = document.getElementById(id); if (!box) return;
+    var tally = {};
+    colVals(rows, col).forEach(function (v) { tally[v] = (tally[v] || 0) + 1; });
+    var ks = Object.keys(tally); if (!ks.length) return;
+    var max = Math.max.apply(null, ks.map(function (k) { return tally[k]; }));
+    ks.sort();
+    box.innerHTML = ks.map(function (k) {
+      return '<div class="' + (tally[k] === max ? 'win' : '') + '"><div class="n">' + tally[k]
+           + '</div><div class="l">' + k + '</div></div>';
+    }).join('');
+  }
+  function renderMeans(id, rows, specs) {
+    var box = document.getElementById(id); if (!box) return;
+    var cells = [];
+    specs.forEach(function (sp) {
+      var m = meanOf(rows, sp[0]);
+      if (m !== null) cells.push('<div class="fig"><div class="n"' + (sp[2] ? ' style="color:var(--ink-faint)"' : '')
+        + '>' + m.toFixed(1) + '</div><div class="l">' + sp[1] + '</div></div>');
+    });
+    if (!cells.length) return;
+    plain(box); box.className = 'figs';
+    box.innerHTML = cells.join('');
+  }
+
+  function liveWords(rows)    { renderCloud('cloud', rows, 'word'); }
+  /* Las frases del párrafo. A diferencia de la cosecha de TIP 2, estas SÍ
+     rotan solas mientras estés en la slide: son cortas, hay muchas, y lo
+     que se quiere es que la sala vea la variedad, no leer tres despacio.
+     Cambian cada diez segundos con un fundido, y solo si hay más de tres
+     para enseñar. R fuerza el cambio. Al salir de la slide se para. */
+  var chartItems = [], chartTimer = null;
+  function paintChart() {
+    var box = document.querySelector('.slide.live #chartpairs');
+    if (!box || !chartItems.length) return;
+    plain(box); box.className = 'quotes';
+    box.style.transition = 'opacity .35s ease';
+    box.style.opacity = '0';
+    setTimeout(function () {
+      var b = document.querySelector('.slide.live #chartpairs');
+      if (!b) return;
+      b.innerHTML = pickN(chartItems, 3).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+      b.style.opacity = '1';
+    }, 350);
+  }
+  function stopChart() { if (chartTimer) { clearInterval(chartTimer); chartTimer = null; } }
+  function liveChart(rows) {
+    if (!document.querySelector('.slide.live #chartpairs')) return;
+    var cs = colOf(rows, 'sentence'), st = colOf(rows, 'stance');
+    if (cs < 0) return;
+    var items = rows.slice(1).map(function (r) {
+      var t = String(r[cs] || '').trim();
+      if (!t) return null;
+      var tag = st >= 0 ? String(r[st] || '').trim() : '';
+      return (tag ? '<b style="font-family:var(--mono);font-size:.62em;letter-spacing:.1em;'
+             + 'text-transform:uppercase;color:var(--ochre)">' + tag + '</b> ' : '') + t;
+    }).filter(Boolean);
+    if (!items.length) return;
+    chartItems = items;
+    if (!chartTimer) {
+      paintChart();
+      if (items.length > 3) chartTimer = setInterval(paintChart, 10000);
+    }
+  }
+  function reChart() { paintChart(); }
+  function liveVersion(rows)  { renderAB('abvote', rows, 'version'); }
+  function liveSentence(rows) { renderQuotes('sentences', rows, 'sentence', 3); }
+  function liveDepth(rows)    { renderMeans('depthgap', rows,
+                                  [['depth_real','how deep they are now'], ['depth_want','how deep you want them']]); }
+  /* Las aperturas del formulario 11. Se pintan UNA vez y se quedan: si se
+     repintaran en cada sondeo, la terna cambiaría debajo de la sala
+     mientras la está leyendo. Solo cambia con R. */
+  var t3Vals = [], t3Painted = false;
+  function renderT3() {
+    var box = document.querySelector('.slide.live #t3picks');
+    if (!box || !t3Vals.length) return;
+    t3Painted = true;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(t3Vals, 3).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+  }
+  function liveT3(rows) {
+    var v = colVals(rows, 'opening');
+    if (!v.length) return;
+    t3Vals = v;
+    if (!t3Painted) renderT3();
+  }
+  function liveCommit(rows)   { renderQuotes('commits', rows, 'commit', 3); }
+  function liveNST(before, after) {
+    renderMeans('nstnumbers', before, [['awk_pred','awkward, predicted',1], ['ok_pred','comfortable, predicted',1]]);
+    var box = document.getElementById('nstnumbers');
+    if (box) {
+      var extra = [];
+      var r = meanOf(after, 'awk_real'), c = meanOf(after, 'ok_real');
+      if (r !== null) extra.push('<div class="fig"><div class="n">' + r.toFixed(1) + '</div><div class="l">awkward, actual</div></div>');
+      if (c !== null) extra.push('<div class="fig"><div class="n">' + c.toFixed(1) + '</div><div class="l">comfortable, actual</div></div>');
+      box.innerHTML += extra.join('');
+    }
+    renderQuotes('nstquotes', after, 'remember', 2);
+  }
+
+  /* --- companies: cuenta menciones en todas las celdas --- */
+  function liveCompanies(rows) {
+    if (!rows || rows.length < 2) return;
+    var SKIP = /week|month|year|\bday|^\d+$|@|^\d{1,2}\/\d{1,2}|^(yes|no|si|s\u00ed|a|b)$/i;
+    var tally = {};
+    rows.slice(1).forEach(function (r) {
+      r.forEach(function (cell) {
+        String(cell).split(/[|;,]/).forEach(function (x) {
+          x = x.trim();
+          if (x.length > 1 && !SKIP.test(x)) tally[x] = (tally[x] || 0) + 1;
+        });
+      });
+    });
+    votes = tally;
+    var ta = document.getElementById('votes');
+    if (ta) ta.value = Object.keys(tally).map(function (k) { return k + ', ' + tally[k]; }).join('\n');
+    drawHeat();
+  }
+
+  /* --- timing: rango más votado --- */
+  /* El histograma que la slide prometía y no dibujaba. Va en el orden real
+     de los rangos, no por frecuencia ni alfabético: la forma de la
+     dispersión solo se lee si el eje va de menos a más tiempo. */
+  var TIMING_ORDER = ['under 2 weeks', '2–4 weeks', '1–2 months', '2–3 months',
+                      '3–6 months', '6–12 months', 'over a year'];
+  function liveHist(rows) {
+    var box = document.getElementById('timehist');
+    if (!box || !rows || rows.length < 2) return;
+    var tally = {}, total = 0;
+    rows.slice(1).forEach(function (r) {
+      var v = String(r[r.length - 1] || '').trim();
+      if (!v) return;
+      tally[v] = (tally[v] || 0) + 1; total++;
+    });
+    if (!total) return;
+    var keys = TIMING_ORDER.filter(function (k) { return tally[k]; });
+    Object.keys(tally).forEach(function (k) { if (TIMING_ORDER.indexOf(k) < 0) keys.push(k); });
+    var max = Math.max.apply(null, keys.map(function (k) { return tally[k]; }));
+    plain(box); box.className = 'hist';
+    box.innerHTML = keys.map(function (k) {
+      var n = tally[k], w = Math.max(Math.round(n / max * 100), 4);
+      return '<div class="hrow' + (n === max ? ' win' : '') + '">'
+              + '<div class="hl">' + k + '</div>'
+              + '<div class="hb"><i style="width:' + w + '%"></i></div>'
+              + '<div class="hn">' + n + '</div></div>';
+    }).join('');
+  }
+
+  function liveTiming(rows) {
+    if (!rows || rows.length < 2) return;
+    var tally = {}, best = '', n = 0;
+    rows.slice(1).forEach(function (r) {
+      var v = (r[r.length - 1] || '').trim();
+      if (!v) return;
+      tally[v] = (tally[v] || 0) + 1;
+      if (tally[v] > n) { n = tally[v]; best = v; }
+    });
+    if (best && avgIn) { avgIn.value = best; drawAvg(); }
+  }
+
+  /* --- stories: dos al azar --- */
+  /* Se pintan UNA vez y se quedan quietas. El refresco de datos entra cada ocho
+     segundos, y si repintara en cada vuelta cambiaría la pareja debajo de quien
+     la está leyendo. La pareja solo cambia cuando tú pulsas R. */
+  var storyRows = [], storiesPainted = false;
+  function renderTwoStories() {
+    var box = document.getElementById('picks');
+    if (storyRows.length < 2) return;
+    storiesPainted = true;
+    var a = Math.floor(Math.random() * storyRows.length), b = a;
+    while (b === a) b = Math.floor(Math.random() * storyRows.length);
+    box.innerHTML = [a, b].map(function (i) {
+      var e = storyRows[i];
+      return '<div class="pick">' +
+             (e.who ? '<div class="who">' + e.who + '</div>' : '') +
+             '<div class="idea">' + e.idea + '</div>' +
+             (e.conf ? '<div class="conf"><b>The decision:</b> ' + e.conf + '</div>' : '') +
+             '</div>';
+    }).join('');
+    var pi2 = document.getElementById('pairinfo'); if (pi2) pi2.textContent = storyRows.length + ' respuestas · R para otra pareja · no cambia sola';
+  }
+  function liveStories(rows) {
+    if (!rows || rows.length < 2) return;
+    var body = rows.slice(1).filter(function (r) { return r.join('').trim(); });
+    storyRows = body.map(function (r) {
+      var c = r.map(function (x) { return (x || '').trim(); })
+               .filter(function (x) { return x && !/@/.test(x) && !/^\d{1,2}\/\d/.test(x); });
+      var who = c.length > 2 ? c.shift() : '';
+      return { who: who, idea: c.shift() || '', conf: c.join(' ') };
+    }).filter(function (e) { return e.idea; });
+    if (storyRows.length >= 2 && !storiesPainted) renderTwoStories();
+  }
+
+  /* --- asymmetry: cuatro medias --- */
+  function liveAsymmetry(rows) {
+    renderMeans('asymbox', rows, [
+      ['pause_self',  'the pause, from inside'],
+      ['pause_other', 'how confident they looked'],
+      ['eyes_self',   'eye contact, from inside'],
+      ['eyes_other',  'how confident they looked']
+    ]);
+  }
+  function liveAsymmetryOld(rows) {
+    if (!rows || rows.length < 2) return;
+    var head = rows[0], body = rows.slice(1), sums = [], cnts = [];
+    body.forEach(function (r) {
+      r.forEach(function (v, k) {
+        var n = parseFloat(String(v).replace(',', '.'));
+        if (!isNaN(n) && n >= 0 && n <= 10) { sums[k] = (sums[k] || 0) + n; cnts[k] = (cnts[k] || 0) + 1; }
+      });
+    });
+    var cells = [];
+    for (var k = 0; k < sums.length; k++)
+      if (cnts[k] >= 1) cells.push({ label: (head[k] || '').slice(0, 40), val: (sums[k] / cnts[k]).toFixed(1) });
+    var box = document.getElementById('asymbox');
+    if (box && cells.length) {
+      box.className = 'figs';
+      box.style.minHeight = '0';
+      box.innerHTML = cells.slice(0, 4).map(function (c) {
+        return '<div class="fig"><div class="n">' + c.val + '</div><div class="l">' + c.label + '</div></div>';
+      }).join('');
+    }
+  }
+
+  /* ============================================================
+     SÁBADO · lecturas en vivo
+     ============================================================ */
+
+  /* Los nueve briefs de anoche (form 13) y las nueve ofertas (form 14).
+     Se pintan como pares para que se vea el problema Y la persona. */
+  function liveBriefs(rows) { renderPairs('satbriefs', rows, 'problem_line', 'who', 3); }
+  function liveOffers(rows) { renderPairs('satoffers', rows, 'solution', 'buyer', 3); }
+
+  /* Recuento de fichas del form 17. Una fila por equipo, ordenada por votos.
+     `invest` llega como "Yes — I am spending a token" o "No", así que basta
+     con mirar si empieza por Yes. */
+  function voteTally(rows) {
+    var ct = colOf(rows, 'team'), ci = colOf(rows, 'invest');
+    if (ct < 0 || ci < 0) return null;
+    var yes = {}, tot = {};
+    for (var k = 1; k < rows.length; k++) {
+      var t = String(rows[k][ct] || '').trim();
+      if (!t) continue;
+      tot[t] = (tot[t] || 0) + 1;
+      if (/^y/i.test(String(rows[k][ci] || '').trim())) yes[t] = (yes[t] || 0) + 1;
+    }
+    var out = [];
+    for (var g = 1; g <= 9; g++) {
+      var key = String(g);
+      if (tot[key]) out.push({ team: key, yes: yes[key] || 0, n: tot[key] });
+    }
+    return out.length ? out : null;
+  }
+
+  function paintBars(id, rows, sorted) {
+    var box = document.getElementById(id); if (!box) return;
+    var data = voteTally(rows); if (!data) return;
+    var max = 0;
+    data.forEach(function (d) { if (d.yes > max) max = d.yes; });
+    if (!max) max = 1;
+    var list = sorted ? data.slice().sort(function (a, b) { return b.yes - a.yes; }) : data;
+    box.className = 'hist';
+    box.innerHTML = list.map(function (d, idx) {
+      var pct = Math.round(d.yes / max * 100);
+      var win = (sorted && idx === 0 && d.yes > 0) ? ' win' : '';
+      return '<div class="hrow' + win + '"><span class="hl">Team ' + d.team + '</span>'
+           + '<span class="hb"><i style="width:' + Math.max(pct, 2) + '%"></i></span>'
+           + '<span class="hn">' + d.yes + '</span></div>';
+    }).join('');
+  }
+
+  function liveVotes(rows)  { paintBars('votebars', rows, false); renderQuotes('votewhy', rows, 'why', 2); }
+  function liveFinal(rows)  { paintBars('finalbars', rows, true); }
+  function liveWhy(rows)    { renderQuotes('whyquotes', rows, 'why', 4); }
+  function liveReflect(rows){ renderQuotes('reflect', rows, 'again', 3); }
+
+  function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
+  var LIVEMAP = {
+    'Anoche':      { slot: 'q13', render: [liveBriefs] },
+    'Las ofertas': { slot: 'q14', render: [liveOffers] },
+    'Transición':  { slot: 'q17', render: [liveVotes] },
+    'Resultados':  { slot: 'q17', render: [liveFinal] },
+    'Debrief':     { slot: 'q17', render: [liveWhy] },
+    'Cierre':      { slot: 'q18', render: [liveReflect] }
+  };
+  var poller = null;
+  function syncLive() {
+    if (poller) { clearInterval(poller); poller = null; }
+    var job = LIVEMAP[slides[i].getAttribute('data-b')];
+    if (!job || !ENDPOINT) { setLive(false); return; }
+    var run = function () {
+      if (job.slots) {
+        Promise.all(job.slots.map(pull)).then(function (all) {
+          if (all[0] && job.render) job.render.forEach(function (fn) { try { fn(all[0]); } catch (e) {} });
+          if (all[0] && all[1] && job.render2) { try { job.render2(all[0], all[1]); } catch (e) {} }
+        });
+        return;
+      }
+      var slot = typeof job.slot === 'function' ? job.slot() : job.slot;
+      pull(slot).then(function (rows) {
+        if (!rows) return;
+        job.render.forEach(function (fn) { try { fn(rows); } catch (e) {} });
+      });
+    };
+    run();
+    poller = setInterval(run, POLL_MS);
+  }
+
+  /* ============================================================
+     ENLACES DE LOS FORMULARIOS
+     Los QR se dibujan solos a partir de estas URLs.
+     ============================================================ */
+  var QRBASE = 'https://helenamontoyacalero.com/presentations-class/f/';
+
+  /* UN SOLO DESTINO. Todos los QR del viernes, el grande de la slide 2 y los
+     pequeños de las slides de trabajo, codifican la MISMA URL: el hub.
+     Quien escanea siempre aterriza en el enlace del día y desde ahí elige el
+     formulario que toca. Nadie llega a una URL de formulario suelta, así que
+     nadie se queda con una pestaña muerta a media tarde.
+     El hub es quien tiene que llevar el formulario 1 en las dos versiones,
+     FIN y AFM, porque el QR ya no distingue de clase. */
+  var HUB = QRBASE;
+  var QRS = {
+    q1: HUB, q2: HUB, q3: HUB, q4: HUB, q5: HUB, q6: HUB,
+    q7: HUB, q8: HUB, q9: HUB, q10: HUB, q11: HUB, q12: HUB, q13: HUB,
+      q14: HUB, q15: HUB, q16: HUB, q17: HUB, q18: HUB,
+    hub: HUB
+  };
+/* QR encoder · byte mode · EC level M · versions 1-10 */
+var QR = (function () {
+  var EC = { // version: [ecPerBlock, [blocks, dataCw], [blocks, dataCw]]
+    1:[10,[1,16]], 2:[16,[1,28]], 3:[26,[1,44]], 4:[18,[2,32]], 5:[24,[2,43]],
+    6:[16,[4,27]], 7:[18,[4,31]], 8:[22,[2,38],[2,39]], 9:[22,[3,36],[2,37]], 10:[26,[4,43],[1,44]]
+  };
+  var ALIGN = {1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  var VINFO = {7:0x07C94, 8:0x085BC, 9:0x09A99, 10:0x0A4D3};
+
+  var EXP = new Array(512), LOG = new Array(256);
+  (function(){ var x=1; for (var i=0;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if(x&0x100) x^=0x11D; }
+                for (var i=255;i<512;i++) EXP[i]=EXP[i-255]; })();
+  function mul(a,b){ return (a===0||b===0)?0:EXP[LOG[a]+LOG[b]]; }
+
+  function rsGen(n){ var g=[1]; for(var i=0;i<n;i++){ var ng=new Array(g.length+1).fill(0);
+      for(var j=0;j<g.length;j++){ ng[j]^=g[j]; ng[j+1]^=mul(g[j],EXP[i]); } g=ng; } return g; }
+  function rsEnc(data,n){ var g=rsGen(n), res=new Array(n).fill(0);
+      for(var i=0;i<data.length;i++){ var f=data[i]^res[0]; res.shift(); res.push(0);
+        if(f!==0) for(var j=0;j<n;j++) res[j]^=mul(g[j+1],f); } return res; }
+
+  function dataCap(v){ var e=EC[v], t=0; for(var k=1;k<e.length;k++) t+=e[k][0]*e[k][1]; return t; }
+
+  function encode(text) {
+    var forceMask;
+    var bytes = [];
+    for (var i=0;i<text.length;i++){ var c=text.charCodeAt(i);
+      if(c<0x80) bytes.push(c);
+      else if(c<0x800){ bytes.push(0xC0|c>>6, 0x80|c&63); }
+      else { bytes.push(0xE0|c>>12, 0x80|(c>>6&63), 0x80|c&63); } }
+
+    var v=0; for (var ver=1; ver<=10; ver++){ var lenBits = ver<10?8:16;
+      if (4+lenBits+bytes.length*8 <= dataCap(ver)*8) { v=ver; break; } }
+    if(!v) throw new Error('too long for v10');
+
+    var bits=[]; function put(val,n){ for(var k=n-1;k>=0;k--) bits.push((val>>k)&1); }
+    put(4,4); put(bytes.length, v<10?8:16);
+    for (var i=0;i<bytes.length;i++) put(bytes[i],8);
+    var cap = dataCap(v)*8;
+    put(0, Math.min(4, cap-bits.length));
+    while (bits.length % 8) bits.push(0);
+    var dw=[]; for (var i=0;i<bits.length;i+=8){ var b=0; for(var j=0;j<8;j++) b=(b<<1)|bits[i+j]; dw.push(b); }
+    var pad=[0xEC,0x11], pi=0; while (dw.length < dataCap(v)) dw.push(pad[pi++%2]);
+
+    var e=EC[v], ecn=e[0], groups=[], p=0;
+    for (var k=1;k<e.length;k++) for (var b=0;b<e[k][0];b++){ groups.push(dw.slice(p,p+e[k][1])); p+=e[k][1]; }
+    var ecb = groups.map(function(g){ return rsEnc(g, ecn); });
+    var maxD = Math.max.apply(null, groups.map(function(g){return g.length;}));
+    var final=[];
+    for (var i=0;i<maxD;i++) groups.forEach(function(g){ if(i<g.length) final.push(g[i]); });
+    for (var i=0;i<ecn;i++) ecb.forEach(function(g){ final.push(g[i]); });
+
+    var n = v*4+17;
+    var m=[], fn=[]; for (var r=0;r<n;r++){ m.push(new Array(n).fill(0)); fn.push(new Array(n).fill(0)); }
+    function set(r,c,val){ m[r][c]=val?1:0; fn[r][c]=1; }
+
+    function finder(r,c){ for(var i=-1;i<=7;i++) for(var j=-1;j<=7;j++){
+      var rr=r+i, cc=c+j; if(rr<0||cc<0||rr>=n||cc>=n) continue;
+      var on = (i>=0&&i<=6&&(j===0||j===6)) || (j>=0&&j<=6&&(i===0||i===6)) || (i>=2&&i<=4&&j>=2&&j<=4);
+      set(rr,cc,on); } }
+    finder(0,0); finder(0,n-7); finder(n-7,0);
+
+    var ap=ALIGN[v];
+    for (var a=0;a<ap.length;a++) for (var b=0;b<ap.length;b++){
+      var r=ap[a], c=ap[b];
+      if ((r<=8&&c<=8)||(r<=8&&c>=n-9)||(r>=n-9&&c<=8)) continue;
+      for(var i=-2;i<=2;i++) for(var j=-2;j<=2;j++)
+        set(r+i,c+j, Math.max(Math.abs(i),Math.abs(j))!==1); }
+
+    for (var i=8;i<n-8;i++){ set(6,i,i%2===0); set(i,6,i%2===0); }
+    set(n-8,8,1);
+    for (var i=0;i<9;i++){ if(!fn[8][i]) set(8,i,0); if(!fn[i][8]) set(i,8,0); }
+    for (var i=0;i<8;i++){ if(!fn[8][n-1-i]) set(8,n-1-i,0); if(!fn[n-1-i][8]) set(n-1-i,8,0); }
+    if (v>=7){ var vi=VINFO[v];
+      for (var i=0;i<18;i++){ var bit=(vi>>i)&1;
+        set(Math.floor(i/3), n-11+i%3, bit); set(n-11+i%3, Math.floor(i/3), bit); } }
+
+    var seq=[]; for (var i=0;i<final.length;i++) for(var b=7;b>=0;b--) seq.push((final[i]>>b)&1);
+    var idx=0, up=true;
+    for (var col=n-1; col>0; col-=2){ if(col===6) col--;
+      for (var s=0;s<n;s++){ var row = up ? n-1-s : s;
+        for (var d=0;d<2;d++){ var c=col-d;
+          if (fn[row][c]) continue;
+          m[row][c] = idx<seq.length ? seq[idx++] : 0; } }
+      up=!up; }
+
+    function penalty(g){
+      var p=0, N=g.length;
+      for (var r=0;r<N;r++){ var run=1; for(var c=1;c<N;c++){ if(g[r][c]===g[r][c-1]) run++; else { if(run>=5)p+=3+run-5; run=1; } } if(run>=5)p+=3+run-5; }
+      for (var c=0;c<N;c++){ var run=1; for(var r=1;r<N;r++){ if(g[r][c]===g[r-1][c]) run++; else { if(run>=5)p+=3+run-5; run=1; } } if(run>=5)p+=3+run-5; }
+      for (var r=0;r<N-1;r++) for(var c=0;c<N-1;c++){ var s=g[r][c]+g[r][c+1]+g[r+1][c]+g[r+1][c+1]; if(s===0||s===4)p+=3; }
+      var pat=[1,0,1,1,1,0,1,0,0,0,0], pat2=[0,0,0,0,1,0,1,1,1,0,1];
+      function has(arr,st,pt){ for(var k=0;k<11;k++) if(arr[st+k]!==pt[k]) return false; return true; }
+      for (var r=0;r<N;r++){ for(var c=0;c+11<=N;c++){ if(has(g[r],c,pat)||has(g[r],c,pat2)) p+=40; } }
+      for (var c=0;c<N;c++){ var col=[]; for(var r=0;r<N;r++) col.push(g[r][c]);
+        for(var r2=0;r2+11<=N;r2++) if(has(col,r2,pat)||has(col,r2,pat2)) p+=40; }
+      var dark=0; for(var r=0;r<N;r++) for(var c=0;c<N;c++) dark+=g[r][c];
+      p += Math.floor(Math.abs(dark*100/(N*N)-50)/5)*10;
+      return p;
+    }
+    function maskFn(k,r,c){
+      switch(k){ case 0: return (r+c)%2===0; case 1: return r%2===0; case 2: return c%3===0;
+        case 3: return (r+c)%3===0; case 4: return (Math.floor(r/2)+Math.floor(c/3))%2===0;
+        case 5: return (r*c)%2+(r*c)%3===0; case 6: return ((r*c)%2+(r*c)%3)%2===0;
+        default: return ((r+c)%2+(r*c)%3)%2===0; } }
+    function fmt(mask){ var d=(0<<3)|mask, r=d<<10;
+      for (var i=4;i>=0;i--) if (r>>(10+i)&1) r^=0x537<<i;
+      return ((d<<10)|r)^0x5412; }
+
+    var best=null, bestP=Infinity, bestMask=0;
+    for (var k=0;k<8;k++){
+      if (forceMask !== undefined && forceMask !== null && k !== forceMask) continue;
+      var g=m.map(function(row){return row.slice();});
+      for (var r=0;r<n;r++) for(var c=0;c<n;c++) if(!fn[r][c] && maskFn(k,r,c)) g[r][c]^=1;
+      var f=fmt(k);
+      for (var j=0;j<15;j++){ var bit=(f>>(14-j))&1;
+        /* copia 1 */
+        if (j<6) g[8][j]=bit;
+        else if (j===6) g[8][7]=bit;
+        else if (j===7) g[8][8]=bit;
+        else if (j===8) g[7][8]=bit;
+        else g[14-j][8]=bit;
+        /* copia 2 */
+        if (j<7) g[n-1-j][8]=bit;
+        else g[8][n-15+j]=bit; }
+      g[n-8][8]=1;
+      var p=penalty(g);
+      if(p<bestP){ bestP=p; best=g; bestMask=k; }
+    }
+    return { size:n, version:v, mask:bestMask, modules:best };
+  }
+  return { encode: encode };
+})();
+
+  /* ============================================================
+     CRONÓMETRO DE EJERCICIO
+     Cada slide con data-timer lleva uno. El valor sale del texto que
+     ya se proyecta en el kicker, así que la cuenta y lo que leen los
+     alumnos no pueden discrepar.
+       t          arranca y pausa
+       T (mayús)  vuelve a poner el tiempo entero
+       clic       lo mismo que t
+     Se reinicia solo al cambiar de slide, así que cada ejercicio
+     empieza limpio. Al llegar a cero no se para: sigue contando
+     hacia arriba en rojo, con un más delante, para que se vea de un
+     vistazo cuánto te has pasado.
+     ============================================================ */
+  var tick = null, tLeft = 0, tDur = 0, tRun = false;
+
+  function tfmt(sec) {
+    var over = sec < 0, a = Math.abs(sec);
+    var m = Math.floor(a / 60), r = a % 60;
+    return (over ? '+' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+  function tbox() {
+    var sl = slides[i];
+    return sl ? sl.querySelector('.timer') : null;
+  }
+  function tpaint() {
+    var el = tbox(); if (!el) return;
+    el.querySelector('.tval').textContent = tfmt(tLeft);
+    var st = tLeft < 0 ? 'over' : (tRun ? 'run' : (tLeft === tDur ? 'idle' : 'pause'));
+    el.setAttribute('data-state', st);
+    /* en reposo la etiqueta dice qué hacer, en vez de repetir el número */
+    el.querySelector('.tlbl').textContent =
+      st === 'over' ? 'over' : (st === 'run' ? 'running' : (st === 'pause' ? 'paused · t' : 't to start'));
+  }
+  function tstop() { if (tick) { clearInterval(tick); tick = null; } tRun = false; }
+  function treset() {
+    tstop();
+    var sl = slides[i];
+    tDur = sl ? (parseInt(sl.getAttribute('data-timer'), 10) || 0) : 0;
+    tLeft = tDur;
+    tpaint();
+  }
+  function ttoggle() {
+    if (!tDur) return;
+    if (tRun) { tstop(); tpaint(); return; }
+    tRun = true;
+    tick = setInterval(function () { tLeft--; tpaint(); }, 1000);
+    tpaint();
+  }
+  /* se inyecta una vez, en cada slide que declare duración */
+  function tbuild() {
+    Array.prototype.forEach.call(document.querySelectorAll('.slide[data-timer]'), function (sl) {
+      if (sl.querySelector('.timer')) return;
+      var el = document.createElement('div');
+      el.className = 'timer';
+      el.setAttribute('data-state', 'idle');
+      el.setAttribute('role', 'timer');
+      el.setAttribute('title', 't arranca y pausa · T reinicia');
+      el.innerHTML = '<span class="tval"></span><span class="tlbl"></span>';
+      el.addEventListener('click', function (ev) { ev.stopPropagation(); ttoggle(); });
+      sl.appendChild(el);
+    });
+  }
+
+  /* ============================================================
+     VÍDEO Y AUDIO
+     Un solo componente. En cada .media se pone:
+       data-file  archivo local, dentro de media/. Es lo PREFERIDO:
+                  no depende de la red del aula, no lleva anuncios y
+                  no lo puede bloquear nadie.
+       data-yt    identificador de YouTube, como respaldo si el
+                  archivo no está.
+       data-label qué es, para el marcador si no hay ninguno de los dos.
+     Se monta al entrar en la slide y se desmonta al salir, así el
+     sonido se corta solo cuando avanzas.
+     ============================================================ */
+  function mountMedia(slide) {
+    if (!slide) return;
+    Array.prototype.forEach.call(slide.querySelectorAll('.media'), function (box) {
+      if (box.getAttribute('data-on') === '1') return;
+      box.setAttribute('data-on', '1');
+      var file = box.getAttribute('data-file');
+      var yt = box.getAttribute('data-yt');
+      var label = box.getAttribute('data-label') || 'Vídeo';
+
+      function ph(msg) {
+        box.innerHTML = '<div class="ph"><span class="tag">Pendiente</span>'
+          + '<span class="what">' + msg + '</span></div>';
+      }
+      function embed() {
+        if (box.getAttribute('data-on') !== '1') return;
+        if (!yt) { ph(label + '. Falta el archivo en media/ y no hay identificador de YouTube.'); return; }
+        box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt
+          + '?rel=0&modestbranding=1&playsinline=1" title="' + label
+          + '" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>';
+      }
+
+      function useFile() {
+        if (box.getAttribute('data-on') !== '1') return;
+        var isAudio = /\.(mp3|m4a|aac|wav|ogg)$/i.test(file);
+        var el = document.createElement(isAudio ? 'audio' : 'video');
+        el.setAttribute('controls', '');
+        el.setAttribute('preload', 'metadata');
+        el.setAttribute('playsinline', '');
+        el.addEventListener('error', embed);
+        el.src = file;
+        box.innerHTML = '';
+        box.appendChild(el);
+      }
+
+      if (file) {
+        /* Se comprueba el archivo con una peticion HEAD en vez de fiarse
+           del evento error del reproductor. Medido en Chrome contra el
+           sitio real: con un archivo que devuelve 404, el <video> se
+           queda en networkState 2, o sea "cargando", con error null, y
+           NO dispara error nunca. El respaldo no entraba y quedaba un
+           reproductor muerto en pantalla. */
+        if (location.protocol === 'file:') { useFile(); return; }
+        fetch(file, { method: 'HEAD' })
+          .then(function (r) { if (box.getAttribute('data-on') === '1') { r.ok ? useFile() : embed(); } })
+          .catch(function () { if (box.getAttribute('data-on') === '1') embed(); });
+        return;
+      }
+      embed();
+    });
+  }
+
+  function unmountMedia(slide) {
+    if (!slide) return;
+    Array.prototype.forEach.call(slide.querySelectorAll('.media'), function (box) {
+      var v = box.querySelector('video, audio');
+      if (v) { try { v.pause(); } catch (e) {} }
+      box.removeAttribute('data-on');
+      box.innerHTML = '';
+    });
+  }
+
+  function paintQRs() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-qr]'), function (box) {
+      /* Si el slot no está en el mapa, al hub igualmente. Antes se salía
+         sin pintar y la caja se quedaba con el texto «Scan», que en clase
+         parece un QR que no cargó. Como todos apuntan al mismo sitio, el
+         valor por defecto correcto es el hub. */
+      var url = QRS[box.getAttribute('data-qr')] || HUB;
+      if (box.getAttribute('data-done') === url) return;
+      try {
+        var r = QR.encode(url), n = r.size, quiet = 3, total = n + quiet * 2;
+        var cv = document.createElement('canvas');
+        var px = 8; cv.width = cv.height = total * px;
+        cv.style.width = '100%'; cv.style.height = 'auto'; cv.style.display = 'block';
+        cv.style.imageRendering = 'pixelated';
+        var g = cv.getContext('2d');
+        g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+        g.fillStyle = '#000';
+        for (var y = 0; y < n; y++) for (var x = 0; x < n; x++)
+          if (r.modules[y][x]) g.fillRect((x + quiet) * px, (y + quiet) * px, px, px);
+        box.innerHTML = '';
+        box.style.border = 'none'; box.style.padding = '0'; box.style.background = 'transparent';
+        box.appendChild(cv);
+        box.setAttribute('data-done', url);
+      } catch (e) {
+        box.innerHTML = '<span style="font-family:var(--mono);font-size:11px;line-height:1.4;'
+          + 'word-break:break-all;color:var(--ink)">' + url + '</span>';
+        box.setAttribute('data-done', url);
+      }
+    });
+  }
+
+  if (!TEACH) {
+    ['btn-notes', 'btn-data', 'counter', 'clock'].forEach(function (id) {
+      var el = document.getElementById(id); if (el) el.style.display = 'none';
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-notes]'), function (el) {
+      el.removeAttribute('data-notes');
+    });
+    var np = document.getElementById('notes'), dp = document.getElementById('datapanel');
+    if (np) np.remove();
+    if (dp) dp.remove();
+  }
+
+  function safe(name, fn) { try { fn(); } catch (e) { if (window.console) console.warn('init ' + name + ':', e.message); } }
+  safe('timer', tbuild);
+  safe('qr', paintQRs);
+  safe('class', function () { setClass('fin'); });
+  safe('heat', drawHeat);
+  safe('avg', drawAvg);
+  safe('picks', drawPicks);
+  var h = parseInt((location.hash || '').slice(1), 10);
+  go(isNaN(h) ? 0 : h - 1);
+</script>

@@ -13,7 +13,8 @@
 | `←` | atrás, paso a paso también |
 | `t` | **cronómetro**: arranca y pausa. Está en las quince slides de ejercicio, arriba a la derecha |
 | `T` | vuelve a poner el tiempo entero |
-| `r` | en la cosecha de TIP 2, otra pareja |
+| `r` | en la cosecha de TIP 2, otra pareja. En el sábado, baraja las citas en vivo |
+| `]` `[` | **solo el sábado**: siguiente / anterior equipo en el ciclo de pitches |
 | `n` `d` | notas y panel de datos |
 
 El cronómetro se reinicia solo al cambiar de slide, así que cada ejercicio
@@ -21,14 +22,29 @@ empieza limpio. Al llegar a cero no se para: sigue contando en rojo con un más
 delante, para que veas cuánto te has pasado. Un clic en él hace lo mismo que `t`
 y no avanza de slide.
 
+## Los dos decks
+
+| | |
+|---|---|
+| Viernes | `index.html?teach` · 77 slides · sesiones 1–3 |
+| Sábado | `saturday.html?teach` · 36 slides · sesiones 4–8 |
+
+Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay que
+recorrer el viernes entero para llegar.
+
+**El ciclo de pitches** (sesión 7) son cuatro slides que se repiten nueve veces:
+pitch 25 → voto 26 → preguntas 27 → transición 28. Desde la transición vuelves
+al pitch con `←` tres veces, y `]` pasa al equipo siguiente. El número grande
+que se proyecta es el contador, y va de 1 a 9.
+
 ## Falta rellenar
 
-- [ ] Los cinco títulos de artículo en la tabla grupo → artículo
-- [ ] El gráfico del ejercicio de TIP 3a (`CHART GOES HERE`)
-- [ ] Nombre y correo del TA — se dicen en voz alta, no se proyectan
+- [ ] **Nueve grupos por clase en Blackboard.** FIN 89 alumnos → 9 grupos de 10. AFM 79 → 9 grupos de 9. El sábado la aritmética depende de que sean nueve: 9 × 8 min = 72 de los 90 de la sesión 7
+- [ ] La carpeta compartida donde suben slides y landing page a las 14.25
+- [ ] Los cinco ejemplos reales para la slide «los cinco tips, esta tarde» (slide 33 del sábado) — se apuntan en el break de las 16.15, no antes
 - [ ] El audio de Reagan, descargado. Si no está, se corta el bloque y se lee el párrafo final en voz alta
 - [ ] El clip de Rosling abierto en otra pestaña
-- [ ] `ENDPOINT` en `f/form.js` y en `index.html`, si quieres datos en vivo
+- [ ] `ENDPOINT` en `f/form.js`, en `index.html` y en `saturday.html`, si quieres datos en vivo
 
 ## Al probar los formularios tú misma
 
@@ -42,12 +58,14 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Material físico
 
-- [ ] Una hoja A4 por trío para el sprint de ideas
-- [ ] El vaso con los papelitos de nombres, si el sábado usas sorteo en papel
+- [ ] Una hoja A4 por grupo para interrogar el problema el viernes
+- [ ] El vaso con los papelitos, para sortear el orden de los pitches delante de ellos a las 14.10
 
 ## Comprobar el jueves
 
-- [ ] Abrir las doce páginas de `f/` desde el móvil
+- [ ] Abrir las diecisiete páginas de `f/` desde el móvil
 - [ ] **Borrar las filas ZZTEST de la pestaña `q11`**, que son pruebas
+- [ ] **Borrar la pestaña `q13`** para que se regenere con las columnas nuevas del problem brief
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
-- [ ] Los grupos publicados en Blackboard
+- [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
+- [ ] Los grupos publicados en Blackboard, nueve por clase

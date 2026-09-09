@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Investment vote · 20941</title>
+<link rel="stylesheet" href="style.css">
+<!-- sin guarda de "ya respondiste": este formulario se envía una vez por cada equipo -->
+
+</head>
+<body><div class="wrap">
+<div class="eyebrow">Persuasive Presentations · 20941</div>
+<h1>Would you invest?</h1>
+<p>One vote per pitch, per person. <b>You have three tokens and there are nine companies</b>, so you cannot back everything. Spend them where you would actually put the money.</p>
+<form class="form" data-slot="q17" data-repeat>
+<fieldset><h2>Which team just pitched?</h2><div class="opts" data-group="team" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>Would you invest?</h2><div class="opts" data-group="invest" data-required><button class="opt">Yes — I am spending a token</button><button class="opt">No</button></div></fieldset><fieldset><h2>What most influenced your decision?</h2><textarea name="why" maxlength="160" data-count="c_w" placeholder="One line. The thing that actually moved you, not the thing you think should have" data-required></textarea><div class="count" id="c_w"></div></fieldset><fieldset><h2>What one change could have changed your vote?</h2><textarea name="change" maxlength="160" data-count="c_c" placeholder="If you said yes, what nearly made you say no" data-required></textarea><div class="count" id="c_c"></div></fieldset>
+<button class="send" type="submit">Send</button>
+<div class="err">Could not send. Check your connection and try again.</div>
+<div class="unwired-msg">
+  <strong>Nothing was saved.</strong>
+  <span>This form has no backend yet: <code>ENDPOINT</code> is empty in <code>f/form.js</code>. Set it up and the send will work — see <code>SETUP.md</code>.</span>
+</div>
+
+<p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
+</form>
+<div class="done"><div class="tick">✓</div><h2>Vote counted.</h2><p>Keep this tab open. You vote again after the next pitch.</p><a class="opt" href="q17.html" onclick="location.reload();return false;">Vote for the next team</a></div>
+<div class="already">
+  <div class="tick">✓</div>
+  <h2>You already answered this one.</h2>
+  <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
+  <a class="opt" href="./">Back to the list</a>
+</div>
+</div><script src="form.js"></script></body></html>

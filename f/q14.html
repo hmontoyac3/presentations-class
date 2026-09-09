@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your offer · 20941</title>
+<link rel="stylesheet" href="style.css">
+<script>
+/* guarda por dispositivo: si ya se envió, no se vuelve a mostrar el formulario */
+(function () {
+  try {
+    var m = location.pathname.match(/([^\/]+)\.html$/);
+    var slot = m ? m[1] : '';
+    if (/[?&]reset\b/.test(location.search)) {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('bsk_done_') === 0) localStorage.removeItem(k); });
+      return;
+    }
+    if (slot && localStorage.getItem('bsk_done_' + slot)) {
+      document.documentElement.className += ' answered';
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">Persuasive Presentations · 20941</div>
+<h1>Your offer, in one sentence</h1>
+<p>One per group. Deadline 10.00. If it does not fit in the sentence, you do not have it yet — and it is better to find that out now than at five in the afternoon.</p>
+<form class="form" data-slot="q14">
+<fieldset><h2>Your group number</h2><input type="text" name="group" maxlength="20" data-count="c_g" placeholder="e.g. 4" data-required><div class="count" id="c_g"></div></fieldset><fieldset><h2>For [specific user]</h2><textarea name="user" maxlength="160" data-count="c_u" placeholder="The same person you named last night, or a sharper version of them" data-required></textarea><div class="count" id="c_u"></div></fieldset><fieldset><h2>we provide [solution]</h2><textarea name="solution" maxlength="160" data-count="c_s" placeholder="The product or the service. One thing, that somebody can buy" data-required></textarea><div class="count" id="c_s"></div></fieldset><fieldset><h2>which changes [current situation] into [better situation]</h2><textarea name="change" maxlength="240" data-count="c_c" placeholder="Before, and after" data-required></textarea><div class="count" id="c_c"></div></fieldset><fieldset><h2>The buyer is</h2><textarea name="buyer" maxlength="160" data-count="c_b" placeholder="Who signs. Say so if it is not the user" data-required></textarea><div class="count" id="c_b"></div></fieldset><fieldset><h2>Why is yours different from what they do today?</h2><textarea name="different" maxlength="160" data-count="c_d" placeholder="One line. "Nothing exists yet" is not an answer — they are solving it somehow" data-required></textarea><div class="count" id="c_d"></div></fieldset>
+<button class="send" type="submit">Send</button>
+<div class="err">Could not send. Check your connection and try again.</div>
+<div class="unwired-msg">
+  <strong>Nothing was saved.</strong>
+  <span>This form has no backend yet: <code>ENDPOINT</code> is empty in <code>f/form.js</code>. Set it up and the send will work — see <code>SETUP.md</code>.</span>
+</div>
+
+<p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
+</form>
+<div class="done"><div class="tick">✓</div><h2>Got it.</h2><p>You can close this and put the phone down.</p></div>
+<div class="already">
+  <div class="tick">✓</div>
+  <h2>You already answered this one.</h2>
+  <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
+  <a class="opt" href="./">Back to the list</a>
+</div>
+</div><script src="form.js"></script></body></html>

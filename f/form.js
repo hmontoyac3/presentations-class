@@ -92,10 +92,14 @@ var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     }).then(function () {
-      try {
-        var m = location.pathname.match(/([^\/]+)\.html$/);
-        if (m) localStorage.setItem('bsk_done_' + m[1], String(Date.now()));
-      } catch (e) {}
+      /* data-repeat: formularios que la misma persona envía varias veces (el voto
+         de inversión son nueve). No se marca como hecho, si no se bloquearían. */
+      if (!form.hasAttribute('data-repeat')) {
+        try {
+          var m = location.pathname.match(/([^\/]+)\.html$/);
+          if (m) localStorage.setItem('bsk_done_' + m[1], String(Date.now()));
+        } catch (e) {}
+      }
       document.body.classList.add('sent');
     }).catch(function () {
       document.body.classList.add('failed');
