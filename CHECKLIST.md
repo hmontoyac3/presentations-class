@@ -54,7 +54,8 @@ de la pestaña `teams` de la hoja: ver `SETUP_TEAMS.md`.
 - [ ] **Pegar `teams_paste.tsv` en la pestaña `teams`** de la hoja. Sin eso el sorteo de nombres del sábado cae al plan B. Ver `SETUP_TEAMS.md`
 - [ ] **Vaciar la bandeja el viernes por la noche**: nueve correos, uno por equipo, con el problema elegido. Es lo único que te llevas del viernes
 - [ ] Los ejemplos reales para el **recap** (slide 37 del sábado) — se apuntan en el break de las 16.15, no antes
-- [ ] Los cuatro vídeos abiertos **una vez con el proyector**: `bombas`, `ikea`, `rosling`, `marriott`. Dentro del iframe el primer play lo tiene que dar una persona
+- [x] ~~Los cuatro vídeos descargados~~ — están en `media/`, en H.264 y con faststart. Se reproducen desde el disco, sin internet
+- [ ] Darles al play una vez con el proyector, para comprobar sonido y volumen
 - [ ] La lista de los nueve equipos, proyectable, para la slide 67 del viernes
 - [ ] `ENDPOINT` en `f/form.js`, en `index.html` y en `saturday.html`, si quieres datos en vivo
 

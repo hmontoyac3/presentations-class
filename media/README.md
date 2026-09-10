@@ -1,81 +1,50 @@
-# Archivos de vídeo y audio
+# Los cuatro vídeos
 
-Vacía a propósito: son archivos grandes y de terceros, así que no van al
-repositorio. Se descargan una vez y se dejan con **estos nombres exactos**.
+Están descargados y listos. **No se suben al repositorio** (`.gitignore`), porque
+son material de terceros: viven solo en tu máquina.
 
-| Archivo | Qué es | Dónde sale |
-|---|---|---|
-| `rosling.mp4` | Hans Rosling, 200 países, 200 años, BBC. 4 min | TIP 3a |
-| `bombas.mp4` | Bombas en Shark Tank, temporada 6 | Bombas |
-| `ikea.mp4` | IKEA, *Lamp*, 2002, de Spike Jonze. 60 s | TIP 2 |
-| `marriott.mp4` | Marriott + Starwood, 2015. Arne Sorenson | Una operación, cuatro audiencias |
+| Archivo | Qué es | Dura | Slide |
+|---|---|---|---|
+| `bombas.mp4` | Bombas en Shark Tank | 5:14 | 26 |
+| `ikea.mp4` | IKEA, *Lamp*, 2002 | 1:01 | 30 |
+| `rosling.mp4` | Hans Rosling, 200 países, BBC | 4:47 | 44 |
+| `marriott.mp4` | Marriott + Starwood, 2015 | 1:02 | 54 |
 
-## Por qué el archivo local y no YouTube
+Los cuatro son **H.264 + AAC**, que es lo que reproduce cualquier navegador, y
+llevan el índice al principio del archivo para que arranquen al instante.
 
-El deck intenta el archivo primero y, si no está, cae al vídeo incrustado de
-YouTube. Pero **algunos clips tienen la incrustación desactivada por su
-propietario**: en esos, darle al play no reproduce, abre YouTube en otra
-pestaña. Contra eso no hay parámetro que valga.
+## Cómo los usa el deck
 
-Con el archivo en `media/` eso desaparece: sale el reproductor del navegador,
-dentro de la slide, y además deja de depender de la wifi del aula y de los
-anuncios.
+Si el archivo está, se reproduce **desde el disco**: sin internet, sin YouTube y
+sin depender del wifi del aula. Si no está, cae al reproductor de YouTube, y
+debajo de cada vídeo hay además un enlace directo por si todo lo demás falla.
 
-**Comprobado**: con el archivo presente, la slide monta un `<video>` nativo y
-reproduce sin que aparezca ningún iframe de YouTube.
+Abriendo el deck **como archivo** (`file://`) los vídeos locales funcionan y los
+de YouTube no. Abriéndolo **por su dirección web** funcionan los dos. Con los
+cuatro archivos ya descargados, las dos formas te sirven.
 
-## Cómo descargarlos
+## Si alguna vez hay que rehacerlos
 
-Una vez, en el Terminal:
-
-```bash
-brew install yt-dlp
-```
-
-Y después, desde esta carpeta:
+Hace falta `yt-dlp` (ya instalado con `python3 -m pip install yt-dlp`) y
+`ffmpeg`. Los dos pasos importan: el primero fuerza H.264, y el segundo mueve el
+índice al principio. Sin el segundo, el navegador se queda cargando para siempre.
 
 ```bash
-cd ~/Documents/Teaching/Behavioral_skills_seminar_/media
+cd media
+python3 -m yt_dlp \
+  -f "bv*[vcodec^=avc1][height<=720]+ba[acodec^=mp4a]/b[vcodec^=avc1]" \
+  --merge-output-format mp4 -o "bombas.%(ext)s" \
+  "https://www.youtube.com/watch?v=WpPhs7OipzQ"
 
-# Rosling · BBC
-yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
-       -o rosling.mp4 "https://www.youtube.com/watch?v=jbkSRLYSojo"
-
-# Marriott + Starwood
-yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
-       -o marriott.mp4 "https://www.youtube.com/watch?v=DDR_EBNuK3M"
-
-# Bombas · Shark Tank
-yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
-       -o bombas.mp4 "https://www.youtube.com/watch?v=WpPhs7OipzQ"
-
-# IKEA · Lamp, el anuncio de TIP 2
-yt-dlp -f "bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[ext=mp4]" \
-       -o ikea.mp4 "https://www.youtube.com/watch?v=jU-cori12KU"
+ffmpeg -y -i bombas.mp4 -c copy -movflags +faststart _b.mp4 && mv _b.mp4 bombas.mp4
 ```
 
-De los cuatro, el de IKEA es el que **sí se ha comprobado que se deja
-incrustar**: cargado dentro de una página real muestra el reproductor y el
-vídeo correcto, sin error. Así que ese funciona aunque no lo descargues.
+Los identificadores: `WpPhs7OipzQ` Bombas · `jU-cori12KU` IKEA ·
+`jbkSRLYSojo` Rosling · `DDR_EBNuK3M` Marriott.
 
-Si alguno da error de formato, `yt-dlp -F <url>` lista lo que hay y se elige
-otro. Y si el vídeo no es el trozo correcto, se busca otro y se cambia solo el
-identificador del `data-yt` en la etiqueta `.media` de esa slide, en
-`index.html`.
+## Una trampa que ya me comí
 
-720p sobra para proyectar y pesa la cuarta parte que 1080p.
-
-## Ojo: no se suben al repositorio
-
-`.gitignore` no los excluye todavía por nombre, pero **no los subas**: son de
-terceros y pesan. Si quieres que git los ignore, añade `media/*.mp4` y
-`media/*.mp3`.
-
-## Detalles del reproductor
-
-- Se monta al entrar en la slide y **se destruye al salir**, así que el sonido se
-  corta solo al avanzar.
-- Un clic en el reproductor **no salta de slide**, y con el foco puesto en él la
-  barra espaciadora es play y pausa. Las flechas siguen navegando siempre.
-- `reagan.mp3` sale como reproductor de audio, sin imagen, que es lo que se
-  quiere ahí. Si falta y tira del respaldo de YouTube, entonces sí hay imagen.
+Descargados sin forzar códec, tres salieron en **AV1**, que muchos navegadores no
+decodifican. Y sin `+movflags faststart`, el índice queda al final del archivo y
+el reproductor se queda colgado sin dar ningún error. Si algún día un vídeo
+"carga y no pasa nada", es una de esas dos cosas.
