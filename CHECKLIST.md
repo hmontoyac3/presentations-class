@@ -5,8 +5,9 @@
 0. **Abre el deck por su dirección web, no haciendo doble clic al archivo.**
    `helenamontoyacalero.com/presentations-class/index.html?teach` y
    `.../saturday.html?teach`. Desde `file://` los vídeos de YouTube dan
-   «Video player configuration error · Error 153», porque el navegador no le
-   manda referente. El deck ahora te avisa en pantalla si te pasa.
+   «Error 153», porque el navegador no le manda referente. El deck te avisa en
+   pantalla si te pasa, y **debajo de cada vídeo hay un enlace directo a
+   YouTube** que funciona siempre, así que nunca te quedas sin nada.
 
 1. **La URL acaba en `?teach`.** Sin eso desaparecen las notas y el panel de datos, y no avisa. Comprueba que abajo a la derecha se ven los botones **Notas** y **Votos**.
 2. **AFM: pulsa el botón AFM.** Arranca en FIN por defecto. Si no lo cambias proyectas la fecha, el horario, la lista de reclutadores, el hecho aburrido y el brief de la otra clase. Verifica que la primera slide dice **18 September**.

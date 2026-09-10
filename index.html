@@ -405,6 +405,16 @@
      franja de 96px. Con :has() no hay nada que sincronizar. */
   .media:has(audio) { aspect-ratio: auto; min-height: 96px; background: var(--card);
                       display: flex; align-items: center; justify-content: center; padding: 18px; }
+  /* .mwrap ocupa la celda de la rejilla; dentro van el marco del vídeo y,
+     debajo, el enlace de respaldo a YouTube. */
+  .mwrap { flex: none; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .ytout {
+    flex: none; align-self: flex-start;
+    font-family: var(--mono); font-size: clamp(9px,.92vw,12px);
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-faint); text-decoration: none; border-bottom: 1px solid var(--rule);
+  }
+  .ytout:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
   .media iframe, .media video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
   .media audio { position: static; width: 100%; max-width: 520px; }
   .media .ph { position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -880,7 +890,7 @@
   <div class="kicker">Tip 1 in the wild · Shark Tank, 2014</div>
   <h2 style="font-size:clamp(19px,2.4vw,33px)">Two founders, socks, and one room of investors to convince.</h2>
   <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
-    <div class="media" data-file="media/bombas.mp4" data-yt="WpPhs7OipzQ" data-label="Bombas en Shark Tank, temporada 6"></div>
+    <div class="mwrap"><div class="media" data-file="media/bombas.mp4" data-yt="WpPhs7OipzQ" data-label="Bombas en Shark Tank, temporada 6"></div><a class="ytout" href="https://www.youtube.com/watch?v=WpPhs7OipzQ" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
     <div class="stack">
       <p class="body">Watch for three things, and do not write anything down yet.</p>
       <p class="body"><b>1.</b> Who are they?</p>
@@ -972,7 +982,7 @@
   <div class="kicker do">Tip 2 in the wild · sixty seconds</div>
   <h2 style="font-size:clamp(19px,2.4vw,33px)">Watch what happens to you in sixty seconds.</h2>
   <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
-    <div class="media" data-file="media/ikea.mp4" data-yt="jU-cori12KU" data-label="IKEA, Lamp, 2002"></div>
+    <div class="mwrap"><div class="media" data-file="media/ikea.mp4" data-yt="jU-cori12KU" data-label="IKEA, Lamp, 2002"></div><a class="ytout" href="https://www.youtube.com/watch?v=jU-cori12KU" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
     <div class="stack">
       <p class="body">Three things, and do not answer them out loud yet.</p>
       <p class="body"><b>1.</b> At what second did you start to feel something?</p>
@@ -1253,7 +1263,7 @@
 <section data-part="2" class="slide" data-s="2" data-b="TIP 3a" data-notes="Rosling BBC, 4 min. Se reproduce AQUÍ, no salgas del deck. · La animación ES el argumento: no se puede narrar, así que ponlo y no lo interrumpas. · El deck usa media/rosling.mp4 si está, y si no cae al vídeo de YouTube. Lo primero es mejor en un aula: no depende de la red, no lleva anuncios y no lo puede bloquear nadie. · Al avanzar de slide el reproductor se destruye, así que el sonido se corta solo. · Y ya puedes darle al play sin miedo: un clic en el reproductor ya no salta de slide.">
   <div class="kicker">200 countries, 200 years, 4 minutes</div>
   <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
-    <div class="media" data-file="media/rosling.mp4" data-yt="jbkSRLYSojo" data-label="Hans Rosling, 200 countries, 200 years, BBC"></div>
+    <div class="mwrap"><div class="media" data-file="media/rosling.mp4" data-yt="jbkSRLYSojo" data-label="Hans Rosling, 200 countries, 200 years, BBC"></div><a class="ytout" href="https://www.youtube.com/watch?v=jbkSRLYSojo" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
     <div class="stack">
       <h2 style="font-size:clamp(20px,2.6vw,36px)">Hans Rosling</h2>
       <p class="lead">Scale, comparison and context, at the scale of the whole world.</p>
@@ -1462,7 +1472,7 @@
   <h2 style="font-size:clamp(20px,2.6vw,36px)">Every time you hear a benefit, decide who it is for.</h2>
 
   <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
-    <div class="media" data-file="media/marriott.mp4" data-yt="DDR_EBNuK3M" data-label="Marriott and Starwood, 2015"></div>
+    <div class="mwrap"><div class="media" data-file="media/marriott.mp4" data-yt="DDR_EBNuK3M" data-label="Marriott and Starwood, 2015"></div><a class="ytout" href="https://www.youtube.com/watch?v=DDR_EBNuK3M" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
     <div class="stack">
       <div class="panel" style="padding:12px 16px">
         <ul class="big" style="gap:3px">
@@ -2868,9 +2878,10 @@ var QR = (function () {
       var label = box.getAttribute('data-label') || 'Vídeo';
 
       function ph(msg) {
-        box.innerHTML = '<div class="ph"><span class="tag">Pendiente</span>'
+        box.innerHTML = '<div class="ph"><span class="tag">Aviso</span>'
           + '<span class="what">' + msg + '</span></div>';
       }
+
       function embed() {
         if (box.getAttribute('data-on') !== '1') return;
         if (!yt) { ph(label + '. Falta el archivo en media/ y no hay identificador de YouTube.'); return; }
@@ -2878,7 +2889,7 @@ var QR = (function () {
            devuelve «Video player configuration error · Error 153». No es un
            fallo del vídeo: hay que abrir el deck por su URL. */
         if (location.protocol === 'file:') {
-          ph('Abre el deck por su dirección web, no como archivo. Desde file:// YouTube da «Error 153». · ' + label);
+          ph('Estás abriendo el deck como archivo. YouTube no se puede incrustar así (Error 153): ábrelo por su dirección web, o usa el enlace de abajo. · ' + label);
           return;
         }
         box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt
