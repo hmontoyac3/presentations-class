@@ -46,9 +46,9 @@ de la pestaña `teams` de la hoja: ver `SETUP_TEAMS.md`.
 - [x] ~~Nueve equipos por clase~~ — hechos con `tools/make_teams.py`. FIN: ocho de 10 y uno de 9. AFM: siete de 9 y dos de 8. **Si falta gente, no se reorganizan**
 - [ ] **Pegar `teams_paste.tsv` en la pestaña `teams`** de la hoja. Sin eso el sorteo de nombres del sábado cae al plan B. Ver `SETUP_TEAMS.md`
 - [ ] **Vaciar la bandeja el viernes por la noche**: nueve correos, uno por equipo, con el problema elegido. Es lo único que te llevas del viernes
-- [ ] Los cinco ejemplos reales para la slide «los cinco tips, esta tarde» (slide 33 del sábado) — se apuntan en el break de las 16.15, no antes
-- [ ] El audio de Reagan, descargado. Si no está, se corta el bloque y se lee el párrafo final en voz alta
-- [ ] El clip de Rosling abierto en otra pestaña
+- [ ] Los ejemplos reales para el **recap** (slide 37 del sábado) — se apuntan en el break de las 16.15, no antes
+- [ ] Los cuatro vídeos abiertos **una vez con el proyector**: `bombas`, `ikea`, `rosling`, `marriott`. Dentro del iframe el primer play lo tiene que dar una persona
+- [ ] La lista de los nueve equipos, proyectable, para la slide 67 del viernes
 - [ ] `ENDPOINT` en `f/form.js`, en `index.html` y en `saturday.html`, si quieres datos en vivo
 
 ## Al probar los formularios tú misma
@@ -63,13 +63,14 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Material físico
 
-- [ ] Una hoja A4 por grupo para interrogar el problema el viernes
+- [ ] Una hoja A4 por equipo para interrogar el problema, el sábado a las 9.10
 - [ ] El vaso con los papelitos, para sortear el orden de los pitches delante de ellos a las 14.10
 
 ## Comprobar el jueves
 
-- [ ] Abrir las páginas de `f/` desde el móvil (17 en la lista). **El form 13 ya no se usa**: el problema llega por correo el viernes por la noche
+- [ ] Abrir las páginas de `f/` desde el móvil (15 en la lista). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Si se quedan, el marcador del sábado arranca con dos votos fantasma
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
-- [ ] Los nueve equipos publicados donde ellos los vean (Blackboard o proyectados). Salen de `teams_fin.csv` y `teams_afm.csv`
+- [ ] Los nueve equipos donde ellos los vean el viernes por la tarde. Salen de `teams_fin.csv` y `teams_afm.csv`
+- [ ] El botón **Draw two names** probado una vez, con la pestaña `teams` ya puesta
