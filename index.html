@@ -184,6 +184,24 @@
     font-size: clamp(11px, 1.15vw, 15px); letter-spacing: 0.12em;
   }
   .sched tr.lunch .hh { font-weight: 700; color: var(--ink); }
+  /* resultados del formulario 7: dos pares, cada cifra con lo que significa */
+  .asym { flex: none; display: flex; flex-direction: column; gap: clamp(8px,1.4vh,18px); width: 100%; }
+  .apair { border-left: 4px solid var(--rule); padding-left: clamp(10px,1.2vw,18px); }
+  .apair .ak {
+    font-family: var(--mono); font-size: clamp(9px,.92vw,12px);
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint);
+    margin-bottom: 3px;
+  }
+  .arow { display: flex; align-items: baseline; gap: clamp(10px,1.3vw,20px); padding: 2px 0; }
+  .arow .an {
+    font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+    font-size: clamp(22px,3vw,42px); line-height: 1; color: var(--crimson);
+    min-width: 3.2ch; text-align: right;
+  }
+  .arow.out .an { color: var(--blue); }
+  .arow .at { font-size: clamp(13px,1.35vw,19px); color: var(--ink-soft); line-height: 1.25; }
+  .arow .at b { color: var(--ink); }
+
   /* extremos de una escala 0–10, junto a la pregunta */
   .ends2 {
     display: block; margin-top: 2px;
@@ -1636,11 +1654,11 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Las cuatro medias proyectadas. La columna de «desde dentro» va a estar muy por encima de la de «desde fuera», en los dos ejercicios. Esa es la evidencia. Y la frase de cierre es la que quieres que se lleven a mañana.">
-  <div class="kicker">Tip 5 · the whole lesson in four numbers</div>
-  <div id="asymbox" class="qrbox" style="width:100%;aspect-ratio:auto;min-height:32vh;">Your four numbers</div>
-  <h2>Most of what feels like too much from the inside reads as confidence from the outside.</h2>
-  <p class="lead">Tomorrow, when it feels like too much, that is the signal you are doing it right.</p>
+<section data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="LEE LOS PARES EN VOZ ALTA, uno detrás de otro, y no expliques nada entre medias: la contradicción la oyen solos. «Cuando eras tú, tres segundos fueron una eternidad… cuando mirabas, se le veía con el control.» Ahí para. · Las dos cifras NO son la misma escala y por eso no se restan: una mide lo que costó, la otra lo que se vio. En rojo lo de dentro, en azul lo de fuera. · Si algún par sale al revés (que se les vio mal), también sirve y es más honesto: pregunta a la sala quién de los que aparecen ahí creía que se le notaba. Van a levantar la mano casi todos. · La frase de cierre es la que quieres que se lleven a mañana.">
+  <div class="kicker">Tip 5 · your own numbers, a minute old</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">Read each pair as one sentence. They disagree.</h2>
+  <div id="asymbox" class="qrbox" style="width:100%;aspect-ratio:auto;min-height:26vh;">Your four numbers</div>
+  <p class="lead" style="max-width:88ch">What felt like too much from the inside is what read as <b>confidence</b> from the outside. Tomorrow, when it feels like too much, that is the signal you are doing it right.</p>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Los cinco. Aquí sí párate: es el resumen de todo lo que has enseñado hoy y lo último que ven antes del cierre. Léelos los cinco en voz alta, despacio, y no añadas nada. · Y el puente: mañana no se añade ninguno, mañana se usan.">
@@ -2580,13 +2598,38 @@
   }
 
   /* --- asymmetry: cuatro medias --- */
+  /* Las cuatro medias del formulario 7, EMPAREJADAS. En fila no se entendían:
+     dos etiquetas salían idénticas, y sobre todo el número de dentro y el de
+     fuera no miden lo mismo (uno es «cuánto costó», el otro «qué tal se vio»),
+     así que ponerlos uno al lado del otro invitaba a restarlos. Aquí cada cifra
+     va con la frase que significa, y el par se lee como una contradicción. */
   function liveAsymmetry(rows) {
-    renderMeans('asymbox', rows, [
-      ['pause_self',  'the pause, from inside'],
-      ['pause_other', 'how confident they looked'],
-      ['eyes_self',   'eye contact, from inside'],
-      ['eyes_other',  'how confident they looked']
-    ]);
+    var box = document.getElementById('asymbox'); if (!box) return;
+    var PAIRS = [
+      ['The pause',
+       ['pause_self',  'When it was you, three seconds felt', 'like an instant', 'like forever'],
+       ['pause_other', 'When you watched, they looked',       'lost',            'in control']],
+      ['Eye contact',
+       ['eyes_self',   'When it was you, holding it felt',    'easy',            'very hard'],
+       ['eyes_other',  'When they held yours, they looked',   'uncomfortable',   'completely at ease']]
+    ];
+    var out = [], any = false;
+    PAIRS.forEach(function (p) {
+      var rows2 = [];
+      [p[1], p[2]].forEach(function (q, i) {
+        var m = meanOf(rows, q[0]);
+        if (m === null) return;
+        any = true;
+        rows2.push('<div class="arow' + (i ? ' out' : '') + '">'
+          + '<span class="an">' + m.toFixed(1) + '</span>'
+          + '<span class="at">' + q[1] + ' <b>' + (m >= 5 ? q[3] : q[2]) + '</b></span></div>');
+      });
+      if (rows2.length) out.push('<div class="apair"><div class="ak">' + p[0] + '</div>' + rows2.join('') + '</div>');
+    });
+    if (!any) return;
+    plain(box);
+    box.className = 'asym';
+    box.innerHTML = out.join('');
   }
   function liveAsymmetryOld(rows) {
     if (!rows || rows.length < 2) return;
