@@ -197,6 +197,31 @@
     font-size: clamp(20px,2.8vw,40px); color: var(--ink);
   }
 
+  /* predicho contra real: una línea por pregunta, con la diferencia */
+  .nst { flex: none; display: flex; flex-direction: column; gap: clamp(6px,1vh,12px); width: 100%; }
+  .nrow {
+    display: grid; grid-template-columns: minmax(0,1fr) auto auto auto auto;
+    gap: clamp(8px,1.2vw,20px); align-items: center;
+    padding: clamp(6px,1vh,12px) 0; border-bottom: 1px solid var(--rule-soft);
+  }
+  .nrow .nq { font-size: clamp(13px,1.35vw,19px); color: var(--ink); }
+  .nrow .nv { display: flex; flex-direction: column; align-items: center; }
+  .nrow .np, .nrow .na {
+    font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+    font-size: clamp(24px,3.2vw,46px); line-height: 1;
+  }
+  .nrow .np { color: var(--ink-faint); }
+  .nrow .na { color: var(--blue); }
+  .nrow .nl {
+    font-family: var(--mono); font-size: clamp(8px,.8vw,10px);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-top: 3px;
+  }
+  .nrow .narr { color: var(--ink-faint); font-size: clamp(14px,1.6vw,22px); }
+  .nrow .nd {
+    font-family: var(--mono); font-weight: 700; font-size: clamp(14px,1.7vw,24px);
+    color: var(--crimson); min-width: 4ch; text-align: right;
+  }
+
   /* resultados del formulario 7: dos pares, cada cifra con lo que significa */
   .asym { flex: none; display: flex; flex-direction: column; gap: clamp(8px,1.4vh,18px); width: 100%; }
   .apair { border-left: 4px solid var(--rule); padding-left: clamp(10px,1.2vw,18px); }
@@ -1850,9 +1875,12 @@
   </div>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="AQUI esta el dato del dia. Las dos cifras en gris son lo que PREDIJERON hace quince minutos; las azules, lo que paso. Deja tres segundos entre unas y otras. · Y despues lee las dos cosas que dijeron que iban a recordar: eso es pathos en su propia voz.">
-  <div class="kicker">You predicted this fifteen minutes ago</div>
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="AQUÍ ESTÁ EL DATO DEL DÍA y hay que dejarlo respirar. · Lee las dos líneas enteras, una y luego la otra, y CÁLLATE tres segundos después de cada una. La diferencia de la derecha es lo que se llevan. · El veredicto de abajo se escribe solo con el signo que salga: si esta vez acertaron, lo dice, y entonces la pregunta es qué fue distinto. No lo fuerces. · Y después las dos frases que dijeron que iban a recordar. Léelas despacio y sin comentarlas: eso es pathos en su propia voz, y no hay nada que añadir.">
+  <div class="kicker">You predicted this twenty-five minutes ago</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">What you expected, and what happened.</h2>
   <div class="figs" id="nstnumbers"></div>
+  <p class="lead" id="nstverdict" style="max-width:88ch">Waiting for the last answers…</p>
+  <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)">And two things you said you would remember</div>
   <div class="quotes" id="nstquotes"></div>
 </section>
 
@@ -2552,15 +2580,44 @@
     if (!t3Painted) renderT3();
   }
   function liveCommit(rows)   { renderQuotes('commits', rows, 'commit', 3); }
+  /* Predicho contra real. En fila eran cuatro cifras y había que adivinar cuál
+     iba con cuál; aquí cada línea es una comparación con su diferencia, y el
+     veredicto se escribe con el signo que salga: si se equivocaron al revés,
+     lo dice. */
   function liveNST(before, after) {
-    renderMeans('nstnumbers', before, [['awk_pred','awkward, predicted',1], ['ok_pred','comfortable, predicted',1]]);
-    var box = document.getElementById('nstnumbers');
-    if (box) {
-      var extra = [];
-      var r = meanOf(after, 'awk_real'), c = meanOf(after, 'ok_real');
-      if (r !== null) extra.push('<div class="fig"><div class="n">' + r.toFixed(1) + '</div><div class="l">awkward, actual</div></div>');
-      if (c !== null) extra.push('<div class="fig"><div class="n">' + c.toFixed(1) + '</div><div class="l">comfortable, actual</div></div>');
-      box.innerHTML += extra.join('');
+    var box = document.getElementById('nstnumbers'); if (!box) return;
+    var ROWS = [
+      ['How awkward it would be', 'awk_pred', 'awk_real', -1],
+      ['How comfortable you would end up', 'ok_pred', 'ok_real', 1]
+    ];
+    var html = [], wrong = 0, seen = 0;
+    ROWS.forEach(function (r) {
+      var p = meanOf(before, r[1]), a = meanOf(after, r[2]);
+      if (p === null || a === null) return;
+      seen++;
+      var d = a - p;
+      /* r[3] dice hacia dónde es «mejor de lo temido»: en «awkward» bajar,
+         en «comfortable» subir. */
+      if (d * r[3] > 0) wrong++;
+      html.push('<div class="nrow">'
+        + '<div class="nq">' + r[0] + '</div>'
+        + '<div class="nv"><span class="np">' + p.toFixed(1) + '</span>'
+        + '<span class="nl">you predicted</span></div>'
+        + '<div class="narr">→</div>'
+        + '<div class="nv"><span class="na">' + a.toFixed(1) + '</span>'
+        + '<span class="nl">it actually was</span></div>'
+        + '<div class="nd">' + (d > 0 ? '+' : '') + d.toFixed(1) + '</div></div>');
+    });
+    if (!html.length) return;
+    plain(box); box.className = 'nst';
+    box.innerHTML = html.join('');
+    var v = document.getElementById('nstverdict');
+    if (v && seen === 2) {
+      v.innerHTML = wrong === 2
+        ? 'On both counts, <b>you were wrong in the same direction</b>: you expected it to be worse than it was.'
+        : (wrong === 1
+          ? 'On one of the two you expected worse than you got. <b>Read them out and ask the room why.</b>'
+          : 'This time it landed close to what you expected. <b>Ask the room what made the difference.</b>');
     }
     renderQuotes('nstquotes', after, 'remember', 2);
   }
