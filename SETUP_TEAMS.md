@@ -43,6 +43,27 @@ queda monocorde. El reparto es **determinista** (semilla fija), así que
 nueve con el número de integrantes que sea. Reorganizar en el momento cuesta
 quince minutos y rompe todo lo que depende del número de equipo.
 
+## Cómo encuentran su equipo el viernes
+
+En la slide 67 el reparto es: **el número lo da el móvil, el sitio lo da la
+pantalla.**
+
+Cada uno abre el enlace del día y entra en **Find your team**, la primera
+entrada de la lista. Escribe su apellido y le sale un número del 1 al 9. La
+pantalla, mientras tanto, muestra las nueve zonas de la sala, así que sabe a
+dónde ir sin que nadie tenga que leer una lista en voz alta.
+
+No va por Blackboard a propósito: para FIN es su primer fin de semana en Bocconi
+y no todos lo tienen configurado. Y proyectar 89 nombres no se lee desde la fila
+doce.
+
+`f/teams.html` tampoco contiene los nombres: los pide a la pestaña `teams` al
+cargar, igual que el sorteo del sábado. El buscador ignora mayúsculas y acentos,
+y encuentra por apellido o por nombre de pila. Arranca en Finance, así que en
+AFM hay que tocar el botón de la clase.
+
+**Si se cae la red**, tú tienes la lista impresa y cantas los números por filas.
+
 ## El sorteo de nombres del sábado
 
 En la slide de comentarios (sesión 7), el botón **Draw two names** saca dos

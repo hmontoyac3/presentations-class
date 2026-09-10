@@ -56,7 +56,7 @@ de la pestaña `teams` de la hoja: ver `SETUP_TEAMS.md`.
 - [ ] Los ejemplos reales para el **recap** (slide 37 del sábado) — se apuntan en el break de las 16.15, no antes
 - [x] ~~Los cuatro vídeos descargados~~ — están en `media/`, en H.264 y con faststart. Se reproducen desde el disco, sin internet
 - [ ] Darles al play una vez con el proyector, para comprobar sonido y volumen
-- [ ] La lista de los nueve equipos, proyectable, para la slide 67 del viernes
+- [ ] La lista de los nueve equipos **impresa**, como respaldo por si se cae la red en la slide 67
 - [ ] `ENDPOINT` en `f/form.js`, en `index.html` y en `saturday.html`, si quieres datos en vivo
 
 ## Al probar los formularios tú misma
@@ -76,9 +76,9 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las páginas de `f/` desde el móvil (17 en la lista). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
+- [ ] Abrir las páginas de `f/` desde el móvil (18 en la lista, contando «Find your team»). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Ojo: `q17` cambió de campos, así que las filas viejas no tienen `voter` ni `myteam`
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
-- [ ] Los nueve equipos donde ellos los vean el viernes por la tarde. Salen de `teams_fin.csv` y `teams_afm.csv`
+- [ ] Probar **`f/teams.html`** desde el móvil, en las dos clases: es donde cada uno encuentra su número el viernes
 - [ ] El botón **Draw two names** probado una vez, con la pestaña `teams` ya puesta
