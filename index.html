@@ -184,6 +184,12 @@
     font-size: clamp(11px, 1.15vw, 15px); letter-spacing: 0.12em;
   }
   .sched tr.lunch .hh { font-weight: 700; color: var(--ink); }
+  /* extremos de una escala 0–10, junto a la pregunta */
+  .ends2 {
+    display: block; margin-top: 2px;
+    font-family: var(--mono); font-size: clamp(9px,.9vw,12px);
+    letter-spacing: .04em; color: var(--ink-faint);
+  }
   .sched .ast, .ast { color: var(--crimson); font-weight: 700; }
   .sched .what { color: var(--ink-faint); font-size: clamp(11px,1.1vw,15px); }
   .sched tr.lunch .len { float: right; letter-spacing: 0; text-transform: none; font-family: var(--mono); color: var(--ink-faint); }
@@ -1613,13 +1619,13 @@
 <section data-timer="60" data-part="2" class="slide" data-s="2" data-b="La asimetría" data-notes="Un solo envío que cubre los dos ejercicios de pie del día. Proyecta las cuatro medias juntas: sentir contra observar, en la pausa y en el minuto de contacto visual. La brecha entre las dos columnas es el aprendizaje de delivery de todo el viernes, y ahora es un número y no una levantada de manos.">
   <div class="kicker do">60 seconds · four numbers</div>
   <h2>What it felt like from the inside, and what it looked like from the outside.</h2>
-  <p class="lead" style="max-width:46ch">Every answer 0 to 10. 0 = not at all, 10 = extremely.</p>
+  <p class="lead" style="max-width:46ch">Every answer 0 to 10, and <b>each one has its own ends</b> — read them on your phone before you tap.</p>
   <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
     <table class="tbl"><tbody>
-      <tr><td class="k">The pause</td><td>When it was you: how long did three seconds feel?</td></tr>
-      <tr><td class="k">The pause</td><td>When you listened: how <b>confident</b> did they look?</td></tr>
-      <tr><td class="k">Eye contact</td><td>When it was you: how hard was holding it?</td></tr>
-      <tr><td class="k">Eye contact</td><td>When they held yours: how <b>confident</b> did they look?</td></tr>
+      <tr><td class="k">The pause</td><td>When it was you: how long did three seconds feel? <span class="ends2">0 an instant · 10 forever</span></td></tr>
+      <tr><td class="k">The pause</td><td>When you listened: how <b>confident</b> did they look? <span class="ends2">0 lost the thread · 10 in control</span></td></tr>
+      <tr><td class="k">Eye contact</td><td>When it was you: how hard was holding it? <span class="ends2">0 easy · 10 very hard</span></td></tr>
+      <tr><td class="k">Eye contact</td><td>When they held yours: how <b>confident</b> did they look? <span class="ends2">0 uncomfortable · 10 at ease</span></td></tr>
     </tbody></table>
       <div class="panel info" style="padding:10px 14px;border-left-width:4px">
         <p class="body" style="font-size:clamp(12px,1.15vw,17px);max-width:none"><b>One each</b>, not one per trio. Four numbers.</p>
@@ -1711,6 +1717,7 @@
     <div class="qwrap2"><div class="qrbox" data-qr="q8">Scan</div><span class="qnum">Form 8</span></div>
     <div class="stack">
       <p class="body">You are about to have a conversation with your group. I am not going to tell you what about — and that is deliberate.</p>
+      <p class="body">Four numbers, each 0 to 10, and <b>each scale has its own ends written under it</b>. Two are predictions about the next fifteen minutes, two are about your normal conversations.</p>
       <p class="tiny">This is not attendance. Attendance is the app, and we already did it.</p>
     </div>
   </div>
@@ -1773,8 +1780,8 @@
 <section data-timer="60" data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Formulario 9 del enlace del día, sesenta segundos. Y después proyectas las cuatro barras juntas: predijeron incómodo, resultó cómodo. Esa imagen es el ejercicio entero.">
   <div class="kicker do">60 seconds · same exercise, backwards</div>
   <table class="tbl" style="max-width:52ch"><tbody>
-    <tr><td class="k">0–10</td><td>How awkward was it, really?</td></tr>
-    <tr><td class="k">0–10</td><td>How comfortable did you end up?</td></tr>
+    <tr><td class="k">0–10</td><td>How awkward was it, really? <span class="ends2">0 not awkward at all · 10 excruciating</span></td></tr>
+    <tr><td class="k">0–10</td><td>How comfortable did you end up? <span class="ends2">0 still uncomfortable · 10 completely at ease</span></td></tr>
     <tr><td class="k">write</td><td>One thing someone said that you will remember. No names</td></tr>
     <tr><td class="k">yes / no</td><td>Was there something you almost said and didn't?</td></tr>
   </tbody></table>
