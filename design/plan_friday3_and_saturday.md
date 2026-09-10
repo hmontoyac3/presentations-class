@@ -99,12 +99,24 @@ del ejercicio de Shark Tank del **Managerial Skills Seminar**
 dos asignaturas usen el mismo estándar.
 
 **La landing, seis secciones:** hero (nombre, tagline, CTA) · problema en una
-frase · solución y por qué es distinta · traction, una cifra inventada pero
-defendible · el ask, «€100.000 por un X%» y ellos eligen X · equipo con nombres
-y roles.
+frase · solución y por qué es distinta · **prueba**, una cifra real sobre el
+problema o una previsión dicha como previsión · el ask, «€100.000 para
+[hito concreto]» · equipo con nombres y roles.
 
-**El pitch, cinco partes:** hook ~20s (se abre con el problema, nunca con los
-nombres) · solución ~30s · proof ~60s · ask ~20s, dicho en voz alta · close ~10s
+Nada de traction inventada: el viernes se les dice que no se inventa la
+evidencia, y pedirles una cifra falsa al día siguiente rompe eso. Y nada de
+porcentajes de equity, que solo producen valoraciones inventadas.
+
+**El orden es pitch primero, página después**, que es el TIP 4 en el reloj. No
+se puede diseñar una pantalla para un argumento que todavía no existe.
+
+**Las fichas se reparten al final**, cuando han oído a los nueve (formulario 20).
+Durante los pitches solo se dice si entra en la lista corta. Si se gastaran
+sobre la marcha, el equipo 1 competiría contra nadie y el 9 contra una sala sin
+dinero.
+
+**El pitch, cinco partes:** hook ~20s (se abre con la persona, la consecuencia o
+el contraste, nunca con el producto ni con los nombres) · solución ~30s · proof ~60s · ask ~20s, dicho en voz alta · close ~10s
 y punto. Suman 2:20, y los 40 segundos que sobran son lo que evita que se pasen
 de tres.
 
