@@ -39,7 +39,7 @@ Son archivos separados a propósito: el sábado empieza en la slide 1 y no hay q
 recorrer el viernes entero para llegar.
 
 **El ciclo de pitches** (sesión 7) son tres slides que se repiten nueve veces:
-pitch 30 → voto 31 → comentarios 32. Desde la de comentarios vuelves al pitch
+pitch 30 → lista corta 31 → comentarios 32. Desde la de comentarios vuelves al pitch
 con `←` dos veces, y `]` pasa al equipo siguiente. El número grande que se
 proyecta es el contador, y va de 1 a 9.
 
@@ -74,8 +74,8 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las páginas de `f/` desde el móvil (15 en la lista). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
-- [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Si se quedan, el marcador del sábado arranca con dos votos fantasma
+- [ ] Abrir las páginas de `f/` desde el móvil (17 en la lista). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
+- [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Ojo: `q17` cambió de campos, así que las filas viejas no tienen `voter` ni `myteam`
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
 - [ ] Los nueve equipos donde ellos los vean el viernes por la tarde. Salen de `teams_fin.csv` y `teams_afm.csv`
