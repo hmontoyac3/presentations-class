@@ -48,8 +48,8 @@ quince minutos y rompe todo lo que depende del número de equipo.
 En la slide 67 el reparto es: **el número lo da el móvil, el sitio lo da la
 pantalla.**
 
-Cada uno abre el enlace del día y entra en **Find your team**, la primera
-entrada de la lista. Escribe su apellido y le sale un número del 1 al 9. La
+Cada uno abre el enlace del día y entra en **Find your team**, la última
+entrada de la lista, bajo «If you need it». Escribe su apellido y le sale un número del 1 al 9. La
 pantalla, mientras tanto, muestra las nueve zonas de la sala, así que sabe a
 dónde ir sin que nadie tenga que leer una lista en voz alta.
 

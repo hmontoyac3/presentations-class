@@ -1744,7 +1744,7 @@
           <div class="qwrap2"><div class="qrbox" style="width:clamp(104px,12vw,164px);aspect-ratio:1;border-width:2px;font-size:9px;padding:8px;flex:none" data-qr="hub">Scan</div><span class="qnum">Find your team</span></div>
           <div>
             <h3 style="font-size:clamp(14px,1.42vw,20px)">Type your surname</h3>
-            <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">It gives you one number, 1 to 9. If you already have the day's link open, it is the first entry on the list.</p>
+            <p class="body" style="font-size:clamp(12px,1.18vw,17px);max-width:none">It gives you one number, 1 to 9. On the day's link it is the <b>last</b> entry, under «If you need it».</p>
           </div>
         </div>
       </div>
@@ -1775,10 +1775,15 @@
   </div>
 </section>
 
-<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="Proyecta las medias en vivo de las preguntas 3 y 4. Sale real ~2 contra deseada ~6, la brecha de Epley. Nómbrala como fallo de coordinación: todos quieren más profundidad y nadie empieza.">
+<section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="LEE EL PORCENTAJE QUE SALGA, no el que esperas. La línea se calcula sola: cuántos pusieron un «quiero» mayor que su «tengo». Suele ser alto, pero si sale un 60% dices 60 y funciona igual, porque el argumento es el fallo de coordinación: casi todos quieren más y casi nadie empieza. · NO adelantes la conclusión antes de que se pinte el número. · El estudio de Woolley es el remate y es lo que convierte esto de «una conversación más agradable» en «un equipo que rinde más»: lo que predijo el rendimiento del grupo no fue la inteligencia de sus miembros, fue que hablaran todos. Dilo mirando a los nueve equipos que se acaban de formar. · Si alguien pregunta por el dato de las mujeres del estudio, es real y está en el paper, pero no lo abras en clase: se come el bloque.">
   <div class="kicker do">Your own data, ninety seconds old</div>
-  <div class="qrbox" id="depthgap" style="width:100%;aspect-ratio:auto;min-height:24vh;">Your two numbers</div>
-  <h2>Almost everyone here would prefer a deeper conversation than the one they are about to have. And almost nobody was going to start it.</h2>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">How deep your first conversations are, and how deep you want them.</h2>
+  <div class="qrbox" id="depthgap" style="width:100%;aspect-ratio:auto;min-height:17vh;">Your two numbers</div>
+  <p class="lead" id="depthline" style="max-width:88ch">Waiting for the last few answers…</p>
+  <div class="panel info" style="padding:10px 15px">
+    <p class="body" style="max-width:none">And this is not only about comfort. In <b>Science</b>, Woolley and colleagues measured how well groups solve problems and found that group performance was <b>only modestly related to the members' individual intelligence</b>. What predicted it was how the group talked: <b>everyone contributing rather than a few dominating</b>, and how well members read each other.</p>
+    <p class="tiny">Woolley, Chabris, Pentland, Hashmi &amp; Malone, <em>Evidence for a Collective Intelligence Factor in the Performance of Human Groups</em>, Science, 2010</p>
+  </div>
 </section>
 
 <section data-part="3" class="slide" data-s="3" data-b="No Small Talk" data-notes="LAS REGLAS Y EL REPARTO. · SON NUEVE POR GRUPO, así que rondas 1 y 2 se hacen en DOS círculos de cuatro y cinco: nueve personas por turnos es una cola, no una conversación. Compruébalo con la vista antes de arrancar el reloj, porque van a intentar quedarse los nueve juntos. · La ronda 3 sí es con los nueve, y ahí junto es donde el grupo se hace grupo. · La regla que hay que hacer cumplir es la 2: nadie comenta hasta que han hablado todos. Sin eso se convierte en dos hablando y siete escuchando. · Y la 3 dila mirando a la sala: se puede pasar, sin explicar y sin coste.">
@@ -2505,8 +2510,30 @@
   function reChart() { paintChart(); }
   function liveVersion(rows)  { renderAB('abvote', rows, 'version'); }
   function liveSentence(rows) { renderQuotes('sentences', rows, 'sentence', 3); }
-  function liveDepth(rows)    { renderMeans('depthgap', rows,
-                                  [['depth_real','how deep they are now'], ['depth_want','how deep you want them']]); }
+  /* La brecha de profundidad. Antes la slide AFIRMABA que casi todos quieren
+     más, y eso lo tiene que decir el dato: aquí se cuenta qué proporción puso
+     un «quiero» mayor que su «tengo», y la frase se escribe con ese número. */
+  function liveDepth(rows) {
+    renderMeans('depthgap', rows,
+      [['depth_real', 'how deep they are now'], ['depth_want', 'how deep you want them']]);
+    var line = document.getElementById('depthline'); if (!line) return;
+    var cr = colOf(rows, 'depth_real'), cw = colOf(rows, 'depth_want');
+    if (cr < 0 || cw < 0) return;
+    var more = 0, same = 0, less = 0, n = 0;
+    for (var k = 1; k < rows.length; k++) {
+      var a = parseFloat(String(rows[k][cr]).replace(',', '.'));
+      var b = parseFloat(String(rows[k][cw]).replace(',', '.'));
+      if (isNaN(a) || isNaN(b)) continue;
+      n++;
+      if (b > a) more++; else if (b < a) less++; else same++;
+    }
+    if (!n) return;
+    var pct = Math.round(more / n * 100);
+    line.innerHTML = '<b>' + pct + '% of you</b> want your first conversations to go deeper than they '
+      + 'currently do. ' + (less ? '<span class="tiny">(' + Math.round(less / n * 100) + '% want them shallower, '
+      + Math.round(same / n * 100) + '% are happy as they are.)</span>'
+      : '<span class="tiny">(' + Math.round(same / n * 100) + '% are happy as they are.)</span>');
+  }
   /* Las aperturas del formulario 11. Se pintan UNA vez y se quedan: si se
      repintaran en cada sondeo, la terna cambiaría debajo de la sala
      mientras la está leyendo. Solo cambia con R. */

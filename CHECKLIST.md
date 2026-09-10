@@ -76,7 +76,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Comprobar el jueves
 
-- [ ] Abrir las páginas de `f/` desde el móvil (18 en la lista, contando «Find your team»). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
+- [ ] Abrir las páginas de `f/` desde el móvil (18 en la lista; «Find your team» va la última, bajo *If you need it*). **Los formularios 13, 16 y 18 ya no se usan** y están fuera del hub
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Ojo: `q17` cambió de campos, así que las filas viejas no tienen `voter` ni `myteam`
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
