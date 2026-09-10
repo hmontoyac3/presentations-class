@@ -64,6 +64,23 @@ AFM hay que tocar el botón de la clase.
 
 **Si se cae la red**, tú tienes la lista impresa y cantas los números por filas.
 
+### El mapa de la sala no va en orden, y es a propósito
+
+La fila de en medio va **6 · 5 · 4**, no 4-5-6:
+
+```
+      1   2   3
+      6   5   4
+      7   8   9
+```
+
+Así cada pareja del ensayo cruzado del sábado queda **pegada**: 1 con 2, 3 con
+4 (uno encima del otro), 5 con 6, y el trío 7-8-9 comparte la fila de abajo.
+Con el orden correlativo, el 3 y el 4 quedan en esquinas opuestas y el sábado a
+la una y cuarto tienes a media sala cruzando el aula con las sillas.
+
+Si cambias las parejas del ensayo, cambia también este mapa.
+
 ## El sorteo de nombres del sábado
 
 En la slide de comentarios (sesión 7), el botón **Draw two names** saca dos
