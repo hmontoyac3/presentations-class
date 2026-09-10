@@ -2152,6 +2152,13 @@ var QR = (function () {
       function embed() {
         if (box.getAttribute('data-on') !== '1') return;
         if (!yt) { ph(label + '. Falta el archivo en media/ y no hay identificador de YouTube.'); return; }
+        /* Abierto como archivo local (file://) YouTube no recibe referente y
+           devuelve «Video player configuration error · Error 153». No es un
+           fallo del vídeo: hay que abrir el deck por su URL. */
+        if (location.protocol === 'file:') {
+          ph('Abre el deck por su dirección web, no como archivo. Desde file:// YouTube da «Error 153». · ' + label);
+          return;
+        }
         box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt
           + '?rel=0&modestbranding=1&playsinline=1" title="' + label
           + '" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>';
