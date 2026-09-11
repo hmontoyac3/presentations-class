@@ -20,13 +20,21 @@
   } catch (e) {}
 })();
 </script>
+<style>
+  .mine { border-left: 4px solid #1a3a6b; background: #eef2f8; padding: 12px 14px; margin: 0 0 18px; }
+  .mine h3 { margin: 0 0 4px; font-size: 14px; }
+  .mine p { margin: 0; font-size: 15px; line-height: 1.4; }
+  .mine b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 19px; }
+  .mine .none { color: #6b7280; font-size: 14px; }
+</style>
 </head>
 <body><div class="wrap">
 <div class="eyebrow">Persuasive Presentations · 20941</div>
 <h1>Your three tokens</h1>
 <p>You have heard all nine. Now put the money somewhere. Three tokens, three different teams &mdash; you cannot stack them on one.</p>
 <form class="form" data-slot="q20">
-<fieldset><h2>Your name</h2><input type="text" name="voter" maxlength="60" data-count="c_v" placeholder="The same one you used all afternoon" data-remember="voter" data-required><div class="count" id="c_v"></div></fieldset><fieldset><h2>Token 1 goes to team</h2><div class="opts" data-group="token1" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>Token 2 goes to team</h2><div class="opts" data-group="token2" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>Token 3 goes to team</h2><div class="opts" data-group="token3" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>The one that nearly got a token</h2><textarea name="nearly" maxlength="200" data-count="c_n" placeholder="Which team, and what was missing"></textarea><div class="count" id="c_n"></div></fieldset>
+<fieldset><h2>Your name and surname</h2><input type="text" name="voter" maxlength="60" data-count="c_v" placeholder="Exactly the same one you used all afternoon" data-remember="voter" data-required><div class="count" id="c_v"></div></fieldset><div id="mine" class="mine" hidden></div>
+<fieldset><h2>Token 1 goes to team</h2><div class="opts" data-group="token1" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>Token 2 goes to team</h2><div class="opts" data-group="token2" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>Token 3 goes to team</h2><div class="opts" data-group="token3" data-required><button class="opt">1</button><button class="opt">2</button><button class="opt">3</button><button class="opt">4</button><button class="opt">5</button><button class="opt">6</button><button class="opt">7</button><button class="opt">8</button><button class="opt">9</button></div></fieldset><fieldset><h2>The one that nearly got a token</h2><textarea name="nearly" maxlength="200" data-count="c_n" placeholder="Which team, and what was missing"></textarea><div class="count" id="c_n"></div></fieldset>
 <button class="send" type="submit">Send</button>
 <div class="err">Could not send. Check your connection and try again.</div>
 <div class="unwired-msg">
@@ -43,4 +51,54 @@
   <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
   <a class="opt" href="./">Back to the list</a>
 </div>
-</div><script src="form.js"></script></body></html>
+</div><script src="form.js"></script><script>
+/* Les recuerda a quién preseleccionaron esta tarde, leyendo SUS propias filas
+   del formulario 17. El nombre sale del mismo sitio que rellena el campo, así
+   que no hay que teclear nada. Si no cuadra el nombre, la caja no aparece: es
+   una ayuda, no un requisito. */
+(function () {
+  var box = document.getElementById('mine');
+  var input = document.querySelector('[name="voter"]');
+  if (!box || !input || typeof ENDPOINT !== 'string' || !ENDPOINT) return;
+
+  function norm(s) {
+    return String(s || '').trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+  }
+
+  var pedido = null;
+  function pinta(quien) {
+    var q = norm(quien);
+    if (!q || q.length < 3) { box.hidden = true; return; }
+    if (!pedido) {
+      pedido = fetch(ENDPOINT + '?slot=q17').then(function (r) { return r.json(); })
+        .catch(function () { return null; });
+    }
+    pedido.then(function (d) {
+      if (!d || !d.ok || !d.rows || d.rows.length < 2) return;
+      var head = d.rows[0].map(function (h) { return String(h).toLowerCase(); });
+      var cv = head.indexOf('voter'), ct = head.indexOf('team'), ci = head.indexOf('invest');
+      if (cv < 0 || ct < 0) return;
+      var si = [], no = 0;
+      for (var i = 1; i < d.rows.length; i++) {
+        var r = d.rows[i];
+        if (norm(r[cv]) !== q) continue;
+        var t = String(r[ct] || '').trim();
+        if (!t) continue;
+        if (ci >= 0 && !/^y/i.test(String(r[ci] || ''))) { no++; continue; }
+        if (si.indexOf(t) < 0) si.push(t);
+      }
+      si.sort(function (a, b) { return a - b; });
+      if (!si.length && !no) { box.hidden = true; return; }
+      box.hidden = false;
+      box.innerHTML = si.length
+        ? '<h3>You shortlisted</h3><p><b>' + si.join(' &nbsp; ') + '</b></p>'
+        : '<h3>Your afternoon</h3><p class="none">You did not shortlist anyone. That is a valid answer, and your three tokens still have to go somewhere.</p>';
+    });
+  }
+
+  pinta(input.value);
+  input.addEventListener('change', function () { pedido = null; pinta(input.value); });
+})();
+</script>
+</body></html>
