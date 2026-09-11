@@ -217,6 +217,12 @@
   }
 
   /* el caso en crudo: se lee desde la última fila, así que va grande */
+  .pairs { flex: none; width: 100%; border-collapse: collapse; }
+  .pairs td { padding: clamp(5px,.85vh,10px) 0; border-bottom: 1px solid var(--rule);
+              font-size: clamp(14px,1.5vw,21px); line-height: 1.3; vertical-align: baseline; }
+  .pairs tr:last-child td { border-bottom: 0; }
+  .pairs td:first-child { color: var(--ink-soft); width: 42%; padding-right: clamp(10px,1.4vw,22px); }
+  .pairs td:last-child b { font-weight: 600; color: var(--ink); }
   .snap { width: 100%; border-collapse: collapse; }
   .snap td {
     padding: clamp(5px,.9vh,11px) 0; border-bottom: 1px solid var(--rule-soft);
@@ -1496,7 +1502,7 @@
     <div class="panel appeal" style="padding:13px 16px">
       <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre)">Stages 3–4 · decide what you are saying</div>
       <h3 style="font-size:clamp(14px,1.4vw,20px)">Decide · Build</h3>
-      <p>Write the one message, then order it and support it. This is the presentation, it happens on paper, and none of it needs a screen.</p>
+      <p><b>Decide:</b> choose the audience and the one message they need. <b>Build:</b> order it and support it. This is the presentation, it happens on paper, and none of it needs a screen.</p>
     </div>
     <div class="panel appeal" style="padding:13px 16px">
       <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)">Stage 5 · show it</div>
@@ -1517,8 +1523,12 @@
   <div class="cols2" style="gap:clamp(14px,2vw,34px);align-items:start">
     <div class="stack">
       <div class="panel" style="padding:13px 17px">
-        <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre)">The question</div>
-        <h3 style="font-size:clamp(17px,1.9vw,27px);font-weight:600">Why does strong analysis sometimes fail to change an investment decision?</h3>
+        <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre)">The brief</div>
+        <table class="pairs" style="margin:2px 0 8px">
+          <tr><td>Your audience</td><td><b>Head of Client Reporting</b></td></tr>
+          <tr><td>Their decision</td><td><b>Whether to redesign the monthly report</b></td></tr>
+        </table>
+        <h3 style="font-size:clamp(17px,1.9vw,27px);font-weight:600">Why does nobody read it?</h3>
         <p class="tiny" style="letter-spacing:0">You already have enough experience to answer. The challenge is choosing one message together.</p>
       </div>
       <div class="panel info" style="padding:11px 15px;border-left-width:4px">
@@ -1550,7 +1560,7 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="TRES MINUTOS Y NO LAS CORRIJAS TÚ. Proyecta tres, sin nombres. R cambia la terna. · Para cada una, las TRES PREGUNTAS de abajo, en ese orden, y que conteste la sala. La primera separa la que hace una sola afirmación de la que hace dos. La segunda es la que más enseña: lo que dejaron fuera es una decisión, no un olvido, y casi ninguno se da cuenta de que ha decidido. · LA TERCERA es el puente y por eso va la última: en cuanto alguien diga qué evidencia haría falta, das el clic y pasas a Build. · Si una frase es floja, la pregunta 1 la deja floja sola. No hace falta que la señales.">
+<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="TRES MINUTOS Y NO LAS CORRIJAS TÚ. Proyecta tres, sin nombres. R cambia la terna. · Para cada una, las TRES PREGUNTAS de abajo, en ese orden, y que conteste la sala. La primera separa la que hace una sola afirmación de la que hace dos. La segunda es la que más enseña: lo que dejaron fuera es una decisión, no un olvido, y casi ninguno se da cuenta de que ha decidido. · LA TERCERA prepara Build, que es la etapa cuatro, pero no te pares ahí. · EL CLIC ES EL PUENTE y hay que decirlo con estas palabras: tuvieron UN interlocutor, y por eso pudieron elegir UN mensaje. Marriott no tuvo ese lujo. Una sola operación que anunciar y cuatro audiencias que necesitaban cuatro razones distintas para que les importara. Lo que van a ver es la etapa tres en acción. · Si una frase es floja, la pregunta 1 la deja floja sola. No hace falta que la señales.">
   <div class="kicker do">Three of yours, no names on them</div>
   <div class="quotes" id="sentences"></div>
   <div class="cols3">
@@ -1558,29 +1568,30 @@
     <div class="panel appeal"><h3>What did this group choose to leave out?</h3></div>
     <div class="panel appeal"><h3>What evidence would they need to support it?</h3></div>
   </div>
-  <p class="lead" data-step="1" style="max-width:88ch"><b>You have decided what you want to say. The next step is choosing the evidence that earns that claim.</b></p>
+  <p class="lead" data-step="1" style="max-width:88ch"><b>You generated many possible explanations and chose one message, for one decision-maker. But what happens when the same information has to work for several audiences?</b></p>
 </section>
 
-<section data-part="2" class="slide" data-s="2" data-b="Marriott" data-notes="LAS CUATRO AUDIENCIAS VAN EN PANTALLA ANTES DE DARLE AL PLAY, y hay que leerlas. Después la consigna, literal: cada vez que oigan un beneficio, decidan para quién es. · Son dos minutos de vídeo: Arne Sorenson, entonces CEO de Marriott, anunciando la compra de Starwood en 2015. NO lo pauses. · Lo que hace este vídeo mejor que un discurso político para esta clase: es una operación corporativa, la conocen, y las cuatro audiencias están explícitas en el anuncio oficial. Accionistas más valor, clientes más opciones, propietarios y franquiciados más ventaja económica, empleados más oportunidades. · DESPUÉS del vídeo, formulario 12: una frase del vídeo, para quién es, y qué preocupación contesta. Esa tercera pregunta es la que de verdad enseña: detrás de cada beneficio hay un miedo. Los empleados temen que les despidan, los franquiciados que les cambien las condiciones. · EL CIERRE, dicho literal y despacio: los hechos de la operación no cambiaron nunca. Lo que cambió fue el valor de esos hechos para cada audiencia. · Y el puente a mañana: sus tiburones del sábado no son una audiencia, son cuatro personas con cuatro miedos distintos.">
-  <div class="kicker">One deal. Four stakeholders.</div>
-  <h2 style="font-size:clamp(20px,2.6vw,36px)">Every time you hear a benefit, decide who it is for.</h2>
+<section data-part="2" class="slide" data-s="2" data-b="Marriott" data-notes="ESTO NO ES UN APÉNDICE SOBRE AUDIENCIA, es la etapa tres en acción, y hay que presentarlo así o parece que volvemos al TIP 1. · SOLO ESTÁN LOS CUATRO NOMBRES, a propósito: el énfasis de cada uno lo tienen que sacar ellos del vídeo. Si lo pusieras en pantalla les estarías dando la respuesta antes de mirar. · LAS CUATRO AUDIENCIAS SE LEEN ANTES DE DARLE AL PLAY, y después la consigna, literal: cada beneficio que oigan, para quién es y qué preocupación contesta. · Son dos minutos de vídeo: Arne Sorenson, entonces CEO de Marriott, anunciando la compra de Starwood en 2015. NO lo pauses. · Lo que hace este vídeo mejor que un discurso político para esta clase: es una operación corporativa, la conocen, y las cuatro audiencias están explícitas en el anuncio oficial. · DESPUÉS del vídeo, formulario 12. La tercera pregunta es la que de verdad enseña: identificar «empleados» lo hace cualquiera, entender que «más oportunidades» contesta al miedo a quedarse sin puesto es haber entendido la adaptación. · El énfasis oficial y el remate van en la slide siguiente, después de sus respuestas.">
+  <div class="kicker">Stage 3 in action</div>
+  <h2 style="font-size:clamp(20px,2.6vw,36px)">One deal. Four audiences. Four reasons to care.</h2>
 
   <div class="cols2" style="gap:clamp(16px,2.4vw,40px);align-items:center">
     <div class="mwrap"><div class="media" data-file="media/marriott.mp4" data-yt="DDR_EBNuK3M" data-label="Marriott and Starwood, 2015"></div><a class="ytout" href="https://www.youtube.com/watch?v=DDR_EBNuK3M" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>
     <div class="stack">
       <div class="panel" style="padding:12px 16px">
         <ul class="big" style="gap:3px">
-          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Shareholders</b> · more value</li>
-          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Customers</b> · more choice</li>
-          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Owners and franchisees</b> · better economics</li>
-          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Employees</b> · more opportunities</li>
+          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Shareholders</b></li>
+          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Customers</b></li>
+          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Owners and franchisees</b></li>
+          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Employees</b></li>
         </ul>
+        <p class="body" style="font-size:clamp(13px,1.3vw,18px);max-width:none;margin-top:8px">Every time you hear a benefit, identify <b>who it is for</b> and <b>what concern it answers</b>.</p>
       </div>
       <div class="panel info" style="padding:10px 14px;border-left-width:4px">
         <div style="display:flex;gap:12px;align-items:center">
           <div class="qwrap2"><div class="qrbox" style="width:clamp(88px,10vw,132px);aspect-ratio:1;border-width:2px;font-size:9px;padding:7px;flex:none" data-qr="q12">Scan</div><span class="qnum">Form 12</span></div>
           <div>
-            <p class="body" style="font-size:clamp(12px,1.15vw,16px);max-width:none">After the video, one per trio: <b>one sentence</b> from it, <b>who it is for</b>, and <b>what worry it answers</b>.</p>
+            <p class="body" style="font-size:clamp(12px,1.15vw,16px);max-width:none">After the video, one per trio: <b>one sentence</b> from it, <b>who it is for</b>, and <b>what concern it answers</b>.</p>
           </div>
         </div>
       </div>
@@ -1588,9 +1599,6 @@
     </div>
   </div>
 
-  <div class="panel" data-step="1">
-    <p class="body" style="max-width:82ch">The facts of the deal never changed. <b>What changed was the value of those facts for each audience.</b></p>
-  </div>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Audiencias" data-notes="DOS MINUTOS Y ES LA COSECHA DEL EJERCICIO. Sin esto, el formulario 12 no sirve para nada: tres personas hablan en su trío y ahí se queda. · LO QUE TIENES QUE HACER VER: en la columna del medio van a salir audiencias DISTINTAS para frases parecidas, y a veces para la MISMA frase. Señálalo con el dedo, no lo expliques. · La pregunta a la sala, y que contesten ellos: «¿alguna de estas está mal?». No lo está ninguna, y esa es la respuesta. · R saca otro trío. · Si sale poco variado, también vale: pregunta quién eligió una audiencia distinta de las que se ven y que lo diga en voz alta.">
@@ -1599,6 +1607,19 @@
   <div id="audbox" class="auds"><p class="tiny">Waiting for submissions…</p></div>
   <p class="lead" style="max-width:88ch">None of these is wrong. <b>The sentence did not change — the audience in your head did</b>, and that is the choice you make every time you open your mouth tomorrow.</p>
   <p class="tiny">R for another three</p>
+</section>
+
+<section data-part="2" class="slide" data-s="2" data-b="Audiencias" data-notes="EL ÉNFASIS OFICIAL, y va DESPUÉS de sus respuestas a propósito: si lo enseñas antes, dejan de mirar el vídeo y copian la tabla. · Léela entera, son cuatro líneas. · EL REMATE es el tip completo y hay que decirlo despacio, parando en el punto: la idea central no cambió nunca, esta compra crea valor. Lo que cambió fue lo que «valor» significaba para cada uno. · Y LA FRASE QUE CIERRA TIP 4, que es la que quieres que se lleven: el proceso no produce un mensaje universal, produce un mensaje deliberado para un oyente concreto. · El puente a mañana, si te da el reloj: sus tiburones del sábado no son una audiencia, son cuatro personas con cuatro preocupaciones distintas.">
+  <div class="kicker">What Marriott actually emphasised</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">One idea. Four different reasons to care about it.</h2>
+  <table class="pairs">
+    <tr><td>Shareholders</td><td><b>More value</b></td></tr>
+    <tr><td>Customers</td><td><b>More choice</b></td></tr>
+    <tr><td>Owners and franchisees</td><td><b>Better economics</b></td></tr>
+    <tr><td>Employees</td><td><b>More opportunities</b></td></tr>
+  </table>
+  <p class="body" data-step="1" style="max-width:88ch">The core idea never changed: <b>this acquisition creates value.</b> But value meant something different to each audience.</p>
+  <p class="lead" data-step="2" style="max-width:88ch"><b>The process does not produce a universal message. It produces a deliberate message for a specific listener.</b></p>
 </section>
 
 <section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Quince segundos. Cuatro de cinco, y el que falta es el único que se hace de pie. Dilo, que crea expectativa.">
