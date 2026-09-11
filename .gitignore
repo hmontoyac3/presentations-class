@@ -38,3 +38,8 @@ media/*.m4a
 # los lee desde ahí en tiempo real. Se regeneran con tools/make_teams.py.
 teams_*.csv
 teams_paste.tsv
+
+# El sábado en claro. Lo que se publica es saturday.html, que es el mismo
+# deck CIFRADO (ver tools/cerrar_deck.py). Este es el original y el que
+# hay que editar: se edita aquí, y después se vuelve a cifrar.
+saturday.src.html
