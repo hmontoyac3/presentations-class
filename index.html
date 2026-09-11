@@ -182,6 +182,11 @@
 
   /* schedule */
   .sched { width: 100%; border-collapse: collapse; }
+  /* la del cierre se lee de pie y con el abrigo puesto: mas grande */
+  .sched.big td { padding: clamp(6px,1.05vh,12px) 10px clamp(6px,1.05vh,12px) 0;
+                  font-size: clamp(15px,1.7vw,25px); }
+  .sched.big tr.pausa td { font-size: clamp(11px,1.15vw,16px); }
+  .sched.big tr.lunch td { font-size: clamp(12px,1.3vw,18px); padding: clamp(8px,1.3vh,15px) 10px; }
   .sched td {
     padding: 5px 8px 5px 0; border-bottom: 1px solid var(--rule-soft);
     font-size: clamp(12px, 1.25vw, 18px); line-height: 1.25; vertical-align: middle;
@@ -2160,6 +2165,33 @@
       <p class="body">Individual, not per team. One line, and something that actually happened today.</p>
       <p class="tiny">I read all of them tonight, and some of them will be on screen in the morning.</p>
       <div class="quotes" id="commits"></div>
+    </div>
+  </div>
+</section>
+
+<section data-part="3" class="slide" data-s="3" data-b="Mañana" data-notes="LA ÚLTIMA, y la dejas en pantalla mientras recogen. Es la que van a fotografiar. · DI SOLO DOS COSAS Y NO LEAS LA TABLA: a las NUEVE, y la asistencia se cierra a las nueve y cinco. Lo demás lo leen solos o lo fotografían. · La hora de comer son setenta y cinco minutos y está marcada a propósito: es el hueco donde se desmontan los equipos si no lo avisas. Diles que no trabajen durante la comida, que ya llevarán cinco horas. · Si alguien pregunta por la salida: acabamos a las cinco y media, antes de la hora oficial. Dilo, que es la mejor noticia del día."><div class="kicker">Tomorrow</div>
+  <h2 style="font-size:clamp(20px,2.6vw,36px)"><span class="fin">Saturday 12 September</span><span class="afm">Saturday 19 September</span> · the whole day</h2>
+  <div class="cols2" style="align-items:start;gap:clamp(16px,2.4vw,40px)">
+    <table class="sched big"><tbody>
+      <tr><td class="hh">9.00 &ndash; 10.00</td><td>Session 4 · interrogate the problem, invent the offer</td><td><span class="att">A4</span></td></tr>
+      <tr class="pausa"><td class="hh">10.00 &ndash; 10.15</td><td colspan="2">break</td></tr>
+      <tr><td class="hh">10.15 &ndash; 11.45</td><td>Session 5 · build the pitch and the page</td><td><span class="att">A5</span></td></tr>
+      <tr class="pausa lunch"><td class="hh">11.45 &ndash; 13.00</td><td colspan="2">lunch<span class="len">75 min · do not work through it</span></td></tr>
+      <tr><td class="hh">13.00 &ndash; 14.30</td><td>Session 6 · content frozen, rehearse</td><td><span class="att">A6</span></td></tr>
+      <tr class="pausa"><td class="hh">14.30 &ndash; 14.45</td><td colspan="2">break</td></tr>
+      <tr><td class="hh">14.45 &ndash; 16.15</td><td>Session 7 · the nine pitches</td><td><span class="att">A7</span></td></tr>
+      <tr class="pausa"><td class="hh">16.15 &ndash; 16.30</td><td colspan="2">break</td></tr>
+      <tr><td class="hh">16.30 &ndash; 17.30</td><td>Session 8 · the money, the debrief, and we are done</td><td><span class="att">A8</span></td></tr>
+    </tbody></table>
+    <div class="stack">
+      <div class="panel info" style="border-left-width:4px">
+        <h3>We start at 9.00</h3>
+        <p class="body" style="max-width:42ch">The register closes at <b>9.05</b>. Five sessions, <b>five registrations</b>: one at the start of each.</p>
+      </div>
+      <div class="panel rule">
+        <p class="body" style="max-width:42ch">Same room, same seats. <b>Bring a laptop per team</b>, at least one that can build a page.</p>
+      </div>
+      <p class="lead" style="max-width:42ch">We finish at <b>17.30</b>, half an hour before the timetable says.</p>
     </div>
   </div>
 </section>
