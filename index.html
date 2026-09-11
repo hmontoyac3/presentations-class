@@ -217,6 +217,17 @@
   }
 
   /* el caso en crudo: se lee desde la última fila, así que va grande */
+  .stages { flex: none; width: 100%; display: flex; flex-direction: column; gap: clamp(4px,.8vh,10px); }
+  .stg { display: grid; grid-template-columns: clamp(34px,3.2vw,48px) clamp(112px,11vw,168px) 1fr;
+         align-items: baseline; column-gap: clamp(8px,1.1vw,18px); }
+  .stg .sn { font-family: var(--mono); font-size: clamp(15px,1.7vw,24px); color: var(--ink-faint); }
+  .stg .sname { font-weight: 700; font-size: clamp(16px,1.8vw,26px); color: var(--ink); }
+  .stg .sdef { font-size: clamp(14px,1.45vw,20px); line-height: 1.3; color: var(--ink-soft); }
+  .stg.screen .sn, .stg.screen .sname { color: var(--blue); }
+  .stgline { display: flex; align-items: center; gap: clamp(8px,1vw,14px); margin: clamp(3px,.7vh,9px) 0; }
+  .stgline span { font-family: var(--mono); font-size: clamp(9px,.92vw,12px); letter-spacing: .13em;
+                  text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+  .stgline i { flex: 1; height: 1px; background: var(--rule); }
   .pairs { flex: none; width: 100%; border-collapse: collapse; }
   .pairs td { padding: clamp(5px,.85vh,10px) 0; border-bottom: 1px solid var(--rule);
               font-size: clamp(14px,1.5vw,21px); line-height: 1.3; vertical-align: baseline; }
@@ -1489,30 +1500,21 @@
 
 
 
-<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="TRES MINUTOS. La lista de nueve no dice nada por sí sola, así que NO la leas entera: lee los tres bloques y para en el tercero. · LO QUE HAY QUE ENTENDER es la forma, no las nueve etapas: se sacan ideas, se decide qué se dice, y solo al final se enseña. Ocho etapas de pensar y una de mostrar. · LA PRIMERA es la que más les cuesta creer: cantidad antes que calidad. No se puede elegir entre tres ideas, y por eso en la fase 1 del ejercicio no se descarta nada. · EL REMATE, dicho mirando el reloj: mañana no hay deck. Una pantalla y ya. Y eso no es un capricho, es esta slide convertida en regla: sin la etapa nueve donde esconderse, las otras ocho hay que hacerlas. Y por eso acaban con doce slides bonitas y sin idea. Eso es literalmente lo que vas a ver mañana si no lo dices hoy. · Si alguien pregunta de dónde salen las nueve, es la estructura clásica de preparación; lo que importa aquí es dónde cae «visualizar».">
+<section data-part="2" class="slide" data-s="2" data-b="TIP 4" data-notes="TRES MINUTOS Y ESTA SLIDE SE LEE ENTERA, que son cinco líneas y una cada una. Es la teoría del tip y lo único que tienen que recordar. · LA UNO es la que más les cuesta creer: cantidad antes que calidad. No se puede elegir entre tres ideas, y por eso en el ejercicio de dentro de un minuto no se descarta nada. · LA TRES es la nueva y la que sostiene todo lo que viene después: no es elegir un mensaje, es elegir la audiencia Y el mensaje que esa audiencia necesita. Marriott, dentro de diez minutos, es esta etapa en acción. · LA RAYA es el punto de la slide: las cuatro primeras se hacen en papel. Señálala. · EL REMATE, mirando el reloj: casi todo el mundo empieza por la cinco, y por eso acaban con doce slides bonitas y sin idea. Mañana no hay deck, una pantalla y ya, así que no hay dónde esconderse. Eso es literalmente lo que vas a ver mañana si no lo dices hoy.">
   <div class="kicker">Tip 4 · it is a process</div>
   <h2 style="font-size:clamp(20px,2.6vw,36px)">Five stages. Four of them happen before anything appears on a screen.</h2>
 
-  <div class="cols3">
-    <div class="panel appeal" style="padding:13px 16px">
-      <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre)">Stages 1–2 · get it out</div>
-      <h3 style="font-size:clamp(14px,1.4vw,20px)">Generate · Cluster</h3>
-      <p>Quantity first, judgement later. You cannot choose between three ideas, so the first job is to have thirty. Then find the patterns.</p>
-    </div>
-    <div class="panel appeal" style="padding:13px 16px">
-      <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre)">Stages 3–4 · decide what you are saying</div>
-      <h3 style="font-size:clamp(14px,1.4vw,20px)">Decide · Build</h3>
-      <p><b>Decide:</b> choose the audience and the one message they need. <b>Build:</b> order it and support it. This is the presentation, it happens on paper, and none of it needs a screen.</p>
-    </div>
-    <div class="panel appeal" style="padding:13px 16px">
-      <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)">Stage 5 · show it</div>
-      <h3 style="font-size:clamp(14px,1.4vw,20px)">Visualise</h3>
-      <p>Only now do you decide what appears on a screen. It is the one stage most people start with.</p>
-    </div>
+  <div class="stages">
+    <div class="stg"><div class="sn">1</div><div class="sname">Generate</div><div class="sdef">Get every possible idea out. Quantity first, judgement later</div></div>
+    <div class="stg"><div class="sn">2</div><div class="sname">Cluster</div><div class="sdef">Put the ideas that belong together, together. Name the patterns</div></div>
+    <div class="stg"><div class="sn">3</div><div class="sname">Decide</div><div class="sdef">Choose the audience, and the one message that audience needs</div></div>
+    <div class="stg"><div class="sn">4</div><div class="sname">Build</div><div class="sdef">Put that message in order, and support it with evidence</div></div>
+    <div class="stgline"><i></i><span>everything above happens on paper</span><i></i></div>
+    <div class="stg screen"><div class="sn">5</div><div class="sname">Visualise</div><div class="sdef">Only now do you decide what appears on a screen</div></div>
   </div>
 
-  <div class="panel rule">
-    <p class="body" style="max-width:84ch">Tomorrow you do not get slides at all — one screen behind you and nothing else — so there is nowhere to hide. Do it the usual way and <b>stage five is where you start</b>. That is how a group ends up with twelve beautiful slides and no idea.</p>
+  <div class="panel rule" style="flex:none;margin-top:clamp(6px,1.2vh,14px)">
+    <p class="body" style="max-width:86ch">Most people start at stage five. <b>That is how a group ends up with twelve beautiful slides and no idea.</b> Tomorrow you get one screen and nothing else, so there is nowhere to hide.</p>
   </div>
 </section>
 
