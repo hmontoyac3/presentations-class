@@ -60,15 +60,34 @@
     border-bottom: 1px solid var(--rule);
   }
   #bar .seg {
+    position: relative;
     display: flex; align-items: center; justify-content: center; gap: 5px;
     font-family: var(--mono); font-size: 10px; font-variant-numeric: tabular-nums; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--ink-faint);
-    background: var(--rule-soft); border-bottom: 3px solid var(--rule);
-    white-space: nowrap; overflow: hidden; padding: 0 6px;
+    background: var(--rule-soft);
+    white-space: nowrap; overflow: hidden; padding: 0 6px 3px;
+  }
+  /* La línea de abajo es una barra de avance: crece de 0 a 100% según por dónde
+     vas DENTRO de esa sesión, y las ya dadas quedan llenas en gris. Va DENTRO
+     del segmento, no en el borde, porque el segmento recorta lo que se sale. */
+  #bar .seg::before {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: var(--rule);
+  }
+  /* scaleX y SIN transición: Chrome no vuelve a pintar una propiedad animada
+     cuyo valor viene de una custom property, y se queda con el fotograma
+     anterior. Sin transición el valor se aplica en el acto, que es lo que
+     hace falta al cambiar de slide. */
+  #bar .seg::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: var(--blue);
+    transform: scaleX(var(--p, 0)); transform-origin: left center;
   }
   #bar .sesion { flex: 6; }
-  #bar .pausa { flex: 2; background: transparent; border-bottom-color: transparent; color: var(--ink-faint); font-size: 9px; }
-  #bar .seg.on { background: var(--blue-bg); color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
+  #bar .pausa { flex: 2; background: transparent; color: var(--ink-faint); font-size: 9px; }
+  #bar .pausa::before, #bar .pausa::after { display: none; }
+  #bar .seg.on { background: var(--blue-bg); color: var(--blue); font-weight: 700; }
+  #bar .seg.done::after { background: var(--rule); }
 
   /* ============ part strip ============ */
   #strip {
@@ -2124,6 +2143,28 @@
   var i = 0;
 
   var lastLive = null;
+  /* Avance dentro de la sesión. Cuenta slides, no minutos: es lo único que el
+     deck sabe de verdad, y basta para ver si vas por la mitad. */
+  var sesCount = {}, sesFirst = {};
+  slides.forEach(function (sl, n) {
+    var k = sl.getAttribute('data-s');
+    if (!k) return;
+    if (!(k in sesFirst)) sesFirst[k] = n;
+    sesCount[k] = (sesCount[k] || 0) + 1;
+  });
+  function paintProgress(cur) {
+    segs.forEach(function (g) {
+      var k = g.getAttribute('data-s');
+      if (!k) return;
+      var pct;
+      if (k < cur) pct = 100;
+      else if (k > cur) pct = 0;
+      else pct = Math.round((i - sesFirst[k] + 1) / sesCount[k] * 100);
+      g.style.setProperty('--p', (pct / 100).toFixed(4));
+      g.classList.toggle('done', k < cur);
+    });
+  }
+
   function render() {
     slides.forEach(function (s, n) { s.classList.toggle('live', n === i); });
     var cur = slides[i];
@@ -2133,6 +2174,7 @@
     lastLive = cur;
     var s = cur.getAttribute('data-s');
     segs.forEach(function (g) { g.classList.toggle('on', g.getAttribute('data-s') === s); });
+    paintProgress(s);
     var nl = document.getElementById('nowlbl');
     if (nl) nl.textContent = cur.getAttribute('data-b') || '';
     var part = cur.getAttribute('data-part') || '1';
