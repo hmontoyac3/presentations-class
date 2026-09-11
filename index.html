@@ -234,6 +234,10 @@
   .auds { flex: none; display: flex; flex-direction: column; gap: clamp(7px,1.1vh,14px); width: 100%; }
   .aud { border-left: 4px solid var(--rule); padding-left: clamp(10px,1.2vw,18px); }
   .aud .aline { font-family: var(--serif); font-size: clamp(14px,1.55vw,22px); line-height: 1.3; color: var(--ink); }
+  .aud .anum {
+    font-family: var(--mono); font-size: clamp(10px,1vw,13px); font-weight: 700;
+    color: var(--ink-faint); margin-right: 8px;
+  }
   .aud .ameta { display: flex; flex-wrap: wrap; gap: clamp(8px,1vw,16px); margin-top: 3px; }
   .aud .afor {
     font-family: var(--mono); font-size: clamp(9px,.95vw,13px); font-weight: 700;
@@ -1014,12 +1018,12 @@
   </div>
 </section>
 
-<section data-part="2" class="slide" data-s="1" data-b="Audiencia" data-notes="DOS MINUTOS Y ES UN JUEGO, así que llévalo rápido. · Lee una apertura en voz alta SIN decir la audiencia y que la sala adivine. Levantan la mano y dicen cliente, minorista o inversor. · Si aciertan enseguida, esa es la prueba de que adaptaron. Si no lo adivina nadie, también enseña: pregunta qué habrían tenido que cambiar para que se notara. · R saca otras tres. · Y el cierre es la frase de abajo, dicha despacio y mirando a la sala. Es la que quieres que se lleven del tip 1 entero.">
-  <div class="kicker">Three of yours · who is it for?</div>
-  <h2 style="font-size:clamp(19px,2.4vw,33px)">Same socks. Read it, and tell me who is listening.</h2>
+<section data-part="2" class="slide" data-s="1" data-b="Audiencia" data-notes="DOS MINUTOS Y ES UN JUEGO, así que llévalo rápido. · SALEN CUATRO APERTURAS Y LA AUDIENCIA ESTÁ OCULTA. Lee la uno en voz alta y pregunta a la sala: ¿cliente, minorista o inversor de impacto? A mano alzada, sin pensarlo mucho. Haz las cuatro. · SOLO ENTONCES la flecha, y aparecen las audiencias debajo de cada una. Ese es el momento del bloque: aciertos y fallos a la vez, en pantalla. · Si aciertan enseguida, adaptaron. Si una no la adivina nadie, ahí tienes la mejor pregunta del día: ¿qué habría que cambiar para que se notara? · R saca otras cuatro. · Segunda flecha para el cierre, dicho despacio: es la frase que quieres que se lleven del tip 1 entero.">
+  <div class="kicker">Four of yours · who is it for?</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">Same socks, four openings. Who is each one talking to?</h2>
   <div id="audience2" class="auds"><p class="tiny">Waiting for submissions…</p></div>
-  <p class="lead" style="max-width:88ch"><b>Do not begin with what you want to say. Begin with what they need to hear.</b></p>
-  <p class="tiny">R for another three</p>
+  <p class="lead" data-step="2" style="max-width:88ch"><b>Do not begin with what you want to say. Begin with what they need to hear.</b></p>
+  <p class="tiny">Arrow to reveal who each one was for · R for another four</p>
 </section>
 
 
@@ -2617,23 +2621,29 @@
   }
   function liveAudience(rows) { audRows = rows; if (!audPainted) renderAud(); }
 
-  /* Cosecha del formulario 21: la apertura reescrita, y debajo qué apelación
-     lidera. La audiencia NO se muestra: la sala tiene que adivinarla. */
+  /* Cosecha del formulario 21: cuatro aperturas reescritas. La audiencia va
+     OCULTA tras el primer paso, para que la sala adivine antes de verla, y
+     sale con la flecha. paintSteps() se vuelve a llamar porque estos
+     [data-step] los acaba de crear el renderer. */
   var a2Rows = null, a2Painted = false;
   function renderAud2() {
     var box = document.querySelector('.slide.live #audience2');
     if (!box || !a2Rows) return;
-    var co = colOf(a2Rows, 'opening'), cl = colOf(a2Rows, 'lead');
+    var co = colOf(a2Rows, 'opening'), ca = colOf(a2Rows, 'audience'), cl = colOf(a2Rows, 'lead');
     if (co < 0) return;
     var items = a2Rows.slice(1).map(function (r) {
-      return { line: String(r[co] || '').trim(), lead: cl >= 0 ? String(r[cl] || '').trim() : '' };
+      return { line: String(r[co] || '').trim(),
+               aud:  ca >= 0 ? String(r[ca] || '').trim() : '',
+               lead: cl >= 0 ? String(r[cl] || '').trim() : '' };
     }).filter(function (x) { return x.line; });
     if (!items.length) return;
-    box.innerHTML = pickN(items, Math.min(3, items.length)).map(function (x) {
-      return '<div class="aud"><div class="aline">“' + x.line + '”</div>'
-           + (x.lead ? '<div class="ameta"><span class="afor">' + x.lead + '</span></div>' : '') + '</div>';
+    box.innerHTML = pickN(items, Math.min(4, items.length)).map(function (x, n) {
+      return '<div class="aud"><div class="aline"><span class="anum">' + (n + 1) + '</span>“' + x.line + '”</div>'
+           + '<div class="ameta" data-step="1"><span class="afor">' + (x.aud || 'no audience given') + '</span>'
+           + (x.lead ? '<span class="acon">' + x.lead + '</span>' : '') + '</div></div>';
     }).join('');
     a2Painted = true;
+    paintSteps();
   }
   function liveAudience2(rows) { a2Rows = rows; if (!a2Painted) renderAud2(); }
   /* La brecha de profundidad. Antes la slide AFIRMABA que casi todos quieren
