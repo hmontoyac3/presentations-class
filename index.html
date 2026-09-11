@@ -197,6 +197,17 @@
     font-size: clamp(20px,2.8vw,40px); color: var(--ink);
   }
 
+  /* cosecha del formulario 12: frase, para quién, y qué miedo contesta */
+  .auds { flex: none; display: flex; flex-direction: column; gap: clamp(7px,1.1vh,14px); width: 100%; }
+  .aud { border-left: 4px solid var(--rule); padding-left: clamp(10px,1.2vw,18px); }
+  .aud .aline { font-family: var(--serif); font-size: clamp(14px,1.55vw,22px); line-height: 1.3; color: var(--ink); }
+  .aud .ameta { display: flex; flex-wrap: wrap; gap: clamp(8px,1vw,16px); margin-top: 3px; }
+  .aud .afor {
+    font-family: var(--mono); font-size: clamp(9px,.95vw,13px); font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--crimson);
+  }
+  .aud .acon { font-family: var(--mono); font-size: clamp(9px,.9vw,12px); color: var(--ink-faint); }
+
   /* predicho contra real: una línea por pregunta, con la diferencia */
   .nst { flex: none; display: flex; flex-direction: column; gap: clamp(6px,1vh,12px); width: 100%; }
   .nrow {
@@ -829,7 +840,7 @@
     <div class="qwrap2"><div class="qrbox" data-qr="q2">Scan</div><span class="qnum">Form 2</span></div>
     <div class="stack">
       <p class="body">Think of the last time you were in an audience — a class, a meeting, a conference — and you <b>stopped listening</b>.</p>
-      <p class="body">What made you stop? And in one word: what was missing?</p>
+      <p class="body">In one word: <b>what was missing?</b></p>
       <p class="tiny">No names, no courses from this university.</p>
     </div>
   </div>
@@ -1561,6 +1572,14 @@
   </div>
 </section>
 
+<section data-part="2" class="slide" data-s="2" data-b="Audiencias" data-notes="DOS MINUTOS Y ES LA COSECHA DEL EJERCICIO. Sin esto, el formulario 12 no sirve para nada: tres personas hablan en su trío y ahí se queda. · LO QUE TIENES QUE HACER VER: en la columna del medio van a salir audiencias DISTINTAS para frases parecidas, y a veces para la MISMA frase. Señálalo con el dedo, no lo expliques. · La pregunta a la sala, y que contesten ellos: «¿alguna de estas está mal?». No lo está ninguna, y esa es la respuesta. · R saca otro trío. · Si sale poco variado, también vale: pregunta quién eligió una audiencia distinta de las que se ven y que lo diga en voz alta.">
+  <div class="kicker">Three of yours · same video</div>
+  <h2 style="font-size:clamp(19px,2.4vw,33px)">Same sixty seconds. You did not all hear it for the same person.</h2>
+  <div id="audbox" class="auds"><p class="tiny">Waiting for submissions…</p></div>
+  <p class="lead" style="max-width:88ch">None of these is wrong. <b>The sentence did not change — the audience in your head did</b>, and that is the choice you make every time you open your mouth tomorrow.</p>
+  <p class="tiny">R for another three</p>
+</section>
+
 <section data-part="2" class="slide" data-s="2" data-b="Recap" data-notes="Quince segundos. Cuatro de cinco, y el que falta es el único que se hace de pie. Dilo, que crea expectativa.">
   <div class="kicker">So far · 4 of 5</div>
   <h2 style="font-size:clamp(18px,2.2vw,30px)">Where we are.</h2>
@@ -1865,12 +1884,11 @@
     <tr><td class="k">0–10</td><td>How awkward was it, really? <span class="ends2">0 not awkward at all · 10 excruciating</span></td></tr>
     <tr><td class="k">0–10</td><td>How comfortable did you end up? <span class="ends2">0 still uncomfortable · 10 completely at ease</span></td></tr>
     <tr><td class="k">write</td><td>One thing someone said that you will remember. No names</td></tr>
-    <tr><td class="k">yes / no</td><td>Was there something you almost said and didn't?</td></tr>
   </tbody></table>
   <div class="qrwrap">
     <div class="qwrap2"><div class="qrbox" data-qr="q9">Scan</div><span class="qnum">Form 9</span></div>
     <div class="stack">
-      <p class="body">Four answers about what just happened.</p>
+      <p class="body">Three answers about what just happened.</p>
     </div>
   </div>
 </section>
@@ -2189,7 +2207,7 @@
     else if (TEACH && (e.key === 'd' || e.key === 'D')) { document.getElementById('btn-data').click(); }
     else if (e.key === 't') { e.preventDefault(); if (typeof ttoggle === 'function') ttoggle(); }
     else if (e.key === 'T') { e.preventDefault(); if (typeof treset === 'function') treset(); }
-    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); if (typeof renderT3 === 'function') renderT3(); if (typeof reChart === 'function') reChart(); }
+    else if (e.key === 'r' || e.key === 'R') { if (typeof renderTwoStories === 'function') renderTwoStories(); if (typeof renderT3 === 'function') renderT3(); if (typeof renderAud === 'function') renderAud(); if (typeof reChart === 'function') reChart(); }
   });
   /* Un clic en el escenario avanza, PERO no si cae dentro de algo con lo
      que se interactúa. Sin esto, darle al play a un vídeo salta de slide,
@@ -2538,6 +2556,30 @@
   function reChart() { paintChart(); }
   function liveVersion(rows)  { renderAB('abvote', rows, 'version'); }
   function liveSentence(rows) { renderQuotes('sentences', rows, 'sentence', 3); }
+
+  /* Cosecha del formulario 12: frase · para quién · qué miedo contesta.
+     Se pinta una vez y se queda, como la del TIP 3: si rotara sola, la terna
+     cambiaría debajo de la sala mientras la está leyendo. R la cambia. */
+  var audRows = null, audPainted = false;
+  function renderAud() {
+    var box = document.querySelector('.slide.live #audbox');
+    if (!box || !audRows) return;
+    var cl = colOf(audRows, 'line'), ca = colOf(audRows, 'audience'), cc = colOf(audRows, 'concern');
+    if (cl < 0) return;
+    var items = audRows.slice(1).map(function (r) {
+      return { line: String(r[cl] || '').trim(),
+               aud:  ca >= 0 ? String(r[ca] || '').trim() : '',
+               cons: cc >= 0 ? String(r[cc] || '').trim() : '' };
+    }).filter(function (x) { return x.line; });
+    if (!items.length) return;
+    box.innerHTML = pickN(items, Math.min(3, items.length)).map(function (x) {
+      return '<div class="aud"><div class="aline">“' + x.line + '”</div>'
+           + '<div class="ameta"><span class="afor">' + (x.aud || '—') + '</span>'
+           + (x.cons ? '<span class="acon">answers: ' + x.cons + '</span>' : '') + '</div></div>';
+    }).join('');
+    audPainted = true;
+  }
+  function liveAudience(rows) { audRows = rows; if (!audPainted) renderAud(); }
   /* La brecha de profundidad. Antes la slide AFIRMABA que casi todos quieren
      más, y eso lo tiene que decir el dato: aquí se cuenta qué proporción puso
      un «quiero» mayor que su «tengo», y la frase se escribe con ese número. */
@@ -2782,6 +2824,7 @@
     'Gráfico':       { slot: 'q4',   render: [liveChart] },
     'TIP 3b':        { slot: 'q5',   render: [liveVersion] },
     'TIP 4':         { slot: 'q6',   render: [liveSentence] },
+    'Audiencias':    { slot: 'q12',  render: [liveAudience] },
     'La asimetría':  { slot: 'q7',   render: [liveAsymmetry] },
     'No Small Talk': { slots: ['q8','q9'], render: [liveDepth], render2: liveNST },
     'Cierre':        { slot: 'q10',  render: [liveCommit] }

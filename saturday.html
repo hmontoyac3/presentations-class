@@ -1023,6 +1023,8 @@
   <p class="lead" style="max-width:84ch">Count them with me. <b>How many of these are about the product? How many are about the way it was presented?</b></p>
   <div id="whysummary" class="whytable"><p class="tiny">Waiting for the votes…</p></div>
   <p class="lead" style="max-width:84ch">Whatever the split turns out to be, <b>you made nine of these judgements this afternoon</b> without anyone teaching you how.</p>
+  <div class="k" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px">And the ones that nearly got a token</div>
+  <div class="quotes" id="nearlybox"></div>
   <p class="tiny">R to pull different answers from the same teams</p>
 </section>
 
@@ -1922,13 +1924,24 @@
   }
 
   function slotQ1() { return 'q1-' + (document.body.getAttribute('data-class') || 'fin'); }
+  /* «El que casi se lleva una ficha» (formulario 20). Se recogía y no se
+     proyectaba en ninguna parte; aquí cierra el debrief, que es donde encaja. */
+  function liveNearly(why, tokens) {
+    var box = document.getElementById('nearlybox'); if (!box || !tokens) return;
+    var c = colOf(tokens, 'nearly'); if (c < 0) return;
+    var v = tokens.slice(1).map(function (r) { return String(r[c] || '').trim(); }).filter(Boolean);
+    if (!v.length) return;
+    plain(box); box.className = 'quotes';
+    box.innerHTML = pickN(v, 2).map(function (x) { return '<q>' + x + '</q>'; }).join('');
+  }
+
   var lastWhyRows = null;
   function reWhy() { if (lastWhyRows) liveWhy(lastWhyRows); }
 
   var LIVEMAP = {
     'Comentarios': { slot: 'q17', render: [function (r) { pickRows = r; loadRoster(); }] },
     'Resultados':  { slot: 'q20', render: [liveFinal] },
-    'Debrief':     { slot: 'q17', render: [function (r) { lastWhyRows = r; liveWhy(r); }] }
+    'Debrief':     { slots: ['q17','q20'], render: [function (r) { lastWhyRows = r; liveWhy(r); }], render2: liveNearly }
   };
   var poller = null;
   function syncLive() {
