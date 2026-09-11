@@ -2238,7 +2238,7 @@
     var nbody = document.getElementById('notes-body');
     if (nbody) nbody.innerHTML = '<p>' + (cur.getAttribute('data-notes') || '<em>Sin notas.</em>') + '</p>';
     if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
-    if (typeof treset === 'function') treset();
+    if (typeof tpaint === 'function') tpaint();
     if (typeof paintSteps === 'function') paintSteps();
     if (typeof syncLive === 'function') syncLive();
     if (typeof fitSlide === 'function') fitSlide();
@@ -3143,12 +3143,21 @@ var QR = (function () {
        t          arranca y pausa
        T (mayús)  vuelve a poner el tiempo entero
        clic       lo mismo que t
-     Se reinicia solo al cambiar de slide, así que cada ejercicio
-     empieza limpio. Al llegar a cero no se para: sigue contando
-     hacia arriba en rojo, con un más delante, para que se vea de un
-     vistazo cuánto te has pasado.
+     CADA SLIDE TIENE SU PROPIO RELOJ Y NO SE PIERDE AL SALIR. Si
+     te vas a otra slide con el reloj en marcha, sigue contando, y
+     al volver está donde tendría que estar. Eso es lo normal en
+     clase: arrancas el ejercicio, te vas a enseñar un ejemplo, y
+     vuelves. T lo reinicia cuando de verdad quieras empezar de cero.
+     Al llegar a cero no se para: sigue contando hacia arriba en
+     rojo, con un más delante, para que se vea de un vistazo cuánto
+     te has pasado.
      ============================================================ */
-  var tick = null, tLeft = 0, tDur = 0, tRun = false;
+  /* Un estado por slide, y el que corre guarda la HORA A LA QUE ACABA en
+     vez de ir restando. Así sigue contando aunque no estés en su slide,
+     y aunque el navegador congele los intervalos de una pestaña de
+     fondo: al volver, la cuenta sale de la hora, no de cuántas veces
+     ha saltado el reloj. */
+  var tick = null, tS = {};
 
   function tfmt(sec) {
     var over = sec < 0, a = Math.abs(sec);
@@ -3159,30 +3168,45 @@ var QR = (function () {
     var sl = slides[i];
     return sl ? sl.querySelector('.timer') : null;
   }
+  /* estado de la slide en la que estás, creándolo la primera vez */
+  function tcur() {
+    var sl = slides[i]; if (!sl) return null;
+    var d = parseInt(sl.getAttribute('data-timer'), 10) || 0;
+    if (!d) return null;
+    if (!tS[i]) tS[i] = { dur: d, left: d, run: false, end: 0 };
+    return tS[i];
+  }
+  function tleft(s) {
+    return s.run ? Math.round((s.end - Date.now()) / 1000) : s.left;
+  }
   function tpaint() {
     var el = tbox(); if (!el) return;
-    el.querySelector('.tval').textContent = tfmt(tLeft);
-    var st = tLeft < 0 ? 'over' : (tRun ? 'run' : (tLeft === tDur ? 'idle' : 'pause'));
+    var s = tcur(); if (!s) return;
+    var L = tleft(s);
+    el.querySelector('.tval').textContent = tfmt(L);
+    var st = L < 0 ? 'over' : (s.run ? 'run' : (L === s.dur ? 'idle' : 'pause'));
     el.setAttribute('data-state', st);
     /* en reposo la etiqueta dice qué hacer, en vez de repetir el número */
     el.querySelector('.tlbl').textContent =
       st === 'over' ? 'over' : (st === 'run' ? 'running' : (st === 'pause' ? 'paused · t' : 't to start'));
   }
-  function tstop() { if (tick) { clearInterval(tick); tick = null; } tRun = false; }
   function treset() {
-    tstop();
-    var sl = slides[i];
-    tDur = sl ? (parseInt(sl.getAttribute('data-timer'), 10) || 0) : 0;
-    tLeft = tDur;
+    var s = tcur(); if (!s) return;
+    s.run = false; s.left = s.dur; s.end = 0;
     tpaint();
   }
   function ttoggle() {
-    if (!tDur) return;
-    if (tRun) { tstop(); tpaint(); return; }
-    tRun = true;
-    tick = setInterval(function () { tLeft--; tpaint(); }, 1000);
+    var s = tcur(); if (!s) return;
+    if (s.run) { s.left = tleft(s); s.run = false; }
+    else { s.end = Date.now() + s.left * 1000; s.run = true; }
     tpaint();
   }
+  /* un solo latido para todo el deck: los relojes de otras slides no
+     necesitan el suyo, porque su cuenta sale de la hora de fin */
+  tick = setInterval(function () {
+    var s = tS[i];
+    if (s && s.run) tpaint();
+  }, 500);
   /* se inyecta una vez, en cada slide que declare duración */
   function tbuild() {
     Array.prototype.forEach.call(document.querySelectorAll('.slide[data-timer]'), function (sl) {
