@@ -12,9 +12,8 @@ Abre Chrome en el ordenador que sea y escribe:
 EL ?teach AL FINAL ES OBLIGATORIO. Sin eso desaparecen tus notas y el
 panel de datos en vivo, y no te avisa de nada.
 
-LOS DOS DECKS PIDEN CLAVE. Una vez por pestaña:
-  viernes   20941-viernes
-  sabado    20941-sabado
+LOS DOS DECKS PIDEN CLAVE, una vez por pestaña. La clave es
+la letra  ñ
 
 No hay que instalar nada. Los videos salen de YouTube solos.
 Los QR, los datos en vivo y la lista de equipos funcionan igual.

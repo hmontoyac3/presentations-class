@@ -5,10 +5,9 @@
 fuente» ni descargando el archivo. El navegador los descifra en memoria
 cuando tú escribes la clave.
 
-| | clave |
-|---|---|
-| **Viernes** · `index.html` | `20941-viernes` |
-| **Sábado** · `saturday.html` | `20941-sabado` |
+**La clave de los dos decks es `ñ`.** Una sola letra, la del teclado
+español. Se escribe en un segundo delante de la clase, que es de lo que
+se trata.
 
 La pide una vez por pestaña. Si recargas, no te la vuelve a pedir.
 
@@ -22,6 +21,8 @@ estudiante llega al deck por error.
 cd ~/Documents/Teaching/Behavioral_skills_seminar_
 python3 tools/cerrar_deck.py index.src.html    index.html    "la clave nueva"
 python3 tools/cerrar_deck.py saturday.src.html saturday.html "la clave nueva"
+python3 tools/cerrar_deck.py index.src.html    ~/Desktop/SEMINARIO_USB/index.html    "la clave nueva"
+python3 tools/cerrar_deck.py saturday.src.html ~/Desktop/SEMINARIO_USB/saturday.html "la clave nueva"
 git add -A && git commit -m "nuevas claves" && git push
 ```
 
@@ -40,10 +41,10 @@ librería de fuera y funciona sin instalar nada.
 
 Probar la clave a lo bruto sale caro: cada intento obliga a repetir las
 300.000 iteraciones. Aun así, **la seguridad real es la que tenga la
-clave**. `20941-viernes` y `20941-sabado` paran a quien encuentre la URL
-por casualidad, pero las adivina cualquiera que conozca el código del
-curso y se lo proponga. Si te importa de verdad, cámbialas por algo que
-no se deduzca del nombre de la asignatura.
+clave**, y `ñ` es una sola letra: para a quien llegue a la URL por
+casualidad y a nadie más. Es una puerta cerrada, no una caja fuerte. Si
+en algún momento quieres que lo sea de verdad, cámbiala con el comando
+de arriba.
 
 ## Lo que esto NO tapa
 
