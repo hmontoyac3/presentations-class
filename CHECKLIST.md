@@ -71,6 +71,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 ## Material físico
 
+- [ ] **Papelitos sueltos para el ejercicio de TIP 4** (viernes, sesión 2): unas seis notas por persona. Post-its si los hay, y si no una A4 por persona partida en tiras. Tienen que ser trozos separados: en la fase de agrupar hay que poder moverlos
 - [ ] Una hoja A4 por equipo para interrogar el problema, el sábado a las 9.10
 - [ ] El vaso con los papelitos, para sortear el orden de los pitches delante de ellos a las 14.10
 
@@ -78,7 +79,7 @@ Es una guarda por dispositivo, no un candado: borrando datos del sitio o en inc�
 
 - [ ] Abrir las páginas de `f/` desde el móvil (17 en la lista; «Find your team» va la última, bajo *If you need it*). **Los formularios 13, 16 y 18 ya no se usan** y están en `parked/`
 - [ ] **Borrar las dos filas de prueba de la pestaña `q17`** (equipos 1 y 2). Ojo: `q17` cambió de campos, así que las filas viejas no tienen `voter` ni `myteam`
-- [ ] **Borrar entera la pestaña `q11`** y después ejecutar `limpiarCache()` a mano en el editor de Apps Script. El formulario 11 cambió de campos: la pestaña tiene una fila de prueba mía y dos columnas muertas (`opening`, `form`). Al borrarla se regenera limpia con el primer envío real
+- [ ] **Borrar enteras las pestañas `q11` y `q6`** y después ejecutar `limpiarCache()` a mano en el editor de Apps Script, UNA sola vez al final. Los dos formularios cambiaron de campos: `q11` tiene una fila de prueba mía y dos columnas muertas (`opening`, `form`), y `q6` tiene tres respuestas de prueba y le falta la columna `names`. Al borrarlas se regeneran limpias con el primer envío real
 - [ ] Rellenar dos formularios y comprobar que el indicador se pone verde
 - [ ] Probar el **form 17 dos veces seguidas** desde el mismo móvil: tiene que dejarte, porque el voto se emite nueve veces
 - [ ] Probar **`f/teams.html`** desde el móvil, en las dos clases: es donde cada uno encuentra su número el viernes
