@@ -39,7 +39,9 @@ media/*.m4a
 teams_*.csv
 teams_paste.tsv
 
-# El sábado en claro. Lo que se publica es saturday.html, que es el mismo
-# deck CIFRADO (ver tools/cerrar_deck.py). Este es el original y el que
-# hay que editar: se edita aquí, y después se vuelve a cifrar.
+# Los dos decks en claro. Lo que se publica son index.html y saturday.html,
+# que son los mismos decks CIFRADOS (ver tools/cerrar_deck.py). Estos son los
+# originales y los que hay que editar: se editan aquí, y después se vuelven
+# a cifrar.
 saturday.src.html
+index.src.html
