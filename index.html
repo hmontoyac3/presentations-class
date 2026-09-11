@@ -216,6 +216,20 @@
     font-size: clamp(20px,2.8vw,40px); color: var(--ink);
   }
 
+  /* el caso en crudo: se lee desde la última fila, así que va grande */
+  .snap { width: 100%; border-collapse: collapse; }
+  .snap td {
+    padding: clamp(5px,.9vh,11px) 0; border-bottom: 1px solid var(--rule-soft);
+    font-size: clamp(14px,1.5vw,21px); line-height: 1.25; vertical-align: baseline;
+  }
+  .snap td:first-child { color: var(--ink-soft); }
+  .snap td:last-child { text-align: right; color: var(--ink); padding-left: 12px; }
+  .snap td b {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: clamp(19px,2.3vw,33px); color: var(--crimson);
+  }
+  .snap tr:last-child td b { font-family: var(--sans); font-size: inherit; color: var(--ink); }
+
   /* cosecha del formulario 12: frase, para quién, y qué miedo contesta */
   .auds { flex: none; display: flex; flex-direction: column; gap: clamp(7px,1.1vh,14px); width: 100%; }
   .aud { border-left: 4px solid var(--rule); padding-left: clamp(10px,1.2vw,18px); }
@@ -1092,61 +1106,50 @@
   <p class="lead">What might have happened?</p>
 </section>
 
-<section data-timer="480" data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="OCHO MINUTOS, cronómetro con la tecla t, y la slide se queda puesta los ocho. · LA DIFERENCIA CON ANTES: el caso ya no viene contado, viene en crudo. Son datos sueltos de un panel, y el trabajo es elegirlos, ordenarlos y conectarlos. Si el caso ya trae la historia hecha, el ejercicio no existe. · LÉELES EL ENCARGO ENTERO Y DESPACIO: son el equipo de inversión, la CIO no ha visto estos números, treinta segundos, y hay que explicar qué pasó Y recomendar qué hacer. · NO SE INVENTA NADA. Pueden interpretar lo que implican los datos, no añadir datos. Si alguien mete una fecha, un nombre o una cifra que no está en el panel, córtalo. · NO EVALÚAS SI ACIERTAN LA DECISIÓN. Un equipo va a recomendar bajar a 5% y otro pedir una excepción, y las dos valen. Lo que evalúas es si la historia hace comprensible su recomendación. Dilo en voz alta antes de arrancar, o se te van cinco minutos discutiendo qué es lo correcto. · CIRCULA con una sola pregunta: «¿por qué es un problema AHORA?». Ahí es donde está el conflicto, y es la tercera pregunta. · EL TERCERO TIENE TRABAJO: mientras uno cuenta, los otros dos dicen qué decisión han entendido. Si no coincide, ahí está el fallo. · Canta los tramos: a los 2, a los 4, a los 6 y a los 7.">
-  <div class="kicker do">8 minutes · in your threes</div>
-  <h2 style="font-size:clamp(19px,2.5vw,34px)">Thirty seconds with <span class="fin">the CIO</span><span class="afm">the CFO</span>. Explain what happened, and recommend what to do.</h2>
+<section data-timer="480" data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="OCHO MINUTOS, cronómetro con la tecla t, y la slide se queda puesta los ocho. · EL CASO LLEGA EN CRUDO, como un panel: son datos sueltos y el trabajo es elegirlos, ordenarlos y conectarlos. Si el caso trae la historia hecha, el ejercicio no existe. · LÉELES EL ENCARGO: son el equipo de inversión, la CIO no ha visto estos números, treinta segundos, y hay que explicar qué pasó Y recomendar qué hacer. · NO SE INVENTA NADA. Interpretan lo que implican los datos, no añaden datos. Si alguien mete una fecha o una cifra que no está, córtalo. · DILO ANTES DE ARRANCAR, o pierdes cinco minutos: NO evalúas si aciertan la decisión. El analista deja las dos puertas abiertas a propósito. Un equipo va a recomendar bajar al 5% y otro pedir la excepción, y las dos valen. Lo que evalúas es si la historia hace comprensible su recomendación. · CIRCULA con una sola pregunta: «¿por qué es un problema AHORA?». Ahí está el conflicto. · EL TERCERO TIENE TRABAJO: mientras uno cuenta, los otros dos dicen qué les estaban pidiendo hacer. Si no coincide, ahí está el fallo. · Canta los tramos: a los 2, a los 4, a los 6 y a los 7.">
+  <div class="kicker do">8 minutes · in your threes · <span class="fin">the CIO has not seen these numbers</span><span class="afm">the CFO has not seen these numbers</span></div>
+  <h2 style="font-size:clamp(18px,2.3vw,31px)">Thirty seconds. Explain what happened, and recommend what to do.</h2>
 
-  <div class="cols2" style="gap:clamp(14px,2vw,34px)">
+  <div class="cols2" style="gap:clamp(16px,2.6vw,44px);align-items:start">
     <div class="stack">
-      <div class="panel fin" style="padding:10px 15px">
-        <div class="k">The portfolio snapshot · Solis Semiconductor</div>
-        <table class="tbl" style="max-width:none"><tbody>
-          <tr><td class="k">Weight at start of quarter</td><td><b>3%</b></td></tr>
-          <tr><td class="k">Weight today</td><td><b>9%</b></td></tr>
-          <tr><td class="k">Shares purchased</td><td><b>0</b></td></tr>
-          <tr><td class="k">Policy maximum</td><td><b>5%</b> per position</td></tr>
-          <tr><td class="k">Analyst recommendation</td><td>Hold</td></tr>
-          <tr><td class="k">Analyst assessment</td><td>Best idea in the portfolio</td></tr>
-        </tbody></table>
-      </div>
-      <div class="panel afm" style="padding:10px 15px">
-        <div class="k">The receivables snapshot · Northwind</div>
-        <table class="tbl" style="max-width:none"><tbody>
-          <tr><td class="k">Days to collect, a year ago</td><td><b>42</b></td></tr>
-          <tr><td class="k">Days to collect today</td><td><b>51</b></td></tr>
-          <tr><td class="k">Credit committee approvals</td><td><b>0</b></td></tr>
-          <tr><td class="k">Policy maximum</td><td><b>45</b> days</td></tr>
-          <tr><td class="k">Sales director's position</td><td>Keep the terms</td></tr>
-          <tr><td class="k">Account status</td><td>Largest renewal of the year</td></tr>
-        </tbody></table>
-      </div>
-      <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:9px 15px">
-        <div class="k">The eight minutes</div>
-        <ul class="big" style="gap:1px">
-          <li style="font-size:clamp(12px,1.2vw,17px)"><b>0–2</b> pick the facts that matter and order them</li>
-          <li style="font-size:clamp(12px,1.2vw,17px)"><b>2–4</b> one delivers it. The other two say <b>what they were being asked to do</b></li>
-          <li style="font-size:clamp(12px,1.2vw,17px)"><b>4–6</b> rewrite the weakest sentence</li>
-          <li style="font-size:clamp(12px,1.2vw,17px)"><b>6–7</b> a <b>second</b> person delivers the new version</li>
-          <li style="font-size:clamp(12px,1.2vw,17px)"><b>7–8</b> send two lines · <b>form 3</b></li>
-        </ul>
-      </div>
+      <div class="k" style="font-family:var(--mono);font-size:clamp(9px,.95vw,12px);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)"><span class="fin">Portfolio snapshot · Solis Semiconductor</span><span class="afm">Receivables snapshot · Northwind</span></div>
+      <table class="snap fin"><tbody>
+        <tr><td>Weight at start of quarter</td><td><b>3%</b></td></tr>
+        <tr><td>Weight today</td><td><b>9%</b></td></tr>
+        <tr><td>Shares purchased</td><td><b>0</b></td></tr>
+        <tr><td>Policy maximum</td><td><b>5%</b></td></tr>
+        <tr><td>Analyst recommendation</td><td>either <b>reduce to 5%</b> or <b>request an exception</b></td></tr>
+      </tbody></table>
+      <table class="snap afm"><tbody>
+        <tr><td>Days to collect, a year ago</td><td><b>42</b></td></tr>
+        <tr><td>Days to collect today</td><td><b>51</b></td></tr>
+        <tr><td>Credit committee approvals</td><td><b>0</b></td></tr>
+        <tr><td>Policy maximum</td><td><b>45</b></td></tr>
+        <tr><td>Controller's recommendation</td><td>either <b>enforce the 45 days</b> or <b>approve the exception</b></td></tr>
+      </tbody></table>
     </div>
 
     <div class="stack">
-      <div class="panel rule" style="padding:10px 15px">
-        <h3 style="font-size:clamp(14px,1.45vw,20px)">Your role</h3>
-        <p class="body" style="max-width:none">You are the fund's investment team. <span class="fin">The CIO has not seen these numbers.</span><span class="afm">The CFO has not seen these numbers.</span> You have thirty seconds.</p>
-        <p class="body" style="max-width:none"><b>You may invent nothing.</b> Interpret what the numbers imply. Do not add numbers.</p>
-      </div>
       <div class="panel">
-        <h3 style="font-size:clamp(14px,1.42vw,20px)">Four questions</h3>
-        <ol class="big" style="gap:1px">
-          <li style="font-size:clamp(13px,1.28vw,18px)">Where were we?</li>
-          <li style="font-size:clamp(13px,1.28vw,18px)">What changed?</li>
-          <li style="font-size:clamp(13px,1.28vw,18px)"><b>Why is that a problem now?</b></li>
-          <li style="font-size:clamp(13px,1.28vw,18px)">What should <span class="fin">she</span><span class="afm">he</span> do?</li>
+        <h3 style="font-size:clamp(14px,1.45vw,20px)">Four questions</h3>
+        <ol class="big" style="gap:2px">
+          <li style="font-size:clamp(14px,1.4vw,20px)">Where were we?</li>
+          <li style="font-size:clamp(14px,1.4vw,20px)">What changed?</li>
+          <li style="font-size:clamp(14px,1.4vw,20px)"><b>Why is that a problem now?</b></li>
+          <li style="font-size:clamp(14px,1.4vw,20px)">What should <span class="fin">she</span><span class="afm">he</span> do?</li>
         </ol>
-        <p class="tiny" style="letter-spacing:0">There is no right recommendation. Cut it, or ask for an exception — both work. You are judged on whether the story makes your recommendation make sense.</p>
+      </div>
+      <div class="panel rule" style="padding:9px 14px">
+        <p class="body" style="max-width:none"><b>Invent nothing.</b> Interpret the numbers. Do not add numbers.</p>
+      </div>
+      <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:9px 14px">
+        <ul class="big" style="gap:1px">
+          <li style="font-size:clamp(12px,1.15vw,16px)"><b>0–2</b> pick the facts and order them</li>
+          <li style="font-size:clamp(12px,1.15vw,16px)"><b>2–4</b> one delivers. The others say what they were asked to do</li>
+          <li style="font-size:clamp(12px,1.15vw,16px)"><b>4–6</b> rewrite the weakest sentence</li>
+          <li style="font-size:clamp(12px,1.15vw,16px)"><b>6–7</b> a <b>second</b> person delivers it</li>
+          <li style="font-size:clamp(12px,1.15vw,16px)"><b>7–8</b> two lines · <b>form 3</b></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1156,9 +1159,7 @@
   <div class="kicker">So what were we actually asking for?</div>
   <div class="panel rule" style="padding:10px 15px">
     <h3 style="font-size:clamp(14px,1.45vw,20px)">Not this</h3>
-    <p class="body fin" style="max-width:none"><b>The idea:</b> a position went from 3% to 9%. That is the event, not the idea.</p>
-    <p class="body afm" style="max-width:none"><b>The idea:</b> collection went from 42 days to 51. That is the event, not the idea.</p>
-    <p class="body" style="max-width:none"><b>The decision:</b> <span class="fin">it is too large</span><span class="afm">they are paying too slowly</span>. That is a complaint. A conflict needs <b>two things that compete</b>.</p>
+    <p class="body" style="max-width:none"><span class="fin">«A position went from 3% to 9%»</span><span class="afm">«Collection went from 42 days to 51»</span> is the <b>event</b>, not the idea. <span class="fin">«It is too large»</span><span class="afm">«They pay too slowly»</span> is a <b>complaint</b>, not a decision. A conflict needs <b>two things that compete</b>.</p>
   </div>
   <div class="panel" style="border-left-color:var(--ink-faint);background:var(--card);padding:9px 15px" data-step="1">
     <table class="tbl" style="max-width:none"><tbody>
@@ -1166,7 +1167,7 @@
       <tr><td class="k">Change</td><td><span class="fin">A rally pushed it to 9%. Nobody bought anything</span><span class="afm">Terms were extended to save a renewal. It slid to 51</span></td></tr>
       <tr><td class="k">Conflict</td><td><span class="fin">Selling protects diversification, but cuts the fund&#39;s best idea</span><span class="afm">Tightening protects the cash, but risks the customer</span></td></tr>
       <tr><td class="k">Decision</td><td><span class="fin">Reduce it, or accept the concentration</span><span class="afm">Tighten the terms, or accept that sales sets them</span></td></tr>
-      <tr><td class="k">Recommendation</td><td><span class="fin">Cut to 5% — or ask for an exception. Either works, if the story earns it</span><span class="afm">Enforce the 45 days — or ask for an exception. Either works, if the story earns it</span></td></tr>
+      <tr><td class="k">Recommendation</td><td><span class="fin">Cut to 5%, or ask for the exception</span><span class="afm">Enforce the 45 days, or approve the exception</span></td></tr>
     </tbody></table>
     <p class="tiny" style="letter-spacing:0">Not one invented fact. Only the order, and what it is made to mean.</p>
   </div>
@@ -1175,7 +1176,7 @@
     <p class="body fin" style="max-width:none">Solis began the quarter as a 3% position, safely inside our limit. Its rally has pushed it to 9% <b>without us buying a single share</b>. We now have to choose between cutting our highest-conviction investment and accepting almost twice our permitted concentration. <b>I recommend reducing it to 5%, because portfolio discipline should not depend on how much we like the stock.</b></p>
     <p class="body afm" style="max-width:none">Northwind paid us in 42 days a year ago, safely inside our policy. It now takes 51, <b>and the credit committee never approved it</b>. We have to choose between tightening the terms on our largest renewal and accepting that sales can lend our cash without asking. <b>I recommend enforcing the 45 days, because credit policy should not depend on who the customer is.</b></p>
   </div>
-  <p class="lead" data-step="3" style="max-width:88ch"><b>The dashboard gives you the facts. The story tells <span class="fin">the CIO</span><span class="afm">the CFO</span> what those facts mean, and what to do about them.</b></p>
+  <p class="lead" data-step="3" style="max-width:88ch"><b>The dashboard gave you the facts. The story tells <span class="fin">her</span><span class="afm">him</span> what they mean, and what to do.</b></p>
 </section>
 
 <section data-part="2" class="slide" data-s="1" data-b="TIP 2" data-notes="AUTOMÁTICO: pegas todas las respuestas en el panel D y pulsa Elegir. Compara las 27 dos a dos y saca la pareja con menos palabras en común, o sea la que localizó el conflicto en sitios más distintos. Si no te gusta, «Otra pareja» pasa a la siguiente. · Lo que dices en voz alta: mismos hechos, dos historias, y ninguna es más verdadera; la diferencia está en QUIÉN decide y entre qué dos cosas. · Y el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar. · CRITERIO MANUAL si prefieres elegirlas tú: buscas las dos más DISTINTAS, no las dos mejores. · Criterio 1: que hayan puesto el conflicto en sitios diferentes (uno en el proceso, otro en una persona; uno en el riesgo, otro en el incentivo). · Criterio 2: que los MIP no coincidan. · Criterio 3: descarta las que solo reformulan el dato, no las uses ni como contraejemplo en público. · CUÁNDO: en el último minuto de los ocho, plántate al frente y lee la columna de idea en tu portátil. No hace falta leer las 27 completas, con la idea basta para ver quién divergió. · CÓMO PROYECTARLAS: panel D, pegas las dos separadas por una línea en blanco, Aplicar. Veinte segundos. · DÉJALAS PUESTAS. Es el último ejercicio antes del break y es el único momento del día en que leen el trabajo de otro trío, así que el tiempo de lectura es el ejercicio, no el relleno. Proyecta la pareja y cállate un minuto largo, sin narrarla: son dos textos de dos líneas, pero puestos uno al lado del otro hay que compararlos, y eso no se hace en quince segundos. · Léelas en voz alta DESPUÉS de ese silencio, no antes. NO pidas a los autores que las completen ni que cuenten su versión: ya contaron dentro de su trío en el minuto 2 al 4, y lo que se proyecta es lo que mandaron. Aquí la voz es la tuya. · Solo entonces R para la siguiente pareja, y otra vez el mismo silencio. Dos parejas bien leídas valen más que cuatro pasadas de refilón: si vas justa, enseña una sola. · La pantalla ya no cambia sola aunque entren respuestas nuevas: la pareja se queda hasta que pulses R. · Y cierra con el puente al sábado: mañana el conflicto no lo van a inventar, lo van a encontrar.">
