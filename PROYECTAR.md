@@ -49,6 +49,9 @@ LO IMPRESCINDIBLE EN CLASE
   D                   panel de datos en vivo (el boton dice "Votos")
   t minuscula         arrancar y parar el cronometro de un ejercicio
   T mayuscula         reiniciar ese cronometro
+  - y +               adelantar o atrasar el reloj medio minuto cada vez,
+                      con el cronometro en marcha o parado
+  P                   sortear los dos que salen a presentar (sabado)
   R                   cambiar las respuestas que se proyectan
   Home / End          primera y ultima slide
 
