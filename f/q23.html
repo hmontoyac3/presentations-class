@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Same facts, different audience · 20941</title>
+<link rel="stylesheet" href="style.css">
+<script>
+/* guarda por dispositivo: si ya se envió, no se vuelve a mostrar el formulario */
+(function () {
+  try {
+    var m = location.pathname.match(/([^\/]+)\.html$/);
+    var slot = m ? m[1] : '';
+    if (/[?&]reset\b/.test(location.search)) {
+      Object.keys(localStorage).forEach(function (k) { if (k.indexOf('bsk_done_') === 0) localStorage.removeItem(k); });
+      return;
+    }
+    if (slot && localStorage.getItem('bsk_done_' + slot)) {
+      document.documentElement.className += ' answered';
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">Persuasive Presentations · 20941</div>
+<h1>Same facts, different audience</h1>
+<p>One per trio. Your opening sentence, exactly as you said it out loud.</p>
+<form class="form" data-slot="q23">
+<fieldset><h2>Who were you talking to?</h2><div class="opts" data-group="audience" data-required><button class="opt">The CFO</button><button class="opt">The Head of Sales</button><button class="opt">The CEO</button></div></fieldset><fieldset><h2>Your opening sentence</h2><textarea name="line" maxlength="220" data-count="c_line" placeholder="The first thing they heard. One or two sentences, no more" data-required></textarea><div class="count" id="c_line"></div><p class="note">Projected without names. Only the sentence and the audience.</p></fieldset><fieldset><h2>And what were you asking them to do?</h2><textarea name="ask" maxlength="140" data-count="c_ask" placeholder="One line" data-required></textarea><div class="count" id="c_ask"></div></fieldset>
+<button class="send" type="submit">Send</button>
+<div class="err">Could not send. Check your connection and try again.</div>
+<div class="unwired-msg">
+  <strong>Nothing was saved.</strong>
+  <span>This form has no backend yet: <code>ENDPOINT</code> is empty in <code>f/form.js</code>. Set it up and the send will work — see <code>SETUP.md</code>.</span>
+</div>
+
+<p class="note">Your answer goes to your instructor. Feedback shared with groups is anonymised.</p>
+</form>
+<div class="done"><div class="tick">✓</div><h2>Got it.</h2><p>You can close this and put the phone down.</p></div>
+<div class="already">
+  <div class="tick">✓</div>
+  <h2>You already answered this one.</h2>
+  <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
+  <a class="opt" href="./">Back to the list</a>
+</div>
+</div><script src="form.js"></script></body></html>

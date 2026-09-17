@@ -25,6 +25,10 @@
 <div class="eyebrow">Persuasive Presentations · 20941</div>
 <h1>Which relationship changes the story?</h1>
 <p>One per trio. One focal number compared with one other, in 25 words or fewer. Do not summarise the report.</p>
+<div id="audience-reveal" style="display:none;margin-bottom:18px;padding:14px;background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:2px">
+  <div style="font-family:var(--mono);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px">Your assigned audience</div>
+  <div id="audience-text" style="font-size:17px;font-weight:600"></div>
+</div>
 <form class="form" data-slot="q4">
 <fieldset><h2>Opportunity or risk?</h2><div class="opts" data-group="stance" data-required><button class="opt">Opportunity</button><button class="opt">Risk</button></div></fieldset><fieldset><h2>Your sentence</h2><textarea name="sentence" maxlength="180" data-count="c_sentence" placeholder="One focal number, compared with one other. 25 words maximum" data-required></textarea><div class="count" id="c_sentence"></div></fieldset><fieldset><h2>The three of you</h2><input type="text" name="names" maxlength="90" data-count="c_names" placeholder="Marco, Anna, Luca" data-required><div class="count" id="c_names"></div></fieldset>
 <button class="send" type="submit">Send</button>
@@ -43,4 +47,34 @@
   <p>Nothing else to do here. Go back to the list and wait for the next one.</p>
   <a class="opt" href="./">Back to the list</a>
 </div>
-</div><script src="form.js"></script></body></html>
+</div><script src="form.js"></script>
+<script>
+(function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3naMoFKoXxsPnSCK_W5zbtz2nIDAETfoTR7NQfnaM-vaNQ/exec';
+  var reveal = document.getElementById('audience-reveal'), revealText = document.getElementById('audience-text');
+
+  fetch(ENDPOINT + '?slot=audiences')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d.ok || !d.rows) return;
+      var h = d.rows[0].map(function (x) { return String(x).toLowerCase(); });
+      var gi = h.indexOf('group'), ai = h.indexOf('audience');
+      if (gi < 0 || ai < 0) return;
+
+      var audiences = {};
+      d.rows.slice(1).forEach(function (r) {
+        var g = String(r[gi] || '').trim();
+        var a = String(r[ai] || '').trim();
+        if (g && a) audiences[g] = a;
+      });
+
+      /* intenta leer grupo de localStorage (guardado por pair.html) */
+      var group = localStorage.getItem('bsk_group') || '';
+      if (group && audiences[group]) {
+        reveal.style.display = 'block';
+        revealText.textContent = audiences[group];
+      }
+    })
+    .catch(function () { /* sin backend no hay audiencias */ });
+})();
+</script></body></html>

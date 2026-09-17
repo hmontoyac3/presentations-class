@@ -45,3 +45,9 @@ teams_paste.tsv
 # a cifrar.
 saturday.src.html
 index.src.html
+
+# comparativas locales, no se publican
+antes*.html
+ahora*.html
+.bak/
+harvard-business-review-presentations.pdf

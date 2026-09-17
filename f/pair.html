@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your group · 20941</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .find{width:100%;font:inherit;font-size:17px;padding:13px 14px;border:2px solid var(--rule);
+        background:var(--card);color:var(--ink);border-radius:0}
+  .find:focus{outline:none;border-color:var(--blue)}
+  .big{font-family:var(--mono);font-size:96px;line-height:1;color:var(--blue);margin:22px 0 6px}
+  .half{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+  .pick{display:flex;gap:8px;margin:14px 0 18px}
+  .pick button{flex:1;font:inherit;font-family:var(--mono);font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;padding:11px 0;background:var(--card);border:2px solid var(--rule);
+    color:var(--ink);cursor:pointer}
+  .pick button[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+  .msg{color:var(--faint);font-size:15px;padding:18px 0}
+  .note{font-size:14px;color:var(--faint);border-top:1px solid var(--rule);margin-top:26px;padding-top:14px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="eyebrow">Persuasive Presentations · 20941</div>
+<h1>Your group</h1>
+<p>Type your surname. This is who you work with this afternoon. It is not your project team — that one comes later today.</p>
+
+<div class="pick" id="pick">
+  <button data-c="fin" aria-pressed="true">Finance &middot; cl. 44</button>
+  <button data-c="afm" aria-pressed="false">Accounting &middot; cl. 41</button>
+</div>
+
+<input class="find" id="q" type="search" autocomplete="off" autocapitalize="off"
+       placeholder="Your surname" aria-label="Your surname">
+<div id="out" class="msg">Type at least two letters.</div>
+
+<div class="note">
+  Groups are three, four or five. If nobody else has your number, join the nearest group.
+</div>
+</div>
+<script>
+(function () {
+  var q = document.getElementById('q'), out = document.getElementById('out');
+  var cls = (location.search.indexOf('afm') > -1) ? 'afm' : 'fin';
+  var ALL = null, MAP = null;
+
+  var pick = document.getElementById('pick');
+  [].forEach.call(pick.children, function (b) {
+    b.setAttribute('aria-pressed', String(b.dataset.c === cls));
+    b.addEventListener('click', function () {
+      cls = b.dataset.c;
+      [].forEach.call(pick.children, function (o) {
+        o.setAttribute('aria-pressed', String(o.dataset.c === cls));
+      });
+      MAP = ALL ? (ALL[cls] || {}) : null;
+      render();
+    });
+  });
+
+  fetch('groups.json').then(function (r) { return r.json(); })
+    .then(function (d) { ALL = d; MAP = d[cls] || {}; render(); })
+    .catch(function () {
+      out.className = 'msg';
+      out.textContent = 'Could not load the groups. Ask, and we will tell you your number.';
+    });
+
+  function norm(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]/g, '');
+  }
+  function h(s) {
+    var x = 2166136261, i;
+    for (i = 0; i < s.length; i++) { x ^= s.charCodeAt(i); x = Math.imul(x, 16777619); }
+    x ^= x >>> 16; x = Math.imul(x, 0x85ebca6b);
+    x ^= x >>> 13; x = Math.imul(x, 0xc2b2ae35);
+    x ^= x >>> 16;
+    return (x >>> 0).toString(16).padStart(8, '0');
+  }
+  function render() {
+    if (!MAP) return;
+    var t = norm(q.value.trim());
+    if (t.length < 2) { out.className = 'msg'; out.textContent = 'Type at least two letters.'; return; }
+    var hit = MAP[h(t)];
+    if (!hit) {
+      out.className = 'msg';
+      out.textContent = 'Nothing in ' + cls.toUpperCase()
+        + '. Check the other class above, or join the nearest group.';
+      return;
+    }
+    out.className = '';
+    out.innerHTML = '<div class="big">' + hit[0] + '</div>'
+      + '<div class="half">Group ' + hit[0] + ' &middot; half ' + hit[1] + '</div>';
+    try { localStorage.setItem('bsk_group', hit[0]); } catch (e) {}
+  }
+  q.addEventListener('input', render);
+})();
+</script>
+</body></html>

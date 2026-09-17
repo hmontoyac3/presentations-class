@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Reparte cada clase en 9 equipos, mezclando procedencias.
+"""Reparte cada clase en equipos, mezclando procedencias.
+FIN va en 9 equipos (ya se dio). AFM va en 10, que es lo que pide el proyecto
+nuevo: cinco articulos, dos equipos por articulo.
 Salida: CSV local (name,team,class) para pegar en la pestaña `teams` de la hoja.
 Los nombres NO entran en el repositorio: es público."""
 import openpyxl, io, random, unicodedata
@@ -15,11 +17,11 @@ def tidy(s):
     s = ' '.join(str(s or '').split())
     return s.title()
 
-CLASSES = [('44', 'fin'), ('41', 'afm')]
+CLASSES = [('44', 'fin', 9), ('41', 'afm', 10)]
 out_rows = []
 summary = []
 
-for cls, tag in CLASSES:
+for cls, tag, NT in CLASSES:
     sub = [r for r in data if str(r[ix['Classe Lezione']]) == cls]
     # mezclar por procedencia: se ordena por (viene de fuera, universidad previa)
     # y se reparte en round-robin, para que ningún equipo quede monocorde
@@ -27,10 +29,10 @@ for cls, tag in CLASSES:
         return (str(r[ix['Estero']] or ''), str(r[ix['Universita Prov']] or ''), str(r[ix['Cognome']] or ''))
     sub.sort(key=key)
     rnd = random.Random(20941)          # determinista: mismo reparto cada vez
-    # rotar dentro de cada bloque de 9 para que el orden alfabético no mande
-    teams = [[] for _ in range(9)]
+    # rotar dentro de cada bloque para que el orden alfabético no mande
+    teams = [[] for _ in range(NT)]
     for n, r in enumerate(sub):
-        teams[n % 9].append(r)
+        teams[n % NT].append(r)
     for t in teams:
         rnd.shuffle(t)
     sizes = []
