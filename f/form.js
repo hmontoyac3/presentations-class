@@ -86,6 +86,24 @@ var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3
   }
   check();
 
+  function markSent() {
+    /* data-repeat: formularios que la misma persona envía varias veces (el voto
+       de inversión son nueve). No se marca como hecho, si no se bloquearían. */
+    if (!form.hasAttribute('data-repeat')) {
+      try {
+        var m = location.pathname.match(/([^\/]+)\.html$/);
+        if (m) localStorage.setItem('bsk_done_' + m[1], String(Date.now()));
+      } catch (e) {}
+    }
+    document.body.classList.add('sent');
+  }
+
+  function markFailed() {
+    document.body.classList.add('failed');
+    send.disabled = false;
+    send.textContent = 'Send again';
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!check()) return;
@@ -99,25 +117,52 @@ var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMqKFcjnvkifQkto1nDnXd3
       send.textContent = 'Send';
       return;
     }
+
+    /*
+     * Apps Script Web Apps queue and serialise executions: with 30-50 people
+     * submitting inside the same minute, a single request can sit for a long
+     * time before Apps Script even starts running it. Waiting on fetch() for
+     * that response is what made the page feel frozen — "no deja submit".
+     *
+     * sendBeacon hands the request to the browser and returns immediately:
+     * it is queued and delivered in the background, survives the student
+     * tapping away to the next form, and never blocks the UI. It cannot read
+     * the response, so we treat "the browser accepted the beacon" as success
+     * — which is the honest signal here, since the alternative (fetch) gave
+     * no stronger guarantee in practice, only a much longer wait.
+     */
+    var body = JSON.stringify(payload);
+    if (navigator.sendBeacon) {
+      var blob = new Blob([body], { type: 'text/plain;charset=utf-8' });
+      if (navigator.sendBeacon(ENDPOINT, blob)) {
+        markSent();
+        return;
+      }
+    }
+
+    /* Fallback for browsers without sendBeacon: fetch with a hard timeout,
+       so a slow Apps Script queue degrades to "assume it went through"
+       rather than to an indefinite spinner. */
+    var timedOut = false;
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () {
+      timedOut = true;
+      if (controller) controller.abort();
+      markSent();
+    }, 8000);
+
     fetch(ENDPOINT, {
       method: 'POST',
       /* text/plain evita el preflight, que Apps Script no responde */
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
+      body: body,
+      signal: controller ? controller.signal : undefined
     }).then(function () {
-      /* data-repeat: formularios que la misma persona envía varias veces (el voto
-         de inversión son nueve). No se marca como hecho, si no se bloquearían. */
-      if (!form.hasAttribute('data-repeat')) {
-        try {
-          var m = location.pathname.match(/([^\/]+)\.html$/);
-          if (m) localStorage.setItem('bsk_done_' + m[1], String(Date.now()));
-        } catch (e) {}
-      }
-      document.body.classList.add('sent');
+      clearTimeout(timer);
+      if (!timedOut) markSent();
     }).catch(function () {
-      document.body.classList.add('failed');
-      send.disabled = false;
-      send.textContent = 'Send again';
+      clearTimeout(timer);
+      if (!timedOut) markFailed();
     });
   });
 })();
